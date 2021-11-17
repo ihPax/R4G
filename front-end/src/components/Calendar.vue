@@ -1,8 +1,8 @@
 <template>
   <div class="text-center section">
-    <h2 class="h2">Custom Calendars</h2>
+    <h1 class="h1">Calendario</h1>
     <p class="text-lg font-medium text-gray-600 mb-6">
-      Roll your own calendars using scoped slots
+      <!-- Roll your own calendars using scoped slots -->
     </p>
     <v-calendar
       class="custom-calendar max-w-full"
@@ -44,7 +44,7 @@ export default {
         {
           key: 1,
           customData: {
-            title: 'Lunch with mom.',
+            title: 'Funk with mom.',
             class: 'bg-red-600 text-white',
           },
           dates: new Date(year, month, 1),

@@ -9,7 +9,7 @@
           Logout
         </div>
 
-         <div class="flex-row flex" >
+        <div class="flex-row flex">
           <div class="flex-col flex-grow-2 border-2 border-white">
           <div class="p-5 flex flex-col">
             <div class="pb-8">
@@ -43,6 +43,10 @@
           </div>
 
         </div>
+
+        <div>
+          <Calendar></Calendar>
+        </div>
       
       </div>
     </div>
@@ -51,8 +55,12 @@
 
 <script>
 
+import Calendar from "@/components/Calendar.vue";
 export default  {
   name: 'Home',
+  components: {
+    Calendar
+  },
   props: [],
   mounted () {
 
