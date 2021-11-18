@@ -59,7 +59,7 @@ export default {
         {
           id: 3,
           customData: {
-            title: "Umido",
+            title: 'Umido',
             class: 'bg-blue-500 text-white',
           },
           dates: new Date(year, month, 4),
@@ -73,39 +73,39 @@ export default {
           dates: new Date(year, month, 5),
         },
         {
-          id: 4,
-          customData: {
-            title: 'Meeting with new client.',
-            class: 'bg-teal-500 text-white',
-          },
-          dates: new Date(year, month, 7),
-        },
-        {
           id: 5,
           customData: {
-            title: "Mia's gymnastics practice.",
-            class: 'bg-pink-500 text-white',
+            title: 'Carta',
+            class: 'bg-yellow-500 text-white',
           },
-          dates: new Date(year, month, 11),
+          dates: new Date(year, month, 8),
         },
         {
           id: 6,
           customData: {
-            title: 'Cookout with friends.',
+            title: 'Plastica',
+            class: 'bg-pink-500 text-white',
+          },
+          dates: new Date(year, month, 9),
+        },
+        {
+          id: 7,
+          customData: {
+            title: 'Umido',
             class: 'bg-orange-500 text-white',
           },
           dates: { months: 5, ordinalWeekdays: { 2: 1 } },
         },
         {
-          id: 7,
+          id: 8,
           customData: {
-            title: "Mia's gymnastics recital.",
+            title: "Secco",
             class: 'bg-pink-500 text-white',
           },
-          dates: new Date(year, month, 22),
+          dates: new Date(year, month, 11),
         },
         {
-          id: 8,
+          id: 9,
           customData: {
             title: 'Visit great grandma.',
             class: 'bg-red-600 text-white',
