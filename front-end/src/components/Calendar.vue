@@ -1,9 +1,7 @@
 <template>
   <div class="text-center section">
-    <h2 class="h2">Custom Calendars</h2>
-    <p class="text-lg font-medium text-gray-600 mb-6">
-      Roll your own calendars using scoped slots
-    </p>
+    <h2 class="h2">Calendario Comune di Verona</h2>
+    
     <v-calendar
       class="custom-calendar max-w-full"
       :masks="masks"
@@ -17,7 +15,7 @@
           <div class="flex-grow overflow-y-auto overflow-x-auto">
             <p
               v-for="attr in attributes"
-              :key="attr.key"
+              :key="attr.id"
               class="text-xs leading-tight rounded-sm p-1 mt-0 mb-1"
               :class="attr.customData.class"
             >
@@ -42,15 +40,16 @@ export default {
       },
       attributes: [
         {
-          key: 1,
+          id: 1,
           customData: {
-            title: 'Lunch with mom.',
+            title: 'Funk with mom.',
             class: 'bg-red-600 text-white',
           },
           dates: new Date(year, month, 1),
+          
         },
         {
-          key: 2,
+          id: 2,
           customData: {
             title: 'Take Noah to basketball practice',
             class: 'bg-blue-500 text-white',
@@ -58,7 +57,7 @@ export default {
           dates: new Date(year, month, 2),
         },
         {
-          key: 3,
+          id: 3,
           customData: {
             title: "Noah's basketball game.",
             class: 'bg-blue-500 text-white',
@@ -66,7 +65,7 @@ export default {
           dates: new Date(year, month, 5),
         },
         {
-          key: 4,
+          id: 4,
           customData: {
             title: 'Take car to the shop',
             class: 'bg-indigo-500 text-white',
@@ -74,7 +73,7 @@ export default {
           dates: new Date(year, month, 5),
         },
         {
-          key: 4,
+          id: 4,
           customData: {
             title: 'Meeting with new client.',
             class: 'bg-teal-500 text-white',
@@ -82,7 +81,7 @@ export default {
           dates: new Date(year, month, 7),
         },
         {
-          key: 5,
+          id: 5,
           customData: {
             title: "Mia's gymnastics practice.",
             class: 'bg-pink-500 text-white',
@@ -90,7 +89,7 @@ export default {
           dates: new Date(year, month, 11),
         },
         {
-          key: 6,
+          id: 6,
           customData: {
             title: 'Cookout with friends.',
             class: 'bg-orange-500 text-white',
@@ -98,7 +97,7 @@ export default {
           dates: { months: 5, ordinalWeekdays: { 2: 1 } },
         },
         {
-          key: 7,
+          id: 7,
           customData: {
             title: "Mia's gymnastics recital.",
             class: 'bg-pink-500 text-white',
@@ -106,7 +105,7 @@ export default {
           dates: new Date(year, month, 22),
         },
         {
-          key: 8,
+          id: 8,
           customData: {
             title: 'Visit great grandma.',
             class: 'bg-red-600 text-white',

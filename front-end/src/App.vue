@@ -6,7 +6,6 @@
         <Navigation></Navigation>
       </div>
       <div class="flex-grow">
-        Riga di destra con il router-view
         <router-view></router-view>
       </div>
     
