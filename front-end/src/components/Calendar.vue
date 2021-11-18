@@ -1,6 +1,6 @@
 <template>
   <div class="text-center section">
-    <h2 class="h2">Calendario Comune di Verona</h2>
+    <h2 class="p-3">Calendario Comune di Verona</h2>
     
     <v-calendar
       class="custom-calendar max-w-full"
@@ -42,7 +42,7 @@ export default {
         {
           id: 1,
           customData: {
-            title: 'Funk with mom.',
+            title: 'Carta',
             class: 'bg-red-600 text-white',
           },
           dates: new Date(year, month, 1),
@@ -51,7 +51,7 @@ export default {
         {
           id: 2,
           customData: {
-            title: 'Take Noah to basketball practice',
+            title: 'Plastica',
             class: 'bg-blue-500 text-white',
           },
           dates: new Date(year, month, 2),
@@ -59,15 +59,15 @@ export default {
         {
           id: 3,
           customData: {
-            title: "Noah's basketball game.",
+            title: "Umido",
             class: 'bg-blue-500 text-white',
           },
-          dates: new Date(year, month, 5),
+          dates: new Date(year, month, 4),
         },
         {
           id: 4,
           customData: {
-            title: 'Take car to the shop',
+            title: 'Secco',
             class: 'bg-indigo-500 text-white',
           },
           dates: new Date(year, month, 5),
