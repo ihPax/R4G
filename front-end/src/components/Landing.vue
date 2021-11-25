@@ -67,8 +67,9 @@
         mx-10
         rounded-xl
         overflow-hidden
-      "
-      style="background-image: url(landing/background-landing.jpeg)"
+        bg-center
+"
+      style="background-image: url(../assets/background-landing.jpeg);"
     >
       <div
         class="
@@ -164,3 +165,6 @@
 <script>
 export default {};
 </script>
+<style>
+
+</style>
