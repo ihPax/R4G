@@ -105,10 +105,14 @@
                     font-bold font-heading
                     text-white
                   "
-                >Titolo</h2>
+                >
+                  Titolo
+                </h2>
                 <p
                   class="text-blueGray-200 leading-relaxed text-lg md:text-2xl"
-                >Descrizione</p>
+                >
+                  Descrizione
+                </p>
               </div>
               <div class="text-center lg:text-left">
                 <a
@@ -130,7 +134,7 @@
                     duration-400
                   "
                 >
-                Primo Bottone
+                  Primo Bottone
                 </a>
                 <a
                   class="
@@ -150,9 +154,78 @@
                     cursor-pointer
                   "
                 >
-                    Secondo bottone
+                  Secondo bottone
                 </a>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="py-20 bg-blueGray-50" id="how-it-works">
+      <div class="container px-4 mx-auto">
+        <div
+          class="
+            flex flex-col
+            items-center
+            justify-center
+            max-w-2xl
+            lg:max-w-full
+            mb-12
+          "
+        >
+          <div class="w-full mb-4 lg:mb-0">
+            <h2 class="text-4xl mt-3 font-bold font-heading">
+              <span>Come Funziona?</span>
+            </h2>
+          </div>
+          <div class="w-full">
+            <p class="text-blueGray-600 leading-loose text-lg">
+              Compra, Collega e Differenzia!
+            </p>
+          </div>
+        </div>
+        <div class="flex flex-wrap -mx-3 -mb-6 text-center items-stretch">
+          <div class="w-full md:w-1/2 lg:w-1/3 px-3 mb-6 last:px-0">
+            <div class="p-12 bg-white shadow rounded h-full">
+              <img
+                class="h-48 mb-12 mx-auto w-auto"
+                src="../assets/deal.svg"
+                alt=""
+              />
+              <img class="h-48 mb-12 mx-auto w-auto" alt="" />
+              <h3 class="mb-2 font-bold font-heading">Titolo</h3>
+              <p class="text-sm text-blueGray-600 leading-relaxed">
+                Descrizione
+              </p>
+            </div>
+          </div>
+          <div class="w-full md:w-1/2 lg:w-1/3 px-3 mb-6 last:px-0">
+            <div class="p-12 bg-white shadow rounded h-full">
+                              <img
+                class="h-48 mb-12 mx-auto w-auto"
+                src="../assets/deal.svg"
+                alt=""
+              />
+              <img class="h-48 mb-12 mx-auto w-auto" alt="" />
+              <h3 class="mb-2 font-bold font-heading">Titolo</h3>
+              <p class="text-sm text-blueGray-600 leading-relaxed">
+                Descrizione
+              </p>
+            </div>
+          </div>
+          <div class="w-full md:w-1/2 lg:w-1/3 px-3 mb-6 last:px-0">
+            <div class="p-12 bg-white shadow rounded h-full">
+                              <img
+                class="h-48 mb-12 mx-auto w-auto"
+                src="../assets/deal.svg"
+                alt=""
+              />
+              <img class="h-48 mb-12 mx-auto w-auto" alt="" />
+              <h3 class="mb-2 font-bold font-heading">Titolo</h3>
+              <p class="text-sm text-blueGray-600 leading-relaxed">
+                Descrizione
+              </p>
             </div>
           </div>
         </div>
