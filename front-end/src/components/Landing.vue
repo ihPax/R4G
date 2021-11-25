@@ -68,8 +68,9 @@
         rounded-xl
         overflow-hidden
       "
-      style="background-image: url(landing/background-landing.jpeg)"
+      style="background-image: url()"
     >
+      <div class="h-full w-full absolute bg-blue-500 opacity-60"></div>
       <div
         class="
           hidden
@@ -99,70 +100,63 @@
               <div class="mx-auto lg:mx-0 mb-12 text-center lg:text-center">
                 <h2
                   class="
-                    text-2xl
+                    text-3xl
                     md:text-5xl
                     mb-4
                     font-bold font-heading
                     text-white
                   "
                 >
-                  Titolo
+                  Noi aiutiamo te, tu aiuta il pianeta.
                 </h2>
                 <p
                   class="text-blueGray-200 leading-relaxed text-lg md:text-2xl"
                 >
-                  Descrizione
+                  Collega il tuo cestino e scopri come la tecnologia può aiutarti a fare del bene per te e per il pianeta.
                 </p>
               </div>
               <div class="text-center lg:text-left">
-                <a
+                <button
                   class="
-                    block
-                    sm:inline-block
-                    py-5
-                    px-8
-                    mb-4
-                    sm:mb-0 sm:mr-3
-                    text-normal text-white text-center
+                    bg-transparent
+                    hover:bg-yellow-600
+                    text-yellow-600
                     font-semibold
-                    leading-none
-                    bg-green-600
-                    hover:bg-green-700
-                    rounded
-                    cursor-pointer
-                    transition
-                    duration-400
+                    hover:text-white
+                    py-2
+                    mx-8
+                    px-4
+                    border border-black
+                    hover:border-transparent
+                    rounded-xl
                   "
                 >
-                  Primo Bottone
-                </a>
-                <a
+                  Sei già un cliente? Accedi!
+                </button>
+                <button
                   class="
-                    block
-                    sm:inline-block
-                    py-5
-                    px-8
-                    text-normal text-blueGray-500
-                    hover:text-blueGray-600
-                    text-center
+                    bg-transparent
+                    hover:bg-yellow-600
+                    text-yellow-600
                     font-semibold
-                    leading-none
-                    bg-white
-                    border border-blueGray-200
-                    hover:border-blueGray-300
-                    rounded
-                    cursor-pointer
+                    hover:text-white
+                    py-2
+                    mx-8
+                    px-4
+                    border border-black
+                    hover:border-transparent
+                    rounded-xl
                   "
                 >
-                  Secondo bottone
-                </a>
+                  Compra ora
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="py-20 bg-blueGray-50" id="how-it-works">
+    <div class="py-20 bg-blueGray-50">
       <div class="container px-4 mx-auto">
         <div
           class="
@@ -176,7 +170,7 @@
         >
           <div class="w-full mb-4 lg:mb-0">
             <h2 class="text-4xl mt-3 font-bold font-heading">
-              <span>Come Funziona?</span>
+              <span class="text-yellow-600">Come Funziona?</span>
             </h2>
           </div>
           <div class="w-full">
@@ -187,44 +181,41 @@
         </div>
         <div class="flex flex-wrap -mx-3 -mb-6 text-center items-stretch">
           <div class="w-full md:w-1/2 lg:w-1/3 px-3 mb-6 last:px-0">
-            <div class="p-12 bg-white shadow rounded h-full">
+            <div class="p-12 bg-white shadow rounded">
               <img
                 class="h-48 mb-12 mx-auto w-auto"
                 src="../assets/deal.svg"
                 alt=""
               />
-              <img class="h-48 mb-12 mx-auto w-auto" alt="" />
-              <h3 class="mb-2 font-bold font-heading">Titolo</h3>
+              <h3 class="mb-2 font-bold text-yellow-600 font-heading">Compra</h3>
               <p class="text-sm text-blueGray-600 leading-relaxed">
-                Descrizione
+                Compra il cestino per semplificare la tua vita!
               </p>
             </div>
           </div>
           <div class="w-full md:w-1/2 lg:w-1/3 px-3 mb-6 last:px-0">
-            <div class="p-12 bg-white shadow rounded h-full">
-                              <img
+            <div class="p-12 bg-white shadow rounded">
+              <img
                 class="h-48 mb-12 mx-auto w-auto"
                 src="../assets/deal.svg"
                 alt=""
               />
-              <img class="h-48 mb-12 mx-auto w-auto" alt="" />
-              <h3 class="mb-2 font-bold font-heading">Titolo</h3>
+              <h3 class="mb-2 font-bold font-heading text-yellow-600">Collega</h3>
               <p class="text-sm text-blueGray-600 leading-relaxed">
-                Descrizione
+                Collega il tuo cestino alla nostra piattaforma online!
               </p>
             </div>
           </div>
           <div class="w-full md:w-1/2 lg:w-1/3 px-3 mb-6 last:px-0">
-            <div class="p-12 bg-white shadow rounded h-full">
-                              <img
+            <div class="p-12 bg-white shadow rounded">
+              <img
                 class="h-48 mb-12 mx-auto w-auto"
                 src="../assets/deal.svg"
                 alt=""
               />
-              <img class="h-48 mb-12 mx-auto w-auto" alt="" />
-              <h3 class="mb-2 font-bold font-heading">Titolo</h3>
+              <h3 class="text-yellow-600 mb-2 font-bold font-heading">Differenzia   </h3>
               <p class="text-sm text-blueGray-600 leading-relaxed">
-                Descrizione
+                Inizia a differenziare i tuoi rifiuti!
               </p>
             </div>
           </div>
