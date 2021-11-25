@@ -1,25 +1,25 @@
 <template>
   <div class="text-center section">
     <h2 class="p-3">Calendario Comune di Verona</h2>
-    
+    <!-- class="custom-calendar max-w-full" -->
     <v-calendar
-      class="custom-calendar max-w-full"
-      :masks="masks"
+      v-model="giorno"
+     :masks="masks"
       :attributes="attributes"
       disable-page-swipe
-      is-expanded
     >
-      <template v-slot:day-content="{ day, attributes }">
+      <template  v-slot:day-content="{ day, attributes }">
         <div class="flex flex-col h-full z-10 overflow-hidden">
-          <span class="day-label text-sm text-gray-900">{{ day.day }}</span>
-          <div class="flex-grow overflow-y-auto overflow-x-auto">
+          <span class="day-label text-sm text-gray-900 ">{{ day.day }}</span>
+
+          <div class="flex-grow flex justify-center overflow-y-auto overflow-x-auto">
             <p
               v-for="attr in attributes"
               :key="attr.id"
-              class="text-xs leading-tight rounded-sm p-1 mt-0 mb-1"
+              class=" "
               :class="attr.customData.class"
             >
-              {{ attr.customData.title }}
+            <span> &#9679; </span>
             </p>
           </div>
         </div>
@@ -34,6 +34,7 @@ export default {
   data() {
     const month = new Date().getMonth();
     const year = new Date().getFullYear();
+
     return {
       masks: {
         weekdays: 'WWW',
@@ -43,7 +44,7 @@ export default {
           id: 1,
           customData: {
             title: 'Carta',
-            class: 'bg-red-600 text-white',
+            class: 'text-red-600 text-white',
           },
           dates: new Date(year, month, 1),
           
@@ -52,15 +53,15 @@ export default {
           id: 2,
           customData: {
             title: 'Plastica',
-            class: 'bg-blue-500 text-white',
+            class: 'text-blue-500 ',
           },
           dates: new Date(year, month, 2),
         },
         {
           id: 3,
           customData: {
-            title: "Umido",
-            class: 'bg-blue-500 text-white',
+            title: 'Umido',
+            class: 'text-blue-500 text-white',
           },
           dates: new Date(year, month, 4),
         },
@@ -68,51 +69,53 @@ export default {
           id: 4,
           customData: {
             title: 'Secco',
-            class: 'bg-indigo-500 text-white',
+            class: 'text-indigo-500 text-white',
           },
           dates: new Date(year, month, 5),
         },
         {
-          id: 4,
-          customData: {
-            title: 'Meeting with new client.',
-            class: 'bg-teal-500 text-white',
-          },
-          dates: new Date(year, month, 7),
-        },
-        {
           id: 5,
           customData: {
-            title: "Mia's gymnastics practice.",
-            class: 'bg-pink-500 text-white',
+            title: 'Carta',
+            class: 'text-yellow-500 text-white',
           },
-          dates: new Date(year, month, 11),
+          dates: new Date(year, month, 8),
         },
         {
           id: 6,
           customData: {
-            title: 'Cookout with friends.',
-            class: 'bg-orange-500 text-white',
+            title: 'Plastica',
+            class: 'text-pink-500 text-white',
           },
-          dates: { months: 5, ordinalWeekdays: { 2: 1 } },
+          dates: new Date(year, month, 9),
         },
         {
           id: 7,
           customData: {
-            title: "Mia's gymnastics recital.",
-            class: 'bg-pink-500 text-white',
+            title: 'Umido',
+            class: 'text-orange-500 text-white',
           },
-          dates: new Date(year, month, 22),
+          dates: { months: 5, ordinalWeekdays: { 2: 1 } },
         },
         {
           id: 8,
           customData: {
+            title: "Secco",
+            class: 'text-pink-500 text-white',
+          },
+          dates: new Date(year, month, 11),
+        },
+        {
+          id: 9,
+          customData: {
             title: 'Visit great grandma.',
-            class: 'bg-red-600 text-white',
+            class: 'text-red-600 text-white',
           },
           dates: new Date(year, month, 25),
         },
       ],
+      giorno: new Date()
+     
     };
   },
 };

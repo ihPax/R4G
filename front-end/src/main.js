@@ -7,6 +7,7 @@ import './style.css';
 import VueRouter from 'vue-router';
 import Home from "./components/Home.vue";
 import Calendar from "./components/Calendar.vue";
+import Landing from "./components/Landing.vue";
 
 Vue.use(VueRouter);
 
@@ -25,6 +26,11 @@ const routes = [
     path: '/calendar',
     name: "Calendar",
     component: Calendar,
+  },
+  {
+    path: '/landing',
+    name: "Landing",
+    component: Landing,
   },
   {
     path: '',
