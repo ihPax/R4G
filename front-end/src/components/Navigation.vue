@@ -10,7 +10,7 @@
           class="p-4 rounded-3xl font-bold text-xl cursor-pointer"
           :class="{
             'bg-green-300 cursor-default': link.code == currentRouteName,
-            'justify-self-end': index == 4 || index == 5
+            'mt-8 sm:mt-32': index == 4,
           }"
           @click="goToLink(link)"
         >
