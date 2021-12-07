@@ -6,7 +6,7 @@ import './style.css';
 
 import VueRouter from 'vue-router';
 import Home from "./components/Home.vue";
-import Calendar from "./components/Calendar.vue";
+import CalendarDesktop from "./components/CalendarDesktop.vue";
 import Landing from "./components/Landing.vue";
 
 Vue.use(VueRouter);
@@ -23,14 +23,39 @@ const routes = [
     component: Home,
   },
   {
-    path: '/calendar',
-    name: "Calendar",
-    component: Calendar,
-  },
-  {
     path: '/landing',
     name: "Landing",
     component: Landing,
+  },
+  {
+    path: '/home',
+    name: 'dashboard',
+    component: Home,
+  },
+  {
+    path: '/mybins',
+    name: 'myBins',
+    component: Home,
+  },
+  {
+    path: '/calendar',
+    name: 'calendar',
+    component: CalendarDesktop,
+  },
+  {
+    path: '/presentation',
+    name: 'presentation',
+    component: Home,
+  },
+  {
+    path: '/account',
+    name: 'account',
+    component: Home,
+  },
+  {
+    path: '/faq',
+    name: 'faq',
+    component: Home,
   },
   {
     path: '',
