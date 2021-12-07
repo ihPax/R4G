@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  name: "Calendar-desktop",
+  name: "CalendarDesktop",
   data() {
     const month = new Date().getMonth();
     const year = new Date().getFullYear();
