@@ -1,8 +1,8 @@
 <template>
-  <div id="app" class="w-screen h-screen bg-white text-black">
+  <div id="app" class="w-screen h-screen bg-white text-black flex ">
     <div class="h-full w-full flex flex-row">
   
-      <Navigation class="border-r-2 border-black"></Navigation>
+      <Navigation class=""></Navigation>
       <div class="flex-grow">
         <router-view></router-view>
       </div>

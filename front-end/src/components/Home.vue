@@ -13,18 +13,16 @@
   
   </div>
 
-    <div class="flex-col flex w-1/4 border-l-2		border-black">
-    <div class="flex flex-row h-1/2">
-    
+    <div class="flex-col flex w-1/4 border-l-2 border-black">
+    <div class="flex flex-row border-black border-b-2 pb-12	justify-center	 ">
+    <Calendar></Calendar>
     </div>
     
 
-       <div>
-            <Calendar></Calendar>
-          </div> 
-
-           <div class="flex flex-row h-1/2">
             
+
+           <div class="flex flex-row h-40">
+            GRAFICO
     
     </div>
   
