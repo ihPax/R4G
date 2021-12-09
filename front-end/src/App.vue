@@ -1,12 +1,9 @@
 <template>
-  <div id="app" class="w-screen h-screen bg-white text-black flex ">
-    <div class="h-full w-full flex flex-row">
-  
-      <Navigation class=""></Navigation>
-      <div class="flex-grow">
-        <router-view></router-view>
-      </div>
+  <div id="app" class="bg-white text-black h-full w-full grid grid-cols-12">
     
+    <Navigation class="col-span-4 lg:col-span-2"></Navigation>
+    <div class="col-span-8 lg:col-span-10">
+      <router-view></router-view>
     </div>
     
   </div>

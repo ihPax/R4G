@@ -2,29 +2,25 @@
   <div
     class="h-screen w-full flex flex-row border-l-2 border-t-2 border-black rounded-tl-2xl"
   >
-    <div class="h-full flex-col flex flex-grow p-8">
-      <span class="text-4xl font-bold"> ciao USER !</span>
-      <div class="grid-cols-2 gap-8 grid">
-        <div class="flex flex-row items-center shadow-inner rounded-lg">
-          <div class="flex-col m-10">collega il tuo cestino</div>
-          <div class="flex-col w-48 h-56 bg-black m-10"></div>
-        </div>
-        <div class="flex flex-row items-center shadow-inner rounded-lg">
-          <div class="flex-col m-10">collega il tuo cestino</div>
-          <div class="flex-col w-48 h-56 bg-black m-10"></div>
-        </div>
-        <div class="flex flex-row items-center shadow-inner rounded-lg">
-          <div class="flex-col m-10">collega il tuo cestino</div>
-          <div class="flex-col w-48 h-56 bg-black m-10"></div>
-        </div>
-        <div class="flex flex-row items-center shadow-inner rounded-lg">
-          <div class="flex-col m-10">collega il tuo cestino</div>
-          <div class="flex-col w-48 h-56 bg-black m-10"></div>
+    <div class="h-full flex flex-col flex-grow p-8">
+      <div class="text-4xl font-bold">ciao USER!</div>
+      <div class="grid grid-cols-2 gap-8">
+        <div
+          v-for="index in 4"
+          :key="index"
+          class="flex flex-col lg:flex-row items-center shadow-inner rounded-lg text-center"
+        >
+          <div class="flex flex-col mx-1 order-2 lg:order-1 my-4">
+            collega il tuo cestino
+          </div>
+          <div class="flex flex-col mx-1 order-1 lg:order-2 flex-shrink-0 flex-grow">
+            <span class="material-icons" style="font-size: 180px"> delete </span>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="flex-col flex w-1/4 border-l-2 border-black">
+    <div class="hidden lg:flex flex-col flex-grow border-l-2 border-black">
       <div class="flex flex-row border-black border-b-2 pb-12 justify-center">
         <Calendar></Calendar>
       </div>

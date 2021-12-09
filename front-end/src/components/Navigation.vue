@@ -8,7 +8,7 @@
         <button
           v-for="(link, index) in links"
           :key="link.code"
-          class="p-2 sm:p-4 rounded-3xl font-bold text-xl cursor-pointer"
+          class="p-2 sm:p-4 text-lg sm:text-xl rounded-xl sm:rounded-3xl font-bold cursor-pointer"
           :class="{
             'bg-green-300 cursor-default': link.code == currentRouteName,
             'mt-16 sm:mt-32': index == 4,
