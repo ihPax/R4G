@@ -5,18 +5,19 @@
         <img src="../assets/logor4gblack.png" />
       </div>
       <div class="flex flex-col h-full items-center">
-        <button
+        <div
           v-for="(link, index) in links"
           :key="link.code"
-          class="p-2 sm:p-4 text-lg sm:text-xl rounded-xl sm:rounded-3xl font-bold cursor-pointer"
+          class="p-2 sm:p-4 text-lg sm:text-xl rounded-xl sm:rounded-3xl font-bold"
           :class="{
             'bg-green-300 cursor-default': link.code == currentRouteName,
-            'mt-16 sm:mt-32': index == 4,
+            'flex-grow cursor-normal': index == 4,
+            'cursor-pointer': index != 4
           }"
           @click="goToLink(link)"
         >
           {{ link.label }}
-        </button>
+        </div>
       </div>
     </div>
 
@@ -69,6 +70,10 @@ export default {
         {
           code: "presentation",
           label: "Chi siamo",
+        },
+        {
+          code: "",
+          label: "",
         },
         {
           code: "account",

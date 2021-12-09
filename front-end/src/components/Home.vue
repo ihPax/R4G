@@ -14,7 +14,7 @@
             collega il tuo cestino
           </div>
           <div class="flex flex-col mx-1 order-1 lg:order-2 flex-shrink-0 flex-grow">
-            <span class="material-icons" style="font-size: 180px"> delete </span>
+            <span class="material-icons text-9xl sm:text-11xl"> delete </span>
           </div>
         </div>
       </div>
@@ -24,7 +24,7 @@
       <div class="flex flex-row border-black border-b-2 pb-12 justify-center">
         <Calendar></Calendar>
       </div>
-      <div class="flex flex-row h-40">GRAFICO</div>
+      <div class="flex flex-row">GRAFICO</div>
     </div>
   </div>
 </template>
