@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   purge: {
     content: [
@@ -8,9 +10,11 @@ module.exports = {
       `nuxt.config.{js,ts}`
     ]
   },
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'class', // or 'media' or 'class'
   theme: {
     screens: {
+      xs: '475px',
+      ...defaultTheme.screens,
       sm: "640px",
       md: "768px",
       lg: "1024px",
