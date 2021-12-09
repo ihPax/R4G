@@ -1,20 +1,21 @@
 <template>
-  <div id="navbar" class="h-screen flex ">
+  <div id="navbar" class="h-screen flex">
     <div class="flex flex-col h-full items-center">
       <div class="-m-7">
-        <img src="../assets/logor4gblack.png">
+        <img src="../assets/logor4gblack.png" />
       </div>
-      <div class="flex flex-col h-full items-center"> 
-        <button 
-          v-for="(link, index) in links" :key="link.code" 
-          class="p-4 rounded-3xl font-bold text-xl cursor-pointer"
+      <div class="flex flex-col h-full items-center">
+        <button
+          v-for="(link, index) in links"
+          :key="link.code"
+          class="p-2 sm:p-4 rounded-3xl font-bold text-xl cursor-pointer"
           :class="{
             'bg-green-300 cursor-default': link.code == currentRouteName,
-            'mt-8 sm:mt-32': index == 4,
+            'mt-16 sm:mt-32': index == 4,
           }"
           @click="goToLink(link)"
         >
-          {{link.label}}
+          {{ link.label }}
         </button>
       </div>
     </div>
@@ -49,41 +50,41 @@
 
 <script>
 export default {
-  name: 'Navigation',
+  name: "Navigation",
   data() {
     return {
       links: [
         {
-          code: 'dashboard',
-          label: 'Dashboard',
+          code: "dashboard",
+          label: "Dashboard",
         },
         {
-          code: 'myBins',
-          label: 'I miei cestini',
+          code: "myBins",
+          label: "I miei cestini",
         },
         {
-          code: 'calendar',
-          label: 'Calendario',
+          code: "calendar",
+          label: "Calendario",
         },
         {
-          code: 'presentation',
-          label: 'Chi siamo',
+          code: "presentation",
+          label: "Chi siamo",
         },
         {
-          code: 'account',
-          label: 'Account',
+          code: "account",
+          label: "Account",
         },
         {
-          code: 'faq',
-          label: 'FAQ',
+          code: "faq",
+          label: "FAQ",
         },
       ],
     };
-  }, 
+  },
   computed: {
     currentRouteName() {
       return this.$route.matched[0].name;
-    }
+    },
   },
   methods: {
     goToLink(link) {
@@ -94,8 +95,6 @@ export default {
       }
     },
   },
-}
+};
 </script>
-<style>
-
-</style>
+<style></style>
