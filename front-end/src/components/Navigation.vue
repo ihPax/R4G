@@ -1,5 +1,5 @@
 <template>
-  <div id="navbar" class="h-screen flex">
+  <div id="navbar" class="col-span-4 lg:col-span-2 h-full">
     <div class="flex flex-col h-full items-center">
       <div class="-m-7">
         <img src="../assets/logor4gblack.png" />
