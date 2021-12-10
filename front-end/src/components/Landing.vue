@@ -23,34 +23,42 @@
         <div class="flex-row flex">
           <button
             class="
-              bg-transparent
-              hover:bg-yellow-600
-              text-yellow-600
-              font-semibold
-              hover:text-white
-              py-2
-              mx-8
               px-4
-              border border-black
-              hover:border-transparent
+              py-2
+              rounded-md
+              text-sm
+              font-medium
+              border
+              focus:outline-none focus:ring
               rounded-xl
+              transition
+              text-yellow-600
+              border-yellow-600
+              mx-8
+              hover:text-white hover:bg-yellow-600
+              active:bg-yellow-700
+              focus:ring-yellow-300
             "
           >
             Registrati
           </button>
           <button
             class="
-              bg-transparent
-              hover:bg-yellow-600
-              text-yellow-600
-              font-semibold
-              hover:text-white
-              py-2
               px-4
-              mx-8
-              border border-black
-              hover:border-transparent
+              py-2
+              rounded-md
+              text-sm
+              font-medium
+              border
+              focus:outline-none focus:ring
               rounded-xl
+              transition
+              text-yellow-600
+              border-yellow-600
+              mx-8
+              hover:text-white hover:bg-yellow-600
+              active:bg-yellow-700
+              focus:ring-yellow-300
             "
           >
             Accedi
@@ -112,40 +120,49 @@
                 <p
                   class="text-blueGray-200 leading-relaxed text-lg md:text-2xl"
                 >
-                  Collega il tuo cestino e scopri come la tecnologia può aiutarti a fare del bene per te e per il pianeta.
+                  Collega il tuo cestino e scopri come la tecnologia può
+                  aiutarti a fare del bene per te e per il pianeta.
                 </p>
               </div>
               <div class="text-center lg:text-left">
                 <button
                   class="
-                    bg-transparent
-                    hover:bg-yellow-600
-                    text-yellow-600
-                    font-semibold
-                    hover:text-white
-                    py-2
-                    mx-8
                     px-4
-                    border border-black
-                    hover:border-transparent
+                    py-2
+                    rounded-md
+                    text-sm
+                    font-medium
+                    border-0
+                    focus:outline-none focus:ring
+                    transition
+                    text-white
+                    bg-yellow-500
                     rounded-xl
+                    hover:bg-yellow-600
+                    mx-4
+                    active:bg-yellow-700
+                    focus:ring-yellow-300
                   "
                 >
                   Sei già un cliente? Accedi!
                 </button>
                 <button
                   class="
-                    bg-transparent
-                    hover:bg-yellow-600
-                    text-yellow-600
-                    font-semibold
-                    hover:text-white
-                    py-2
-                    mx-8
                     px-4
-                    border border-black
-                    hover:border-transparent
+                    py-2
+                    rounded-md
+                    text-sm
+                    mx-8
+                    font-medium
+                    border-0
+                    focus:outline-none focus:ring
+                    transition
+                    text-white
+                    bg-yellow-500
                     rounded-xl
+                    hover:bg-yellow-600
+                    active:bg-yellow-700
+                    focus:ring-yellow-300
                   "
                 >
                   Compra ora
@@ -187,7 +204,9 @@
                 src="../assets/deal.svg"
                 alt=""
               />
-              <h3 class="mb-2 font-bold text-yellow-600 font-heading">Compra</h3>
+              <h3 class="mb-2 font-bold text-yellow-600 font-heading">
+                Compra
+              </h3>
               <p class="text-sm text-blueGray-600 leading-relaxed">
                 Compra il cestino per semplificare la tua vita!
               </p>
@@ -200,9 +219,11 @@
                 src="../assets/deal.svg"
                 alt=""
               />
-              <h3 class="mb-2 font-bold font-heading text-yellow-600">Collega</h3>
+              <h3 class="mb-2 font-bold font-heading text-yellow-600">
+                Collega
+              </h3>
               <p class="text-sm text-blueGray-600 leading-relaxed">
-                Collega il tuo cestino alla nostra piattaforma online!
+                Collegalo alla nostra piattaforma online tramite Cloud!
               </p>
             </div>
           </div>
@@ -213,10 +234,140 @@
                 src="../assets/deal.svg"
                 alt=""
               />
-              <h3 class="text-yellow-600 mb-2 font-bold font-heading">Differenzia   </h3>
+              <h3 class="text-yellow-600 mb-2 font-bold font-heading">
+                Differenzia
+              </h3>
               <p class="text-sm text-blueGray-600 leading-relaxed">
-                Inizia a differenziare i tuoi rifiuti!
+                Inizia a differenziare i tuoi rifiuti in modo Smart!
               </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="py-6 bg-white">
+      <div class="pt-10 pb-12">
+        <div class="container px-4 mx-auto">
+          <div class="mb-6 w-full">
+            <h2
+              class="
+                justify-center
+                text-center
+                flex
+                text-greenlanding text-4xl
+                font-bold font-heading
+              "
+            >
+              I nostri servizi
+            </h2>
+            <h3
+              class="
+                text-blueGray-600 text-center
+                flex
+                text-sm
+                max-w-lg
+                mx-auto
+              "
+            >
+              Un piccolo gesto può fare la differenza, la raccolta differenziata
+              è un dovere civico e grazie al Cestino Smart sarà molto più
+              semplice adempiere ai propri doveri.
+            </h3>
+          </div>
+          <div
+            class="
+              grid grid-cols-2
+              justify-center
+              flex
+              items-center
+              -mx-3
+              text-center
+            "
+          >
+            <div
+              class="
+                px-3
+                mb-8
+                md:mb-12
+                flex
+                items-center
+                mt-2
+                text-sm
+                leading-loose
+                max-w-sm
+                mx-auto
+              "
+            >
+              <div class="mr-6"></div>
+              <div class="mt-4 flex-grow">
+                <p class="text-blueGray-600 leading-loose">
+                  Un Calendario intelligente, una verà e proprio comodità che ti
+                  permette di risparmiare del tempo prezioso.
+                </p>
+              </div>
+            </div>
+            <div
+              class="
+                px-3
+                mb-8
+                md:mb-12
+                flex
+                items-center
+                mt-2
+                text-sm
+                leading-loose
+                max-w-sm
+                mx-auto
+              "
+            >
+              <div class="mr-6"></div>
+              <div class="mt-4 flex-grow">
+                <p class="text-blueGray-600 leading-loose">
+                  Una volta impostato il quartiere in cui abiti sul calendario,
+                  ti avviseremo di preparare la spazzatura corretta.
+                </p>
+              </div>
+            </div>
+            <div
+              class="
+                px-3
+                mb-8
+                md:mb-12
+                flex
+                items-center
+                mt-2
+                text-sm
+                leading-loose
+                max-w-sm
+                mx-auto
+              "
+            >
+              <div class="mr-6"></div>
+              <div class="mt-4 flex-grow">
+                <p class="text-blueGray-600 leading-loose">Una Dashboard con la quale monitorare lo stato dei tuoi cestini.</p>
+              </div>
+            </div>
+            <div
+              class="
+                px-3
+                mb-8
+                md:mb-12
+                flex
+                items-center
+                mt-2
+                text-sm
+                leading-loose
+                max-w-sm
+                mx-auto
+              "
+            >
+              <div class="mr-6"></div>
+              <div class="mt-4 flex-grow">
+                <p class="text-blueGray-600">
+                  Un Calendario intelligente, una verà e proprio comodità che ti
+                  permette di risparmiare del tempo prezioso.
+                </p>
+              </div>
             </div>
           </div>
         </div>
