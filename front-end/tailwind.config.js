@@ -20,6 +20,7 @@ module.exports = {
       transparent: "transparent",
       black: "#000",
       greenlanding: "#1E8E1F",
+      greenborder: "#5BDF46",
       greenscritte: "#4B9B45",
       white: "#fff",
       blueGray: {
