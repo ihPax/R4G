@@ -104,49 +104,65 @@ const settings = {
 
 const routes = [
   {
-    path: '/home',
-    name: "Home",
-    component: Home,
-  },
-  {
     path: '/landing',
     name: "Landing",
     component: Landing,
   },
   {
-    path: '/home',
-    name: 'dashboard',
-    component: Home,
+    path: '/registration',
+    name: "registration",
+    component: Registration,
   },
   {
-    path: '/mybins',
-    name: 'myBins',
-    component: Home,
+    path: '/login',
+    name: "login",
+    component: Login,
   },
   {
-    path: '/calendar',
-    name: 'calendar',
-    component: CalendarDesktop,
-  },
-  {
-    path: '/presentation',
-    name: 'presentation',
-    component: Home,
-  },
-  {
-    path: '/account',
-    name: 'account',
-    component: Home,
-  },
-  {
-    path: '/faq',
-    name: 'faq',
-    component: Home,
+    path: '/dashboard',
+    component: Dashboard,
+    children: [
+      {
+        path: '/home',
+        name: "home",
+        component: Home,
+      },
+      {
+        path: '/mybins',
+        name: 'myBins',
+        component: Home,
+      },
+      {
+        path: '/calendar',
+        name: 'calendar',
+        component: CalendarDesktop,
+      },
+      {
+        path: '/presentation',
+        name: 'presentation',
+        component: Home,
+      },
+      {
+        path: '/account',
+        name: 'account',
+        component: Home,
+      },
+      {
+        path: '/faq',
+        name: 'faq',
+        component: Home,
+      },
+      {
+        path: '',
+        name: "default_dashboard_route",
+        redirect: '/home',
+      }
+    ]
   },
   {
     path: '',
     name: "default_route",
-    redirect: '/home',
+    redirect: '/landing',
   }
 ];
 

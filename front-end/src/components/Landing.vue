@@ -23,35 +23,45 @@
         <div class="flex-row flex">
           <button
             class="
-              bg-transparent
-              hover:bg-yellow-600
-              text-yellow-600
-              font-semibold
-              hover:text-white
-              py-2
-              mx-8
               px-4
-              border border-black
-              hover:border-transparent
+              py-2
+              rounded-md
+              text-sm
+              font-medium
+              border
+              focus:outline-none focus:ring
               rounded-xl
+              transition
+              text-yellow-600
+              border-yellow-600
+              mx-8
+              hover:text-white hover:bg-yellow-600
+              active:bg-yellow-700
+              focus:ring-yellow-300
             "
+            @click="goToRegistration()"
           >
             Registrati
           </button>
           <button
             class="
-              bg-transparent
-              hover:bg-yellow-600
-              text-yellow-600
-              font-semibold
-              hover:text-white
-              py-2
               px-4
-              mx-8
-              border border-black
-              hover:border-transparent
+              py-2
+              rounded-md
+              text-sm
+              font-medium
+              border
+              focus:outline-none focus:ring
               rounded-xl
+              transition
+              text-yellow-600
+              border-yellow-600
+              mx-8
+              hover:text-white hover:bg-yellow-600
+              active:bg-yellow-700
+              focus:ring-yellow-300
             "
+            @click="goToLogin()"
           >
             Accedi
           </button>
@@ -112,40 +122,49 @@
                 <p
                   class="text-blueGray-200 leading-relaxed text-lg md:text-2xl"
                 >
-                  Collega il tuo cestino e scopri come la tecnologia può aiutarti a fare del bene per te e per il pianeta.
+                  Collega il tuo cestino e scopri come la tecnologia può
+                  aiutarti a fare del bene per te e per il pianeta.
                 </p>
               </div>
               <div class="text-center lg:text-left">
                 <button
                   class="
-                    bg-transparent
-                    hover:bg-yellow-600
-                    text-yellow-600
-                    font-semibold
-                    hover:text-white
-                    py-2
-                    mx-8
                     px-4
-                    border border-black
-                    hover:border-transparent
+                    py-2
+                    rounded-md
+                    text-sm
+                    font-medium
+                    border-0
+                    focus:outline-none focus:ring
+                    transition
+                    text-white
+                    bg-yellow-500
                     rounded-xl
+                    hover:bg-yellow-600
+                    mx-4
+                    active:bg-yellow-700
+                    focus:ring-yellow-300
                   "
                 >
                   Sei già un cliente? Accedi!
                 </button>
                 <button
                   class="
-                    bg-transparent
-                    hover:bg-yellow-600
-                    text-yellow-600
-                    font-semibold
-                    hover:text-white
-                    py-2
-                    mx-8
                     px-4
-                    border border-black
-                    hover:border-transparent
+                    py-2
+                    rounded-md
+                    text-sm
+                    mx-8
+                    font-medium
+                    border-0
+                    focus:outline-none focus:ring
+                    transition
+                    text-white
+                    bg-yellow-500
                     rounded-xl
+                    hover:bg-yellow-600
+                    active:bg-yellow-700
+                    focus:ring-yellow-300
                   "
                 >
                   Compra ora
@@ -187,7 +206,9 @@
                 src="../assets/deal.svg"
                 alt=""
               />
-              <h3 class="mb-2 font-bold text-yellow-600 font-heading">Compra</h3>
+              <h3 class="mb-2 font-bold text-yellow-600 font-heading">
+                Compra
+              </h3>
               <p class="text-sm text-blueGray-600 leading-relaxed">
                 Compra il cestino per semplificare la tua vita!
               </p>
@@ -197,12 +218,14 @@
             <div class="p-12 bg-white shadow rounded">
               <img
                 class="h-48 mb-12 mx-auto w-auto"
-                src="../assets/deal.svg"
+                src="../assets/upload.svg"
                 alt=""
               />
-              <h3 class="mb-2 font-bold font-heading text-yellow-600">Collega</h3>
+              <h3 class="mb-2 font-bold font-heading text-yellow-600">
+                Collega
+              </h3>
               <p class="text-sm text-blueGray-600 leading-relaxed">
-                Collega il tuo cestino alla nostra piattaforma online!
+                Collegalo alla nostra piattaforma online tramite Cloud!
               </p>
             </div>
           </div>
@@ -210,13 +233,238 @@
             <div class="p-12 bg-white shadow rounded">
               <img
                 class="h-48 mb-12 mx-auto w-auto"
-                src="../assets/deal.svg"
+                src="../assets/throw.svg"
                 alt=""
               />
-              <h3 class="text-yellow-600 mb-2 font-bold font-heading">Differenzia   </h3>
+              <h3 class="text-yellow-600 mb-2 font-bold font-heading">
+                Differenzia
+              </h3>
               <p class="text-sm text-blueGray-600 leading-relaxed">
-                Inizia a differenziare i tuoi rifiuti!
+                Inizia a differenziare i tuoi rifiuti in modo Smart!
               </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="py-6 bg-white">
+      <div class="pt-10 pb-12">
+        <div class="container px-4 mx-auto">
+          <div class="mb-2 w-full">
+            <h2
+              class="
+                justify-center
+                text-center
+                flex
+                text-greenlanding text-4xl
+                font-bold font-heading
+                mb-2
+              "
+            >
+              I nostri servizi
+            </h2>
+            <h3
+              class="
+                text-blueGray-600 text-center
+                text-md
+                max-w-md
+                mx-auto
+              "
+            >
+              Un piccolo gesto può fare la <b class="text-greenlanding"> differenza </b>, la raccolta differenziata
+              è un <b class="text-greenlanding"> dovere civico </b> e grazie al Cestino Smart sarà molto più
+              semplice adempiere ai propri doveri.
+            </h3>
+          </div>
+          <div
+            class="
+              grid grid-cols-2
+              justify-center
+              flex
+              items-center
+              -mx-3
+              text-center
+            "
+          >
+            <div
+              class="
+                px-3
+                mb-8
+                md:mb-12
+                flex
+                items-center
+                mt-2
+                text-sm
+                leading-loose
+                max-w-sm
+                mx-auto
+              "
+            >
+              <div class="mt-4 flex-grow">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="
+                    text-center
+                    mx-auto
+                    my-5
+                    rounded-full
+                    h-20
+                    w-20
+                    text-black
+                    border-2 border-greenborder
+                  "
+                  fill="none"
+                  viewBox="4 -2 16 30"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+                <p class="text-blueGray-600 leading-loose">
+                  Un Calendario intelligente, una verà e proprio comodità che ti
+                  permette di risparmiare del tempo prezioso.
+                </p>
+              </div>
+            </div>
+            <div
+              class="
+                px-3
+                mb-8
+                md:mb-12
+                flex
+                items-center
+                mt-2
+                text-sm
+                leading-loose
+                max-w-sm
+                mx-auto
+              "
+            >
+              <div
+                class="mt-4 flex-grow justify-center items-center text-center"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="
+                    text-center
+                    mx-auto
+                    my-5
+                    text-black
+                    rounded-full
+                    h-20
+                    w-20
+                    border-2 border-greenborder
+                  "
+                  fill="none"
+                  viewBox="4 -2 16 30"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                  />
+                </svg>
+                <p class="text-blueGray-600 leading-loose">
+                  Una volta impostato il quartiere in cui abiti sul calendario,
+                  ti avviseremo di preparare la spazzatura corretta.
+                </p>
+              </div>
+            </div>
+            <div
+              class="
+                px-3
+                mb-8
+                md:mb-12
+                flex
+                items-center
+                mt-2
+                text-sm
+                leading-loose
+                max-w-sm
+                mx-auto
+              "
+            >
+              <div
+                class="mt-4 flex-grow items-center justify-center text-center"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="
+                    text-center
+                    mx-auto
+                    my-5
+                    rounded-full
+                    h-20
+                    w-20
+                    text-black
+                    border-2 border-greenborder
+                  "
+                  fill="none"
+                  viewBox="4 -2 16 30"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                  />
+                </svg>
+                <p class="text-blueGray-600 leading-loose">
+                  Una Dashboard con la quale monitorare lo stato dei tuoi
+                  cestini.
+                </p>
+              </div>
+            </div>
+            <div
+              class="
+                px-3
+                mb-8
+                md:mb-12
+                flex
+                items-center
+                mt-2
+                text-sm
+                leading-loose
+                max-w-sm
+                mx-auto
+              "
+            >
+              <div class="mt-4 flex-grow">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="
+                    text-center
+                    mx-auto
+                    my-5
+                    text-black
+                    rounded-full
+                    h-20
+                    w-20
+                    border-2 border-greenborder
+                  "
+                  fill="none"
+                  viewBox="4 -2 16 30"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+                <p class="text-blueGray-600">
+                  Un Calendario intelligente, una verà e proprio comodità che ti
+                  permette di risparmiare del tempo prezioso.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -226,8 +474,25 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data(){
+    return{
+
+    }
+  },
+  methods:{
+    goToRegistration(){
+      this.$router.push({
+        name: "registration"
+      });
+    },
+    goToLogin(){
+      this.$router.push({
+        name: "login"
+      });
+    }
+  }
+};
 </script>
 <style>
-
 </style>

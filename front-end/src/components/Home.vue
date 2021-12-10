@@ -3,7 +3,7 @@
     class="h-screen w-full flex flex-row border-l-2 border-t-2 border-black rounded-tl-2xl"
   >
     <div class="h-full flex flex-col flex-grow p-8">
-      <div class="text-4xl font-bold">ciao USER!</div>
+      <div class="text-4xl font-bold sm: mb-4 lg:mb-12">ciao USER!</div>
       <div class="grid grid-cols-2 gap-8">
         <div
           v-for="index in 4"
@@ -14,7 +14,7 @@
             collega il tuo cestino
           </t-button>
           <div class="flex flex-col mx-1 order-1 lg:order-2 flex-shrink-0 flex-grow">
-            <span class="material-icons text-9xl sm:text-11xl"> delete </span>
+            <span class="material-icons text-7xl xs:text-9xl sm:text-11xl"> delete </span>
           </div>
         </div>
       </div>

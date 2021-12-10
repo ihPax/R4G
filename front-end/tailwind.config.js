@@ -1,16 +1,15 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   purge: {
     content: [
-      `components/**/*.{vue,js}`,
-      `layouts/**/*.vue`,
-      `pages/**/*.vue`,
-      `plugins/**/*.{js,ts}`,
-      `nuxt.config.{js,ts}`
     ]
   },
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'class', // or 'media' or 'class'
   theme: {
     screens: {
+      xs: '475px',
+      ...defaultTheme.screens,
       sm: "640px",
       md: "768px",
       lg: "1024px",
@@ -20,6 +19,9 @@ module.exports = {
       current: "currentColor",
       transparent: "transparent",
       black: "#000",
+      greenlanding: "#1E8E1F",
+      greenborder: "#5BDF46",
+      greenscritte: "#4B9B45",
       white: "#fff",
       blueGray: {
         50: "#f8fafc",
