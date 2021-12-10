@@ -35,6 +35,7 @@
               hover:border-transparent
               rounded-xl
             "
+            @click="goToRegistration()"
           >
             Registrati
           </button>
@@ -52,6 +53,7 @@
               hover:border-transparent
               rounded-xl
             "
+            @click="goToLogin()"
           >
             Accedi
           </button>
@@ -226,7 +228,25 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data(){
+    return{
+
+    }
+  },
+  methods:{
+    goToRegistration(){
+      this.$router.push({
+        name: "registration"
+      });
+    },
+    goToLogin(){
+      this.$router.push({
+        name: "login"
+      });
+    }
+  }
+};
 </script>
 <style>
 

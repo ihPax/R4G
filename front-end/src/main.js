@@ -8,6 +8,8 @@ import VueRouter from 'vue-router';
 import Home from "./components/Home.vue";
 import CalendarDesktop from "./components/CalendarDesktop.vue";
 import Landing from "./components/Landing.vue";
+import Registration from "./components/Registration.vue";
+import Login from "./components/Login.vue";
 
 Vue.use(VueRouter);
 
@@ -26,6 +28,16 @@ const routes = [
     path: '/landing',
     name: "Landing",
     component: Landing,
+  },
+  {
+    path: '/registration',
+    name: "registration",
+    component: Registration,
+  },
+  {
+    path: '/login',
+    name: "login",
+    component: Login,
   },
   {
     path: '/home',
