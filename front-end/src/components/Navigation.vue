@@ -5,19 +5,19 @@
         <img src="../assets/logor4gblack.png" />
       </div>
       <div class="flex flex-col h-full items-center">
-        <div
+        <button
           v-for="(link, index) in links"
           :key="link.code"
           class="p-2 sm:p-4 text-lg sm:text-xl rounded-xl sm:rounded-3xl font-bold"
           :class="{
-            'bg-green-300 cursor-default': link.code == currentRouteName,
-            'flex-grow cursor-normal': index == 4,
-            'cursor-pointer': index != 4
+            'bg-green-300 cursor-auto': link.code == currentRouteName,
+            'flex-grow': index == 4,
           }"
+          :disabled="link.code == currentRouteName"
           @click="goToLink(link)"
         >
-          {{ link.label }}
-        </div>
+          {{ link.label }} 
+        </button>
       </div>
     </div>
 
@@ -56,7 +56,7 @@ export default {
     return {
       links: [
         {
-          code: "dashboard",
+          code: "home",
           label: "Dashboard",
         },
         {
@@ -88,7 +88,7 @@ export default {
   },
   computed: {
     currentRouteName() {
-      return this.$route.matched[0].name;
+      return this.$route.matched[1].name;
     },
   },
   methods: {
