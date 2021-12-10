@@ -10,9 +10,9 @@
           :key="index"
           class="flex flex-col lg:flex-row items-center shadow-inner rounded-lg text-center"
         >
-          <div class="flex flex-col mx-1 order-2 lg:order-1 my-4">
+          <t-button class="flex flex-col mx-1 order-2 lg:order-1 my-4">
             collega il tuo cestino
-          </div>
+          </t-button>
           <div class="flex flex-col mx-1 order-1 lg:order-2 flex-shrink-0 flex-grow">
             <span class="material-icons text-9xl sm:text-11xl"> delete </span>
           </div>
@@ -22,7 +22,12 @@
 
     <div class="hidden lg:flex flex-col flex-grow border-l-2 border-black">
       <div class="flex flex-row border-black border-b-2 pb-12 justify-center">
-        <Calendar></Calendar>
+       <div> 
+    <t-modal v-model="showModal" header="Scegli il tuo Comune" close="chiudi" ><Modal></Modal></t-modal>
+    <t-button @click="showModalTrue()" type="button">Scegli il tuo comune</t-button>
+  </div>
+        <!-- <Calendar></Calendar> -->
+    
       </div>
       <div class="flex flex-row">GRAFICO</div>
     </div>
@@ -30,17 +35,19 @@
 </template>
 
 <script>
-import Calendar from "@/components/Calendar.vue";
-
+//import Calendar from "@/components/Calendar.vue";
+import Modal from "@/components/Modal";
 export default {
   name: "Home",
   components: {
-    Calendar,
+  //  Calendar,
+    Modal
   },
   props: [],
   mounted() {},
   data() {
     return {
+      showModal:false,
       navLinks: [
         {
           label: "",
@@ -57,7 +64,11 @@ export default {
       ],
     };
   },
-  methods: {},
+  methods: {
+    showModalTrue(){
+      this.showModal= !this.showModal;
+    }
+  },
   computed: {},
 };
 </script>
