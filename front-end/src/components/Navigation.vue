@@ -2,7 +2,7 @@
   <div id="navbar" class="col-span-4 lg:col-span-2 h-full">
     <div class="flex flex-col h-full items-center">
       <div class="-m-7">
-        <router-link to='/home'>
+        <router-link to='/dashboard/home'>
           <img src="../assets/logor4gblack.png" class="w-3/4 cursor-pointer" alt="logo R4G" />
         </router-link>
       </div>

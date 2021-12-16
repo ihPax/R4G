@@ -94,7 +94,7 @@
                         <span v-else>&nbsp;&nbsp;</span>
                     </div>
                     <div class="flex flex-col">
-                        <input type='text' placeholder="Password" name="password" v-model="user.password" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
+                        <input type='password' placeholder="Password" name="password" v-model="user.password" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
                     </div>
                 </div>
 
