@@ -6,36 +6,44 @@
             </div>
             <div class="flex-col flex flex-grow justify-center items-end align-center">
                 <div class="flex-row flex">
-                    <button @click="goToRegistration()"
+                    <button
                         class="
-                        bg-transparent
-                        hover:bg-yellow-600
-                        text-yellow-600
-                        font-semibold
-                        hover:text-white
-                        py-2
-                        mx-8
                         px-4
-                        border border-black
-                        hover:border-transparent
+                        py-2
+                        rounded-md
+                        text-sm
+                        font-medium
+                        border
+                        focus:outline-none focus:ring
                         rounded-xl
+                        transition
+                        text-yellow-600
+                        border-yellow-600
+                        mx-8
+                        hover:text-white hover:bg-yellow-600
+                        active:bg-yellow-700
+                        focus:ring-yellow-300
                         "
                     >
                         Registrati
                     </button>
                     <button @click="goToLogin()"
                         class="
-                        bg-transparent
-                        hover:bg-yellow-600
-                        text-yellow-600
-                        font-semibold
-                        hover:text-white
-                        py-2
                         px-4
-                        mx-8
-                        border border-black
-                        hover:border-transparent
+                        py-2
+                        rounded-md
+                        text-sm
+                        font-medium
+                        border
+                        focus:outline-none focus:ring
                         rounded-xl
+                        transition
+                        text-yellow-600
+                        border-yellow-600
+                        mx-8
+                        hover:text-white hover:bg-yellow-600
+                        active:bg-yellow-700
+                        focus:ring-yellow-300
                         "
                     >
                         Accedi
@@ -44,8 +52,8 @@
             </div>
         </div>
         <div class="flex flex-row">
-            <div class="flex flex-col border-2 border-black rounded-2xl m-auto px-20 py-16">
-                <div class="flex flex-row justify-center mb-10">
+            <div class="flex flex-col border-2 border-black rounded-2xl m-auto px-20 py-10">
+                <div class="flex flex-row justify-center mb-8">
                     <div class="flex flex-col">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 m-auto mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -131,6 +139,30 @@
                     </div>
                 </div>
 
+                <div class="flex flex-row m-auto mt-5">
+                    <div class="flex flex-col m-auto mr-3" v-if="validCheck == false">
+                        <input type="checkbox" @click="validCheck=true">
+                    </div>
+                    <div class="flex flex-col m-auto mr-3" v-if="validCheck == true">
+                        <input type="checkbox" @click="validCheck=false" checked>
+                    </div>
+                    <div class="flex flex-col">
+                        <span> Accetto i Termini di Servizio </span>
+                    </div>
+                </div>
+                <div class="flex flex-row m-auto mt-3">
+                    <div class="flex flex-col text-white text-xl">
+                        <button :disabled="!isFormComplete" class="font-bold"
+                            :class="{'bg-black border-2 px-4 py-1 rounded-full cursor-pointer':isFormValid,'bg-black opacity-60 px-4 py-1 rounded-full cursor-not-allowed':!isFormValid}">
+                            Registrati
+                        </button>
+                    </div>
+                </div>
+                <div class="flex flex-row m-auto mt-10 text-sm">
+                    <div class="flex flex-col">
+                        <span> Politica sulla privacy </span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -140,6 +172,7 @@
 export default {
     data(){
         return{
+            validCheck: false,
             newUser:{
                 name:"",
                 surname:"",
@@ -152,10 +185,19 @@ export default {
     computed:{
         isFormValid(){
             let formValid = true;
-            this.forms.forEach(field =>{
-                formValid = formValid && !!this.newUser[field.code];
+            if(this.newUser.name && this.newUser.surname && this.newUser.birthday && this.newUser.email && this.newUser.password && this.validCheck == true){
+                return formValid;
+            }else{
+                formValid = false;
+                return formValid;
+            }
+        }
+    },
+    methods:{
+        goToLogin(){
+            this.$router.push({
+                name: "login"
             });
-            return formValid;
         }
     }
 }
