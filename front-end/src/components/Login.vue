@@ -108,8 +108,15 @@
                 </div>
                 <div class="flex flex-row m-auto mt-3">
                     <div class="flex flex-col text-white text-xl">
-                        <button :disabled="!isFormValid" class="font-bold"
-                            :class="{'bg-black px-4 py-1 rounded-full cursor-pointer':isFormValid,'bg-black opacity-60 px-4 py-1 rounded-full cursor-not-allowed':!isFormValid}">
+                        <button 
+                            :disabled="!isFormValid"
+                            class="font-bold"
+                            :class="{
+                                'bg-black px-4 py-1 rounded-full cursor-pointer':isFormValid,
+                                'bg-black opacity-60 px-4 py-1 rounded-full cursor-not-allowed':!isFormValid
+                            }"
+                            @click="goToHome()" 
+                        >
                             Accedi
                         </button>
                     </div>
@@ -153,6 +160,11 @@ export default {
         goToRegistration(){
             this.$router.push({
                 name: "registration"
+            });
+        },
+        goToHome(){
+            this.$router.push({
+                name: "home"
             });
         }
     }
