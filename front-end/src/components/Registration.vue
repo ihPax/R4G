@@ -2,7 +2,9 @@
     <div class="h-screen w-full flex flex-col">
         <div class="flex flex-row">
             <div class="flex flex-col">
-                <img src="../assets/logor4gblack.png" class="w-3/4" alt="" />
+                <router-link to='/landing'>
+                    <img src="../assets/logor4gblack.png" class="w-3/4 cursor-pointer" alt="logo R4G" />
+                </router-link>
             </div>
             <div class="flex-col flex flex-grow justify-center items-end align-center">
                 <div class="flex-row flex">
@@ -165,7 +167,9 @@
                 </div>
                 <div class="flex flex-row m-auto mt-10 text-sm">
                     <div class="flex flex-col">
-                        <span> Politica sulla privacy </span>
+                        <router-link to="/privacy-policy">
+                            <span class="cursor-pointer"> Politica sulla privacy </span>
+                        </router-link>
                     </div>
                 </div>
             </div>
