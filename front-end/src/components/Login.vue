@@ -131,21 +131,18 @@
 export default {
     data(){
         return{
-            user:{
-                email:"",
-                password:""
-            }
+            user:
+                {
+                    email: "",
+                    password: ""
+                }
         }
     },
+    mounted(){},
     computed:{
         isFormValid(){
-            let formValid = true;
-            if(this.user.email && this.user.password){
-                return formValid;
-            }else{
-                formValid = false;
-                return formValid;
-            }
+            let formValid = !!this.user.email && !!this.user.password ? true : false;
+            return formValid;
         }
     },
     methods:{
