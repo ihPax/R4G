@@ -1,5 +1,5 @@
 <template>
-    <div class="h-screen w-full flex flex-col">
+    <div class="h-screen w-full flex flex-col font-montserrat">
         <div class="flex flex-row">
             <div class="flex flex-col">
                 <router-link to='/landing'>
