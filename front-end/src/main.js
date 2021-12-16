@@ -11,6 +11,7 @@ import Landing from "@/components/Landing.vue";
 import Registration from "@/components/Registration.vue";
 import Login from "@/components/Login.vue";
 import Dashboard from "@/components/Dashboard.vue";
+import PrivacyPolicy from "@/components/PrivacyPolicy.vue";
 import VueTailwind from 'vue-tailwind'
 import {
   //TInput,
@@ -109,6 +110,11 @@ const routes = [
     path: '/landing',
     name: "Landing",
     component: Landing,
+  },
+  {
+    path: '/privacy-policy',
+    name: "PrivacyPolicy",
+    component: PrivacyPolicy,
   },
   {
     path: '/registration',
