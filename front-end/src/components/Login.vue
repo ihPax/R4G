@@ -73,6 +73,7 @@
                     </div>
                     <div class="flex flex-col">
                         <span class='text-red-500 font-bold' v-if="!user.email">*</span>
+                        <span v-else>&nbsp;&nbsp;</span>
                     </div>
                     <div class="flex flex-col">
                         <input type='text' placeholder="Email" name="email" v-model="user.email" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
@@ -88,6 +89,7 @@
                     </div>
                     <div class="flex flex-col">
                         <span class='text-red-500 font-bold' v-if="!user.password">*</span>
+                        <span v-else>&nbsp;&nbsp;</span>
                     </div>
                     <div class="flex flex-col">
                         <input type='text' placeholder="Password" name="password" v-model="user.password" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
@@ -104,7 +106,7 @@
                 </div>
                 <div class="flex flex-row m-auto mt-3">
                     <div class="flex flex-col text-white text-xl">
-                        <button :disabled="!isFormComplete" class="font-bold"
+                        <button :disabled="!isFormValid" class="font-bold"
                             :class="{'bg-black px-4 py-1 rounded-full cursor-pointer':isFormValid,'bg-black opacity-60 px-4 py-1 rounded-full cursor-not-allowed':!isFormValid}">
                             Accedi
                         </button>

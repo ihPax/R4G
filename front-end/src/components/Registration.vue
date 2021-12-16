@@ -73,6 +73,7 @@
                     </div>
                     <div class="flex flex-col">
                         <span class='text-red-500 font-bold' v-if="!newUser.name">*</span>
+                        <span v-else>&nbsp;&nbsp;</span>
                     </div>
                     <div class="flex flex-col">
                         <input type='text' placeholder="Nome" name="name" v-model="newUser.name" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
@@ -88,6 +89,7 @@
                     </div>
                     <div class="flex flex-col">
                         <span class='text-red-500 font-bold' v-if="!newUser.surname">*</span>
+                        <span v-else>&nbsp;&nbsp;</span>
                     </div>
                     <div class="flex flex-col">
                         <input type='text' placeholder="Cognome" name="surname" v-model="newUser.surname" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
@@ -103,6 +105,7 @@
                     </div>
                     <div class="flex flex-col">
                         <span class='text-red-500 font-bold' v-if="!newUser.birthday">*</span>
+                        <span v-else>&nbsp;&nbsp;</span>
                     </div>
                     <div class="flex flex-col w-full">
                         <input type='date' placeholder="Data di nascita" name="birthday" v-model="newUser.birthday" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
@@ -118,6 +121,7 @@
                     </div>
                     <div class="flex flex-col">
                         <span class='text-red-500 font-bold' v-if="!newUser.email">*</span>
+                        <span v-else>&nbsp;&nbsp;</span>
                     </div>
                     <div class="flex flex-col">
                         <input type='text' placeholder="Email" name="email" v-model="newUser.email" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
@@ -133,6 +137,7 @@
                     </div>
                     <div class="flex flex-col">
                         <span class='text-red-500 font-bold' v-if="!newUser.password">*</span>
+                        <span v-else>&nbsp;&nbsp;</span>
                     </div>
                     <div class="flex flex-col">
                         <input type='text' placeholder="Password" name="password" v-model="newUser.password" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
