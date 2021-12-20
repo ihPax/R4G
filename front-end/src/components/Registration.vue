@@ -1,5 +1,5 @@
 <template>
-    <div class="h-screen w-full flex flex-col font-montserrat">
+    <div class="h-screen w-full flex flex-col font-montserrat mb-10">
         <div class="flex flex-row">
             <div class="flex flex-col">
                 <router-link to='/landing'>
@@ -165,7 +165,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="flex flex-row m-auto mt-10 text-sm">
+                <div class="flex flex-row m-auto mt-5 text-sm">
                     <div class="flex flex-col">
                         <router-link to="/privacy-policy">
                             <span class="cursor-pointer"> Politica sulla privacy </span>
@@ -174,6 +174,18 @@
                 </div>
             </div>
         </div>
+        <router-link to="/landing" class="m-auto">
+        <div class="flex flex-row mt-5 cursor-pointer">
+            <div class="flex flex-col">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </div>
+            <div class="flex flex-col">
+                <span>Torna alla Landing</span>
+            </div>
+        </div>
+        </router-link>
     </div>
 </template>
 
