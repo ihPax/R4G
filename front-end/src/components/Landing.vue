@@ -80,9 +80,12 @@
         rounded-xl
         overflow-hidden
       "
-      style="background-image: url()"
+      style="background-image: url(https://www.dagospia.com/img/foto/05-2021/mascherine-in-mare-6-1459672_tn.jpeg)"
     >
-      <div class="h-full w-full absolute bg-blue-500 opacity-60"></div>
+      <div class="h-full w-full absolute bg-blue-500 opacity-30"></div>
+      <!-- <div class="h-full w-full absolute opacity-50">
+        <img class="h-full w-full absolute" src="../assets/background-landing.jpeg" alt=""> 
+      </div> -->
       <div
         class="
           hidden

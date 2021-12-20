@@ -54,8 +54,7 @@ const settings = {
   't-button': {
     component: TButton,
     props: {
-      classes: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded',
-     
+      classes: 'bg-green-200 hover:bg-green-400 text-black font-bold py-2 px-4 rounded',
     }
   },
   't-modal': {
@@ -132,44 +131,44 @@ const routes = [
     component: Dashboard,
     children: [
       {
-        path: '/home',
+        path: 'home', //  è come se ci fosse scritto '/dashboard/home'
         name: "home",
         component: Home,
       },
       {
-        path: '/mybins',
+        path: 'mybins',
         name: 'myBins',
         component: Home,
       },
       {
-        path: '/calendar',
+        path: 'calendar',
         name: 'calendar',
         component: CalendarDesktop,
       },
       {
-        path: '/presentation',
+        path: 'presentation',
         name: 'presentation',
         component: Home,
       },
       {
-        path: '/account',
+        path: 'account',
         name: 'account',
         component: Home,
       },
       {
-        path: '/faq',
+        path: 'faq',
         name: 'faq',
         component: Home,
       },
       {
-        path: '',
-        name: "default_dashboard_route",
-        redirect: '/home',
+        path: '*',  // qualsiasi cosa scritta dopo '/dashboard/' reindirizza alla dashboard
+        name: "default_dashboard",
+        redirect: '/dashboard/home',
       }
     ]
   },
   {
-    path: '',
+    path: '*',  // qualsiasi percorso in cui non sia scritto '/dashboard/' porta alla landing
     name: "default_route",
     redirect: '/landing',
   }

@@ -94,7 +94,7 @@
                         <span v-else>&nbsp;&nbsp;</span>
                     </div>
                     <div class="flex flex-col">
-                        <input type='text' placeholder="Password" name="password" v-model="user.password" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
+                        <input type='password' placeholder="Password" name="password" v-model="user.password" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
                     </div>
                 </div>
 
@@ -108,8 +108,15 @@
                 </div>
                 <div class="flex flex-row m-auto mt-3">
                     <div class="flex flex-col text-white text-xl">
-                        <button :disabled="!isFormValid" class="font-bold"
-                            :class="{'bg-black px-4 py-1 rounded-full cursor-pointer':isFormValid,'bg-black opacity-60 px-4 py-1 rounded-full cursor-not-allowed':!isFormValid}">
+                        <button 
+                            :disabled="!isFormValid"
+                            class="font-bold"
+                            :class="{
+                                'bg-black px-4 py-1 rounded-full cursor-pointer':isFormValid,
+                                'bg-black opacity-60 px-4 py-1 rounded-full cursor-not-allowed':!isFormValid
+                            }"
+                            @click="goToHome()" 
+                        >
                             Accedi
                         </button>
                     </div>
@@ -147,27 +154,29 @@
 export default {
     data(){
         return{
-            user:{
-                email:"",
-                password:""
-            }
+            user:
+                {
+                    email: "",
+                    password: ""
+                }
         }
     },
+    mounted(){},
     computed:{
         isFormValid(){
-            let formValid = true;
-            if(this.user.email && this.user.password){
-                return formValid;
-            }else{
-                formValid = false;
-                return formValid;
-            }
+            let formValid = !!this.user.email && !!this.user.password ? true : false;
+            return formValid;
         }
     },
     methods:{
         goToRegistration(){
             this.$router.push({
                 name: "registration"
+            });
+        },
+        goToHome(){
+            this.$router.push({
+                name: "home"
             });
         }
     }
