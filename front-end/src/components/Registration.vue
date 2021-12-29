@@ -147,11 +147,8 @@
                 </div>
 
                 <div class="flex flex-row m-auto mt-5 justify-between">
-                    <div class="flex flex-col m-auto mr-3" v-if="validCheck == false">
-                        <input type="checkbox" @click="validCheck=true">
-                    </div>
-                    <div class="flex flex-col m-auto mr-3" v-if="validCheck == true">
-                        <input type="checkbox" @click="validCheck=false" checked>
+                    <div class="flex flex-col m-auto mr-3">
+                        <input type="checkbox" v-model="validCheck" class="w-4 h-4">
                     </div>
                     <div class="flex flex-col">
                         <span> Accetto i Termini di Servizio </span>
@@ -159,7 +156,7 @@
                 </div>
                 <div class="flex flex-row m-auto mt-3">
                     <div class="flex flex-col text-white text-xl">
-                        <button :disabled="!isFormComplete" class="font-bold"
+                        <button :disabled="!isFormValid" class="font-bold"
                             :class="{'bg-black px-4 py-1 rounded-full cursor-pointer':isFormValid,'bg-black opacity-60 px-4 py-1 rounded-full cursor-not-allowed':!isFormValid}">
                             Registrati
                         </button>
@@ -193,13 +190,8 @@ export default {
     },
     computed:{
         isFormValid(){
-            let formValid = true;
-            if(this.newUser.name && this.newUser.surname && this.newUser.birthday && this.newUser.email && this.newUser.password && this.validCheck == true){
-                return formValid;
-            }else{
-                formValid = false;
-                return formValid;
-            }
+            let formValid = this.newUser.name && this.newUser.surname && this.newUser.birthday && this.newUser.email && this.newUser.password && this.validCheck ? true : false;
+            return formValid;
         }
     },
     methods:{
