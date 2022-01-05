@@ -1,5 +1,5 @@
 <template>
-    <div class="h-screen w-full flex flex-col font-montserrat mb-10">
+    <div class="h-screen w-full flex flex-col font-montserrat">
         <div class="flex flex-row">
             <div class="flex flex-col">
                 <router-link to='/landing'>
@@ -53,6 +53,18 @@
                 </div>
             </div>
         </div>
+        <router-link to="/landing" class="mb-5">
+            <div class="flex flex-row justify-center cursor-pointer">
+                <div class="flex flex-col">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </div>
+                <div class="flex flex-col">
+                    <span>Torna alla Landing</span>
+                </div>
+            </div>
+        </router-link>
         <div class="flex flex-row">
             <div class="flex flex-col border-2 border-black rounded-2xl m-auto px-20 py-10">
                 <div class="flex flex-row justify-center mb-8">
@@ -157,14 +169,18 @@
                         <span> Accetto i Termini di Servizio </span>
                     </div>
                 </div>
+
+                <!-- BUTTON REGISTRATION -->
                 <div class="flex flex-row m-auto mt-3">
                     <div class="flex flex-col text-white text-xl">
-                        <button :disabled="!isFormComplete" class="font-bold"
-                            :class="{'bg-black px-4 py-1 rounded-full cursor-pointer':isFormValid,'bg-black opacity-60 px-4 py-1 rounded-full cursor-not-allowed':!isFormValid}">
+                        <button :disabled="!isFormValid" class="font-bold"
+                            :class="{'bg-black px-4 py-1 rounded-full cursor-pointer':isFormValid,'bg-black opacity-60 px-4 py-1 rounded-full cursor-not-allowed':!isFormValid}"
+                            @click="userRegister(newUser)">
                             Registrati
                         </button>
                     </div>
                 </div>
+
                 <div class="flex flex-row m-auto mt-5 text-sm">
                     <div class="flex flex-col">
                         <router-link to="/privacy-policy">
@@ -174,22 +190,13 @@
                 </div>
             </div>
         </div>
-        <router-link to="/landing" class="m-auto">
-        <div class="flex flex-row mt-5 cursor-pointer">
-            <div class="flex flex-col">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                </svg>
-            </div>
-            <div class="flex flex-col">
-                <span>Torna alla Landing</span>
-            </div>
-        </div>
-        </router-link>
+        
     </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     data(){
         return{
@@ -216,6 +223,13 @@ export default {
     },
     methods:{
         goToLogin(){
+            this.$router.push({
+                name: "login"
+            });
+        },
+        async userRegister(){
+            let response = await axios.post("http://localhost:8000/r4g/register",this.newUser);
+            this.newUser = response.data;
             this.$router.push({
                 name: "login"
             });

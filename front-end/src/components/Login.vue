@@ -53,6 +53,18 @@
                 </div>
             </div>
         </div>
+        <router-link to="/landing" class="mb-5">
+            <div class="flex flex-row justify-center cursor-pointer">
+                <div class="flex flex-col">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </div>
+                <div class="flex flex-col">
+                    <span>Torna alla Landing</span>
+                </div>
+            </div>
+        </router-link>
         <div class="flex flex-row">
             <div class="flex flex-col border-2 border-black rounded-2xl m-auto px-20 py-10">
                 <div class="flex flex-row justify-center mb-8">
@@ -106,6 +118,8 @@
                         <span> Ricordami </span>
                     </div>
                 </div>
+
+                <!-- BUTTON LOGIN -->
                 <div class="flex flex-row m-auto mt-3">
                     <div class="flex flex-col text-white text-xl">
                         <button 
@@ -115,15 +129,16 @@
                                 'bg-black px-4 py-1 rounded-full cursor-pointer':isFormValid,
                                 'bg-black opacity-60 px-4 py-1 rounded-full cursor-not-allowed':!isFormValid
                             }"
-                            @click="goToHome()" 
+                            @click="goToHome(user)" 
                         >
                             Accedi
                         </button>
                     </div>
                 </div>
+
                 <div class="flex flex-row m-auto mt-3">
                     <div class="flex flex-col">
-                        <span> Hai dimenticato la password? </span>
+                        <span class="cursor-pointer"> Hai dimenticato la password? </span>
                     </div>
                 </div>
                 <div class="flex flex-row m-auto mt-5 text-sm">
@@ -135,30 +150,20 @@
                 </div>
             </div>
         </div>
-        <router-link to="/landing" class="m-auto">
-            <div class="flex flex-row mt-5 cursor-pointer">
-                <div class="flex flex-col">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                    </svg>
-                </div>
-                <div class="flex flex-col">
-                    <span>Torna alla Landing</span>
-                </div>
-            </div>
-        </router-link>
+        
     </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
     data(){
         return{
-            user:
-                {
-                    email: "",
-                    password: ""
-                }
+            user:{
+                email: "",
+                password: ""
+            },
         }
     },
     mounted(){},
@@ -174,10 +179,24 @@ export default {
                 name: "registration"
             });
         },
-        goToHome(){
-            this.$router.push({
-                name: "home"
-            });
+        async goToHome(){
+            let res = await axios.post("http://localhost:8000/r4g/login",this.user);
+            this.user = res.data;
+
+            //archivazione dell'email nel local storage per la sessione
+            if(res.data.email){
+                localStorage.setItem(
+                    "AccessEmail",
+                    res.data.email
+                )
+            }
+
+            //controllo sullo stato della richiesta proveniente dal back-end
+            if(res.status === 200){
+                this.$router.push({
+                    name: "home"
+                });
+            }
         }
     }
 }

@@ -20,6 +20,11 @@
         >
           {{ link.label }} 
         </button>
+        <button class="p-2 sm:p-4 text-lg sm:text-xl rounded-xl sm:rounded-3xl font-bold"
+          @click="logout()"
+        >
+          Logout
+        </button>
       </div>
     </div>
 
@@ -52,6 +57,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Navigation",
   data() {
@@ -101,6 +108,13 @@ export default {
         });
       }
     },
+    async logout(){
+      await axios.get("http://localhost:8000/r4g/logout");
+      localStorage.removeItem("AccessEmail")
+      this.$router.push({
+        name: "login",
+      });
+    }
   },
 };
 </script>
