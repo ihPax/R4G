@@ -171,7 +171,8 @@
                 <div class="flex flex-row m-auto mt-3">
                     <div class="flex flex-col text-white text-xl">
                         <button :disabled="!isFormValid" class="font-bold"
-                            :class="{'bg-black px-4 py-1 rounded-full cursor-pointer':isFormValid,'bg-black opacity-60 px-4 py-1 rounded-full cursor-not-allowed':!isFormValid}">
+                            :class="{'bg-black px-4 py-1 rounded-full cursor-pointer':isFormValid,'bg-black opacity-60 px-4 py-1 rounded-full cursor-not-allowed':!isFormValid}"
+                            @click="userRegister(user)">
                             Registrati
                         </button>
                     </div>
