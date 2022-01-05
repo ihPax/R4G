@@ -112,7 +112,7 @@
 
                 <div class="flex flex-row m-auto mt-5">
                     <div class="flex flex-col m-auto mr-3">
-                        <input type="checkbox" >
+                        <input type="checkbox" class="w-4 h-4">
                     </div>
                     <div class="flex flex-col">
                         <span> Ricordami </span>
@@ -124,10 +124,10 @@
                     <div class="flex flex-col text-white text-xl">
                         <button 
                             :disabled="!isFormValid"
-                            class="font-bold"
+                            class="bg-black px-4 py-1 rounded-full font-bold"
                             :class="{
-                                'bg-black px-4 py-1 rounded-full cursor-pointer':isFormValid,
-                                'bg-black opacity-60 px-4 py-1 rounded-full cursor-not-allowed':!isFormValid
+                                'cursor-pointer':isFormValid,
+                                'opacity-60 cursor-not-allowed':!isFormValid
                             }"
                             @click="goToHome(user)" 
                         >
