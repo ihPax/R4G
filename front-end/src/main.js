@@ -6,6 +6,10 @@ import './style.css';
 
 import VueRouter from 'vue-router';
 import Home from "./components/Home.vue";
+import Login from "./components/Login.vue";
+import Registration from "./components/Registration.vue";
+import Dashboard from "./components/Dashboard.vue";
+
 import CalendarDesktop from "./components/CalendarDesktop.vue";
 import Landing from "./components/Landing.vue";
 import VueTailwind from 'vue-tailwind'
