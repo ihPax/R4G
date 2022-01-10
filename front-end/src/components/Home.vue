@@ -3,7 +3,7 @@
     class="h-screen w-full flex flex-row border-l-2 border-t-2 border-black rounded-tl-2xl"
   >
     <div class="h-full flex flex-col flex-grow p-8">
-      <div class="text-4xl font-bold sm: mb-4 lg:mb-12">ciao USER!</div>
+      <div class="text-4xl font-bold sm: mb-4 lg:mb-12">ciao {{user.name}}!</div>
       <div class="grid grid-cols-2 gap-8">
         <div
           v-for="index in 4"
@@ -11,7 +11,7 @@
           class="flex flex-col lg:flex-row items-center shadow-inner rounded-lg text-center"
         >
           <t-button class="flex flex-col mx-1 order-2 lg:order-1 my-4">
-            collega il tuo cestino
+            Collega il tuo cestino
           </t-button>
           <div class="flex flex-col mx-1 order-1 lg:order-2 flex-shrink-0 flex-grow">
             <span class="material-icons text-7xl xs:text-9xl sm:text-11xl"> delete </span>
@@ -35,18 +35,20 @@
 </template>
 
 <script>
-//import Calendar from "@/components/Calendar.vue";
 import Modal from "@/components/Modal";
+import axios from "axios";
+
 export default {
   name: "Home",
   components: {
-  //  Calendar,
     Modal
   },
   props: [],
-  mounted() {},
+  
   data() {
     return {
+      access:"",
+      user:[],
       showModal:false,
       navLinks: [
         {
@@ -63,6 +65,13 @@ export default {
         },
       ],
     };
+  },
+  async mounted() {
+    //ACCESS: recupera la mail salvata nel local storage
+    this.access = localStorage.getItem("AccessEmail");
+    //GET: recupera le informazioni relative all'utente con la mail passata
+    //THEN: una volta fatto il get, assegna il response.data all'user (risolto cosi per problema di "promise pending")
+    axios.get("http://localhost:8000/r4g/currentUser/"+this.access).then(response => {this.user = response.data});  
   },
   methods: {
     showModalTrue(){

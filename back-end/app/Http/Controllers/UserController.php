@@ -35,28 +35,30 @@ class UserController extends Controller
 
     //LOGIN USER
     public function login(Request $request){
-        $validator = Validator::make($request->all(),[
-            'email' => 'required|email|exists:users',
-            'password' => 'required|string|min:6'
+        $this->validate($request,[
+            'email' => 'bail|required|email',
+            'password' => 'bail|required|min:6'
         ]);
-        if ($validator->fails()) {
-            return array("status" => 500, "message" => "Inserisci correttamente l'email o la password");
-        }
-        $data = json_decode($request->getContent());
 
-        $user = new User();
-        $user->email = $data->email;
-        $user->password = $data->password;
-        $credentials = [
-            'email' => $user->email,
-            'password' => $user->password,
-        ];
-
-        if (Auth::attempt($credentials)) {
-            return array("status" => 200, "message" => "login: TRUE");
-        }else{
-            return array("status" => 500, "message" => "login: FALSE", "error" => "Email o Password errati");
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
+            $user = Auth::user();
+            return response()->json([
+              'status' => 'success',
+              'email' => $user->email,
+            ]
+            ,200); 
+        }else{ 
+            return response()->json([
+              'status' => 'error',
+              'user' => 'Unauthorized Access'
+            ]
+            ,401); 
         }
+    }
+
+    //CURRENT-USER
+    public function currentUser($email){
+       return User::where("email", $email)->first();
     }
 
     //LOGOUT

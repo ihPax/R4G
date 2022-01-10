@@ -5,6 +5,7 @@ import VCalendar from 'v-calendar';
 import './style.css';
 
 import VueRouter from 'vue-router';
+<<<<<<< HEAD
 import Home from "./components/Home.vue";
 import Login from "./components/Login.vue";
 import Registration from "./components/Registration.vue";
@@ -12,6 +13,15 @@ import Dashboard from "./components/Dashboard.vue";
 
 import CalendarDesktop from "./components/CalendarDesktop.vue";
 import Landing from "./components/Landing.vue";
+=======
+import Home from "@/components/Home.vue";
+import CalendarDesktop from "@/components/CalendarDesktop.vue";
+import Landing from "@/components/Landing.vue";
+import Registration from "@/components/Registration.vue";
+import Login from "@/components/Login.vue";
+import Dashboard from "@/components/Dashboard.vue";
+import PrivacyPolicy from "@/components/PrivacyPolicy.vue";
+>>>>>>> 8f23f5559b25f6c4df0bc98c171ee6f21d729ab4
 import VueTailwind from 'vue-tailwind'
 import {
   //TInput,
@@ -54,8 +64,7 @@ const settings = {
   't-button': {
     component: TButton,
     props: {
-      classes: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded',
-     
+      classes: 'bg-green-200 hover:bg-green-400 text-black font-bold py-2 px-4 rounded',
     }
   },
   't-modal': {
@@ -113,6 +122,11 @@ const routes = [
     component: Landing,
   },
   {
+    path: '/privacy-policy',
+    name: "PrivacyPolicy",
+    component: PrivacyPolicy,
+  },
+  {
     path: '/registration',
     name: "registration",
     component: Registration,
@@ -127,44 +141,44 @@ const routes = [
     component: Dashboard,
     children: [
       {
-        path: '/home',
+        path: 'home', //  è come se ci fosse scritto '/dashboard/home'
         name: "home",
         component: Home,
       },
       {
-        path: '/mybins',
+        path: 'mybins',
         name: 'myBins',
         component: Home,
       },
       {
-        path: '/calendar',
+        path: 'calendar',
         name: 'calendar',
         component: CalendarDesktop,
       },
       {
-        path: '/presentation',
+        path: 'presentation',
         name: 'presentation',
         component: Home,
       },
       {
-        path: '/account',
+        path: 'account',
         name: 'account',
         component: Home,
       },
       {
-        path: '/faq',
+        path: 'faq',
         name: 'faq',
         component: Home,
       },
       {
-        path: '',
-        name: "default_dashboard_route",
-        redirect: '/home',
+        path: '*',  // qualsiasi cosa scritta dopo '/dashboard/' reindirizza alla dashboard
+        name: "default_dashboard",
+        redirect: '/dashboard/home',
       }
     ]
   },
   {
-    path: '',
+    path: '*',  // qualsiasi percorso in cui non sia scritto '/dashboard/' porta alla landing
     name: "default_route",
     redirect: '/landing',
   }
