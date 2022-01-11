@@ -5,15 +5,6 @@ import VCalendar from 'v-calendar';
 import './style.css';
 
 import VueRouter from 'vue-router';
-<<<<<<< HEAD
-import Home from "./components/Home.vue";
-import Login from "./components/Login.vue";
-import Registration from "./components/Registration.vue";
-import Dashboard from "./components/Dashboard.vue";
-
-import CalendarDesktop from "./components/CalendarDesktop.vue";
-import Landing from "./components/Landing.vue";
-=======
 import Home from "@/components/Home.vue";
 import CalendarDesktop from "@/components/CalendarDesktop.vue";
 import Landing from "@/components/Landing.vue";
@@ -21,7 +12,6 @@ import Registration from "@/components/Registration.vue";
 import Login from "@/components/Login.vue";
 import Dashboard from "@/components/Dashboard.vue";
 import PrivacyPolicy from "@/components/PrivacyPolicy.vue";
->>>>>>> 8f23f5559b25f6c4df0bc98c171ee6f21d729ab4
 import VueTailwind from 'vue-tailwind'
 import {
   //TInput,
