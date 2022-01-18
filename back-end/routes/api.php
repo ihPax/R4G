@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\Forgot_passwordController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -21,10 +22,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/register',[UserController::class, 'register']);
-
 Route::post('/login', [UserController::class, 'login']);
 Route::get('/currentUser/{email}', [UserController::class, 'currentUser']);
 Route::get('/logout', [UserController::class, 'logout']);
+Route::post('/insert-zone/{email}', [UserController::class, 'saveZone']);
 
 Route::post('/forget-password', [Forgot_passwordController::class, 'submitForgetPasswordForm']); 
 Route::post('/reset-password/{code}', [Forgot_passwordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+
+Route::get('/zone-calendar/{id}', [ZoneController::class, 'zoneCalendar']);
+Route::get('/zones', [ZoneController::class, 'viewZone']);
