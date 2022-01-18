@@ -15,7 +15,7 @@
             <p
               v-for="attr in attributes"
               :key="attr.id"
-              class="text-xs leading-tight rounded-sm p-1 mt-0 mb-1"
+              class="text-xs leading-tight rounded-sm p-1 mt-0 mb-1 mx-1"
               :class="attr.customData.class"
             >
               {{ attr.customData.title }}
@@ -41,7 +41,7 @@ export default {
         {
           id: 1,
           customData: {
-            title: "Carta",
+            title: "Test",
             class: "bg-red-600 text-white",
           },
           dates: new Date(year, month, 1),
@@ -49,58 +49,42 @@ export default {
         {
           id: 2,
           customData: {
-            title: "Plastica",
-            class: "bg-blue-500 text-white",
+            title: "Umido",
+            class: "bg-yellow-800 text-white",
           },
-          dates: new Date(year, month, 2),
+          dates: { months: [1,2,3,4,5,6,7,8,9], weekdays: 3 },
         },
         {
           id: 3,
           customData: {
-            title: "Umido",
-            class: "bg-blue-500 text-white",
+            title: "Plastica",
+            class: "bg-yellow-400 text-white",
           },
-          dates: new Date(year, month, 4),
+          dates: { months: [1,2,3,4,5,6,7,8,9], weekdays: 4 },
         },
         {
           id: 4,
           customData: {
             title: "Secco",
-            class: "bg-indigo-500 text-white",
+            class: "bg-gray-800 text-white",
           },
-          dates: new Date(year, month, 5),
+          dates: { months: [1,2,3,4,5,6,7,8,9], weekdays: 6 },
         },
         {
           id: 5,
           customData: {
             title: "Carta",
-            class: "bg-yellow-500 text-white",
+            class: "bg-green-600 text-white",
           },
-          dates: new Date(year, month, 8),
+          dates: { months: [1,2,3,4,5,6,7,8,9], weekdays: 2 },
         },
         {
           id: 6,
           customData: {
-            title: "Plastica",
-            class: "bg-pink-500 text-white",
-          },
-          dates: new Date(year, month, 9),
-        },
-        {
-          id: 7,
-          customData: {
             title: "Umido",
-            class: "bg-orange-500 text-white",
+            class: "bg-yellow-800 text-white",
           },
-          dates: { months: 5, ordinalWeekdays: { 2: 1 } },
-        },
-        {
-          id: 8,
-          customData: {
-            title: "Secco",
-            class: "bg-pink-500 text-white",
-          },
-          dates: new Date(year, month, 11),
+          dates: { months: [1,2,3,4,5,6,7,8,9], weekdays: 5 },
         },
       ],
     };
