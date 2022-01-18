@@ -52,7 +52,7 @@ export default {
             title: "Umido",
             class: "bg-yellow-800 text-white",
           },
-          dates: { months: [1,2,3,4,5,6,7,8,9], weekdays: 3 },
+          dates: { monthlyInterval: 1, weekdays: 3 },
         },
         {
           id: 3,
@@ -60,7 +60,7 @@ export default {
             title: "Plastica",
             class: "bg-yellow-400 text-white",
           },
-          dates: { months: [1,2,3,4,5,6,7,8,9], weekdays: 4 },
+          dates: { monthlyInterval: 1, weekdays: 4 },
         },
         {
           id: 4,
@@ -68,7 +68,7 @@ export default {
             title: "Secco",
             class: "bg-gray-800 text-white",
           },
-          dates: { months: [1,2,3,4,5,6,7,8,9], weekdays: 6 },
+          dates: { monthlyInterval: 1, weekdays: 6 },
         },
         {
           id: 5,
@@ -76,7 +76,7 @@ export default {
             title: "Carta",
             class: "bg-green-600 text-white",
           },
-          dates: { months: [1,2,3,4,5,6,7,8,9], weekdays: 2 },
+          dates: { monthlyInterval: 1, weekdays: 2 },
         },
         {
           id: 6,
@@ -84,7 +84,7 @@ export default {
             title: "Umido",
             class: "bg-yellow-800 text-white",
           },
-          dates: { months: [1,2,3,4,5,6,7,8,9], weekdays: 5 },
+          dates: { monthlyInterval: 1, weekdays: 5 },
         },
       ],
     };
