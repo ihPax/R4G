@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Symfony\Component\Console\Input\Input;
 
 class UserController extends Controller
 {
@@ -17,17 +16,17 @@ class UserController extends Controller
             'password' => 'required|string|min:6'
         ]);
         if ($validator->fails()) {
-            return array("status" => 400, "message" => "Inserisci correttamente tutti la password");
+            return array("status" => 400, "message" => "Inserisci correttamente la password");
         }
 
         $newUserData = json_decode($request->getContent());
         
         $newUser = new User();
-        $newUser -> name = $newUserData->name;
-        $newUser -> surname = $newUserData->surname;
-        $newUser -> birthday =$newUserData->birthday;
-        $newUser -> email = $newUserData->email;
-        $newUser -> password = Hash::make($newUserData->password);
+        $newUser->name = $newUserData->name;
+        $newUser->surname = $newUserData->surname;
+        $newUser->birthday =$newUserData->birthday;
+        $newUser->email = $newUserData->email;
+        $newUser->password = Hash::make($newUserData->password);
  
         $newUser -> save();
         return $newUser;
@@ -65,5 +64,16 @@ class UserController extends Controller
     public function logout(){
         Auth::logout(); 
         return array("status" => 200, "message" => "Logout effettuato");
+    }
+
+    //SAVE USER-ZONE
+    public function saveZone($email, Request $request){
+        $data = json_decode($request->getContent());
+
+        $userZone = User::where("email", $email)->first();
+        $userZone->zone_id = $data->zone_id;
+
+        $userZone->save();
+        return array("status" => 200, "message" => "Zona inserita");;
     }
 }

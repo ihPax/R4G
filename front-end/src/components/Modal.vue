@@ -19,7 +19,6 @@ export default {
     async mounted(){
         let response = await axios.get("http://localhost:3000/comuni");
         this.comuni = response.data
-        console.log(this.comuni);
     }
 }
 </script>
