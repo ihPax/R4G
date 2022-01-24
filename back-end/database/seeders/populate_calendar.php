@@ -31,7 +31,7 @@ class populate_calendar extends Seeder
         DB::table('calendars')->insert([
             'nDay' => 3,
             'material' => "SECCO",
-            'class' => "bg-slate-300 text-black fotn-bold",
+            'class' => "bg-slate-300 text-black font-bold",
             "zone_id" => 1
         ]);
 
@@ -83,7 +83,7 @@ class populate_calendar extends Seeder
         DB::table('calendars')->insert([
             'nDay' => 4,
             'material' => "SECCO",
-            'class' => "bg-slate-300 text-black fotn-bold",
+            'class' => "bg-slate-300 text-black font-bold",
             "zone_id" => 2
         ]);
 
@@ -100,7 +100,7 @@ class populate_calendar extends Seeder
         DB::table('calendars')->insert([
             'nDay' => 1,
             'material' => "SECCO",
-            'class' => "bg-slate-300 text-black fotn-bold",
+            'class' => "bg-slate-300 text-black font-bold",
             "zone_id" => 3
         ]);
 
@@ -152,7 +152,7 @@ class populate_calendar extends Seeder
         DB::table('calendars')->insert([
             'nDay' => 4,
             'material' => "SECCO",
-            'class' => "bg-slate-300 text-black fotn-bold",
+            'class' => "bg-slate-300 text-black font-bold",
             "zone_id" => 4
         ]);
 

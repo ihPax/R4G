@@ -164,6 +164,7 @@ export default {
                 email: "",
                 password: ""
             },
+            Alluser:[]
         }
     },
     mounted(){},
@@ -181,13 +182,14 @@ export default {
         },
         async goToHome(){
             let res = await axios.post("http://localhost:8000/r4g/login",this.user);
-            this.user = res.data;
+            this.Alluser = res.data.user;
 
             //archivazione dell'email nel local storage per la sessione
-            if(res.data.email){
+            if(this.Alluser){
+                let parsed = JSON.stringify(this.Alluser)
                 localStorage.setItem(
                     "AccessEmail",
-                    res.data.email
+                   parsed
                 )
             }
 
