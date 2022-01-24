@@ -23,9 +23,9 @@
     <div class="hidden lg:flex flex-col flex-grow border-l-2 border-black">
       <div class="flex flex-row border-black border-b-2 pb-12 justify-center">
         <div v-if="!user.zone_id">
-          <t-modal v-model="showModal" header="Scegli il tuo Comune" close="chiudi"
-            ><Modal></Modal
-          ></t-modal>
+          <t-modal v-model="showModal" header="Scegli il tuo Comune" close="chiudi">
+            <Modal></Modal>
+          </t-modal>
           <t-button @click="showModalTrue()" type="button">Scegli il tuo comune</t-button>
           {{user.zone_id}}
         </div>

@@ -189,7 +189,7 @@ export default {
                 let parsed = JSON.stringify(this.Alluser)
                 localStorage.setItem(
                     "AccessEmail",
-                   parsed
+                    parsed
                 )
             }
 
