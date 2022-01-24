@@ -28,19 +28,26 @@ export default {
   methods: {
     async saveZone(comune) {
       this.user = JSON.parse(localStorage.getItem("AccessEmail"));
-      let responseUser = await axios.get("http://localhost:8000/r4g/currentUser/" + this.user.email);
-      this.newUser = responseUser.data;
-      //this.user = {zone_id:comune.id};
+
       let idZone = { zone_id: comune.id };
-      axios.post(
+
+      await axios.post(
         "http://localhost:8000/r4g/insert-zone/" + this.user.email,
         idZone
       );
+
+      let responseUser = await axios.get(
+        "http://localhost:8000/r4g/currentUser/" + this.user.email
+      );
+      this.newUser = responseUser.data;
+
       let parsed = JSON.stringify(this.newUser);
       localStorage.setItem("AccessEmail", parsed);
+
       this.$router.push({
-        name: "home",
+        name: "calendar",
       });
+      this.$emit("exit", true);
     },
   },
 };

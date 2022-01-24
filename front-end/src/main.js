@@ -95,7 +95,7 @@ const settings = {
         danger: {
           overlay: 'bg-red-100',
           header: 'border-red-50 text-red-700',
-          close: 'bg-red-50 text-red-700 hover:bg-red-200 border-red-100 border',
+         // close: 'bg-red-50 text-red-700 hover:bg-red-200 border-red-100 border',
           modal: 'bg-white border border-red-100 shadow-lg',
           footer: 'bg-red-50'
         }
