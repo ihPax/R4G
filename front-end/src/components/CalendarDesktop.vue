@@ -15,7 +15,7 @@
             <p
               v-for="attr in attributes"
               :key="attr.id"
-              class="text-xs leading-tight rounded-sm p-1 mt-0 mb-1 mx-1"
+              class="text-xs leading-tight rounded-sm p-2 mt-0 mb-1 mx-1 text-white font-bold"
               :class="attr.customData.class"
             >
               {{ attr.customData.title }}
@@ -31,8 +31,8 @@
 export default {
   name: "CalendarDesktop",
   data() {
-    const month = new Date().getMonth();
-    const year = new Date().getFullYear();
+    // const month = new Date().getMonth();
+    // const year = new Date().getFullYear();
     return {
       masks: {
         weekdays: "WWW",
@@ -41,50 +41,42 @@ export default {
         {
           id: 1,
           customData: {
-            title: "Test",
-            class: "bg-red-600 text-white",
+            title: "Carta",
+            class: "bg-green-600",
           },
-          dates: new Date(year, month, 1),
+          dates: { months: [1,2,3,4,5,6], weekdays: 2 },
         },
         {
           id: 2,
           customData: {
             title: "Umido",
-            class: "bg-yellow-800 text-white",
+            class: "bg-yellow-800",
           },
-          dates: { monthlyInterval: 1, weekdays: 3 },
+          dates: { months: [1,2,3,4,5,6], weekdays: 3 },
         },
         {
           id: 3,
           customData: {
             title: "Plastica",
-            class: "bg-yellow-400 text-white",
+            class: "bg-yellow-500",
           },
-          dates: { monthlyInterval: 1, weekdays: 4 },
+          dates: { months: [1,2,3,4,5,6], weekdays: 4 },
         },
         {
           id: 4,
           customData: {
-            title: "Secco",
-            class: "bg-gray-800 text-white",
+            title: "Umido",
+            class: "bg-yellow-800",
           },
-          dates: { monthlyInterval: 1, weekdays: 6 },
+          dates: { months: [1,2,3,4,5,6], weekdays: 5 },
         },
         {
           id: 5,
           customData: {
-            title: "Carta",
-            class: "bg-green-600 text-white",
+            title: "Secco",
+            class: "bg-gray-600",
           },
-          dates: { monthlyInterval: 1, weekdays: 2 },
-        },
-        {
-          id: 6,
-          customData: {
-            title: "Umido",
-            class: "bg-yellow-800 text-white",
-          },
-          dates: { monthlyInterval: 1, weekdays: 5 },
+          dates: { months: [1,2,3,4,5,6], weekdays: 6 },
         },
       ],
     };
