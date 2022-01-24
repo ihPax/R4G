@@ -92,7 +92,7 @@ export default {
             title: "Umido",
             class: "bg-orange-500 text-white",
           },
-          dates: { months: 5, ordinalWeekdays: { 2: 1 } },
+          dates: { months: 1, Weekdays: 1 },
         },
         {
           id: 8,
