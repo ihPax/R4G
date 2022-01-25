@@ -1,25 +1,26 @@
 <template>
   <div class="text-center section">
     <h2 class="p-3">Calendario Comune di Verona</h2>
-    <!-- class="custom-calendar max-w-full" -->
     <v-calendar
-      v-model="giorno"
+      class="custom-calendar max-w-full"
       :masks="masks"
       :attributes="attributes"
       disable-page-swipe
+      is-expanded
     >
-      <template  v-slot:day-content="{ day, attributes }">
+      <template v-slot:day-content="{ day, attributes }">
         <div class="flex flex-col h-full z-10 overflow-hidden">
-          <span class="day-label text-sm text-gray-900 ">{{ day.day }}</span>
-
-          <div class="flex-grow flex justify-center overflow-y-auto overflow-x-auto">
+          <span class="day-label text-sm text-gray-900">{{ day.day }}</span>
+          <div class="flex-grow overflow-y-auto overflow-x-auto">
             <p
               v-for="attr in attributes"
               :key="attr.id"
-              class=" "
-              :class="attr.customData.class"
+              class=""
+              :class="$route.name == 'calendar' ? 
+              attr.customData.class + ' text-xs leading-tight rounded-sm p-2 mt-0 mb-1 mx-1 text-white font-bold' : 
+              attr.customData.class + ' text-xxs mt-0 mb-1 w-2 h-2 mx-auto rounded-full'"
             >
-            <span> &#9679; </span>
+              {{ $route.name == "calendar" ? attr.customData.title : "&nbsp;" }} 
             </p>
           </div>
         </div>
@@ -30,93 +31,82 @@
 
 <script>
 export default {
-    name: 'Calendar',
+  name: "Calendar",
   data() {
-    const month = new Date().getMonth();
-    const year = new Date().getFullYear();
-
+    // const month = new Date().getMonth();
+    // const year = new Date().getFullYear();
     return {
       masks: {
-        weekdays: 'WWW',
+        weekdays: "WWW",
       },
-      attributes: [
-        {
-          id: 1,
-          customData: {
-            title: 'Carta',
-            class: 'text-red-600 text-white',
-          },
-          dates: new Date(year, month, 1),
-          
-        },
-        {
-          id: 2,
-          customData: {
-            title: 'Plastica',
-            class: 'text-blue-500 ',
-          },
-          dates: new Date(year, month, 2),
-        },
-        {
-          id: 3,
-          customData: {
-            title: 'Umido',
-            class: 'text-blue-500 text-white',
-          },
-          dates: new Date(year, month, 4),
-        },
-        {
-          id: 4,
-          customData: {
-            title: 'Secco',
-            class: 'text-indigo-500 text-white',
-          },
-          dates: new Date(year, month, 5),
-        },
-        {
-          id: 5,
-          customData: {
-            title: 'Carta',
-            class: 'text-yellow-500 text-white',
-          },
-          dates: new Date(year, month, 8),
-        },
-        {
-          id: 6,
-          customData: {
-            title: 'Plastica',
-            class: 'text-pink-500 text-white',
-          },
-          dates: new Date(year, month, 9),
-        },
-        {
-          id: 7,
-          customData: {
-            title: 'Umido',
-            class: 'text-orange-500 text-white',
-          },
-          dates: { months: 5, ordinalWeekdays: { 2: 1 } },
-        },
-        {
-          id: 8,
-          customData: {
-            title: "Secco",
-            class: 'text-pink-500 text-white',
-          },
-          dates: new Date(year, month, 11),
-        },
-        {
-          id: 9,
-          customData: {
-            title: 'Visit great grandma.',
-            class: 'text-red-600 text-white',
-          },
-          dates: new Date(year, month, 25),
-        },
-      ],
-      giorno: new Date()
-     
+       calendars: [],
+      attributes: [],
+      // attributes: [
+      //   {
+      //     id: 1,
+      //     customData: {
+      //       title: "Carta",
+      //       class: "bg-green-600",
+      //     },
+      //     dates: { months: [1,2,3,4,5,6], weekdays: 2 },
+      //   },
+      //   {
+      //     id: 2,
+      //     customData: {
+      //       title: "Umido",
+      //       class: "bg-yellow-800",
+      //     },
+      //     dates: { months: [1,2,3,4,5,6], weekdays: 3 },
+      //   },
+      //   {
+      //     id: 3,
+      //     customData: {
+      //       title: "Plastica",
+      //       class: "bg-yellow-500",
+      //     },
+      //     dates: { months: [1,2,3,4,5,6], weekdays: 4 },
+      //   },
+      //   {
+      //     id: 4,
+      //     customData: {
+      //       title: "Umido",
+      //       class: "bg-yellow-800",
+      //     },
+      //     dates: { months: [1,2,3,4,5,6], weekdays: 5 },
+      //   },
+      //   {
+      //     id: 5,
+      //     customData: {
+      //       title: "Secco",
+      //       class: "bg-gray-600",
+      //     },
+      //     dates: { months: [1,2,3,4,5,6], weekdays: 6 },
+      //   },
+      // ],
     };
+  },
+  mounted() {
+    this.calendars = JSON.parse(localStorage.getItem("Zone"));
+    this.calendar();
+  },
+  methods: {
+    calendar() {
+      for (let i = 0; i < this.calendars.calendars.length; i++) {
+        // console.log(this.attributes[i].customData.title)
+        this.attributes.push({
+          customData: {
+            title: this.calendars.calendars[i].material,
+            class: this.calendars.calendars[i].class,
+          },
+          dates: { months: [1,2,3,4,5,6], weekdays: this.calendars.calendars[i].nDay + 2 },
+        });
+          console.log(this.calendars.calendars[i].nDay + 2);
+        // this.attributes[i].customData.title = this.calendars.calendars[i].material;
+        // this.attributes[i].customData.class = this.calendars.calendars[i].class;
+        // this.attributes[i].dates.weekdays = this.calendars.calendars[i].nDay + 2;
+      }
+      console.log(this.attributes);
+    },
   },
 };
 </script>
@@ -136,7 +126,7 @@ export default {
   --weekday-bg: #f8fafc;
   --weekday-border: 1px solid #eaeaea;
   border-radius: 0;
-  width: 100%;
+  //width: 100%;
   & .vc-header {
     background-color: #f1f5f8;
     padding: 10px 0;
