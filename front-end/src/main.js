@@ -6,7 +6,7 @@ import './style.css';
 
 import VueRouter from 'vue-router';
 import Home from "@/components/Home.vue";
-import CalendarDesktop from "@/components/CalendarDesktop.vue";
+import Calendar from "@/components/Calendar.vue";
 import Landing from "@/components/Landing.vue";
 import Registration from "@/components/Registration.vue";
 import Login from "@/components/Login.vue";
@@ -143,7 +143,7 @@ const routes = [
       {
         path: 'calendar',
         name: 'calendar',
-        component: CalendarDesktop,
+        component: Calendar,
       },
       {
         path: 'presentation',
