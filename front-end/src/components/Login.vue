@@ -185,13 +185,12 @@ export default {
             this.Alluser = res.data.user;
 
             //archivazione dell'email nel local storage per la sessione
-            if(this.Alluser){
                 let parsed = JSON.stringify(this.Alluser)
                 localStorage.setItem(
                     "AccessEmail",
                     parsed
                 )
-            }
+            
 
             //controllo sullo stato della richiesta proveniente dal back-end
             if(res.status === 200){

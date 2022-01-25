@@ -10,13 +10,18 @@
           :key="index"
           class="flex flex-col lg:flex-row items-center shadow-inner rounded-lg text-center border-2 border-gray-300"
         >
-          <t-button 
-            class="flex flex-col mx-1 order-2 lg:order-1 my-4"
+
+          <t-button  v-if="binLinked[index] !== true"
+            class="flex flex-col mx-1 order-2 lg:order-1 my-4."
             @click="changeBinStatus(index)"
             :disabled="binLinked[index] === true"
           >
             Collega il tuo cestino
           </t-button>
+
+          <div> 
+          
+          </div>
           <div class="flex flex-col mx-1 order-1 lg:order-2 flex-shrink-0 flex-grow">
             <span class="material-icons text-7xl xs:text-9xl lg:text-11xl"> 
               <span v-if="!binLinked[index]">delete_forever</span>
