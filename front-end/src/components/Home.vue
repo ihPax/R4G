@@ -29,13 +29,15 @@
 
     <div class="hidden lg:flex flex-col flex-grow border-l-2 border-black">
       <div class="flex flex-row border-black border-b-2 pb-12 justify-center">
-        <div>
+        <div v-if="!user.zone_id">
           <t-modal v-model="showModal" header="Scegli il tuo Comune" close="chiudi">
-            <Modal></Modal>
+            <Modal @exit="closeModal"></Modal>
           </t-modal>
           <t-button @click="showModalTrue()" type="button">Scegli il tuo comune</t-button>
         </div>
-        <!-- <Calendar></Calendar> -->
+        <div v-if="user.zone_id">
+          <Calendar></Calendar>
+        </div>
       </div>
       <div class="flex flex-row">GRAFICO</div>
     </div>
@@ -44,11 +46,12 @@
 
 <script>
 import Modal from "@/components/Modal";
-import axios from "axios";
+import Calendar from "@/components/Calendar";
 
 export default {
   name: "Home",
   components: {
+    Calendar,
     Modal,
   },
   props: [],
@@ -63,15 +66,7 @@ export default {
     };
   },
   async mounted() {
-    //ACCESS: recupera la mail salvata nel local storage
-    this.access = localStorage.getItem("AccessEmail");
-    //GET: recupera le informazioni relative all'utente con la mail passata
-    //THEN: una volta fatto il get, assegna il response.data all'user (risolto cosi per problema di "promise pending")
-    await axios
-      .get("http://localhost:8000/r4g/currentUser/" + this.access)
-      .then((response) => {
-        this.user = response.data;
-      });
+    this.user = JSON.parse(localStorage.getItem("AccessEmail"));
     for (let i = 0; i < this.bins; i++) {
       this.binLinked.push(false);
     }
@@ -82,10 +77,11 @@ export default {
     },
     changeBinStatus(index) {
       this.binLinked.splice(index, 1, true);
+    },
+    closeModal(){
+      this.showModal = !this.showModal;
     }
   },
   computed: {},
 };
 </script>
-
-<style scoped lang="css"></style>

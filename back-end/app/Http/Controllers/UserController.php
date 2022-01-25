@@ -43,7 +43,7 @@ class UserController extends Controller
             $user = Auth::user();
             return response()->json([
               'status' => 'success',
-              'email' => $user->email,
+              'user' => $user,
             ]
             ,200); 
         }else{ 
