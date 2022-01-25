@@ -190,8 +190,15 @@ export default {
                     "AccessEmail",
                     parsed
                 )
-            
-
+            if(this.Alluser.zone_id != null){
+                let res = await axios.get("http://localhost:8000/r4g/zone-calendar/"+ this.Alluser.zone_id);
+                let zone = res.data;
+                let calendar = JSON.stringify(zone)
+                localStorage.setItem(
+                    "Zone",
+                    calendar
+                )
+            }
             //controllo sullo stato della richiesta proveniente dal back-end
             if(res.status === 200){
                 this.$router.push({

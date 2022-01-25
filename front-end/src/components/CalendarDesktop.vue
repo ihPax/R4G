@@ -37,49 +37,99 @@ export default {
       masks: {
         weekdays: "WWW",
       },
+      calendars: [],
       attributes: [
-        {
-          id: 1,
-          customData: {
-            title: "Carta",
-            class: "bg-green-600",
-          },
-          dates: { months: [1,2,3,4,5,6], weekdays: 2 },
-        },
-        {
-          id: 2,
-          customData: {
-            title: "Umido",
-            class: "bg-yellow-800",
-          },
-          dates: { months: [1,2,3,4,5,6], weekdays: 3 },
-        },
-        {
-          id: 3,
-          customData: {
-            title: "Plastica",
-            class: "bg-yellow-500",
-          },
-          dates: { months: [1,2,3,4,5,6], weekdays: 4 },
-        },
-        {
-          id: 4,
-          customData: {
-            title: "Umido",
-            class: "bg-yellow-800",
-          },
-          dates: { months: [1,2,3,4,5,6], weekdays: 5 },
-        },
-        {
-          id: 5,
-          customData: {
-            title: "Secco",
-            class: "bg-gray-600",
-          },
-          dates: { months: [1,2,3,4,5,6], weekdays: 6 },
-        },
+        // {
+        //   id: 0,
+        //   customData: {
+        //     title: "",
+        //     class: "",
+        //   },
+        //   dates: { months: [1,2,3,4,5,6], weekdays: 0 },
+        // },
+        //   {
+        //   id: 0,
+        //   customData: {
+        //     title: "",
+        //     class: "",
+        //   },
+        //   dates: { months: [1,2,3,4,5,6], weekdays: 0 },
+        // },
+        //   {
+        //   id: 0,
+        //   customData: {
+        //     title: "",
+        //     class: "",
+        //   },
+        //   dates: { months: [1,2,3,4,5,6], weekdays: 0 },
+        // }
       ],
+      // attributes: [
+      //   {
+      //     id: 1,
+      //     customData: {
+      //       title: "Carta",
+      //       class: "bg-green-600",
+      //     },
+      //     dates: { months: [1,2,3,4,5,6], weekdays: 2 },
+      //   },
+      //   {
+      //     id: 2,
+      //     customData: {
+      //       title: "Umido",
+      //       class: "bg-yellow-800",
+      //     },
+      //     dates: { months: [1,2,3,4,5,6], weekdays: 3 },
+      //   },
+      //   {
+      //     id: 3,
+      //     customData: {
+      //       title: "Plastica",
+      //       class: "bg-yellow-500",
+      //     },
+      //     dates: { months: [1,2,3,4,5,6], weekdays: 4 },
+      //   },
+      //   {
+      //     id: 4,
+      //     customData: {
+      //       title: "Umido",
+      //       class: "bg-yellow-800",
+      //     },
+      //     dates: { months: [1,2,3,4,5,6], weekdays: 5 },
+      //   },
+      //   {
+      //     id: 5,
+      //     customData: {
+      //       title: "Secco",
+      //       class: "bg-gray-600",
+      //     },
+      //     dates: { months: [1,2,3,4,5,6], weekdays: 6 },
+      //   },
+      // ],
     };
+  },
+  mounted() {
+    this.calendars = JSON.parse(localStorage.getItem("Zone"));
+    this.calendar();
+  },
+  methods: {
+    calendar() {
+      for (let i = 0; i < this.calendars.calendars.length; i++) {
+        // console.log(this.attributes[i].customData.title)
+        this.attributes.push({
+          customData: {
+            title: this.calendars.calendars[i].material,
+            class: this.calendars.calendars[i].class,
+          },
+          dates: { months: [1,2,3,4,5,6], weekdays: this.calendars.calendars[i].nDay + 2 },
+        });
+          console.log(this.calendars.calendars[i].nDay + 2);
+        // this.attributes[i].customData.title = this.calendars.calendars[i].material;
+        // this.attributes[i].customData.class = this.calendars.calendars[i].class;
+        // this.attributes[i].dates.weekdays = this.calendars.calendars[i].nDay + 2;
+      }
+      console.log(this.attributes);
+    },
   },
 };
 </script>

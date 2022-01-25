@@ -19,7 +19,7 @@ export default {
       comuni: [],
       user: {},
       access: "",
-      newUser:{},
+      newUser: {},
     };
   },
   async mounted() {
@@ -45,10 +45,17 @@ export default {
       let parsed = JSON.stringify(this.newUser);
       localStorage.setItem("AccessEmail", parsed);
 
+      let res = await axios.get(
+        "http://localhost:8000/r4g/zone-calendar/" + this.newUser.zone_id
+      );
+      let zone = res.data;
+      let calendar = JSON.stringify(zone);
+      localStorage.setItem("Zone", calendar);
+
       this.$router.push({
         name: "calendar",
       });
-      
+
       this.$emit("exit", true);
     },
   },
