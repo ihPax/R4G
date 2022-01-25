@@ -16,4 +16,10 @@ class ZoneController extends Controller
     public function viewZone(){
         return Zone::all();
     }
+
+    //VIEW CALENDAR OF THE USER'S ZONE
+    public function viewCalendarUserZone($id){
+        $user = Zone::with(["users","calendars"])->where("id", $id)->first();
+        return $user;
+    }
 }

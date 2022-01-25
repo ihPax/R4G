@@ -12,6 +12,14 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function calendars(){
+        return $this->hasManyThrough(Calendar::class, Zone::class);
+    }
+
+    public function zone(){
+        return $this->belongsTo(Zone::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

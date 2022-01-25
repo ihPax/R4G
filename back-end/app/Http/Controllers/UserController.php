@@ -76,4 +76,5 @@ class UserController extends Controller
         $userZone->save();
         return array("status" => 200, "message" => "Zona inserita");;
     }
+    
 }
