@@ -32,3 +32,4 @@ Route::post('/reset-password/{code}', [Forgot_passwordController::class, 'submit
 
 Route::get('/zone-calendar/{id}', [ZoneController::class, 'zoneCalendar']);
 Route::get('/zones', [ZoneController::class, 'viewZone']);
+Route::get('/user-calendar/{id}', [ZoneController::class, 'viewCalendarUserZone']);

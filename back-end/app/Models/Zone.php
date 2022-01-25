@@ -12,4 +12,8 @@ class Zone extends Model
     public function calendars(){
         return $this->hasMany(Calendar::class);
     }
+
+    public function users(){
+        return $this->hasMany(User::class);
+    }
 }
