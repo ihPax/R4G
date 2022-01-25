@@ -1,20 +1,26 @@
 <template>
+<div class="h-screen flex flex-col">
+  <UpperBar></UpperBar>
   <div
-    class="w-screen h-screen bg-white dark:bg-black text-black dark:text-white grid grid-cols-12"
+    class="bg-white dark:bg-black text-black dark:text-white flex-grow flex"
   >
     <Navigation></Navigation>
-    <div class="col-span-8 lg:col-span-10">
+    <div class="flex-grow">
       <router-view></router-view>
     </div>
   </div>
+</div>
 </template>
 
 <script>
 import Navigation from "@/components/Navigation.vue";
+import UpperBar from "@/components/UpperBar.vue";
+
 export default {
   name: "App",
   components: {
     Navigation,
+    UpperBar
   },
 };
 </script>

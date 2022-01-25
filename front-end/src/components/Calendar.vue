@@ -4,7 +4,7 @@
     <!-- class="custom-calendar max-w-full" -->
     <v-calendar
       v-model="giorno"
-     :masks="masks"
+      :masks="masks"
       :attributes="attributes"
       disable-page-swipe
     >

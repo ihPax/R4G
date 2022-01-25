@@ -1,5 +1,5 @@
 <template>
-    <div class="h-screen w-full flex flex-col font-montserrat">
+    <div class="h-full w-full flex flex-col font-montserrat">
         <div class="flex flex-row">
             <div class="flex flex-col">
                 <router-link to='/landing'>
@@ -182,6 +182,7 @@ export default {
         async goToHome(){
             let res = await axios.post("http://localhost:8000/r4g/login",this.user);
             this.user = res.data;
+            console.log(res);
 
             //archivazione dell'email nel local storage per la sessione
             if(res.data.email){
@@ -196,6 +197,8 @@ export default {
                 this.$router.push({
                     name: "home"
                 });
+            } else {
+                alert("Utente o password non corretta!");
             }
         }
     }

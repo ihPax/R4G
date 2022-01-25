@@ -1,38 +1,32 @@
 {
     "comuni": [{
-        "name": "verona"
+        "name": "Verona"
+    },
+    {
+        "name": "San Martino B. A."
+    },
+    {
+        "name": "Villafranca"
     },
     {
         "name": "San Bonifacio"
     },
     {
-        "name": "verona"
+        "name": "Grezzana"
     },
     {
-        "name": "San Bonifacio"
+        "name": "Montorio"
     },
     {
-        "name": "verona"
+        "name": "Rocchette"
     },
     {
-        "name": "San Bonifacio"
+        "name": "Marzana"
     },
     {
-        "name": "verona"
+        "name": "Veronetta"
     },
     {
-        "name": "San Bonifacio"
-    },
-    {
-        "name": "verona"
-    },
-    {
-        "name": "San Bonifacio"
-    },
-    {
-        "name": "verona"
-    },
-    {
-        "name": "San Bonifacio"
+        "name": "San Pietro in Cariano"
     }]
 }

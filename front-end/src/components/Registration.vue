@@ -1,5 +1,5 @@
 <template>
-    <div class="h-screen w-full flex flex-col font-montserrat">
+    <div class="h-full w-full flex flex-col font-montserrat">
         <div class="flex flex-row">
             <div class="flex flex-col">
                 <router-link to='/landing'>
@@ -172,7 +172,7 @@
                     <div class="flex flex-col text-white text-xl">
                         <button :disabled="!isFormValid" class="font-bold"
                             :class="{'bg-black px-4 py-1 rounded-full cursor-pointer':isFormValid,'bg-black opacity-60 px-4 py-1 rounded-full cursor-not-allowed':!isFormValid}"
-                            @click="userRegister(user)">
+                            @click="userRegister()">
                             Registrati
                         </button>
                     </div>

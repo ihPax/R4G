@@ -1,64 +1,27 @@
 <template>
-  <div id="navbar" class="col-span-4 lg:col-span-2 h-full">
-    <div class="flex flex-col h-full items-center">
-      <div class="-m-7">
-        <router-link to='/dashboard/home'>
-          <img src="../assets/logor4gblack.png" class="w-3/4 cursor-pointer" alt="logo R4G" />
-        </router-link>
-      </div>
-      <div class="flex flex-col h-full items-center">
+  <div id="navbar" class="min-w-6 xs:min-w-9 sm:min-w-12">
+    <div class="flex flex-col h-full">
+      <div class="flex flex-col items-start h-full">
         <button
           v-for="(link, index) in links"
           :key="link.code"
-          class="p-2 sm:p-4 text-lg sm:text-xl rounded-xl sm:rounded-3xl font-bold"
+          class="p-2 sm:p-3 my-1 sm:my-2 mx-2 text-lg sm:text-xl rounded sm:rounded-xl font-bold"
           :class="{
-            'bg-green-300 cursor-auto': link.code == currentRouteName,
-            'flex-grow': index == 4,
+            'bg-green-300 cursor-auto ': link.code == currentRouteName,
+            'flex-grow cursor-auto': index == 4,
+            'hover:bg-black hover:text-white hover:border-black': index != 4 && link.code != currentRouteName
           }"
           :disabled="link.code == currentRouteName"
           @click="goToLink(link)"
         >
-          {{ link.label }} 
-        </button>
-        <button class="p-2 sm:p-4 text-lg sm:text-xl rounded-xl sm:rounded-3xl font-bold"
-          @click="logout()"
-        >
-          Logout
+          {{ link.label }}
         </button>
       </div>
     </div>
-
-    <!-- <div class="flex flex-col h-full items-center">
-      <div class="-m-7">
-        <img src="../assets/logor4gblack.png">
-      </div>
-      <div class="p-4 rounded-lg font-bold text-xl cursor-pointer">
-        Dashboard
-      </div>
-      <div class="p-4 rounded-lg font-bold text-xl cursor-pointer">
-        I miei cestini
-      </div>
-      <div class="p-4 rounded-lg font-bold text-xl		 bg-green-400 cursor-pointer">
-        Calendario
-      </div>
-      <div class="p-4 rounded-lg font-bold text-xl cursor-pointer">
-        Chi siamo
-      </div>
-    </div>
-    <div class="flex flex-col flex-end items-center">
-        <div class="p-4 rounded-lg font-bold text-xl cursor-pointer">
-        Account
-        </div>
-        <div class="p-4 rounded-lg font-bold text-xl cursor-pointer">
-        FAQ
-        </div>
-    </div> -->
   </div>
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "Navigation",
   data() {
@@ -108,13 +71,6 @@ export default {
         });
       }
     },
-    async logout(){
-      await axios.get("http://localhost:8000/r4g/logout");
-      localStorage.removeItem("AccessEmail")
-      this.$router.push({
-        name: "login",
-      });
-    }
   },
 };
 </script>
