@@ -101,12 +101,11 @@ export default {
           },
           dates: { months: [1,2,3,4,5,6], weekdays: this.calendars.calendars[i].nDay + 2 },
         });
-          console.log(this.calendars.calendars[i].nDay + 2);
+        // console.log(this.calendars.calendars[i].nDay + 2);
         // this.attributes[i].customData.title = this.calendars.calendars[i].material;
         // this.attributes[i].customData.class = this.calendars.calendars[i].class;
         // this.attributes[i].dates.weekdays = this.calendars.calendars[i].nDay + 2;
       }
-      console.log(this.attributes);
     },
   },
 };
