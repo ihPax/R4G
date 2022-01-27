@@ -1,27 +1,27 @@
 <template>
   <div class="text-center section">
-    <h2 class="p-3">Calendario Comune di Verona</h2>
+    <h2 class="p-3 font-bold text-lg">Calendario Comune di {{calendars.name}}</h2>
     <v-calendar
       class="custom-calendar max-w-full"
       :masks="masks"
       :attributes="attributes"
       disable-page-swipe
-      is-expanded
+      :min-date="new Date()"
     >
       <template v-slot:day-content="{ day, attributes }">
         <div class="flex flex-col h-full z-10 overflow-hidden">
-          <span class="day-label text-sm text-gray-900">{{ day.day }}</span>
+          <span class="day-label text-sm text-gray-900 my-1">{{ day.day }}</span>
           <div class="flex-grow overflow-y-auto overflow-x-auto">
-            <p
+            <div
               v-for="attr in attributes"
               :key="attr.id"
-              class=""
+              class="mt-0 mb-1 font-bold"
               :class="$route.name == 'calendar' ? 
-              attr.customData.class + ' text-xs leading-tight rounded-sm p-2 mt-0 mb-1 mx-1 text-white font-bold' : 
-              attr.customData.class + ' text-xxs mt-0 mb-1 w-2 h-2 mx-auto rounded-full'"
+              attr.customData.class + ' text-xxs w-2 h-2 mx-auto rounded-full sm:text-xs sm:leading-tight sm:rounded-none sm:p-2 sm:mx-1 sm:text-white sm:w-full sm:h-full' : 
+              attr.customData.class + ' w-2 h-2 mx-auto rounded-full'"
             >
-              {{ $route.name == "calendar" ? attr.customData.title : "&nbsp;" }} 
-            </p>
+              <div class="hidden sm:block">{{ $route.name == "calendar" ? attr.customData.title : "" }}</div> 
+            </div>
           </div>
         </div>
       </template>
@@ -39,7 +39,7 @@ export default {
       masks: {
         weekdays: "WWW",
       },
-       calendars: [],
+      calendars: [],
       attributes: [],
       // attributes: [
       //   {
@@ -50,40 +50,6 @@ export default {
       //     },
       //     dates: { months: [1,2,3,4,5,6], weekdays: 2 },
       //   },
-      //   {
-      //     id: 2,
-      //     customData: {
-      //       title: "Umido",
-      //       class: "bg-yellow-800",
-      //     },
-      //     dates: { months: [1,2,3,4,5,6], weekdays: 3 },
-      //   },
-      //   {
-      //     id: 3,
-      //     customData: {
-      //       title: "Plastica",
-      //       class: "bg-yellow-500",
-      //     },
-      //     dates: { months: [1,2,3,4,5,6], weekdays: 4 },
-      //sium
-      //   },
-      //   {
-      //     id: 4,
-      //     customData: {
-      //       title: "Umido",
-      //       class: "bg-yellow-800",
-      //     },
-      //     dates: { months: [1,2,3,4,5,6], weekdays: 5 },
-      //   },
-      //   {
-      //     id: 5,
-      //     customData: {
-      //       title: "Secco",
-      //       class: "bg-gray-600",
-      //     },
-      //     dates: { months: [1,2,3,4,5,6], weekdays: 6 },
-      //   },
-      // ],
     };
   },
   mounted() {
@@ -126,7 +92,7 @@ export default {
   --weekday-bg: #f8fafc;
   --weekday-border: 1px solid #eaeaea;
   border-radius: 0;
-  //width: 100%;
+  width: 100%;
   & .vc-header {
     background-color: #f1f5f8;
     padding: 10px 0;
