@@ -123,13 +123,13 @@
                 <div class="flex flex-row m-auto mt-3">
                     <div class="flex flex-col text-white text-xl">
                         <button 
-                            :disabled="!isFormValid"
+                            :disabled="!isFormValid || isLogging"
                             class="bg-black px-4 py-1 rounded-full font-bold"
                             :class="{
                                 'cursor-pointer':isFormValid,
                                 'opacity-60 cursor-not-allowed':!isFormValid
                             }"
-                            @click="goToHome(user)" 
+                            @click="goToHome()" 
                         >
                             Accedi
                         </button>
@@ -151,6 +151,15 @@
             </div>
         </div>
         
+    <div v-if="isLogging"
+      class="fixed text-red-400 font-bold text-2xl"
+      style="top: 50%; left: 50%; transform: translate(-50%, -50%)"
+    >
+        <div
+          class="animate-spin rounded-full h-12 w-12 border-b-4 border-green-600">
+        </div>
+    </div>
+
     </div>
 </template>
 
@@ -164,7 +173,8 @@ export default {
                 email: "",
                 password: ""
             },
-            Alluser:[]
+            Alluser:[],
+            isLogging: false
         }
     },
     mounted(){},
@@ -181,31 +191,47 @@ export default {
             });
         },
         async goToHome(){
-            let res = await axios.post("http://localhost:8000/r4g/login",this.user);
-            this.Alluser = res.data.user;
+            this.isLogging = true;
+            let res = await axios.post("http://localhost:8000/r4g/login",this.user)
+            .catch((e) => {    
+                this.isLogging = false;
+                let err;
+                if (e.response) {
+                    err = e.response;
+                } else if (e.request) {
+                    err = e.request;
+                } else {
+                    console.log('Error', e.message);
+                }
+                if (err) {
+                    alert(err.statusText);
+                }
+            });
 
-            //archivazione dell'email nel local storage per la sessione
-                let parsed = JSON.stringify(this.Alluser)
-                localStorage.setItem(
-                    "AccessEmail",
-                    parsed
-                )
-            if(this.Alluser.zone_id != null){
-                let res = await axios.get("http://localhost:8000/r4g/zone-calendar/"+ this.Alluser.zone_id);
-                let zone = res.data;
-                let calendar = JSON.stringify(zone)
-                localStorage.setItem(
-                    "Zone",
-                    calendar
-                )
-            }
-            //controllo sullo stato della richiesta proveniente dal back-end
-            if(res.status === 200){
-                this.$router.push({
-                    name: "home"
-                });
-            } else {
-                alert("Utente o password non corretta!");
+            if (res) {
+                this.Alluser = res.data.user;
+
+                //archivazione dell'email nel local storage per la sessione
+                    let parsed = JSON.stringify(this.Alluser)
+                    localStorage.setItem(
+                        "AccessEmail",
+                        parsed
+                    )
+                if(this.Alluser.zone_id != null){
+                    let res = await axios.get("http://localhost:8000/r4g/zone-calendar/"+ this.Alluser.zone_id);
+                    let zone = res.data;
+                    let calendar = JSON.stringify(zone)
+                    localStorage.setItem(
+                        "Zone",
+                        calendar
+                    )
+                }
+                //controllo sullo stato della richiesta proveniente dal back-end
+                if(res.status === 200){
+                    this.$router.push({
+                        name: "home"
+                    });
+                }
             }
         }
     }
