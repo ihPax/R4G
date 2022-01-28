@@ -1,6 +1,8 @@
 <template>
   <div class="text-center section">
-    <h2 class="p-3 font-bold text-lg">Calendario Comune di {{calendars.name}}</h2>
+    <h2 class="p-3 font-bold text-lg">
+      Calendario <span v-if="$route.name == 'calendar'"> Comune di {{calendars.name}} </span>
+    </h2>
     <v-calendar
       class="custom-calendar max-w-full"
       :masks="masks"
