@@ -65,7 +65,7 @@
                 </div>
             </div>
         </router-link>
-        <div class="flex flex-row">
+        <form class="flex flex-row">
             <div class="flex flex-col border-2 border-black rounded-2xl m-auto px-20 py-10">
                 <div class="flex flex-row justify-center mb-8">
                     <div class="flex flex-col">
@@ -74,7 +74,7 @@
                         </svg>
                     </div>
                     <div class="flex flex-col">
-                        <span class="font-bold text-3xl">Login</span>
+                        <span class="font-bold text-3xl">Accedi</span>
                     </div>  
                 </div>
                 
@@ -90,7 +90,7 @@
                         <span v-else>&nbsp;&nbsp;</span>
                     </div>
                     <div class="flex flex-col">
-                        <input type='text' placeholder="Email" name="email" v-model="user.email" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
+                        <input type='text' placeholder="Email" name="email" autocomplete="email" v-model="user.email" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
                     </div>
                 </div>
 
@@ -106,13 +106,13 @@
                         <span v-else>&nbsp;&nbsp;</span>
                     </div>
                     <div class="flex flex-col">
-                        <input type='password' placeholder="Password" name="password" v-model="user.password" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
+                        <input type='password' placeholder="Password" name="password" v-model="user.password" autocomplete="password" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
                     </div>
                 </div>
 
                 <div class="flex flex-row m-auto mt-5">
                     <div class="flex flex-col m-auto mr-3">
-                        <input type="checkbox" class="w-4 h-4">
+                        <input type="checkbox" v-model="isRemembered" class="w-4 h-4">
                     </div>
                     <div class="flex flex-col">
                         <span> Ricordami </span>
@@ -149,14 +149,13 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
         
     <div v-if="isLogging"
-      class="fixed text-red-400 font-bold text-2xl"
+      class="fixed text-red-400 font-bold text-2xl z-10"
       style="top: 50%; left: 50%; transform: translate(-50%, -50%)"
     >
-        <div
-          class="animate-spin rounded-full h-12 w-12 border-b-4 border-green-600">
+        <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-green-600">
         </div>
     </div>
 
@@ -174,10 +173,17 @@ export default {
                 password: ""
             },
             Alluser:[],
-            isLogging: false
+            isLogging: false,
+            isRemembered: false
         }
     },
-    mounted(){},
+    mounted(){
+        let userStorage = JSON.parse(localStorage.getItem("AccessEmail"));
+        if (userStorage) {
+            this.user.email = userStorage.email;
+            this.isRemembered = true;
+        }
+    },
     computed:{
         isFormValid(){
             let formValid = !!this.user.email && !!this.user.password ? true : false;
@@ -192,9 +198,9 @@ export default {
         },
         async goToHome(){
             this.isLogging = true;
-            let res = await axios.post("http://localhost:8000/r4g/login",this.user)
-            .catch((e) => {    
-                this.isLogging = false;
+            let res = await axios
+            .post("http://localhost:8000/r4g/login",this.user)
+            .catch((e) => {
                 let err;
                 if (e.response) {
                     err = e.response;
@@ -204,7 +210,16 @@ export default {
                     console.log('Error', e.message);
                 }
                 if (err) {
-                    alert(err.statusText);
+                    this.$fire({
+                    text: err.statusText,
+                    type: "warning",
+                    timer: 2500,
+                    }).then(() => {
+                        this.isLogging = false
+                    });
+                    // this.$alert(err.statusText).then(() => {
+                    //     this.isLogging = false;
+                    // });
                 }
             });
 
@@ -212,11 +227,10 @@ export default {
                 this.Alluser = res.data.user;
 
                 //archivazione dell'email nel local storage per la sessione
-                    let parsed = JSON.stringify(this.Alluser)
-                    localStorage.setItem(
-                        "AccessEmail",
-                        parsed
-                    )
+                    let parsed = JSON.stringify(this.Alluser);
+                    let rememberEmail = JSON.stringify(this.isRemembered);
+                    localStorage.setItem("AccessEmail", parsed);
+                    localStorage.setItem("RememberEmail", rememberEmail);
                 if(this.Alluser.zone_id != null){
                     let res = await axios.get("http://localhost:8000/r4g/zone-calendar/"+ this.Alluser.zone_id);
                     let zone = res.data;

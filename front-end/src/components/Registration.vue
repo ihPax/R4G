@@ -90,7 +90,7 @@
                         <span v-else>&nbsp;&nbsp;</span>
                     </div>
                     <div class="flex flex-col">
-                        <input type='text' placeholder="Nome" name="name" v-model="newUser.name" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
+                        <input type='text' placeholder="Nome" name="name" autocomplete="name" v-model="newUser.name" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
                     </div>
                 </div>
 
@@ -106,7 +106,7 @@
                         <span v-else>&nbsp;&nbsp;</span>
                     </div>
                     <div class="flex flex-col">
-                        <input type='text' placeholder="Cognome" name="surname" v-model="newUser.surname" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
+                        <input type='text' placeholder="Cognome" name="surname" autocomplete="surname" v-model="newUser.surname" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
                     </div>
                 </div>
 
@@ -122,7 +122,7 @@
                         <span v-else>&nbsp;&nbsp;</span>
                     </div>
                     <div class="flex flex-col w-full">
-                        <input type='date' placeholder="Data di nascita" name="birthday" v-model="newUser.birthday" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
+                        <input type='date' placeholder="Data di nascita" name="birthday" autocomplete="birthday" v-model="newUser.birthday" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
                     </div>
                 </div>
                 
@@ -138,7 +138,7 @@
                         <span v-else>&nbsp;&nbsp;</span>
                     </div>
                     <div class="flex flex-col">
-                        <input type='text' placeholder="Email" name="email" v-model="newUser.email" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
+                        <input type='text' placeholder="Email" name="email" autocomplete="email" v-model="newUser.email" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
                     </div>
                 </div>
 
@@ -154,7 +154,7 @@
                         <span v-else>&nbsp;&nbsp;</span>
                     </div>
                     <div class="flex flex-col">
-                        <input type='password' placeholder="Password" name="password" v-model="newUser.password" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
+                        <input type='password' placeholder="Password" name="password" autocomplete="password" v-model="newUser.password" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
                     </div>
                 </div>
 
@@ -220,11 +220,21 @@ export default {
             });
         },
         async userRegister(){
-            let response = await axios.post("http://localhost:8000/r4g/register",this.newUser);
-            this.newUser = response.data;
-            this.$router.push({
-                name: "login"
-            });
+            if (this.newUser.password.length < 6) {
+                this.$fire({
+                    text: "Password must be long at least 6 characters",
+                    type: "warning",
+                    timer: 2500,
+                    }).then(() => {
+                        this.isLogging = false
+                    });
+            } else {
+                let response = await axios.post("http://localhost:8000/r4g/register",this.newUser);
+                this.newUser = response.data;
+                this.$router.push({
+                    name: "login"
+                });
+            }
         }
     }
 }

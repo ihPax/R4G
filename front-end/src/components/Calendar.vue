@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center section">
+  <div class="text-center section" v-if="calendars">
     <h2 class="p-3 font-bold text-lg">
       Calendario <span v-if="$route.name == 'calendar'"> Comune di {{calendars.name}} </span>
     </h2>
@@ -56,7 +56,9 @@ export default {
   },
   mounted() {
     this.calendars = JSON.parse(localStorage.getItem("Zone"));
-    this.calendar();
+    if (this.calendars) {
+      this.calendar();
+    }
   },
   methods: {
     calendar() {

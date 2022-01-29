@@ -181,6 +181,10 @@ const router = new VueRouter ({
 
 Vue.config.productionTip = false
 Vue.use(VueTailwind, settings)
+
+import VueSimpleAlert from "vue-simple-alert";
+Vue.use(VueSimpleAlert);
+
 new Vue({
   render: h => h(App),
   router,
