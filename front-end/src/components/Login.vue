@@ -112,10 +112,10 @@
 
                 <div class="flex flex-row m-auto mt-5">
                     <div class="flex flex-col m-auto mr-3">
-                        <input type="checkbox" v-model="isRemembered" class="w-4 h-4">
+                        <input type="checkbox" id="rememberMe" v-model="isRemembered" class="w-4 h-4">
                     </div>
                     <div class="flex flex-col">
-                        <span> Ricordami </span>
+                        <label for="rememberMe">Ricordami</label>
                     </div>
                 </div>
 

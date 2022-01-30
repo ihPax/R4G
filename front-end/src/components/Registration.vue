@@ -160,10 +160,10 @@
 
                 <div class="flex flex-row m-auto mt-5 justify-between">
                     <div class="flex flex-col m-auto mr-3">
-                        <input type="checkbox" v-model="validCheck" class="w-4 h-4">
+                        <input type="checkbox" id="acceptTOS" v-model="validCheck" class="w-4 h-4">
                     </div>
                     <div class="flex flex-col">
-                        <span> Accetto i Termini di Servizio </span>
+                        <label for="acceptTOS">Accetto i Termini di Servizio</label>
                     </div>
                 </div>
 
