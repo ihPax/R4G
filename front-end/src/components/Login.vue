@@ -124,10 +124,10 @@
                     <div class="flex flex-col text-white text-xl">
                         <button 
                             :disabled="!isFormValid || isLogging"
-                            class="bg-black px-4 py-1 rounded-full font-bold"
+                            class="font-bold px-4 py-1 rounded-full"
                             :class="{
-                                'cursor-pointer':isFormValid,
-                                'opacity-60 cursor-not-allowed':!isFormValid
+                                'cursor-pointer bg-black': isFormValid,
+                                'cursor-not-allowed bg-gray-500': !isFormValid
                             }"
                             @click="goToHome()" 
                         >
@@ -178,9 +178,9 @@ export default {
         }
     },
     mounted(){
-        let userStorage = JSON.parse(localStorage.getItem("AccessEmail"));
-        if (userStorage) {
-            this.user.email = userStorage.email;
+        let emailStoraged = JSON.parse(localStorage.getItem("Email"));
+        if (emailStoraged) {
+            this.user.email = emailStoraged;
             this.isRemembered = true;
         }
     },
@@ -191,6 +191,14 @@ export default {
         }
     },
     methods:{
+        rememberEmail() {
+            if (this.isRemembered === true) {
+                let emailSaved = JSON.stringify(this.user.email);
+                localStorage.setItem("Email", emailSaved);
+            } else {
+                localStorage.removeItem("Email");
+            }
+        },
         goToRegistration(){
             this.$router.push({
                 name: "registration"
@@ -198,6 +206,7 @@ export default {
         },
         async goToHome(){
             this.isLogging = true;
+            this.rememberEmail();
             let res = await axios
             .post("http://localhost:8000/r4g/login",this.user)
             .catch((e) => {
@@ -209,11 +218,16 @@ export default {
                 } else {
                     console.log('Error', e.message);
                 }
+                if (err.status == 401) {
+                    err.statusText = "Email e/o password non corretta";
+                } else if (err.status == 422) {
+                    err.statusText = "Email non valida e/o password con meno di 6 caratteri";
+                }
                 if (err) {
                     this.$fire({
                     text: err.statusText,
                     type: "warning",
-                    timer: 2500,
+                    timer: 3000,
                     }).then(() => {
                         this.isLogging = false
                     });
@@ -227,18 +241,16 @@ export default {
                 this.Alluser = res.data.user;
 
                 //archivazione dell'email nel local storage per la sessione
-                    let parsed = JSON.stringify(this.Alluser);
-                    let rememberEmail = JSON.stringify(this.isRemembered);
-                    localStorage.setItem("AccessEmail", parsed);
-                    localStorage.setItem("RememberEmail", rememberEmail);
+                let parsed = JSON.stringify(this.Alluser);
+                localStorage.setItem("AccessEmail", parsed);
                 if(this.Alluser.zone_id != null){
                     let res = await axios.get("http://localhost:8000/r4g/zone-calendar/"+ this.Alluser.zone_id);
                     let zone = res.data;
-                    let calendar = JSON.stringify(zone)
+                    let calendar = JSON.stringify(zone);
                     localStorage.setItem(
                         "Zone",
                         calendar
-                    )
+                    );
                 }
                 //controllo sullo stato della richiesta proveniente dal back-end
                 if(res.status === 200){

@@ -170,9 +170,15 @@
                 <!-- BUTTON REGISTRATION -->
                 <div class="flex flex-row m-auto mt-3">
                     <div class="flex flex-col text-white text-xl">
-                        <button :disabled="!isFormValid" class="font-bold"
-                            :class="{'bg-black px-4 py-1 rounded-full cursor-pointer':isFormValid,'bg-black opacity-60 px-4 py-1 rounded-full cursor-not-allowed':!isFormValid}"
-                            @click="userRegister()">
+                        <button 
+                            class="font-bold px-4 py-1 rounded-full"
+                            :class="{
+                                'cursor-pointer bg-black': isFormValid,
+                                'cursor-not-allowed bg-gray-500': !isFormValid
+                            }"
+                            @click="userRegister()"
+                            :disabled="!isFormValid"
+                        >
                             Registrati
                         </button>
                     </div>
@@ -222,7 +228,7 @@ export default {
         async userRegister(){
             if (this.newUser.password.length < 6) {
                 this.$fire({
-                    text: "Password must be long at least 6 characters",
+                    text: "La password dev'essere lunga almeno 6 caratteri!",
                     type: "warning",
                     timer: 2500,
                     }).then(() => {

@@ -31,11 +31,8 @@ export default {
   methods: {
     async logout(){
       await axios.get("http://localhost:8000/r4g/logout");
-      let rememberEmail = JSON.parse(localStorage.getItem("RememberEmail"));
-      if (!rememberEmail) {      
-        localStorage.removeItem("AccessEmail");
-        localStorage.removeItem("Zone");
-      }
+      localStorage.removeItem("AccessEmail");
+      localStorage.removeItem("Zone");
       this.$router.push({
         name: "login",
       });
