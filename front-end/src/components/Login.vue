@@ -53,18 +53,6 @@
                 </div>
             </div>
         </div>
-        <router-link to="/landing" class="mb-5">
-            <div class="flex flex-row justify-center cursor-pointer">
-                <div class="flex flex-col">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                    </svg>
-                </div>
-                <div class="flex flex-col">
-                    <span>Torna alla Landing</span>
-                </div>
-            </div>
-        </router-link>
         <form class="flex flex-row">
             <div class="flex flex-col border-2 border-black rounded-2xl m-auto px-20 py-10">
                 <div class="flex flex-row justify-center mb-8">
@@ -150,15 +138,25 @@
                 </div>
             </div>
         </form>
-        
-    <div v-if="isLogging"
-      class="fixed text-red-400 font-bold text-2xl z-10"
-      style="top: 50%; left: 50%; transform: translate(-50%, -50%)"
-    >
-        <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-green-600">
+        <router-link to="/landing" class="mt-5">
+            <div class="flex flex-row justify-center cursor-pointer">
+                <div class="flex flex-col">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </div>
+                <div class="flex flex-col">
+                    <span>Torna alla Landing</span>
+                </div>
+            </div>
+        </router-link>     
+        <div v-if="isLogging"
+            class="fixed text-red-400 font-bold text-2xl z-10"
+            style="top: 50%; left: 50%; transform: translate(-50%, -50%)"
+        >
+            <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-green-600">
+            </div>
         </div>
-    </div>
-
     </div>
 </template>
 
