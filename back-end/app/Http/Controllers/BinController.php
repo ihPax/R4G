@@ -50,7 +50,6 @@ class BinController extends Controller
 
         foreach($calendar as $cal){
             if($name_material == $cal->material){
-                
                 array_push($list, $cal);
             }
         }
