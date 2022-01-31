@@ -1,0 +1,6 @@
+[
+    {"name": "CARTA", "code": "CA"},
+    {"name": "PLASTICA/LATTINE", "code": "UM"},
+    {"name": "UMIDO", "code": "PL"},
+    {"name": "SECCO", "code": "SC"}
+]

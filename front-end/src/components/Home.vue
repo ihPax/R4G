@@ -19,7 +19,10 @@
             Collega il tuo cestino
           </t-button>
           <div v-else>
-            <div class="flex flex-col">
+          <t-modal v-model="showModalMaterial" header="Scegli il materiale" close="chiudi">
+          <ModalMaterial></ModalMaterial>
+          </t-modal>
+            <!-- <div class="flex flex-col">
               <div class="font-bold">
                 CARTA
               </div>
@@ -29,7 +32,7 @@
               <div class="font-normal">
                 {{new Date()}}
               </div>
-            </div>
+            </div> -->
           </div>
 
           <div class="flex flex-col mx-1 flex-shrink-0 flex-grow">
@@ -62,12 +65,13 @@
 <script>
 import Modal from "@/components/Modal";
 import Calendar from "@/components/Calendar";
-
+import ModalMaterial from "@/components/ModalMaterial";
 export default {
   name: "Home",
   components: {
     Calendar,
     Modal,
+    ModalMaterial
   },
   props: [],
 
@@ -76,6 +80,7 @@ export default {
       access: "",
       user: {},
       showModal: false,
+      showModalMaterial:false,
       bins: 4,
       binLinked: []
     };
@@ -90,8 +95,11 @@ export default {
     showModalTrue() {
       this.showModal = !this.showModal;
     },
+
     changeBinStatus(index) {
+       this.showModalMaterial = !this.showModalMaterial;
       this.binLinked.splice(index, 1, true);
+      
     },
     closeModal() {
       this.showModal = !this.showModal;
