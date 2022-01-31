@@ -15,12 +15,14 @@
           <button
             @click="goToRegistration()"
             class="px-4 py-2 rounded-md text-sm font-medium border focus:outline-none focus:ring rounded-xl transition text-yellow-600 border-yellow-600 mx-8 hover:text-white hover:bg-yellow-600 active:bg-yellow-700 focus:ring-yellow-300"
+            :disabled="$route.name=='registration'"
           >
             Registrati
           </button>
           <button
             @click="goToLogin()"
             class="px-4 py-2 rounded-md text-sm font-medium border focus:outline-none focus:ring rounded-xl transition text-yellow-600 border-yellow-600 mx-8 hover:text-white hover:bg-yellow-600 active:bg-yellow-700 focus:ring-yellow-300"
+            :disabled="$route.name=='login'"
           >
             Accedi
           </button>
