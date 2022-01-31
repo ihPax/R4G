@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center section" v-if="calendars">
+  <div class="text-center section">
     <h2 class="p-3 font-bold text-lg">
       Calendario <span v-if="$route.name == 'calendar'"> Comune di {{calendars.name}} </span>
     </h2>
@@ -19,7 +19,7 @@
               :key="attr.id"
               class="mt-0 mb-1 font-bold"
               :class="$route.name == 'calendar' ? 
-              attr.customData.class + ' text-xxs w-2 h-2 mx-auto rounded-full sm:text-xs sm:leading-tight sm:rounded-none sm:p-2 sm:mx-1 sm:text-white sm:w-auto sm:h-auto' : 
+              attr.customData.class + ' text-xxs w-2 h-2 mx-auto rounded-full sm:text-xs sm:leading-tight sm:rounded sm:p-2 sm:mx-1 sm:text-white sm:w-auto sm:h-auto' : 
               attr.customData.class + ' w-2 h-2 mx-auto rounded-full'"
             >
               <div class="hidden sm:block">{{ $route.name == "calendar" ? attr.customData.title : "" }}</div> 
@@ -56,9 +56,7 @@ export default {
   },
   mounted() {
     this.calendars = JSON.parse(localStorage.getItem("Zone"));
-    if (this.calendars) {
-      this.calendar();
-    }
+    this.calendar();
   },
   methods: {
     calendar() {
