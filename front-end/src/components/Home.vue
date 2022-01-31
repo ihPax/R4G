@@ -20,7 +20,7 @@
           </t-button>
           <div v-else>
           <t-modal v-model="showModalMaterial" header="Scegli il materiale" close="chiudi">
-          <ModalMaterial></ModalMaterial>
+          <ModalMaterial  @exit="closeMaterialModal"></ModalMaterial>
           </t-modal>
             <!-- <div class="flex flex-col">
               <div class="font-bold">
@@ -103,6 +103,9 @@ export default {
     },
     closeModal() {
       this.showModal = !this.showModal;
+    },
+    closeMaterialModal() {
+      this.showModalMaterial = !this.showModalMaterial;
     },
   },
   computed: {},

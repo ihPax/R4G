@@ -122,8 +122,7 @@
                 <!-- BUTTON LOGIN -->
                 <div class="flex flex-row m-auto mt-3">
                     <div class="flex flex-col text-white text-xl">
-                        <button 
-                        type="button"
+                        <button type="button"
                             :disabled="!isFormValid || isLogging"
                             class="font-bold px-4 py-1 rounded-full"
                             :class="{

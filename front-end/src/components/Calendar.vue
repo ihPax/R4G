@@ -19,7 +19,7 @@
               :key="attr.id"
               class="mt-0 mb-1 font-bold"
               :class="$route.name == 'calendar' ? 
-              attr.customData.class + ' text-xxs w-2 h-2 mx-auto rounded-full sm:text-xs sm:leading-tight sm:rounded-none sm:p-2 sm:mx-1 sm:text-white sm:w-full sm:h-full' : 
+              attr.customData.class + ' text-xxs w-2 h-2 mx-auto rounded-full sm:text-xs sm:leading-tight sm:rounded-none sm:p-2 sm:mx-1 sm:text-white sm:w-auto sm:h-auto' : 
               attr.customData.class + ' w-2 h-2 mx-auto rounded-full'"
             >
               <div class="hidden sm:block">{{ $route.name == "calendar" ? attr.customData.title : "" }}</div> 

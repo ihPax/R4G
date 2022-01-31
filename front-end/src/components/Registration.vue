@@ -65,7 +65,7 @@
                 </div>
             </div>
         </router-link>
-        <div class="flex flex-row">
+        <form class="flex flex-row">
             <div class="flex flex-col border-2 border-black rounded-2xl m-auto px-20 py-10">
                 <div class="flex flex-row justify-center mb-8">
                     <div class="flex flex-col">
@@ -170,7 +170,7 @@
                 <!-- BUTTON REGISTRATION -->
                 <div class="flex flex-row m-auto mt-3">
                     <div class="flex flex-col text-white text-xl">
-                        <button 
+                        <button type="button"
                             class="font-bold px-4 py-1 rounded-full"
                             :class="{
                                 'cursor-pointer bg-black': isFormValid,
@@ -192,7 +192,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
         
     </div>
 </template>
