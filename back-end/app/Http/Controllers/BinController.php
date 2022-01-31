@@ -10,9 +10,12 @@ use Illuminate\Http\Request;
 class BinController extends Controller
 {
     //NEW BIN
-    public function saveBin($user_id){
+    public function saveBin($user_id, Request $request){
+        $data = json_decode($request->getContent());
+        
         $newBin = new Bin();
         $newBin->user_id = $user_id;
+        $newBin->name = $data->name;
 
         $newBin->save();
         return array("status" => 200, "message" => "Cestino inserito");
