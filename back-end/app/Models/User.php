@@ -20,6 +20,10 @@ class User extends Authenticatable
         return $this->belongsTo(Zone::class);
     }
 
+    public function bins(){
+        return $this->hasMany(Bins::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

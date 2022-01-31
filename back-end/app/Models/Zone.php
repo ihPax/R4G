@@ -16,4 +16,8 @@ class Zone extends Model
     public function users(){
         return $this->hasMany(User::class);
     }
+
+    public function bin(){
+        return $this->hasManyThrough(Bin::class, User::class);
+    }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BinController;
 use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\Forgot_passwordController;
 use App\Http\Controllers\UserController;
@@ -33,3 +34,8 @@ Route::post('/reset-password/{code}', [Forgot_passwordController::class, 'submit
 Route::get('/zone-calendar/{id}', [ZoneController::class, 'zoneCalendar']);
 Route::get('/zones', [ZoneController::class, 'viewZone']);
 Route::get('/user-calendar/{id}', [ZoneController::class, 'viewCalendarUserZone']);
+
+Route::post('/new-bin/{user_id}', [BinController::class, 'saveBin']);
+Route::put('/update-bin/{id}', [BinController::class, 'updateBin']);
+Route::get('/view-bin/{id}', [BinController::class, 'viewMateriale']);
+Route::get('/material-bin/{id}', [BinController::class, 'materialBin']);

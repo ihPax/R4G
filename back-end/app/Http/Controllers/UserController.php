@@ -74,7 +74,6 @@ class UserController extends Controller
         $userZone->zone_id = $data->zone_id;
 
         $userZone->save();
-        return array("status" => 200, "message" => "Zona inserita");;
+        return array("status" => 200, "message" => "Zona inserita");
     }
-    
 }
