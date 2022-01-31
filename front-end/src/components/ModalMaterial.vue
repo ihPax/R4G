@@ -30,12 +30,14 @@ methods:{
         let  id = this.user.id;
         let response = await axios.post("http://localhost:8000/r4g/new-bin/"+id,{name:materiale.name});
 
-        //let res = await axios.get("http://localhost:8000/r4g/material-bin/"+id)
         this.bin = response.data;
-        console.log(this.bin)
+        let idBin = this.bin.bin.id;
 
-        // let localBin = JSON.stringify(this.bin);
-        //localStorage.setItem("Bin", localBin);
+        let res = await axios.get("http://localhost:8000/r4g/material-bin/"+idBin);
+        let calendaBin = res.data;
+
+         let localBin = JSON.stringify(calendaBin);
+        localStorage.setItem("Bin", localBin);
         // localStorage.setItem("Materiale", materiale.name);
         this.$emit("exit", true);
     }
