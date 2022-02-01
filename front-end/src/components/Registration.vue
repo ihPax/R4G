@@ -1,5 +1,6 @@
 <template>
-    <div class="h-full w-full flex flex-col font-montserrat">
+<div class="h-full w-full font-montserrat">
+    <div class="h-full w-full hidden xs:flex flex-col">
         <LoginRegisterBar></LoginRegisterBar>
         <form class="flex flex-row">
             <div class="flex flex-col border-2 border-black rounded-2xl m-auto px-20 py-10">
@@ -96,7 +97,7 @@
 
                 <div class="flex flex-row m-auto mt-5 justify-between">
                     <div class="flex flex-col m-auto mr-3">
-                        <input type="checkbox" id="acceptTOS" v-model="validCheck" class="w-4 h-4">
+                        <input type="checkbox" name="acceptTOS" v-model="validCheck" class="w-4 h-4">
                     </div>
                     <div class="flex flex-col">
                         <label for="acceptTOS">Accetto i Termini di Servizio</label>
@@ -142,6 +143,78 @@
             </div>
         </router-link>
     </div>
+
+    <!-- MOBILE -->
+    <form class="h-full w-full flex flex-col xs:hidden">
+        <div class="flex flex-col justify-center">
+            <router-link to="/landing" class="flex justify-center items-center">
+                <img
+                    src="../assets/logor4gblack.png"
+                    class="w-1/2 cursor-pointer"
+                    alt="logo R4G"
+                />
+            </router-link>
+        </div>
+
+        <div class="mx-5 text-center">
+            Crea il tuo account <br> e collega il tuo Cestino Smart
+        </div>
+
+        <!--NOME-->
+        <div class="flex flex-col mt-5 justify-between">
+            <input type='text' placeholder="Nome" name="name" autocomplete="name" v-model="newUser.name" class="mx-5 border-2 border-gray-200 px-5 rounded-lg"/>
+        </div>
+
+        <!--COGNOME-->
+        <div class="flex flex-col mt-5 justify-between">
+            <input type='text' placeholder="Cognome" name="surname" autocomplete="surname" v-model="newUser.surname" class="mx-5 border-2 border-gray-200 px-5 rounded-lg"/>
+        </div>
+
+         <!--DATA-->
+        <div class="flex flex-row mt-5 justify-between">
+            <input type='date' placeholder="Data di nascita" name="birthday" autocomplete="birthday" v-model="newUser.birthday" class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full placeholder:text-gray-400"/>
+        </div>
+
+        <!--EMAIL-->
+        <div class="flex flex-row mt-5 justify-between">
+            <input type='text' placeholder="Email" name="email" autocomplete="email" v-model="newUser.email" class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full"/>
+        </div>
+
+        <!--PASSWORD-->
+        <div class="flex flex-row mt-5 justify-between">
+            <input type='password' placeholder="Password" name="password" autocomplete="password" v-model="newUser.password" class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full"/>
+        </div>
+        <div class="flex flex-row justify-start items-baseline mt-5">
+            <input type="checkbox" name="acceptTOS" v-model="validCheck" class="w-6 h-6 ml-5">
+            <label for="acceptTOS" class="ml-5 my-auto">Accetto i Termini di Servizio</label>
+        </div>
+
+        <!--BUTTON REGISTRATION-->
+        <div class="flex flex-col text-white text-lg mt-5">
+            <button type="button"
+                class="font-bold px-4 py-2 mx-5 rounded text-white bg-yellow-600 hover:bg-yellow-700 active:bg-yellow-700 focus:ring-yellow-300"
+                :class="{
+                    'cursor-pointer': isFormValid,
+                    'cursor-not-allowed': !isFormValid
+                }"
+                @click="userRegister()"
+                :disabled="!isFormValid"
+            >
+                Registrati
+            </button>
+        </div>
+        <div class="flex text-sm m-5">
+            <span class="mr-2"> Sei già un membro? </span>
+            <button
+                @click="goToLogin()"
+                class="text-sm font-medium focus:outline-none"
+            >
+                Accedi
+            </button>
+        </div>
+    </form>
+</div>
+
 </template>
 
 <script>

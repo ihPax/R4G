@@ -1,5 +1,6 @@
 <template>
-    <div class="h-full w-full flex flex-col font-montserrat">
+<div class="h-full w-full font-montserrat">
+    <div class="h-full w-full hidden xs:flex flex-col">
         <LoginRegisterBar></LoginRegisterBar>
         <form class="flex flex-row">
             <div class="flex flex-col border-2 border-black rounded-2xl m-auto px-20 py-10">
@@ -65,7 +66,7 @@
                                 'cursor-pointer bg-black': isFormValid,
                                 'cursor-not-allowed bg-gray-500': !isFormValid
                             }"
-                            @click="goToHome()" 
+                            @click="login()" 
                         >
                             Accedi
                         </button>
@@ -106,6 +107,64 @@
             </div>
         </div>
     </div>
+
+    <!-- MOBILE -->
+    <form class="h-full w-full flex flex-col xs:hidden">
+        <div class="flex flex-col justify-center">
+            <router-link to="/landing" class="flex justify-center items-center">
+                <img
+                    src="../assets/logor4gblack.png"
+                    class="w-1/2 cursor-pointer"
+                    alt="logo R4G"
+                />
+            </router-link>
+        </div>
+
+        <div class="mx-5 text-center">
+            Accedi al tuo account <br> Recycle 4 Globe
+        </div>
+
+        <!--EMAIL-->
+        <div class="flex flex-row mt-5 justify-between">
+            <input type='text' placeholder="Email" name="email" autocomplete="email" v-model="user.email" class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full"/>
+        </div>
+
+        <!--PASSWORD-->
+        <div class="flex flex-row mt-5 justify-between">
+            <input type='password' placeholder="Password" name="password" autocomplete="password" v-model="user.password" class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full"/>
+        </div>
+
+        <!--BUTTON LOGIN-->
+        <div class="flex flex-col text-white text-lg my-5">
+            <button type="button"
+                class="font-bold px-4 py-2 mx-5 rounded text-white bg-yellow-600 hover:bg-yellow-700 active:bg-yellow-700 focus:ring-yellow-300"
+                :class="{
+                    'cursor-pointer': isFormValid,
+                    'cursor-not-allowed': !isFormValid
+                }"
+                @click="login()"
+                :disabled="!isFormValid"
+            >
+                Accedi
+            </button>
+        </div>
+
+        <div class="max-w-full mx-5">
+            <hr class="w-full border border-black border-solid bg-black">
+        </div>
+        
+        <!--BUTTON REGISTER-->
+        <div class="flex flex-col text-white text-lg mt-5">
+            <button type="button"
+                class="font-bold px-4 py-2 mx-5 rounded text-white bg-gray-800 hover:bg-gray-900 active:bg-gray-900 focus:ring-gray-900"
+                @click="goToRegistration()"
+            >
+                Registrati
+            </button>
+        </div>
+    </form>
+</div>
+    
 </template>
 
 <script>
@@ -154,7 +213,7 @@ export default {
                 name: "registration"
             });
         },
-        async goToHome(){
+        async login(){
             this.isLogging = true;
             this.rememberEmail();
             let res = await axios
