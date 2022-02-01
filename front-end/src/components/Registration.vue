@@ -97,7 +97,7 @@
 
                 <div class="flex flex-row m-auto mt-5 justify-between">
                     <div class="flex flex-col m-auto mr-3">
-                        <input type="checkbox" name="acceptTOS" v-model="validCheck" class="w-4 h-4">
+                        <input type="checkbox" id="acceptTOS" v-model="validCheck" class="w-4 h-4">
                     </div>
                     <div class="flex flex-col">
                         <label for="acceptTOS">Accetto i Termini di Servizio</label>
@@ -185,8 +185,8 @@
             <input type='password' placeholder="Password" name="password" autocomplete="password" v-model="newUser.password" class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full"/>
         </div>
         <div class="flex flex-row justify-start items-baseline mt-5">
-            <input type="checkbox" name="acceptTOS" v-model="validCheck" class="w-6 h-6 ml-5">
-            <label for="acceptTOS" class="ml-5 my-auto">Accetto i Termini di Servizio</label>
+            <input type="checkbox" id="acceptToS" v-model="validCheck" class="w-6 h-6 ml-5">
+            <label for="acceptToS" class="ml-5 my-auto">Accetto i Termini di Servizio</label>
         </div>
 
         <!--BUTTON REGISTRATION-->
