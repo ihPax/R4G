@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     async logout(){
-      await this.$axios.get("http://localhost:8000/r4g/logout");
+      await this.$axios.get("/r4g/logout");
       localStorage.removeItem("AccessEmail");
       localStorage.removeItem("Zone");
       this.$router.push({

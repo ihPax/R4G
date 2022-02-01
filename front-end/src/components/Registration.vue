@@ -162,27 +162,27 @@
 
         <!--NOME-->
         <div class="flex flex-col mt-5 justify-between">
-            <input type='text' placeholder="Nome" name="name" autocomplete="name" v-model="newUser.name" class="mx-5 border-2 border-gray-200 px-5 rounded-lg"/>
+            <input type='text' placeholder="Nome" name="name" autocomplete="name" v-model="newUser.name" class="mx-5 border-2 border-gray-200 px-5 rounded-lg h-12"/>
         </div>
 
         <!--COGNOME-->
         <div class="flex flex-col mt-5 justify-between">
-            <input type='text' placeholder="Cognome" name="surname" autocomplete="surname" v-model="newUser.surname" class="mx-5 border-2 border-gray-200 px-5 rounded-lg"/>
+            <input type='text' placeholder="Cognome" name="surname" autocomplete="surname" v-model="newUser.surname" class="mx-5 border-2 border-gray-200 px-5 rounded-lg h-12"/>
         </div>
 
          <!--DATA-->
         <div class="flex flex-row mt-5 justify-between">
-            <input type='date' placeholder="Data di nascita" name="birthday" autocomplete="birthday" v-model="newUser.birthday" class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full placeholder:text-gray-400"/>
+            <input type='date' placeholder="Data di nascita" name="birthday" autocomplete="birthday" v-model="newUser.birthday" class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full placeholder:bg-white h-12"/>
         </div>
 
         <!--EMAIL-->
         <div class="flex flex-row mt-5 justify-between">
-            <input type='text' placeholder="Email" name="email" autocomplete="email" v-model="newUser.email" class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full"/>
+            <input type='text' placeholder="Email" name="email" autocomplete="email" v-model="newUser.email" class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full h-12"/>
         </div>
 
         <!--PASSWORD-->
         <div class="flex flex-row mt-5 justify-between">
-            <input type='password' placeholder="Password" name="password" autocomplete="password" v-model="newUser.password" class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full"/>
+            <input type='password' placeholder="Password" name="password" autocomplete="password" v-model="newUser.password" class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full h-12"/>
         </div>
         <div class="flex flex-row justify-start items-baseline mt-5">
             <input type="checkbox" id="acceptToS" v-model="validCheck" class="w-6 h-6 ml-5">
@@ -258,7 +258,7 @@ export default {
                         this.isLogging = false
                     });
             } else {
-                let response = await this.$axios.post("http://localhost:8000/r4g/register",this.newUser);
+                let response = await this.$axios.post("/r4g/register",this.newUser);
                 this.newUser = response.data;
                 this.$router.push({
                     name: "login"

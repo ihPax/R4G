@@ -109,7 +109,7 @@
     </div>
 
     <!-- MOBILE -->
-    <form class="h-full w-full flex flex-col xs:hidden">
+    <form class="h-full w-full flex flex-col justify-between xs:hidden">
         <div class="flex flex-col justify-center">
             <router-link to="/landing" class="flex justify-center items-center">
                 <img
@@ -126,12 +126,12 @@
 
         <!--EMAIL-->
         <div class="flex flex-row mt-5 justify-between">
-            <input type='text' placeholder="Email" name="email" autocomplete="email" v-model="user.email" class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full"/>
+            <input type='text' placeholder="Email" name="email" autocomplete="email" v-model="user.email" class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full h-12"/>
         </div>
 
         <!--PASSWORD-->
-        <div class="flex flex-row mt-5 justify-between">
-            <input type='password' placeholder="Password" name="password" autocomplete="password" v-model="user.password" class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full"/>
+        <div class="flex flex-row my-5 justify-between">
+            <input type='password' placeholder="Password" name="password" autocomplete="password" v-model="user.password" class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full h-12"/>
         </div>
 
         <!--BUTTON LOGIN-->
@@ -154,7 +154,7 @@
         </div>
         
         <!--BUTTON REGISTER-->
-        <div class="flex flex-col text-white text-lg mt-5">
+        <div class="flex flex-col text-white text-lg my-5">
             <button type="button"
                 class="font-bold px-4 py-2 mx-5 rounded text-white bg-gray-800 hover:bg-gray-900 active:bg-gray-900 focus:ring-gray-900"
                 @click="goToRegistration()"
@@ -216,7 +216,7 @@ export default {
             this.isLogging = true;
             this.rememberEmail();
             let res = await this.$axios
-            .post("http://localhost:8000/r4g/login",this.user)
+            .post("/r4g/login",this.user)
             .catch((e) => {
                 let err;
                 if (e.response) {
@@ -252,7 +252,7 @@ export default {
                 let parsed = JSON.stringify(this.Alluser);
                 localStorage.setItem("AccessEmail", parsed);
                 if(this.Alluser.zone_id != null){
-                    let res = await this.$axios.get("http://localhost:8000/r4g/zone-calendar/"+ this.Alluser.zone_id);
+                    let res = await this.$axios.get("/r4g/zone-calendar/"+ this.Alluser.zone_id);
                     let zone = res.data;
                     let calendar = JSON.stringify(zone);
                     localStorage.setItem(

@@ -22,7 +22,7 @@ export default {
     };
   },
   async mounted() {
-    let response = await this.$axios.get("http://localhost:8000/r4g/zones");
+    let response = await this.$axios.get("/r4g/zones");
     this.comuni = response.data;
   },
   methods: {
@@ -32,12 +32,12 @@ export default {
       let idZone = { zone_id: comune.id };
 
       await this.$axios.post(
-        "http://localhost:8000/r4g/insert-zone/" + this.user.email,
+        "/r4g/insert-zone/" + this.user.email,
         idZone
       );
 
       let responseUser = await this.$axios.get(
-        "http://localhost:8000/r4g/currentUser/" + this.user.email
+        "/r4g/currentUser/" + this.user.email
       );
       this.newUser = responseUser.data;
 
@@ -45,7 +45,7 @@ export default {
       localStorage.setItem("AccessEmail", parsed);
 
       let res = await this.$axios.get(
-        "http://localhost:8000/r4g/zone-calendar/" + this.newUser.zone_id
+        "/r4g/zone-calendar/" + this.newUser.zone_id
       );
       let zone = res.data;
       let calendar = JSON.stringify(zone);

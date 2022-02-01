@@ -192,12 +192,12 @@ export default {
     },
     async getBin() {
       let response = await this.$axios.get(
-        "http://localhost:8000/r4g/view-bin-user/" + this.user.id
+        "/r4g/view-bin-user/" + this.user.id
       );
       if (response) {
         let viewBinUser = response.data;
         let res = await this.$axios.get(
-          "http://localhost:8000/r4g/material-bin/" + viewBinUser.bin_id
+          "/r4g/material-bin/" + viewBinUser.bin_id
         );
         let calendaBin = res.data;
         this.localBin = JSON.stringify(calendaBin);
