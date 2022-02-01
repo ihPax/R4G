@@ -1,6 +1,6 @@
 <template>
 <div class="h-full w-full font-montserrat">
-    <div class="h-full w-full hidden xs:flex flex-col">
+    <div v-if="!isMobile" class="h-full w-full flex flex-col">
         <LoginRegisterBar></LoginRegisterBar>
         <form class="flex flex-row">
             <div class="flex flex-col border-2 border-black rounded-2xl m-auto px-20 py-10">
@@ -145,7 +145,7 @@
     </div>
 
     <!-- MOBILE -->
-    <form class="h-full w-full flex flex-col xs:hidden">
+    <form v-else class="h-full w-full flex flex-col">
         <div class="flex flex-col justify-center">
             <router-link to="/landing" class="flex justify-center items-center">
                 <img
@@ -184,7 +184,9 @@
         <div class="flex flex-row mt-5 justify-between">
             <input type='password' placeholder="Password" name="password" autocomplete="password" v-model="newUser.password" class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full h-12"/>
         </div>
-        <div class="flex flex-row justify-start items-baseline mt-5">
+
+        <!--TOS-->
+        <div class="flex flex-row justify-center items-baseline mt-5">
             <input type="checkbox" id="acceptToS" v-model="validCheck" class="w-6 h-6 ml-5">
             <label for="acceptToS" class="ml-5 my-auto">Accetto i Termini di Servizio</label>
         </div>
@@ -203,7 +205,7 @@
                 Registrati
             </button>
         </div>
-        <div class="flex text-sm m-5">
+        <div class="flex text-sm m-5 justify-center">
             <span class="mr-2"> Sei già un membro? </span>
             <button
                 @click="goToLogin()"
@@ -234,6 +236,7 @@ export default {
                 email:"",
                 password:""
             },
+            isMobile: false
         }
     },
     computed:{
@@ -242,7 +245,21 @@ export default {
             return formValid;
         }
     },
+    created() {
+        window.addEventListener("resize", this.currentWidth);
+    },
+    destroyed() {
+        window.removeEventListener("resize", this.currentWidth);
+    },
+    mounted() {
+        this.currentWidth();
+    },
     methods:{
+        currentWidth() {
+            let currentWidth = window.innerWidth;
+            let xs = 475;
+            this.isMobile = currentWidth < xs ? true : false;
+        },
         goToLogin(){
             this.$router.push({
                 name: "login"

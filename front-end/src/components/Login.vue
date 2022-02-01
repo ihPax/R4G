@@ -1,6 +1,6 @@
 <template>
 <div class="h-full w-full font-montserrat">
-    <div class="h-full w-full hidden xs:flex flex-col">
+    <div v-if="!isMobile" class="h-full w-full flex flex-col">
         <LoginRegisterBar></LoginRegisterBar>
         <form class="flex flex-row">
             <div class="flex flex-col border-2 border-black rounded-2xl m-auto px-20 py-10">
@@ -109,7 +109,7 @@
     </div>
 
     <!-- MOBILE -->
-    <form class="h-full w-full flex flex-col justify-between xs:hidden">
+    <form v-else class="h-full w-full flex flex-col justify-between xs:hidden">
         <div class="flex flex-col justify-center">
             <router-link to="/landing" class="flex justify-center items-center">
                 <img
@@ -182,8 +182,15 @@ export default {
             },
             Alluser:[],
             isLogging: false,
-            isRemembered: false
+            isRemembered: false,
+            isMobile: false
         }
+    },
+    created() {
+        window.addEventListener("resize", this.currentWidth);
+    },
+    destroyed() {
+        window.removeEventListener("resize", this.currentWidth);
     },
     mounted(){
         let emailStoraged = JSON.parse(localStorage.getItem("Email"));
@@ -191,6 +198,7 @@ export default {
             this.user.email = emailStoraged;
             this.isRemembered = true;
         }
+        this.currentWidth();
     },
     computed:{
         isFormValid(){
@@ -199,6 +207,11 @@ export default {
         }
     },
     methods:{
+        currentWidth() {
+            let currentWidth = window.innerWidth;
+            let xs = 475;
+            this.isMobile = currentWidth < xs ? true : false;
+        },
         rememberEmail() {
             if (this.isRemembered === true) {
                 let emailSaved = JSON.stringify(this.user.email);
