@@ -1,7 +1,7 @@
 <template>
   <div class="text-center section">
     <h2 class="p-3 font-bold text-lg">
-      Calendario <span v-if="$route.name == 'calendar'"> Comune di {{calendars.name}} </span>
+      Calendario <span v-if="isExpanded"> Comune di {{calendars.name}} </span>
     </h2>
     <v-calendar
       class="custom-calendar max-w-full"
@@ -18,11 +18,11 @@
               v-for="attr in attributes"
               :key="attr.id"
               class="mt-0 mb-1 font-bold"
-              :class="$route.name == 'calendar' ? 
+              :class="isExpanded ? 
               attr.customData.class + ' text-xxs w-2 h-2 mx-auto rounded-full sm:text-xs sm:leading-tight sm:rounded sm:p-2 sm:mx-1 sm:text-white sm:w-auto sm:h-auto' : 
               attr.customData.class + ' w-2 h-2 mx-auto rounded-full'"
             >
-              <div class="hidden sm:block">{{ $route.name == "calendar" ? attr.customData.title : "" }}</div> 
+              <div class="hidden sm:block">{{ isExpanded ? attr.customData.title : "" }}</div> 
             </div>
           </div>
         </div>
@@ -34,6 +34,12 @@
 <script>
 export default {
   name: "Calendar",
+  props: {
+    isExpanded: {
+      type: Boolean,
+      default: true
+    },
+  },
   data() {
     // const month = new Date().getMonth();
     // const year = new Date().getFullYear();

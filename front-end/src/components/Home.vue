@@ -129,7 +129,7 @@
           <t-button @click="showModalTrue()" type="button">Scegli il tuo comune</t-button>
         </div>
         <div v-if="user.zone_id">
-          <Calendar></Calendar>
+          <Calendar :is-expanded="false"></Calendar>
         </div>
       </div>
       <div class="flex flex-row">GRAFICO</div>
