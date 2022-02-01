@@ -55,8 +55,10 @@ export default {
     };
   },
   mounted() {
-    this.calendars = JSON.parse(localStorage.getItem("Zone"));
-    this.calendar();
+    this.calendars = JSON.parse(localStorage.getItem("Zone")) || "";
+    if (this.calendars != "") {
+      this.calendar();
+    }
   },
   methods: {
     calendar() {
