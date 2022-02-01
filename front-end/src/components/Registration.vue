@@ -218,7 +218,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import LoginRegisterBar from '@/components/LoginRegisterBar.vue';
 
 export default {
@@ -259,7 +258,7 @@ export default {
                         this.isLogging = false
                     });
             } else {
-                let response = await axios.post("http://localhost:8000/r4g/register",this.newUser);
+                let response = await this.$axios.post("http://localhost:8000/r4g/register",this.newUser);
                 this.newUser = response.data;
                 this.$router.push({
                     name: "login"

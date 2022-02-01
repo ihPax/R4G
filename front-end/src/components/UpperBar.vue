@@ -18,8 +18,6 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "Navigation",
   data() {
@@ -30,7 +28,7 @@ export default {
   },
   methods: {
     async logout(){
-      await axios.get("http://localhost:8000/r4g/logout");
+      await this.$axios.get("http://localhost:8000/r4g/logout");
       localStorage.removeItem("AccessEmail");
       localStorage.removeItem("Zone");
       this.$router.push({

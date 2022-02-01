@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
 import VCalendar from 'v-calendar';
+import axios from 'axios';
 
 import './style.css';
 
@@ -35,6 +36,8 @@ import {
   // TToggle,
   // TDialog,
 } from 'vue-tailwind/dist/components';
+
+Vue.prototype.$axios = axios;
 
 Vue.use(VueRouter);
 

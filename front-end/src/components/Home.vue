@@ -138,7 +138,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import Modal from "@/components/Modal";
 import Calendar from "@/components/Calendar";
 import ModalMaterial from "@/components/ModalMaterial";
@@ -192,12 +191,12 @@ export default {
       this.getBin();
     },
     async getBin() {
-      let response = await axios.get(
+      let response = await this.$axios.get(
         "http://localhost:8000/r4g/view-bin-user/" + this.user.id
       );
       if (response) {
         let viewBinUser = response.data;
-        let res = await axios.get(
+        let res = await this.$axios.get(
           "http://localhost:8000/r4g/material-bin/" + viewBinUser.bin_id
         );
         let calendaBin = res.data;

@@ -168,7 +168,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import LoginRegisterBar from '@/components/LoginRegisterBar.vue';
 
 export default {
@@ -216,7 +215,7 @@ export default {
         async login(){
             this.isLogging = true;
             this.rememberEmail();
-            let res = await axios
+            let res = await this.$axios
             .post("http://localhost:8000/r4g/login",this.user)
             .catch((e) => {
                 let err;
@@ -253,7 +252,7 @@ export default {
                 let parsed = JSON.stringify(this.Alluser);
                 localStorage.setItem("AccessEmail", parsed);
                 if(this.Alluser.zone_id != null){
-                    let res = await axios.get("http://localhost:8000/r4g/zone-calendar/"+ this.Alluser.zone_id);
+                    let res = await this.$axios.get("http://localhost:8000/r4g/zone-calendar/"+ this.Alluser.zone_id);
                     let zone = res.data;
                     let calendar = JSON.stringify(zone);
                     localStorage.setItem(
