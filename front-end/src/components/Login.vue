@@ -126,12 +126,22 @@
 
         <!--EMAIL-->
         <div class="flex flex-row mt-5 justify-between">
-            <input type='text' placeholder="Email" name="email" autocomplete="email" v-model="user.email" class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full h-12"/>
+            <input type='text' placeholder="Email" name="email" autocomplete="email" v-model="user.email" 
+            class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full h-12"
+            :class="{
+                'border border-red-600': !isFormValid && !user.email,
+                'bg-white': isFormValid
+            }"/>
         </div>
 
         <!--PASSWORD-->
         <div class="flex flex-row my-5 justify-between">
-            <input type='password' placeholder="Password" name="password" autocomplete="password" v-model="user.password" class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full h-12"/>
+            <input type='password' placeholder="Password" name="password" autocomplete="password" v-model="user.password" 
+            class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full h-12"
+            :class="{
+                'border border-red-600 text-black': !isFormValid && !user.password,
+                'bg-white': isFormValid
+            }"/>
         </div>
 
         <!--BUTTON LOGIN-->
@@ -161,6 +171,10 @@
             >
                 Registrati
             </button>
+        </div>
+
+        <div v-if="!isFormValid" class="flex justify-center items-center text-center mx-5">
+            <div class="border border-red-600 rounded px-2 py-1">* Campo obbligatorio</div>
         </div>
     </form>
 </div>

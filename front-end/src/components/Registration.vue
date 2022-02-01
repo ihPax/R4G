@@ -59,7 +59,10 @@
                         <span v-else>&nbsp;&nbsp;</span>
                     </div>
                     <div class="flex flex-col w-full">
-                        <input type='date' placeholder="Data di nascita" name="birthday" autocomplete="birthday" v-model="newUser.birthday" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
+                        <input type='text' placeholder="Data di nascita" name="birthday" autocomplete="birthday" v-model="newUser.birthday" 
+                            class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"
+                            onfocus="(this.type='date')"
+                        />
                     </div>
                 </div>
                 
@@ -162,27 +165,54 @@
 
         <!--NOME-->
         <div class="flex flex-col mt-5 justify-between">
-            <input type='text' placeholder="Nome" name="name" autocomplete="name" v-model="newUser.name" class="mx-5 border-2 border-gray-200 px-5 rounded-lg h-12"/>
+            <input type='text' placeholder="Nome" name="name" autocomplete="name" v-model="newUser.name" 
+                class="mx-5 border-2 border-gray-200 px-5 rounded-lg h-12"
+                :class="{
+                    'border border-red-600 text-black': !isFormValid && !newUser.name,
+                    'bg-white': isFormValid
+                }"/>
         </div>
 
         <!--COGNOME-->
         <div class="flex flex-col mt-5 justify-between">
-            <input type='text' placeholder="Cognome" name="surname" autocomplete="surname" v-model="newUser.surname" class="mx-5 border-2 border-gray-200 px-5 rounded-lg h-12"/>
+            <input type='text' placeholder="Cognome" name="surname" autocomplete="surname" v-model="newUser.surname" 
+                class="mx-5 border-2 border-gray-200 px-5 rounded-lg h-12"
+                :class="{
+                    'border border-red-600 text-black': !isFormValid && !newUser.surname,
+                    'bg-white': isFormValid
+                }"/>
         </div>
 
          <!--DATA-->
         <div class="flex flex-row mt-5 justify-between">
-            <input type='date' placeholder="Data di nascita" name="birthday" autocomplete="birthday" v-model="newUser.birthday" class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full placeholder:bg-white h-12"/>
+            <input type='text' placeholder="Data di nascita" name="birthday" autocomplete="birthday" v-model="newUser.birthday" 
+                class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full bg-white h-12"
+                :class="{
+                    'border border-red-600 text-black': !isFormValid && !newUser.birthday
+                }"
+                onfocus="(this.type='date')"
+                onblur="(this.type='text')"
+        />
         </div>
 
         <!--EMAIL-->
         <div class="flex flex-row mt-5 justify-between">
-            <input type='text' placeholder="Email" name="email" autocomplete="email" v-model="newUser.email" class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full h-12"/>
+            <input type='text' placeholder="Email" name="email" autocomplete="email" v-model="newUser.email" 
+                class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full h-12"
+                :class="{
+                    'border border-red-600 text-black': !isFormValid && !newUser.email,
+                    'bg-white': isFormValid
+                }"/>
         </div>
 
         <!--PASSWORD-->
         <div class="flex flex-row mt-5 justify-between">
-            <input type='password' placeholder="Password" name="password" autocomplete="password" v-model="newUser.password" class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full h-12"/>
+            <input type='password' placeholder="Password" name="password" autocomplete="password" v-model="newUser.password" 
+                class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full h-12"
+                :class="{
+                    'border border-red-600 text-black': !isFormValid && !newUser.password,
+                    'bg-white': isFormValid
+                }"/>
         </div>
 
         <!--TOS-->
@@ -213,6 +243,9 @@
             >
                 Accedi
             </button>
+        </div>
+        <div v-if="!isFormValid" class="flex justify-center items-center text-center mx-5">
+            <div class="border border-red-600 rounded px-2 py-1">* Campo obbligatorio</div>
         </div>
     </form>
 </div>
