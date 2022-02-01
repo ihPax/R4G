@@ -11,17 +11,18 @@
           class="flex flex-col-reverse lg:flex-row items-center shadow-inner rounded-lg text-center border-2 border-gray-300"
         >
           <t-button
-            v-if="binLinked[index] !== true"
+            v-if="localBin[index] !== true"
             class="flex flex-col mx-1 my-4"
             @click="changeBinStatus(index)"
             :disabled="binLinked[index] === true"
           >
             Collega il tuo cestino
           </t-button>
-          <div v-else>
+          <div v-if="localBin">
           <t-modal v-model="showModalMaterial" header="Scegli il materiale" close="chiudi">
           <ModalMaterial  @exit="closeMaterialModal"></ModalMaterial>
           </t-modal>
+           {{localBin}}
             <!-- <div class="flex flex-col">
               <div class="font-bold">
                 CARTA
@@ -63,6 +64,7 @@
 </template>
 
 <script>
+import axios from "axios"
 import Modal from "@/components/Modal";
 import Calendar from "@/components/Calendar";
 import ModalMaterial from "@/components/ModalMaterial";
@@ -71,7 +73,7 @@ export default {
   components: {
     Calendar,
     Modal,
-    ModalMaterial
+    ModalMaterial,
   },
   props: [],
 
@@ -82,7 +84,8 @@ export default {
       showModal: false,
       showModalMaterial:false,
       bins: 4,
-      binLinked: []
+      binLinked: [],
+      localBin:[]
     };
   },
   async mounted() {
@@ -90,6 +93,13 @@ export default {
     for (let i = 0; i < this.bins; i++) {
       this.binLinked.push(false);
     }
+    let response = await axios.get("http://localhost:8000/r4g/view-bin-user/"+this.user.id);
+    let viewBinUser = response.data;
+     let res = await axios.get("http://localhost:8000/r4g/material-bin/"+viewBinUser.bin_id);
+        let calendaBin = res.data;
+
+         this.localBin = JSON.stringify(calendaBin);
+        localStorage.setItem("Bin", this.localBin);
   },
   methods: {
     showModalTrue() {

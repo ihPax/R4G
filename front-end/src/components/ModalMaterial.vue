@@ -33,6 +33,8 @@ methods:{
         this.bin = response.data;
         let idBin = this.bin.bin.id;
 
+        await axios.post("http://localhost:8000/r4g/save-bin-user",{user_id:id,bin_id:idBin});
+
         let res = await axios.get("http://localhost:8000/r4g/material-bin/"+idBin);
         let calendaBin = res.data;
 
