@@ -211,7 +211,6 @@ export default {
             this.user.email = emailStoraged;
             this.isRemembered = true;
         }
-        this.currentWidth();
     },
     computed:{
         isFormValid(){
