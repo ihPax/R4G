@@ -24,13 +24,13 @@
               <ModalMaterial @exit="closeMaterialModal"></ModalMaterial>
             </t-modal>
             <div class="flex flex-col" v-if="localBin != ''">
-              <div class="flex flex-col">
+              <div class="flex flex-col p-5">
                 <div class="font-bold">
                   {{ bin.name }}
                 </div>
                 <div class="font-semibold">Prossimo ritiro:</div>
                 <div class="font-normal">
-                  {{ bin.day }}
+                  {{ bin.day | date }}
                 </div>
               </div>
             </div>
@@ -191,14 +191,10 @@ export default {
       this.getBin();
     },
     async getBin() {
-      let response = await this.$axios.get(
-        "/r4g/view-bin-user/" + this.user.id
-      );
+      let response = await this.$axios.get("/r4g/view-bin-user/" + this.user.id);
       if (response) {
         let viewBinUser = response.data;
-        let res = await this.$axios.get(
-          "/r4g/material-bin/" + viewBinUser.bin_id
-        );
+        let res = await this.$axios.get("/r4g/material-bin/" + viewBinUser.bin_id);
         let calendaBin = res.data;
         this.localBin = JSON.stringify(calendaBin);
         localStorage.setItem("Bin", this.localBin);
@@ -212,12 +208,11 @@ export default {
       let dist = 100;
       for (let i = 1; i < this.localBin.length; i++) {
         if (this.localBin.length > 2) {
-        
-
           //nDay = day.add(1).day();
           this.num = 0;
           nDay = day.getDay();
-          while (this.localBin[i].nDay != nDay) {
+
+          while (this.localBin[i].nDay + 1 != nDay) {
             nDay = nDay + 1;
             this.num = this.num + 1;
             if (nDay == 7) {
@@ -228,16 +223,31 @@ export default {
             dist = this.num;
             this.bin.name = this.localBin[i].material;
             this.weekDay(this.localBin[i].nDay);
-           
           }
         } else {
           this.bin.name = this.localBin[1].material;
           this.weekDay(this.localBin[1].nDay);
         }
       }
-     
     },
     weekDay(day) {
+
+      let days = new Date();
+      let nDay = days.getDay();
+     
+      if ((Number(day) - Number(nDay)) >= -1){
+      let ritiro = days.setDate(days.getDay() + (Number(day) - Number(nDay)));
+      this.bin.day = new Date(ritiro);
+      }else if ((Number(day) - Number(nDay)) < -1){
+                console.log(day)
+
+        day = day + 3
+        console.log(day)
+        let ritiro = days.setDate(days.getDay() + day);
+      this.bin.day = new Date(ritiro);
+      }
+
+      /*
       if (day == 0) {
         this.bin.day = "Lunedi";
       } else if (day == 1) {
@@ -252,9 +262,63 @@ export default {
         this.bin.day = "Sabato";
       } else if (day == 6) {
         this.bin.day = "DOmenica";
-      }
+      }*/
     },
   },
   computed: {},
+  filters: {
+    date: (value) => {
+      let day = value.getDay() - 1;
+      let nameDay = "";
+      if (day == 0) {
+        nameDay = "Lunedi";
+      } else if (day == 1) {
+        nameDay = "Martedì";
+      } else if (day == 2) {
+        nameDay = "Mercoledì";
+      } else if (day == 3) {
+        nameDay = "Giovedì";
+      } else if (day == 4) {
+        nameDay = "Venerdì";
+      } else if (day == 5) {
+        nameDay = "Sabato";
+      } else if (day == 6) {
+        nameDay = "Domenica";
+      }
+
+      let numDay = value.getDate()
+      let month = value.getMonth()
+      let nameMonth = "";
+       if (month == 0) {
+        nameMonth = "Gennaio";
+      } else if (month == 1) {
+        nameMonth = "Febbraio";
+      } else if (month == 2) {
+        nameMonth = "Marzo";
+      } else if (month == 3) {
+        nameMonth = "Aprile";
+      } else if (month == 4) {
+        nameMonth = "Maggio";
+      } else if (month == 5) {
+        nameMonth = "Giugno";
+      } else if (month == 6) {
+        nameMonth = "Luglio";
+      }else if (month == 7) {
+        nameMonth = "Agosto";
+      }else if (month == 8) {
+        nameMonth = "Settembre";
+      }else if (month == 9) {
+        nameMonth = "Ottobre";
+      }else if (month == 10) {
+        nameMonth = "Novembre";
+      }else if (month == 11) {
+        nameMonth = "Dicembre";
+      }
+
+      let year = value.getFullYear()
+
+      return nameDay + " " + numDay + " " + nameMonth + " " +year ;
+    },
+  },
 };
 </script>
