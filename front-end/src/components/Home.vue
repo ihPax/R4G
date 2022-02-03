@@ -26,9 +26,20 @@
             <div class="flex flex-col" v-if="localBin != ''">
               <div class="flex flex-col p-5">
                 <div class="font-bold">
-                  {{ bin.name }}
+                  {{ bin.name }}  
                 </div>
-                
+
+		<div class="uk-card-header uk-text-center">Capienza cestino</div>
+		<div class="uk-card-body uk-flex uk-flex-center uk-flex-middle">
+			<div class="uk-inline-clip">
+				<svg id="svg" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+					<circle :r="r" cx="100" cy="100" fill="white" stroke-dasharray="314.15" stroke-dashoffset="0"></circle>
+					<circle id="bar" :r="r" cx="100" cy="100" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;`"></circle>
+				</svg>
+				<div class="h3 uk-position-center">{{value}}</div>
+			</div>
+
+	</div>
                 
 
                 <div class="font-semibold">Prossimo ritiro:</div>
@@ -123,11 +134,15 @@ export default {
       binLinked: [],
       localBin: [],
       num: 0,
+      r: 50,
+      rct: 314.15,
+      value: 70
     };
   },
   async mounted() {
     this.user = JSON.parse(localStorage.getItem("AccessEmail"));
     this.getBin();
+    this.changePercent();
   },
   methods: {
     showModalTrue() {
@@ -217,6 +232,11 @@ export default {
         this.bin.day = "DOmenica";
       }*/
     },
+     changePercent() {
+            //let val = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
+            let c = Math.PI * (this.r * 2);
+            this.rct = (100 - this.value) / 100 * c;
+        }
   },
   computed: {},
   filters: {
@@ -275,3 +295,17 @@ export default {
   },
 };
 </script>
+
+<style>
+#svg circle {
+    transition: stroke-dashoffset 1.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    stroke: #c0c0c0	;
+    border: 20px solid black;
+    stroke-width: 1em;
+}
+#svg #bar {
+    stroke: blue;
+}
+
+
+</style>
