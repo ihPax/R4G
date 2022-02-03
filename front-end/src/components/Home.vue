@@ -1,9 +1,9 @@
 <template lang="html">
   <div
-    class="h-full w-full flex flex-row border-l-2 border-t-2 border-black rounded-tl-2xl"
+    class="h-full w-full flex flex-row border-l-2 border-t-2 xs:border-black border-white rounded-tl-2xl"
   >
     <div class="h-full flex flex-col flex-grow p-8">
-      <div class="text-4xl font-bold sm:mb-6 lg:mb-12">Ciao {{ user.name }}!</div>
+      <div class="text-4xl font-bold mb-3 sm:mb-6 lg:mb-12">Ciao {{ user.name }}!</div>
       <div class="grid grid-cols-2 gap-8">
         <div
           class="flex flex-col-reverse lg:flex-row items-center shadow-inner rounded-lg text-center border-2 border-gray-300"
@@ -11,7 +11,6 @@
           <t-button
             v-if="localBin == ''"
             class="flex flex-col mx-1 my-4"
-            @click="changeBinStatus(index)"
           >
             Collega il tuo cestino
           </t-button>
@@ -38,85 +37,24 @@
           <div class="flex flex-col mx-1 flex-shrink-0 flex-grow">
             <span class="material-icons text-7xl xs:text-9xl lg:text-11xl">
               <span v-if="localBin == ''">delete_forever</span>
-              <span v-if="localBin != ''">delete_outline</span>
+              <span v-else>delete_outline</span>
             </span>
           </div>
         </div>
-        <div
+
+        <div v-for="index in 3" :key="index"
           class="flex flex-col-reverse lg:flex-row items-center shadow-inner rounded-lg text-center border-2 border-gray-300"
         >
           <t-button class="flex flex-col mx-1 my-4"> Collega il tuo cestino </t-button>
-          <div>
-            <!-- <div class="flex flex-col">
-              <div class="font-bold">
-                CARTA
-              </div>
-              <div class="font-semibold">
-                Prossimo ritiro:
-              </div>
-              <div class="font-normal">
-                {{new Date()}}
-              </div>
-            </div> -->
-          </div>
+          <div></div>
 
           <div class="flex flex-col mx-1 flex-shrink-0 flex-grow">
             <span class="material-icons text-7xl xs:text-9xl lg:text-11xl">
               <span>delete_forever</span>
-              <!-- <span>delete_outline</span> -->
             </span>
           </div>
         </div>
-        <div
-          class="flex flex-col-reverse lg:flex-row items-center shadow-inner rounded-lg text-center border-2 border-gray-300"
-        >
-          <t-button class="flex flex-col mx-1 my-4"> Collega il tuo cestino </t-button>
-          <div>
-            <!-- <div class="flex flex-col">
-              <div class="font-bold">
-                CARTA
-              </div>
-              <div class="font-semibold">
-                Prossimo ritiro:
-              </div>
-              <div class="font-normal">
-                {{new Date()}}
-              </div>
-            </div> -->
-          </div>
 
-          <div class="flex flex-col mx-1 flex-shrink-0 flex-grow">
-            <span class="material-icons text-7xl xs:text-9xl lg:text-11xl">
-              <span>delete_forever</span>
-              <!-- <span>delete_outline</span> -->
-            </span>
-          </div>
-        </div>
-        <div
-          class="flex flex-col-reverse lg:flex-row items-center shadow-inner rounded-lg text-center border-2 border-gray-300"
-        >
-          <t-button class="flex flex-col mx-1 my-4"> Collega il tuo cestino </t-button>
-          <div>
-            <!-- <div class="flex flex-col">
-              <div class="font-bold">
-                CARTA
-              </div>
-              <div class="font-semibold">
-                Prossimo ritiro:
-              </div>
-              <div class="font-normal">
-                {{new Date()}}
-              </div>
-            </div> -->
-          </div>
-
-          <div class="flex flex-col mx-1 flex-shrink-0 flex-grow">
-            <span class="material-icons text-7xl xs:text-9xl lg:text-11xl">
-              <span>delete_forever</span>
-              <!-- <span>delete_outline</span> -->
-            </span>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -148,8 +86,12 @@ export default {
     Modal,
     ModalMaterial,
   },
-  props: [],
-
+  props: {
+    isMobile: {
+      type: Boolean,
+      default: false
+    },
+  },
   data() {
     return {
       access: "",
@@ -178,11 +120,10 @@ export default {
     showModalTrue() {
       this.showModal = !this.showModal;
     },
-
-    changeBinStatus(index) {
-      this.showModalMaterial = !this.showModalMaterial;
-      this.binLinked.splice(index, 1, true);
-    },
+    // changeBinStatus(index) {
+    //   this.showModalMaterial = !this.showModalMaterial;
+    //   this.binLinked.splice(index, 1, true);
+    // },
     closeModal() {
       this.showModal = !this.showModal;
     },

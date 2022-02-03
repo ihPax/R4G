@@ -259,6 +259,12 @@ export default {
     components: {
       LoginRegisterBar
     },
+    props: {
+        isMobile: {
+            type: Boolean,
+            default: false
+        },
+    },
     data(){
         return{
             validCheck: false,
@@ -269,7 +275,6 @@ export default {
                 email:"",
                 password:""
             },
-            isMobile: false
         }
     },
     computed:{
@@ -278,21 +283,8 @@ export default {
             return formValid;
         }
     },
-    created() {
-        window.addEventListener("resize", this.currentWidth);
-    },
-    destroyed() {
-        window.removeEventListener("resize", this.currentWidth);
-    },
-    mounted() {
-        this.currentWidth();
-    },
+    mounted() {},
     methods:{
-        currentWidth() {
-            let currentWidth = window.innerWidth;
-            let xs = 475;
-            this.isMobile = currentWidth < xs ? true : false;
-        },
         goToLogin(){
             this.$router.push({
                 name: "login"

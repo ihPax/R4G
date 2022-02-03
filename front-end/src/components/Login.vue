@@ -188,6 +188,12 @@ export default {
     components: {
       LoginRegisterBar
     },
+    props: {
+        isMobile: {
+            type: Boolean,
+            default: false
+        },
+    },
     data(){
         return{
             user:{
@@ -196,15 +202,8 @@ export default {
             },
             Alluser:[],
             isLogging: false,
-            isRemembered: false,
-            isMobile: false
+            isRemembered: false
         }
-    },
-    created() {
-        window.addEventListener("resize", this.currentWidth);
-    },
-    destroyed() {
-        window.removeEventListener("resize", this.currentWidth);
     },
     mounted(){
         let emailStoraged = JSON.parse(localStorage.getItem("Email"));
@@ -212,7 +211,6 @@ export default {
             this.user.email = emailStoraged;
             this.isRemembered = true;
         }
-        this.currentWidth();
     },
     computed:{
         isFormValid(){
@@ -221,11 +219,6 @@ export default {
         }
     },
     methods:{
-        currentWidth() {
-            let currentWidth = window.innerWidth;
-            let xs = 475;
-            this.isMobile = currentWidth < xs ? true : false;
-        },
         rememberEmail() {
             if (this.isRemembered === true) {
                 let emailSaved = JSON.stringify(this.user.email);
