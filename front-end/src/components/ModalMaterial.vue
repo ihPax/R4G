@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import materiali from "../../materiali.json"
 export default {
 data(){
@@ -28,14 +27,14 @@ methods:{
    async chooseMaterial(materiale){
         this.user = JSON.parse(localStorage.getItem("AccessEmail"));
         let  id = this.user.id;
-        let response = await axios.post("http://localhost:8000/r4g/new-bin/"+id,{name:materiale.name});
+        let response = await this.$axios.post("/r4g/new-bin/"+id,{name:materiale.name});
 
         this.bin = response.data;
         let idBin = this.bin.bin.id;
 
-        await axios.post("http://localhost:8000/r4g/save-bin-user",{user_id:id,bin_id:idBin});
+        await this.$axios.post("/r4g/save-bin-user",{user_id:id,bin_id:idBin});
 
-        let res = await axios.get("http://localhost:8000/r4g/material-bin/"+idBin);
+        let res = await this.$axios.get("/r4g/material-bin/"+idBin);
         let calendaBin = res.data;
 
         let localBin = JSON.stringify(calendaBin);

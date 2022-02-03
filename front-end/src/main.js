@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
 import VCalendar from 'v-calendar';
+import axios from 'axios';
 
 import './style.css';
 
@@ -35,6 +36,10 @@ import {
   // TToggle,
   // TDialog,
 } from 'vue-tailwind/dist/components';
+
+Vue.prototype.$axios = axios;
+axios.defaults.baseURL = "http://localhost:8000"
+// php artisan serve --host=192.168.0.2 --port=8000  <-- es. per far partire il server su questa porta
 
 Vue.use(VueRouter);
 

@@ -1,5 +1,6 @@
 <template>
-  <div id="upperbar" class="flex justify-between items-center mx-4">
+<div>
+  <div id="upperbar" class="flex justify-between items-center mx-4" v-if="!isMobile">
     <div class="">
       <router-link to='/dashboard/home'>
         <img src="../assets/logor4gblack.png" class="cursor-pointer w-1/2" alt="logo R4G" />
@@ -15,22 +16,67 @@
       </div>
     </button>
   </div>
+
+  <div v-else>
+    <div class="h-16 border-t border-black absolute bottom-0 w-full z-10 flex justify-around bg-gray-100">
+      <button 
+        v-for="link in links" :key="link.id" 
+        @click="goToLink(link)"
+        :disabled="link.code == currentRouteName"
+        class="flex-grow"
+      >
+        <span class="material-icons">
+          {{ link.googleCode }}
+        </span>
+      </button>
+    </div>
+  </div>
+
+</div>
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
-  name: "Navigation",
+  name: "UpperBar",
+  props: {
+    isMobile: {
+      type: Boolean,
+      default: false
+    },
+  },
   data() {
     return {
+      links: [
+        {
+          googleCode: 'home',
+          code: 'home'
+        },
+        {
+          googleCode: 'calendar_today',
+          code: 'calendar'
+        },
+        {
+          googleCode: 'person',
+          code: 'home'
+        },
+      ]
     };
   },
   computed: {
+    currentRouteName() {
+      return this.$route.matched[1].name;
+    },
   },
   methods: {
+    goToLink(link) {
+      if (link.code != this.currentRouteName) {
+        this.$router.push({
+          name: link.code,
+        });
+      }
+    },
     async logout(){
-      await axios.get("http://localhost:8000/r4g/logout");
+      await this.$axios.get("/r4g/logout");
       localStorage.removeItem("AccessEmail");
       localStorage.removeItem("Zone");
       this.$router.push({
@@ -40,4 +86,3 @@ export default {
   },
 };
 </script>
-<style></style>

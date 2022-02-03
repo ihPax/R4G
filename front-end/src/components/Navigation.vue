@@ -1,7 +1,26 @@
 <template>
-  <div id="navbar" class="min-w-6 xs:min-w-9 sm:min-w-12">
-    <div class="flex flex-col h-full">
-      <div class="flex flex-col items-start h-full">
+  <div id="navbar" class="h-full flex">
+    <div class="flex flex-col">
+
+      <!-- <div v-if="isMobile" class="flex flex-row-reverse m-5 z-20" @click="burgerToggle()">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-8 h-8"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </div> -->
+
+      <!-- <div class="xs:flex flex-col items-start xs:h-full absolute z-10 bg-gray-100 xs:bg-white" v-if="!isMobile || isClicked"> -->
+      <div class="flex flex-col items-start xs:h-full bg-white">
         <button
           v-for="(link, index) in links"
           :key="link.code"
@@ -26,6 +45,7 @@ export default {
   name: "Navigation",
   data() {
     return {
+      // isClicked: false,
       links: [
         {
           code: "home",
@@ -71,7 +91,9 @@ export default {
         });
       }
     },
+    // burgerToggle() {
+    //   this.isClicked = !this.isClicked;
+    // }
   },
 };
 </script>
-<style></style>

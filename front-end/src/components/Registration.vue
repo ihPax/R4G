@@ -1,5 +1,6 @@
 <template>
-    <div class="h-full w-full flex flex-col font-montserrat">
+<div class="h-full w-full font-montserrat">
+    <div v-if="!isMobile" class="h-full w-full flex flex-col">
         <LoginRegisterBar></LoginRegisterBar>
         <form class="flex flex-row">
             <div class="flex flex-col border-2 border-black rounded-2xl m-auto px-20 py-10">
@@ -58,7 +59,10 @@
                         <span v-else>&nbsp;&nbsp;</span>
                     </div>
                     <div class="flex flex-col w-full">
-                        <input type='date' placeholder="Data di nascita" name="birthday" autocomplete="birthday" v-model="newUser.birthday" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
+                        <input type='text' placeholder="Data di nascita" name="birthday" autocomplete="birthday" v-model="newUser.birthday" 
+                            class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"
+                            onfocus="(this.type='date')"
+                        />
                     </div>
                 </div>
                 
@@ -142,15 +146,124 @@
             </div>
         </router-link>
     </div>
+
+    <!-- MOBILE -->
+    <form v-else class="h-full w-full flex flex-col">
+        <div class="flex flex-col justify-center">
+            <router-link to="/landing" class="flex justify-center items-center">
+                <img
+                    src="../assets/logor4gblack.png"
+                    class="w-1/2 cursor-pointer"
+                    alt="logo R4G"
+                />
+            </router-link>
+        </div>
+
+        <div class="mx-5 text-center">
+            Crea il tuo account <br> e collega il tuo Cestino Smart
+        </div>
+
+        <!--NOME-->
+        <div class="flex flex-col mt-5 justify-between">
+            <input type='text' placeholder="Nome" name="name" autocomplete="name" v-model="newUser.name" 
+                class="mx-5 border-2 border-gray-200 px-5 rounded-lg h-12"
+                :class="{
+                    'border border-red-600 text-black': !isFormValid && !newUser.name,
+                    'bg-white': isFormValid
+                }"/>
+        </div>
+
+        <!--COGNOME-->
+        <div class="flex flex-col mt-5 justify-between">
+            <input type='text' placeholder="Cognome" name="surname" autocomplete="surname" v-model="newUser.surname" 
+                class="mx-5 border-2 border-gray-200 px-5 rounded-lg h-12"
+                :class="{
+                    'border border-red-600 text-black': !isFormValid && !newUser.surname,
+                    'bg-white': isFormValid
+                }"/>
+        </div>
+
+         <!--DATA-->
+        <div class="flex flex-row mt-5 justify-between">
+            <input type='text' placeholder="Data di nascita" name="birthday" autocomplete="birthday" v-model="newUser.birthday" 
+                class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full bg-white h-12"
+                :class="{
+                    'border border-red-600 text-black': !isFormValid && !newUser.birthday
+                }"
+                onfocus="(this.type='date')"
+                onblur="(this.type='text')"
+        />
+        </div>
+
+        <!--EMAIL-->
+        <div class="flex flex-row mt-5 justify-between">
+            <input type='text' placeholder="Email" name="email" autocomplete="email" v-model="newUser.email" 
+                class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full h-12"
+                :class="{
+                    'border border-red-600 text-black': !isFormValid && !newUser.email,
+                    'bg-white': isFormValid
+                }"/>
+        </div>
+
+        <!--PASSWORD-->
+        <div class="flex flex-row mt-5 justify-between">
+            <input type='password' placeholder="Password" name="password" autocomplete="password" v-model="newUser.password" 
+                class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full h-12"
+                :class="{
+                    'border border-red-600 text-black': !isFormValid && !newUser.password,
+                    'bg-white': isFormValid
+                }"/>
+        </div>
+
+        <!--TOS-->
+        <div class="flex flex-row justify-center items-baseline mt-5">
+            <input type="checkbox" id="acceptToS" v-model="validCheck" class="w-6 h-6 ml-5">
+            <label for="acceptToS" class="ml-5 my-auto">Accetto i Termini di Servizio</label>
+        </div>
+
+        <!--BUTTON REGISTRATION-->
+        <div class="flex flex-col text-white text-lg mt-5">
+            <button type="button"
+                class="font-bold px-4 py-2 mx-5 rounded text-white bg-yellow-600 hover:bg-yellow-700 active:bg-yellow-700 focus:ring-yellow-300"
+                :class="{
+                    'cursor-pointer': isFormValid,
+                    'cursor-not-allowed': !isFormValid
+                }"
+                @click="userRegister()"
+                :disabled="!isFormValid"
+            >
+                Registrati
+            </button>
+        </div>
+        <div class="flex text-sm m-5 justify-center">
+            <span class="mr-2"> Sei già un membro? </span>
+            <button
+                @click="goToLogin()"
+                class="text-sm font-medium focus:outline-none"
+            >
+                Accedi
+            </button>
+        </div>
+        <div v-if="!isFormValid" class="flex justify-center items-center text-center mx-5">
+            <div class="border border-red-600 rounded px-2 py-1">* Campo obbligatorio</div>
+        </div>
+    </form>
+</div>
+
 </template>
 
 <script>
-import axios from 'axios';
 import LoginRegisterBar from '@/components/LoginRegisterBar.vue';
 
 export default {
     components: {
       LoginRegisterBar
+    },
+    props: {
+        isMobile: {
+            type: Boolean,
+            default: false
+        },
     },
     data(){
         return{
@@ -170,6 +283,7 @@ export default {
             return formValid;
         }
     },
+    mounted() {},
     methods:{
         goToLogin(){
             this.$router.push({
@@ -186,7 +300,7 @@ export default {
                         this.isLogging = false
                     });
             } else {
-                let response = await axios.post("http://localhost:8000/r4g/register",this.newUser);
+                let response = await this.$axios.post("/r4g/register",this.newUser);
                 this.newUser = response.data;
                 this.$router.push({
                     name: "login"

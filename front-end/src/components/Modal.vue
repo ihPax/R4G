@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   name: "Modal",
   data() {
@@ -23,7 +22,7 @@ export default {
     };
   },
   async mounted() {
-    let response = await axios.get("http://localhost:8000/r4g/zones");
+    let response = await this.$axios.get("/r4g/zones");
     this.comuni = response.data;
   },
   methods: {
@@ -32,21 +31,21 @@ export default {
 
       let idZone = { zone_id: comune.id };
 
-      await axios.post(
-        "http://localhost:8000/r4g/insert-zone/" + this.user.email,
+      await this.$axios.post(
+        "/r4g/insert-zone/" + this.user.email,
         idZone
       );
 
-      let responseUser = await axios.get(
-        "http://localhost:8000/r4g/currentUser/" + this.user.email
+      let responseUser = await this.$axios.get(
+        "/r4g/currentUser/" + this.user.email
       );
       this.newUser = responseUser.data;
 
       let parsed = JSON.stringify(this.newUser);
       localStorage.setItem("AccessEmail", parsed);
 
-      let res = await axios.get(
-        "http://localhost:8000/r4g/zone-calendar/" + this.newUser.zone_id
+      let res = await this.$axios.get(
+        "/r4g/zone-calendar/" + this.newUser.zone_id
       );
       let zone = res.data;
       let calendar = JSON.stringify(zone);
