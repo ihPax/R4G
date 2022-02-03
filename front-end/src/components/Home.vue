@@ -9,6 +9,7 @@
           class="flex flex-col-reverse lg:flex-row items-center shadow-inner rounded-lg text-center border-2 border-gray-300"
         >
           <t-button
+            @click="changeBinStatus()"
             v-if="localBin == ''"
             class="flex flex-col mx-1 my-4"
           >
@@ -27,6 +28,9 @@
                 <div class="font-bold">
                   {{ bin.name }}
                 </div>
+                
+                
+
                 <div class="font-semibold">Prossimo ritiro:</div>
                 <div class="font-normal">
                   {{ bin.day | date }}
@@ -111,19 +115,15 @@ export default {
   },
   async mounted() {
     this.user = JSON.parse(localStorage.getItem("AccessEmail"));
-    for (let i = 0; i < this.bins; i++) {
-      this.binLinked.push(false);
-    }
     this.getBin();
   },
   methods: {
     showModalTrue() {
       this.showModal = !this.showModal;
     },
-    // changeBinStatus(index) {
-    //   this.showModalMaterial = !this.showModalMaterial;
-    //   this.binLinked.splice(index, 1, true);
-    // },
+     changeBinStatus() {
+       this.showModalMaterial = !this.showModalMaterial;
+     },
     closeModal() {
       this.showModal = !this.showModal;
     },
@@ -133,9 +133,9 @@ export default {
     },
     async getBin() {
       let response = await this.$axios.get("/r4g/view-bin-user/" + this.user.id);
-      if (response) {
         let viewBinUser = response.data;
         let res = await this.$axios.get("/r4g/material-bin/" + viewBinUser.bin_id);
+        if (response) {
         let calendaBin = res.data;
         this.localBin = JSON.stringify(calendaBin);
         localStorage.setItem("Bin", this.localBin);
