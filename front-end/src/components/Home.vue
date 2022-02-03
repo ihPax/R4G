@@ -40,8 +40,20 @@
           </div>
           <div class="flex flex-col mx-1 flex-shrink-0 flex-grow">
             <span class="material-icons text-7xl xs:text-9xl lg:text-11xl">
-              <span v-if="localBin == ''">delete_forever</span>
-              <span v-else>delete_outline</span>
+              <!-- <span v-if="localBin == ''">delete_forever</span>
+              <span v-else>delete_outline</span> -->
+              <span v-if="bin.name == 'CARTA'" class="2/4">
+                <img src="../assets/carta.png">
+              </span>
+              <span v-if="bin.name == 'SECCO'">
+                <img src="../assets/secco.png">
+              </span>
+              <span v-if="bin.name == 'UMIDO'">
+                <img src="../assets/umido.png" class="w-32">
+              </span>
+              <span v-if="bin.name == 'PLASTICA/LATTINE'">
+                <img src="../assets/plastica.png">
+              </span>
             </span>
           </div>
         </div>
