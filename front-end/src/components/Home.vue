@@ -95,11 +95,12 @@ export default {
     }
     let response = await axios.get("http://localhost:8000/r4g/view-bin-user/"+this.user.id);
     let viewBinUser = response.data;
-     let res = await axios.get("http://localhost:8000/r4g/material-bin/"+viewBinUser.bin_id);
-        let calendaBin = res.data;
+    let res = await axios.get("http://localhost:8000/r4g/material-bin/"+viewBinUser.bin_id);
+    let calendaBin = res.data;
 
-         this.localBin = JSON.stringify(calendaBin);
-        localStorage.setItem("Bin", this.localBin);
+    this.localBin = JSON.stringify(calendaBin);
+    localStorage.setItem("Bin", this.localBin);
+    console.log(this.localBin)
   },
   methods: {
     showModalTrue() {

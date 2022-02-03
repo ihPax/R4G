@@ -38,7 +38,7 @@ methods:{
         let res = await axios.get("http://localhost:8000/r4g/material-bin/"+idBin);
         let calendaBin = res.data;
 
-         let localBin = JSON.stringify(calendaBin);
+        let localBin = JSON.stringify(calendaBin);
         localStorage.setItem("Bin", localBin);
         // localStorage.setItem("Materiale", materiale.name);
         this.$emit("exit", true);
