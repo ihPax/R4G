@@ -2,71 +2,87 @@
   <div class="w-full h-full bg-white text-gray-600">
     <div class="flex-row flex">
       <div class="flex-col flex">
-        <router-link to='/landing'>
-          <img src="../assets/logor4gblack.png" class="w-3/4 cursor-pointer" alt="logo R4G" />
+        <router-link to="/landing">
+          <img
+            src="../assets/logor4gblack.png"
+            class="w-3/4 mt-5 cursor-pointer"
+            alt="logo R4G"
+          />
         </router-link>
       </div>
       <div
         class="flex-col justify-center items-center text-center flex flex-grow"
       >
         <div class="flex-row flex justify-center align-center">
-          <span class="text-gray-600 font-semibold text-lg mx-8"
-            >Come funziona?</span
+          <a class="text-gray-600 font-semibold text-lg mx-8  hover:text-yellow-600 tracking-wide cursor-pointer  transition duration-300 ease-in-out"
+            href="#Works">Come funziona?</a
           >
-          <span class="text-gray-600 font-semibold text-lg mx-8"
-            >I nostri servizi</span
+          <a class="text-gray-600 font-semibold text-lg mx-8 hover:text-green-600 cursor-pointer tracking-wide transition duration-300 ease-in-out"
+            href="#Service">I nostri servizi</a
           >
-          <span class="text-gray-600 font-semibold text-lg mx-8"
-            >Chi siamo?</span
+          <a class="text-gray-600 font-semibold text-lg mx-8 hover:text-blue-500 tracking-wide cursor-pointer transition duration-300 ease-in-out"
+            href="#Who">Chi siamo?</a
           >
         </div>
       </div>
       <div class="flex-col flex justify-center items-center align-center">
-        <div class="flex-row flex">
-          <button
-            class="
-              px-4
-              py-2
-              rounded-md
-              text-sm
-              font-medium
-              border
-              focus:outline-none focus:ring
-              rounded-xl
-              transition
-              text-yellow-600
-              border-yellow-600
-              mx-8
-              hover:text-white hover:bg-yellow-600
-              active:bg-yellow-700
-              focus:ring-yellow-300
-            "
+        <div
+          class="
+            flex-row flex flex-wrap
+            justify-center
+            py-10
+            text-gray-300
+            my-5
+            mr-10
+          "
+        >
+          <a
             @click="goToRegistration()"
+            class="
+              button button--moema
+              px-5
+              py-2
+              hover:bg-yellow-600 hover:text-white
+              text-yellow-600
+              relative
+              border-yellow-500
+              block
+              focus:outline-none
+              cursor-pointer
+              border-2 border-solid
+              rounded-lg
+              mr-8
+              text-sm text-center
+              font-semibold
+              tracking-widest
+            "
           >
             Registrati
-          </button>
-          <button
-            class="
-              px-4
-              py-2
-              rounded-md
-              text-sm
-              font-medium
-              border
-              focus:outline-none focus:ring
-              rounded-xl
-              transition
-              text-yellow-600
-              border-yellow-600
-              mx-8
-              hover:text-white hover:bg-yellow-600
-              active:bg-yellow-700
-              focus:ring-yellow-300
-            "
+          </a>
+          <a
             @click="goToLogin()"
+            class="
+              button button--moema
+              px-5
+              py-2
+              mr-2
+              hover:text-white
+              relative
+              cursor-pointer
+              text-white
+              bg-yellow-600
+              border-yellow-500
+              block
+              focus:outline-none
+              border-2 border-solid
+              rounded-lg
+              text-sm text-center
+              font-semibold
+              tracking-widest
+            "
           >
             Accedi
-          </button>
+          </a>
         </div>
       </div>
     </div>
@@ -80,7 +96,9 @@
         rounded-xl
         overflow-hidden
       "
-      style="background-image: url(https://www.dagospia.com/img/foto/05-2021/mascherine-in-mare-6-1459672_tn.jpeg)"
+      style="
+        background-image: url(https://t4.ftcdn.net/jpg/03/11/97/47/360_F_311974779_RwKYnMTawMHG33Dz7NLBFqsToNZRZCdq.jpg);
+      "
     >
       <div class="h-full w-full absolute bg-blue-500 opacity-30"></div>
       <!-- <div class="h-full w-full absolute opacity-50">
@@ -131,49 +149,64 @@
                   aiutarti a fare del bene per te e per il pianeta.
                 </p>
               </div>
-              <div class="text-center lg:text-left">
-                <button
+              <div
+                class="
+                  text-center
+                  flex flex-row
+                  justify-center
+                  items-center
+                  lg:text-left
+                "
+              >
+                <a
+                  @click="goToLogin()"
                   class="
-                    px-4
-                    py-2
-                    rounded-md
-                    text-sm
-                    font-medium
-                    border-0
-                    focus:outline-none focus:ring
-                    transition
+                    button button--winona
+                    p-0
+                    bg-yellow-600
+                    hover:bg-yellow-600 hover:text-white
                     text-white
-                    bg-yellow-500
-                    rounded-xl
-                    hover:bg-yellow-600
-                    mx-4
-                    active:bg-yellow-700
-                    focus:ring-yellow-300
+                    relative
+                    block
+                    px-3
+                    focus:outline-none
+                    rounded-lg
+                    text-sm text-center
+                    font-semibold
+                    cursor-pointer
+                    tracking-widest
+                    align-middle
+                    overflow-hidden
                   "
+                  data-text="Accedi!"
                 >
-                  Sei già un cliente? Accedi!
-                </button>
-                <button
+                  <span class="align-middle block"> Sei già un cliente? </span>
+                </a>
+                <a
+                  @click="goToLogin()"
                   class="
-                    px-4
-                    py-2
-                    rounded-md
-                    text-sm
-                    mx-8
-                    font-medium
-                    border-0
-                    focus:outline-none focus:ring
-                    transition
+                    button button--winona
+                    p-0
+                    bg-yellow-600
+                    hover:bg-yellow-600 hover:text-white
                     text-white
-                    bg-yellow-500
-                    rounded-xl
-                    hover:bg-yellow-600
-                    active:bg-yellow-700
-                    focus:ring-yellow-300
+                    relative
+                    cursor-pointer
+                    px-3
+                    block
+                    focus:outline-none
+                    rounded-lg
+                    text-sm text-center
+                    font-semibold
+                    tracking-widest
+                    align-middle
+                    ml-10
+                    overflow-hidden
                   "
+                  data-text="Compra ora"
                 >
-                  Compra ora
-                </button>
+                  <span class="align-middle block"> Compra ora</span>
+                </a>
               </div>
             </div>
           </div>
@@ -192,9 +225,9 @@
             mb-12
           "
         >
-          <div class="w-full mb-4 lg:mb-0">
+          <div class="w-full mb-4 lg:mb-0" id="Works">
             <h2 class="text-4xl mt-3 font-bold font-heading">
-              <span class="text-yellow-600">Come Funziona?</span>
+              <span class="text-yellow-600" >Come Funziona?</span>
             </h2>
           </div>
           <div class="w-full">
@@ -205,7 +238,21 @@
         </div>
         <div class="flex flex-wrap -mx-3 -mb-6 text-center items-stretch">
           <div class="w-full md:w-1/2 lg:w-1/3 px-3 mb-6 last:px-0">
-            <div class="p-12 bg-white shadow rounded">
+            <div
+              class="
+                p-12
+                bg-white
+                shadow
+                rounded-lg
+                border-2
+                px-4
+                py-6
+                transform
+                transition
+                duration-600
+                hover:scale-110
+              "
+            >
               <img
                 class="h-48 mb-12 mx-auto w-auto"
                 src="../assets/deal.svg"
@@ -220,7 +267,21 @@
             </div>
           </div>
           <div class="w-full md:w-1/2 lg:w-1/3 px-3 mb-6 last:px-0">
-            <div class="p-12 bg-white shadow rounded">
+            <div
+              class="
+                p-12
+                bg-white
+                shadow
+                rounded-lg
+                border-2
+                px-4
+                py-6
+                transform
+                transition
+                duration-600
+                hover:scale-110
+              "
+            >
               <img
                 class="h-48 mb-12 mx-auto w-auto"
                 src="../assets/upload.svg"
@@ -230,12 +291,26 @@
                 Collega
               </h3>
               <p class="text-sm text-blueGray-600 leading-relaxed">
-                Collegalo alla nostra piattaforma online tramite Cloud!
+                Collegalo alla nostra piattaforma online!
               </p>
             </div>
           </div>
           <div class="w-full md:w-1/2 lg:w-1/3 px-3 mb-6 last:px-0">
-            <div class="p-12 bg-white shadow rounded">
+            <div
+              class="
+                p-12
+                bg-white
+                shadow
+                rounded-lg
+                border-2
+                px-4
+                py-6
+                transform
+                transition
+                duration-600
+                hover:scale-110
+              "
+            >
               <img
                 class="h-48 mb-12 mx-auto w-auto"
                 src="../assets/throw.svg"
@@ -252,7 +327,7 @@
         </div>
       </div>
     </div>
-    <div class="py-6 bg-white">
+    <div class="py-6 bg-white" id="Service">
       <div class="pt-10 pb-12">
         <div class="container px-4 mx-auto">
           <div class="mb-2 w-full">
@@ -268,17 +343,12 @@
             >
               I nostri servizi
             </h2>
-            <h3
-              class="
-                text-blueGray-600 text-center
-                text-md
-                max-w-md
-                mx-auto
-              "
-            >
-              Un piccolo gesto può fare la <b class="text-greenlanding"> differenza </b>, la raccolta differenziata
-              è un <b class="text-greenlanding"> dovere civico </b> e grazie al Cestino Smart sarà molto più
-              semplice adempiere ai propri doveri.
+            <h3 class="text-blueGray-600 text-center text-md max-w-md mx-auto">
+              Un piccolo gesto può fare la
+              <b class="text-greenlanding"> differenza </b>, la raccolta
+              differenziata è un
+              <b class="text-greenlanding"> dovere civico </b> e grazie al
+              Cestino Smart sarà molto più semplice adempiere ai propri doveri.
             </h3>
           </div>
           <div
@@ -473,6 +543,70 @@
             </div>
           </div>
         </div>
+        <div class="py-20 bg-blueGray-50" id="Who">
+          <div class="container px-4 mx-auto">
+            <div class="flex flex-wrap lg:flex-nowrap">
+              <div class="w-full lg:w-2/3">
+                <h2 class="text-4xl mt-3 font-bold font-heading text-blue-500">
+                  Chi Siamo
+                </h2>
+                <div class="py-6 lg:pr-24">
+                  <p class="mb-6 leading-loose text-blueGray-600">
+                    Un Calendario intelligente, una verà e proprio comodità che
+                    ti permette di risparmiare del tempo prezioso. Un Calendario
+                    intelligente, una verà e proprio comodità che ti permette di
+                    risparmiare del tempo prezioso. Un Calendario intelligente,
+                    una verà e proprio comodità che ti permette di risparmiare
+                    del tempo prezioso.
+                  </p>
+                  <p class="mb-6 leading-loose text-blueGray-600 inline">
+                    Un Calendario intelligente, una verà e proprio comodità che
+                    ti permette di risparmiare del tempo prezioso.
+                  </p>
+                  <p
+                    class="mb-6 leading-loose text-blueGray-600"
+                    v-if="read == true"
+                  >
+                    Un Calendario intelligente, una verà e proprio comodità che
+                    ti permette di risparmiare del tempo prezioso. Un Calendario
+                    intelligente, una verà e proprio comodità che ti permette di
+                    risparmiare del tempo prezioso. Un Calendario intelligente,
+                    una verà e proprio comodità che ti permette di risparmiare
+                    del tempo prezioso.
+                  </p>
+                  <button
+                    @click="KeepReading()"
+                    class="text-underline text-yellow-500"
+                  >
+                    <span v-if="read == true">Leggi meno.</span>
+
+                    <span v-if="read == false"> Continua a leggere...</span>
+                  </button>
+                </div>
+              </div>
+              <div
+                class="relative w-full my-12 lg:w-1/2 lg:my-0 sm:flex flex-col"
+              >
+                <div
+                  class="
+                    relative
+                    mx-auto
+                    rounded-xl
+                    w-full
+                    z-10
+                    my-4
+                    h-full
+                    bg-cover bg-blue-200 bg-center
+                  "
+                  style="
+                    background-image: url(https://images.unsplash.com/photo-1604187351574-c75ca79f5807?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cmVjeWNsZXxlbnwwfHwwfHw%3D&w=1000&q=80);
+                  "
+                  alt=""
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -480,24 +614,142 @@
 
 <script>
 export default {
-  data(){
-    return{
-
-    }
+  data() {
+    return {
+      read: false,
+    };
   },
-  methods:{
-    goToRegistration(){
+  methods: {
+    goToRegistration() {
       this.$router.push({
-        name: "registration"
+        name: "registration",
       });
     },
-    goToLogin(){
+    goToLogin() {
       this.$router.push({
-        name: "login"
+        name: "login",
       });
-    }
-  }
+    },
+    KeepReading() {
+      this.read = !this.read;
+    },
+  },
 };
 </script>
+
 <style>
+/* Moema */
+.button--moema {
+  -webkit-transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.button--moema::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  bottom: -20px;
+  right: -20px;
+  background: inherit;
+  border-radius: 50px;
+  z-index: -1;
+  opacity: 0.4;
+  -webkit-transform: scale3d(0.8, 0.5, 1);
+  transform: scale3d(0.8, 0.5, 1);
+}
+
+.button--moema:hover {
+  -webkit-transition: background-color 0.1s 0.3s, color 0.1s 0.3s;
+  transition: background-color 0.1s 0.3s, color 0.1s 0.3s;
+  -webkit-animation: anim-moema-1 0.3s forwards;
+  animation: anim-moema-1 0.3s forwards;
+}
+
+.button--moema:hover::before {
+  -webkit-animation: anim-moema-2 0.3s 0.3s forwards;
+  animation: anim-moema-2 0.3s 0.3s forwards;
+}
+@-webkit-keyframes anim-moema-1 {
+  60% {
+    -webkit-transform: scale3d(0.8, 0.8, 1);
+    transform: scale3d(0.8, 0.8, 1);
+  }
+  85% {
+    -webkit-transform: scale3d(1.1, 1.1, 1);
+    transform: scale3d(1.1, 1.1, 1);
+  }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+@keyframes anim-moema-1 {
+  60% {
+    -webkit-transform: scale3d(0.8, 0.8, 1);
+    transform: scale3d(0.8, 0.8, 1);
+  }
+  85% {
+    -webkit-transform: scale3d(1.1, 1.1, 1);
+    transform: scale3d(1.1, 1.1, 1);
+  }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+@-webkit-keyframes anim-moema-2 {
+  to {
+    opacity: 0;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+@keyframes anim-moema-2 {
+  to {
+    opacity: 0;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+/* Winona */
+.button--winona {
+  -webkit-transition: border-color 0.3s, background-color 0.3s;
+  transition: border-color 0.3s, background-color 0.3s;
+  -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+  transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.button--winona::after {
+  content: attr(data-text);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  -webkit-transform: translate3d(0, 25%, 0);
+  transform: translate3d(0, 25%, 0);
+}
+
+.button--winona::after,
+.button--winona > span {
+  padding: 1em 2em;
+  -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+  transition: transform 0.3s, opacity 0.3s;
+  -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+  transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.button--winona:hover::after {
+  opacity: 1;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+.button--winona:hover > span {
+  opacity: 0;
+  -webkit-transform: translate3d(0, -25%, 0);
+  transform: translate3d(0, -25%, 0);
+}
 </style>
