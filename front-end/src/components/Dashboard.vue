@@ -4,11 +4,11 @@
     v-if="user" 
     class="h-screen flex flex-col"
   >
-    <UpperBar></UpperBar>
+    <UpperBar :isMobile="isMobile"></UpperBar>
     <div
-      class="bg-white dark:bg-black text-black dark:text-white flex-grow flex"
+      class="bg-white dark:bg-black text-black dark:text-white flex-grow flex flex-col xs:flex-row"
     >
-      <Navigation></Navigation>
+      <Navigation v-if="!isMobile"></Navigation>
       <div class="flex-grow">
         <router-view></router-view>
       </div>
@@ -32,6 +32,12 @@ export default {
     Navigation,
     UpperBar,
     NotLogged
+  },
+  props: {
+    isMobile: {
+      type: Boolean,
+      default: false
+    },
   },
   data() {
     return {

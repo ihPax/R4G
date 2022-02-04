@@ -18,7 +18,10 @@ export default {
       isMobile: false
     }
   },
-  methods:{
+  mounted() {
+    this.currentWidth();
+  },
+  methods: {
     currentWidth() {
       let currentWidth = window.innerWidth;
       let breakpointXS = 475;
