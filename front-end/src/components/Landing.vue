@@ -5,7 +5,7 @@
         <router-link to="/landing">
           <img
             src="../assets/logor4gblack.png"
-            class="w-3/4 cursor-pointer"
+            class="w-3/4 mt-5 cursor-pointer"
             alt="logo R4G"
           />
         </router-link>
@@ -14,14 +14,14 @@
         class="flex-col justify-center items-center text-center flex flex-grow"
       >
         <div class="flex-row flex justify-center align-center">
-          <span class="text-gray-600 font-semibold text-lg mx-8"
-            >Come funziona?</span
+          <a class="text-gray-600 font-semibold text-lg mx-8  hover:text-yellow-600 tracking-wide cursor-pointer  transition duration-300 ease-in-out"
+            href="#Works">Come funziona?</a
           >
-          <span class="text-gray-600 font-semibold text-lg mx-8"
-            >I nostri servizi</span
+          <a class="text-gray-600 font-semibold text-lg mx-8 hover:text-green-600 cursor-pointer tracking-wide transition duration-300 ease-in-out"
+            href="#Service">I nostri servizi</a
           >
-          <span class="text-gray-600 font-semibold text-lg mx-8"
-            >Chi siamo?</span
+          <a class="text-gray-600 font-semibold text-lg mx-8 hover:text-blue-500 tracking-wide cursor-pointer transition duration-300 ease-in-out"
+            href="#Who">Chi siamo?</a
           >
         </div>
       </div>
@@ -40,7 +40,7 @@
             @click="goToRegistration()"
             class="
               button button--moema
-              px-3
+              px-5
               py-2
               hover:bg-yellow-600 hover:text-white
               text-yellow-600
@@ -48,6 +48,7 @@
               border-yellow-500
               block
               focus:outline-none
+              cursor-pointer
               border-2 border-solid
               rounded-lg
               mr-8
@@ -62,11 +63,12 @@
             @click="goToLogin()"
             class="
               button button--moema
-              px-3
+              px-5
               py-2
               mr-2
               hover:text-white
               relative
+              cursor-pointer
               text-white
               bg-yellow-600
               border-yellow-500
@@ -95,7 +97,7 @@
         overflow-hidden
       "
       style="
-        background-image: url(https://www.dagospia.com/img/foto/05-2021/mascherine-in-mare-6-1459672_tn.jpeg);
+        background-image: url(https://t4.ftcdn.net/jpg/03/11/97/47/360_F_311974779_RwKYnMTawMHG33Dz7NLBFqsToNZRZCdq.jpg);
       "
     >
       <div class="h-full w-full absolute bg-blue-500 opacity-30"></div>
@@ -164,13 +166,14 @@
                     bg-yellow-600
                     hover:bg-yellow-600 hover:text-white
                     text-white
-                    border-2 border-white
                     relative
                     block
+                    px-3
                     focus:outline-none
                     rounded-lg
                     text-sm text-center
                     font-semibold
+                    cursor-pointer
                     tracking-widest
                     align-middle
                     overflow-hidden
@@ -188,9 +191,10 @@
                     hover:bg-yellow-600 hover:text-white
                     text-white
                     relative
+                    cursor-pointer
+                    px-3
                     block
                     focus:outline-none
-                    border-2 border-white
                     rounded-lg
                     text-sm text-center
                     font-semibold
@@ -221,9 +225,9 @@
             mb-12
           "
         >
-          <div class="w-full mb-4 lg:mb-0">
+          <div class="w-full mb-4 lg:mb-0" id="Works">
             <h2 class="text-4xl mt-3 font-bold font-heading">
-              <span class="text-yellow-600">Come Funziona?</span>
+              <span class="text-yellow-600" >Come Funziona?</span>
             </h2>
           </div>
           <div class="w-full">
@@ -323,7 +327,7 @@
         </div>
       </div>
     </div>
-    <div class="py-6 bg-white">
+    <div class="py-6 bg-white" id="Service">
       <div class="pt-10 pb-12">
         <div class="container px-4 mx-auto">
           <div class="mb-2 w-full">
@@ -539,11 +543,11 @@
             </div>
           </div>
         </div>
-        <div class="py-20 bg-blueGray-50">
+        <div class="py-20 bg-blueGray-50" id="Who">
           <div class="container px-4 mx-auto">
             <div class="flex flex-wrap lg:flex-nowrap">
               <div class="w-full lg:w-2/3">
-                <h2 class="text-4xl mt-3 font-bold font-heading text-green-700">
+                <h2 class="text-4xl mt-3 font-bold font-heading text-blue-500">
                   Chi Siamo
                 </h2>
                 <div class="py-6 lg:pr-24">
@@ -559,17 +563,29 @@
                     Un Calendario intelligente, una verà e proprio comodità che
                     ti permette di risparmiare del tempo prezioso.
                   </p>
+                  <p
+                    class="mb-6 leading-loose text-blueGray-600"
+                    v-if="read == true"
+                  >
+                    Un Calendario intelligente, una verà e proprio comodità che
+                    ti permette di risparmiare del tempo prezioso. Un Calendario
+                    intelligente, una verà e proprio comodità che ti permette di
+                    risparmiare del tempo prezioso. Un Calendario intelligente,
+                    una verà e proprio comodità che ti permette di risparmiare
+                    del tempo prezioso.
+                  </p>
+                  <button
+                    @click="KeepReading()"
+                    class="text-underline text-yellow-500"
+                  >
+                    <span v-if="read == true">Leggi meno.</span>
+
+                    <span v-if="read == false"> Continua a leggere...</span>
+                  </button>
                 </div>
               </div>
               <div
-                class="
-                  relative
-                  w-full
-                  my-12
-                  lg:w-1/2 lg:my-0
-                  sm:flex
-                  flex-col
-                "
+                class="relative w-full my-12 lg:w-1/2 lg:my-0 sm:flex flex-col"
               >
                 <div
                   class="
@@ -583,7 +599,7 @@
                     bg-cover bg-blue-200 bg-center
                   "
                   style="
-                    background-image: url(https://www.dagospia.com/img/foto/05-2021/mascherine-in-mare-6-1459672_tn.jpeg);
+                    background-image: url(https://images.unsplash.com/photo-1604187351574-c75ca79f5807?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cmVjeWNsZXxlbnwwfHwwfHw%3D&w=1000&q=80);
                   "
                   alt=""
                 ></div>
@@ -599,7 +615,9 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      read: false,
+    };
   },
   methods: {
     goToRegistration() {
@@ -611,6 +629,9 @@ export default {
       this.$router.push({
         name: "login",
       });
+    },
+    KeepReading() {
+      this.read = !this.read;
     },
   },
 };
