@@ -59,7 +59,13 @@ const settings = {
   't-button': {
     component: TButton,
     props: {
-      classes: 'button button--moema px-3 py-2 hover:bg-yellow-600 hover:text-white text-yellow-600 relative border-yellow-500 block focus:outline-none border-2 border-solid rounded-lg mr-8 text-sm text-center font-semibold tracking-widest',
+      classes: 'button button--moema px-3 py-2 hover:bg-yellow-600 hover:text-white text-yellow-600 relative border-yellow-500 block focus:outline-none border-2 border-solid rounded-lg text-sm text-center font-semibold tracking-widest',
+    }
+  },
+  't-button2': {
+    component: TButton,
+    props: {
+      classes: 'button button--moema px-3 py-2 bg-yellow-600 text-white relative hover:border-yellow-500 block focus:outline-none border-2 border-solid rounded-lg text-sm text-center font-semibold tracking-widest',
     }
   },
 't-modal': {

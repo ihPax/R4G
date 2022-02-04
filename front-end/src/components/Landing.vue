@@ -36,7 +36,7 @@
             mr-10
           "
         >
-          <a
+          <button
             @click="goToRegistration()"
             class="
               button button--moema
@@ -58,8 +58,8 @@
             "
           >
             Registrati
-          </a>
-          <a
+          </button>
+          <button
             @click="goToLogin()"
             class="
               button button--moema
@@ -82,7 +82,7 @@
             "
           >
             Accedi
-          </a>
+          </button>
         </div>
       </div>
     </div>
