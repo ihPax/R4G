@@ -22,6 +22,8 @@ module.exports = {
       greenlanding: "#1E8E1F",
       greenborder: "#5BDF46",
       greenscritte: "#4B9B45",
+      greenlogo: "#73F440",
+      orangelogo: "#F17F3A",
       white: "#fff",
       blueGray: {
         50: "#f8fafc",
