@@ -11,57 +11,29 @@
         </router-link>
       </div>
       <div
-        class="flex-col flex flex-grow justify-center items-end align-center"
+        class="flex flex-grow justify-end items-center" 
       >
-        <div class="flex-row flex">
-          <a
-            @click="goToRegistration()"
-            :disabled="$route.name == 'registration'"
+        <div class="flex" v-for="link in links" :key="link.code">        
+          <button
+            @click="goToLink(link)"
+            :disabled="link.code == $route.name"
             class="
               button button--moema
               px-3
               py-2
-              hover:bg-yellow-600 hover:text-white
-              text-yellow-600
               relative
-              border-yellow-500
-              block
-              focus:outline-none
-              border-2 border-solid
-              rounded-lg
               mr-8
-              text-sm text-center
-              font-semibold
-              tracking-widest
-            "
-          >
-            Registrati
-          </a>
-
-          <a
-            @click="goToLogin()"
-            :disabled="$route.name == 'login'"
-            class="
-              button button--moema
-              px-3
-              py-2
-              mr-2
-             hover:text-white
-              relative
-              text-white
-              bg-yellow-600
-              border-yellow-500
-              block
               focus:outline-none
-              border-2 border-solid
+              border-2 border-solid border-yellow-500
               rounded-lg
               text-sm text-center
               font-semibold
               tracking-widest
             "
+            :class="link.classes"
           >
-            Accedi
-          </a>
+            {{link.label}}
+          </button>
         </div>
       </div>
     </div>
@@ -71,16 +43,29 @@
 <script>
 export default {
   name: "LoginRegisterBar",
-  methods: {
-    goToLogin() {
-      this.$router.push({
-        name: "login",
-      });
-    },
-    goToRegistration() {
-      this.$router.push({
-        name: "registration",
-      });
+  data() {
+    return {
+      links: [
+        {
+          code: "registration",
+          label: "Registrati",
+          classes: "text-yellow-600 hover:text-white hover:bg-yellow-600"
+        },
+        {
+          code: "login",
+          label: "Accedi",
+          classes: "text-white bg-yellow-600"
+        }
+      ]
+    }
+  },
+  methods: {    
+    goToLink(link) {
+      if (link.code != this.$route.name) {
+        this.$router.push({
+          name: link.code,
+        });
+      }
     },
   },
 };
