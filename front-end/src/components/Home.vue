@@ -1,5 +1,5 @@
 <template lang="html">
-<div>
+<div class="h-full w-full">
   <div
     v-if="!isMobile"
     class="h-full w-full flex flex-row border-l-2 border-t-2 xs:border-black border-white rounded-tl-2xl"
