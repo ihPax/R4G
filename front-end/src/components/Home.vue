@@ -1,10 +1,12 @@
 <template lang="html">
+<div>
   <div
+    v-if="!isMobile"
     class="h-full w-full flex flex-row border-l-2 border-t-2 xs:border-black border-white rounded-tl-2xl"
   >
     <div class="h-full flex flex-col flex-grow p-8">
       <div class="text-4xl font-bold mb-3 sm:mb-6 lg:mb-12">Ciao {{ user.name }}!</div>
-      <div class="grid grid-cols-2 gap-8">
+      <div class="grid xs:grid-cols-2 gap-2 xs:gap-8">
         <div
           class="flex flex-col-reverse lg:flex-row items-center shadow-inner rounded-lg text-center border-2 border-gray-300"
         >
@@ -73,6 +75,54 @@
       <div class="flex flex-row">GRAFICO</div>
     </div>
   </div>
+
+  <div v-else>
+    <div class="max-w-full flex flex-col">
+      <div class="bg-blue-50 mb-5 flex px-5 py-2 items-center">
+        <div class="material-icons text-4xl">
+          accessibility_new
+        </div>
+        <div class="flex flex-col ml-3">
+          <div class="text-xs">
+            {{ user.name }} {{ user.surname }}
+          </div>
+          <div class="font-semibold">
+            Benvenuto su R4G!
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-blue-400 rounded mx-4">
+          <div>
+            <t-modal
+              v-model="showModalMaterial"
+              header="Scegli il materiale"
+              close="chiudi"
+            >
+              <ModalMaterial @exit="closeMaterialModal"></ModalMaterial>
+            </t-modal>
+            <div class="flex flex-col" v-if="localBin != ''">
+              <div class="flex flex-col p-5">
+                <div class="font-bold overflow-x-hidden">
+                  {{ bin.name }}
+                </div>
+                <div class="font-semibold">Prossimo ritiro:</div>
+                <div class="font-normal">
+                  {{ bin.day | date }}
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <div>
+        
+      </div>
+
+    </div>
+  </div>
+
+</div>
 </template>
 
 <script>
