@@ -187,19 +187,18 @@ export default {
       }
     },
     weekDay(day) {
-
       let days = new Date();
       let nDay = days.getDay();
-     
+           console.log(day, nDay)
+
       if ((Number(day) - Number(nDay)) >= -1){
       let ritiro = days.setDate(days.getDay() + (Number(day) - Number(nDay)));
       this.bin.day = new Date(ritiro);
       }else if ((Number(day) - Number(nDay)) < -1){
-                console.log(day)
-
-        day = day + 3
         console.log(day)
-        let ritiro = days.setDate(days.getDay() + day);
+        //day = day + 7
+        let correctDay = nDay - day;
+        let ritiro = days.setDate(days.getDay() + correctDay);
       this.bin.day = new Date(ritiro);
       }
 
