@@ -32,12 +32,12 @@
                 </div>
                 <div class="uk-card-header uk-text-center">Capienza cestino</div>
                 <div class="uk-card-body uk-flex uk-flex-center uk-flex-middle">
-                  <div class="uk-inline-clip">
+                  <div class="uk-inline-clip relative">
                     <svg id="svg" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
                       <circle :r="r" cx="100" cy="100" fill="white" stroke-dasharray="314.15" stroke-dashoffset="0"></circle>
                       <circle id="bar" :r="r" cx="100" cy="100" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;`"></circle>
                     </svg>
-                    <div class="h3 uk-position-center">{{value}}</div>
+                    <div class="h3 absolute" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{value}}</div>
                   </div>
                 </div>
                 <div class="font-semibold">Prossimo ritiro:</div>
