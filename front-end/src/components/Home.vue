@@ -478,17 +478,15 @@ export default {
     transform: scale3d(1, 1, 1);
   }
 }
-</style>
 
-<style>
 #svg circle {
-    transition: stroke-dashoffset 1.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-    stroke: #c0c0c0	;
-    border: 20px solid black;
-    stroke-width: 1em;
+  transition: stroke-dashoffset 1.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  stroke: #c0c0c0	;
+  border: 20px solid black;
+  stroke-width: 1em;
 }
 #svg #bar {
-    stroke: blue;
+  stroke: blue;
 }
 
 
