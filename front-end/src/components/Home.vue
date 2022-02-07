@@ -1,5 +1,5 @@
 <template lang="html">
-<div class="font-montserrat">
+<div class="h-full w-full font-montserrat">
   <div
     v-if="!isMobile"
     class="h-full w-full flex flex-row border-l-2 border-t-2 xs:border-black border-white rounded-tl-2xl"
@@ -32,12 +32,12 @@
                 </div>
                 <!-- <div class="uk-card-header uk-text-center">Capienza cestino</div> -->
                 <div class="uk-card-body uk-flex uk-flex-center uk-flex-middle">
-                  <div class="uk-inline-clip circle-box">
+                  <div class="uk-inline-clip relative">
                     <svg id="svg" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
                       <circle :r="r" cx="100" cy="100" fill="white" stroke-dasharray="314.15" stroke-dashoffset="0"></circle>
                       <circle id="bar" :r="r" cx="100" cy="100" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;`"></circle>
                     </svg>
-                    <div class="h3">{{value}}</div>
+                    <div class="h3 absolute font-bold" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{value}}%</div>
                   </div>
                 </div>
                 <div class="font-semibold pl-10">Prossimo ritiro:</div>
@@ -309,19 +309,17 @@ export default {
       }
     },
     weekDay(day) {
-
       let days = new Date();
       let nDay = days.getDay();
-     
       if ((Number(day) - Number(nDay)) >= -1){
       let ritiro = days.setDate(days.getDay() + (Number(day) - Number(nDay)));
       this.bin.day = new Date(ritiro);
-      }else if ((Number(day) - Number(nDay)) < -1){
-                console.log(day)
 
-        day = day + 3
+      }else if ((Number(day) - Number(nDay)) < -1){
         console.log(day)
-        let ritiro = days.setDate(days.getDay() + day);
+        //day = day + 7
+        let correctDay = nDay - day;
+        let ritiro = days.setDate(days.getDay() + correctDay);
       this.bin.day = new Date(ritiro);
       }
 
