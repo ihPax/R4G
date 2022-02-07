@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view :isMobile = "isMobile"></router-view>
+    <router-view :isMobile="isMobile"></router-view>
   </div>
 </template>
 
