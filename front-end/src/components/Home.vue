@@ -37,7 +37,7 @@
                       <circle :r="r" cx="100" cy="100" fill="white" stroke-dasharray="314.15" stroke-dashoffset="0"></circle>
                       <circle id="bar" :r="r" cx="100" cy="100" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;`"></circle>
                     </svg>
-                    <div class="h3 absolute font-bold" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{value}}%</div>
+                    <div class="h3 absolute font-bold text-xl" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{value}}%</div>
                   </div>
                 </div>
                 <div class="font-semibold pl-10">Prossimo ritiro:</div>
@@ -485,7 +485,7 @@ export default {
     transition: stroke-dashoffset 1.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
     stroke: #c0c0c0	;
     border: 20px solid black;
-    stroke-width: 1em;
+    stroke-width: 9;
 }
 #svg #bar {
     stroke: blue;
