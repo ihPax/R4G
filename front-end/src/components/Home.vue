@@ -29,19 +29,18 @@
             </t-modal>
             <div class="flex flex-col" v-if="localBin != ''">
               <div class="flex flex-col p-5">
-                <div class="font-bold pl-10">
+                <div class="font-bold pl-10 text-xl">
                   {{ bin.name }}  
                 </div>
-                <!-- <div class="uk-card-header uk-text-center">Capienza cestino</div> -->
                   <div class="relative w-200" >
                     <svg id="svg" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" :style="`stroke:${color}`">
                       <circle :r="r" cx="100" cy="100" fill="white" stroke-dasharray="314.15" stroke-dashoffset="0"></circle>
                       <circle id="bar" :r="r" cx="100" cy="100" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;stroke:${color}`"></circle>
                     </svg>
-                    <div class="h3 absolute font-bold" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{value}}%</div>
+                    <div class="h3 absolute font-bold text-xl" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{value}}%</div>
                   </div>
-                <div class="font-semibold pl-10">Prossimo ritiro:</div>
-                <div class="font-normal pl-10">
+                <div class="font-semibold pl-10 text-xl">Prossimo ritiro:</div>
+                <div class="font-normal pl-10 text-xl">
                   {{ bin.day | date }}
                 </div>
               </div>
@@ -51,16 +50,16 @@
             <span class="material-icons text-7xl xs:text-9xl lg:text-11xl">
               <span v-if="localBin == ''">delete_forever</span>
               <span v-if="bin.name == 'CARTA'">
-                <img src="../assets/carta.png" class="w-32">
+                <img src="../assets/carta.png" class="w-40">
               </span>
               <span v-if="bin.name == 'SECCO'">
-                <img src="../assets/secco.png" class="w-32">
+                <img src="../assets/secco.png" class="w-40">
               </span>
               <span v-if="bin.name == 'UMIDO'">
-                <img src="../assets/umido.png" class="w-32">
+                <img src="../assets/umido.png" class="w-40">
               </span>
               <span v-if="bin.name == 'PLASTICA/LATTINE'">
-                <img src="../assets/plastica.png" class="w-32">
+                <img src="../assets/plastica.png" class="w-40">
               </span>
             </span>
           </div>
@@ -486,14 +485,12 @@ export default {
     transform: scale3d(1, 1, 1);
   }
 }
-</style>
 
-<style>
 #svg circle {
   transition: stroke-dashoffset 1.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   stroke: #c0c0c0;
   border: 20px solid black;
-  stroke-width: 1em;
+  stroke-width: 9;
 }
 
 
