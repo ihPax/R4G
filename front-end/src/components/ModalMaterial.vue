@@ -37,7 +37,7 @@ methods:{
         let res = await this.$axios.get("/r4g/material-bin/"+idBin);
         let calendaBin = res.data;
 
-         let localBin = JSON.stringify(calendaBin);
+        let localBin = JSON.stringify(calendaBin);
         localStorage.setItem("Bin", localBin);
         // localStorage.setItem("Materiale", materiale.name);
         this.$emit("exit", true);
