@@ -10,13 +10,15 @@
         <div
           class="flex flex-col-reverse lg:flex-row items-center shadow-inner rounded-lg border-2 border-gray-300"
         >
-          <t-button
-            @click="changeBinStatus()"
-            v-if="localBin == ''"
-            class="flex flex-col mx-1 my-4"
-          >
-            Collega il tuo cestino
-          </t-button>
+          <div v-if="localBin == ''" class="h-80 w-full flex justify-center items-end">
+            <t-button2
+              @click="changeBinStatus()"
+              v-if="localBin == ''"
+              class="flex flex-col mx-1 my-4"
+            >
+              Collega il tuo cestino
+            </t-button2>
+          </div>
           <div>
             <t-modal
               v-model="showModalMaterial"
@@ -31,15 +33,13 @@
                   {{ bin.name }}  
                 </div>
                 <!-- <div class="uk-card-header uk-text-center">Capienza cestino</div> -->
-                <div class="uk-card-body uk-flex uk-flex-center uk-flex-middle">
-                  <div class="uk-inline-clip relative">
+                  <div class="relative w-200" >
                     <svg id="svg" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
                       <circle :r="r" cx="100" cy="100" fill="white" stroke-dasharray="314.15" stroke-dashoffset="0"></circle>
                       <circle id="bar" :r="r" cx="100" cy="100" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;`"></circle>
                     </svg>
                     <div class="h3 absolute font-bold" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{value}}%</div>
                   </div>
-                </div>
                 <div class="font-semibold pl-10">Prossimo ritiro:</div>
                 <div class="font-normal pl-10">
                   {{ bin.day | date }}
@@ -177,9 +177,8 @@
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- <div class="bg-blue-400 rounded mx-4">
+        <!-- <div class="bg-blue-400 rounded mx-4">
         <div>
           <t-modal
             v-model="showModalMaterial"
@@ -202,14 +201,10 @@
         </div>
       </div> -->
 
-      <div>
-        
       </div>
-
     </div>
   </div>
-
-</div>
+  </div>
 </template>
 
 <script>
@@ -226,7 +221,7 @@ export default {
   props: {
     isMobile: {
       type: Boolean,
-      default: false
+      default: false,
     },
   },
   data() {
@@ -246,7 +241,7 @@ export default {
       num: 0,
       r: 50,
       rct: 314.15,
-      value: 70
+      value: 70,
     };
   },
   async mounted() {
@@ -273,10 +268,10 @@ export default {
       let viewBinUser = response.data;
       let res = await this.$axios.get("/r4g/material-bin/" + viewBinUser.bin_id);
       if (response) {
-      let calendaBin = res.data;
-      this.localBin = JSON.stringify(calendaBin);
-      localStorage.setItem("Bin", this.localBin);
-      this.populateBin();
+        let calendaBin = res.data;
+        this.localBin = JSON.stringify(calendaBin);
+        localStorage.setItem("Bin", this.localBin);
+        this.populateBin();
       }
     },
     populateBin() {
@@ -311,16 +306,15 @@ export default {
     weekDay(day) {
       let days = new Date();
       let nDay = days.getDay();
-      if ((Number(day) - Number(nDay)) >= -1){
-      let ritiro = days.setDate(days.getDay() + (Number(day) - Number(nDay)));
-      this.bin.day = new Date(ritiro);
-
-      }else if ((Number(day) - Number(nDay)) < -1){
-        console.log(day)
+      if (Number(day) - Number(nDay) >= -1) {
+        let ritiro = days.setDate(days.getDay() + (Number(day) - Number(nDay)));
+        this.bin.day = new Date(ritiro);
+      } else if (Number(day) - Number(nDay) < -1) {
+        console.log(day);
         //day = day + 7
         let correctDay = nDay - day;
         let ritiro = days.setDate(days.getDay() + correctDay);
-      this.bin.day = new Date(ritiro);
+        this.bin.day = new Date(ritiro);
       }
 
       /*
@@ -340,11 +334,11 @@ export default {
         this.bin.day = "DOmenica";
       }*/
     },
-     changePercent() {
-            //let val = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
-            let c = Math.PI * (this.r * 2);
-            this.rct = (100 - this.value) / 100 * c;
-        }
+    changePercent() {
+      //let val = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
+      let c = Math.PI * (this.r * 2);
+      this.rct = ((100 - this.value) / 100) * c;
+    },
   },
   computed: {},
   filters: {
@@ -367,10 +361,10 @@ export default {
         nameDay = "Domenica";
       }
 
-      let numDay = value.getDate()
-      let month = value.getMonth()
+      let numDay = value.getDate();
+      let month = value.getMonth();
       let nameMonth = "";
-       if (month == 0) {
+      if (month == 0) {
         nameMonth = "Gennaio";
       } else if (month == 1) {
         nameMonth = "Febbraio";
@@ -384,21 +378,21 @@ export default {
         nameMonth = "Giugno";
       } else if (month == 6) {
         nameMonth = "Luglio";
-      }else if (month == 7) {
+      } else if (month == 7) {
         nameMonth = "Agosto";
-      }else if (month == 8) {
+      } else if (month == 8) {
         nameMonth = "Settembre";
-      }else if (month == 9) {
+      } else if (month == 9) {
         nameMonth = "Ottobre";
-      }else if (month == 10) {
+      } else if (month == 10) {
         nameMonth = "Novembre";
-      }else if (month == 11) {
+      } else if (month == 11) {
         nameMonth = "Dicembre";
       }
 
-      let year = value.getFullYear()
+      let year = value.getFullYear();
 
-      return nameDay + " " + numDay + " " + nameMonth + " " +year ;
+      return nameDay + " " + numDay + " " + nameMonth + " " + year;
     },
   },
 };
@@ -481,7 +475,7 @@ export default {
 
 #svg circle {
   transition: stroke-dashoffset 1.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-  stroke: #c0c0c0	;
+  stroke: #c0c0c0;
   border: 20px solid black;
   stroke-width: 1em;
 }
@@ -489,5 +483,9 @@ export default {
   stroke: blue;
 }
 
+.w-200{
+  width:200px;
+  height:200px
+}
 
 </style>
