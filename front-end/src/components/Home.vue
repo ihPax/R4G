@@ -1,5 +1,5 @@
 <template lang="html">
-<div>
+<div class="font-montserrat">
   <div
     v-if="!isMobile"
     class="h-full w-full flex flex-row border-l-2 border-t-2 xs:border-black border-white rounded-tl-2xl"
@@ -8,7 +8,7 @@
       <div class="text-4xl font-bold mb-3 sm:mb-6 lg:mb-12">Ciao {{ user.name }}!</div>
       <div class="grid xs:grid-cols-2 gap-2 xs:gap-8">
         <div
-          class="flex flex-col-reverse lg:flex-row items-center shadow-inner rounded-lg text-center border-2 border-gray-300"
+          class="flex flex-col-reverse lg:flex-row items-center shadow-inner rounded-lg border-2 border-gray-300"
         >
           <t-button
             @click="changeBinStatus()"
@@ -27,21 +27,21 @@
             </t-modal>
             <div class="flex flex-col" v-if="localBin != ''">
               <div class="flex flex-col p-5">
-                <div class="font-bold">
+                <div class="font-bold pl-10">
                   {{ bin.name }}  
                 </div>
-                <div class="uk-card-header uk-text-center">Capienza cestino</div>
+                <!-- <div class="uk-card-header uk-text-center">Capienza cestino</div> -->
                 <div class="uk-card-body uk-flex uk-flex-center uk-flex-middle">
-                  <div class="uk-inline-clip">
+                  <div class="uk-inline-clip circle-box">
                     <svg id="svg" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
                       <circle :r="r" cx="100" cy="100" fill="white" stroke-dasharray="314.15" stroke-dashoffset="0"></circle>
                       <circle id="bar" :r="r" cx="100" cy="100" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;`"></circle>
                     </svg>
-                    <div class="h3 uk-position-center">{{value}}</div>
+                    <div class="h3">{{value}}</div>
                   </div>
                 </div>
-                <div class="font-semibold">Prossimo ritiro:</div>
-                <div class="font-normal">
+                <div class="font-semibold pl-10">Prossimo ritiro:</div>
+                <div class="font-normal pl-10">
                   {{ bin.day | date }}
                 </div>
               </div>
@@ -49,8 +49,7 @@
           </div>
           <div class="flex flex-col mx-1 flex-shrink-0 flex-grow">
             <span class="material-icons text-7xl xs:text-9xl lg:text-11xl">
-              <!-- <span v-if="localBin == ''">delete_forever</span>
-              <span v-else>delete_outline</span> -->
+              <span v-if="localBin == ''">delete_forever</span>
               <span v-if="bin.name == 'CARTA'">
                 <img src="../assets/carta.png" class="w-32">
               </span>
