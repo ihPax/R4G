@@ -2,7 +2,7 @@
 <div>
   <div 
     v-if="user" 
-    class="h-screen flex flex-col"
+    class="h-full xs:h-screen flex flex-col"
   >
     <UpperBar :isMobile="isMobile"></UpperBar>
     <div
@@ -10,7 +10,7 @@
     >
       <Navigation v-if="!isMobile"></Navigation>
       <div class="flex-grow">
-        <router-view></router-view>
+        <router-view :isMobile="isMobile"></router-view>
       </div>
     </div>
   </div>
