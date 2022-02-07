@@ -34,9 +34,9 @@
                 </div>
                 <!-- <div class="uk-card-header uk-text-center">Capienza cestino</div> -->
                   <div class="relative w-200" >
-                    <svg id="svg" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <svg id="svg" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" :style="`stroke:${color}`">
                       <circle :r="r" cx="100" cy="100" fill="white" stroke-dasharray="314.15" stroke-dashoffset="0"></circle>
-                      <circle id="bar" :r="r" cx="100" cy="100" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;`"></circle>
+                      <circle id="bar" :r="r" cx="100" cy="100" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;stroke:${color}`"></circle>
                     </svg>
                     <div class="h3 absolute font-bold" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{value}}%</div>
                   </div>
@@ -228,6 +228,7 @@ export default {
     return {
       access: "",
       user: {},
+      color:'grey',
       showModal: false,
       showModalMaterial: false,
       bin: [
@@ -302,18 +303,31 @@ export default {
           this.weekDay(this.localBin[1].nDay);
         }
       }
+
+      if(this.bin.name == 'SECCO'){
+        this.color = '#9CA3AF'
+      }else if (this.bin.name =='CARTA'){
+        this.color = '#166534'
+      }else if(this.bin.name =='UMIDO'){
+        this.color = '#854D0E'
+      }else if(this.bin.name =='PLASTICA/LATTINE'){
+        this.color = '#1E3A8A'
+      }
     },
     weekDay(day) {
       let days = new Date();
       let nDay = days.getDay();
       if (Number(day) - Number(nDay) >= -1) {
-        let ritiro = days.setDate(days.getDay() + (Number(day) - Number(nDay)));
+        console.log("if",days.getDate(), day)
+        let ritiro = days.setDate(days.getDate()+  day);
         this.bin.day = new Date(ritiro);
+        console.log(this.bin.day)
       } else if (Number(day) - Number(nDay) < -1) {
+        console.log("else")
         console.log(day);
-        //day = day + 7
-        let correctDay = nDay - day;
-        let ritiro = days.setDate(days.getDay() + correctDay);
+        day = this.days + 7
+        //let correctDay = nDay - day;
+        let ritiro = days.setDate(day);
         this.bin.day = new Date(ritiro);
       }
 
@@ -481,9 +495,7 @@ export default {
   border: 20px solid black;
   stroke-width: 1em;
 }
-#svg #bar {
-  stroke: blue;
-}
+
 
 .w-200{
   width:200px;
