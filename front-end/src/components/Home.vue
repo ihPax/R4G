@@ -16,8 +16,8 @@
               v-if="localBin == ''"
               class="flex flex-col mx-1 my-4"
             >
-              Collega il tuo cestino
-            </t-button2>
+              Collega il tuo cestino 
+            </t-button2> 
           </div>
           <div>
             <t-modal
@@ -254,7 +254,17 @@ export default {
       this.showModal = !this.showModal;
     },
     changeBinStatus() {
-      this.showModalMaterial = !this.showModalMaterial;
+      if(!this.user.zone_id){
+       this.$fire({
+                    text: "Prima di collegare il cestino ti chiediamo di indicare il tuo quartiere di residenza",
+                    type: "warning",
+                    timer: 3000,
+                    });
+
+      }else{
+        this.showModalMaterial = !this.showModalMaterial;
+      }
+     
     },
     closeModal() {
       this.showModal = !this.showModal;
