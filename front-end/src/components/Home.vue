@@ -4,9 +4,9 @@
     v-if="!isMobile"
     class="h-full w-full flex flex-row border-l-2 border-t-2 xs:border-black border-white rounded-tl-2xl"
   >
-    <div class="h-full flex flex-col flex-grow p-8">
+    <div class="h-full flex flex-col flex-grow p-6">
       <div class="text-4xl font-bold mb-3 sm:mb-6 lg:mb-12">Ciao {{ user.name }}!</div>
-      <div class="grid xs:grid-cols-2 gap-2 xs:gap-8">
+      <div class="grid grid-cols-2 gap-6">
         <div
           class="flex flex-col-reverse lg:flex-row items-center shadow-inner rounded-lg border-2 border-gray-300"
         >
@@ -19,7 +19,7 @@
               Collega il tuo cestino 
             </t-button2> 
           </div>
-          <div>
+          <div class="flex">
             <t-modal
               v-model="showModalMaterial"
               header="Scegli il materiale"
@@ -28,40 +28,40 @@
               <ModalMaterial @exit="closeMaterialModal"></ModalMaterial>
             </t-modal>
             <div class="flex flex-col" v-if="localBin != ''">
-              <div class="flex flex-col p-5">
-                <div class="font-bold pl-10 text-xl">
+              <div class="flex flex-col py-4">
+                <div class="font-bold pl-4 text-xl">
                   {{ bin.name }}  
                 </div>
-                  <div class="relative w-200" >
-                    <svg id="svg" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" :style="`stroke:${color}`">
-                      <circle :r="r" cx="100" cy="100" fill="white" stroke-dasharray="314.15" stroke-dashoffset="0"></circle>
-                      <circle id="bar" :r="r" cx="100" cy="100" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;stroke:${color}`"></circle>
+                  <div class="relative w-160" >
+                    <svg id="svg" width="160" height="160" viewPort="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" :style="`stroke:${color}`">
+                      <circle :r="r" cx="80" cy="80" fill="white" stroke-dasharray="314.15" stroke-dashoffset="0"></circle>
+                      <circle id="bar" :r="r" cx="80" cy="80" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;stroke:${color}`"></circle>
                     </svg>
                     <div class="h3 absolute font-bold text-xl" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{value}}%</div>
                   </div>
-                <div class="font-semibold pl-10 text-xl">Prossimo ritiro:</div>
-                <div class="font-normal pl-10 text-xl">
+                <div class="font-semibold pl-4 text-xl">Prossimo ritiro:</div>
+                <div class="font-normal pl-4 text-xl">
                   {{ bin.day | date }}
                 </div>
               </div>
             </div>
           </div>
-          <div class="flex flex-col mx-1 flex-shrink-0 flex-grow">
-            <span class="material-icons text-7xl xs:text-9xl lg:text-11xl">
-              <span v-if="localBin == ''">delete_forever</span>
-              <span v-if="bin.name == 'CARTA'">
+          <div class="flex flex-col mx-1">
+            <div class="material-icons text-7xl xs:text-9xl lg:text-11xl">
+              <div v-if="localBin == ''">delete_forever</div>
+              <div v-if="bin.name == 'CARTA'">
                 <img src="../assets/carta.png" class="w-40">
-              </span>
-              <span v-if="bin.name == 'SECCO'">
+              </div>
+              <div v-if="bin.name == 'SECCO'">
                 <img src="../assets/secco.png" class="w-40">
-              </span>
-              <span v-if="bin.name == 'UMIDO'">
+              </div>
+              <div v-if="bin.name == 'UMIDO'">
                 <img src="../assets/umido.png" class="w-40">
-              </span>
-              <span v-if="bin.name == 'PLASTICA/LATTINE'">
+              </div>
+              <div v-if="bin.name == 'PLASTICA/LATTINE'">
                 <img src="../assets/plastica.png" class="w-40">
-              </span>
-            </span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -504,9 +504,9 @@ export default {
 }
 
 
-.w-200{
-  width:200px;
-  height:200px
+.w-160 {
+  width: 160px;
+  height: 160px;
 }
 
 </style>
