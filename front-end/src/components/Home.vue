@@ -138,7 +138,7 @@
                 {{ bin.name }}
               </div>
               <div class="uk-card-body uk-flex uk-flex-center uk-flex-middle">
-                <div class="uk-inline-clip">
+                <div class="uk-inline-clip relative">
                   <svg
                     id="svg"
                     width="200"
@@ -166,7 +166,7 @@
                       :style="`stroke-dashoffset: ${rct}px;`"
                     ></circle>
                   </svg>
-                  <div class="h3 uk-position-center">{{ value }}</div>
+                  <div class="h3 uk-position-center absolute" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{ value }}</div>
                 </div>
               </div>
               <div class="font-semibold">Prossimo ritiro:</div>
