@@ -115,7 +115,7 @@
       <div
         class="bg-blue-400 flex justify-center items-center shadow-inner rounded-lg text-center border-2 border-gray-300 mx-5"
       >
-        <div v-if="localBin == ''" class="w-full flex justify-center items-end">
+        <div v-if="localBin == ''" class="w-full flex justify-center items-end h-80">
           <t-button2
             @click="changeBinStatus()"
             v-if="localBin == ''"
@@ -166,7 +166,7 @@
                       :style="`stroke-dashoffset: ${rct}px;`"
                     ></circle>
                   </svg>
-                  <div class="h3 uk-position-center absolute" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{ value }}</div>
+                  <div class="h3 uk-position-center absolute" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{ value }}%</div>
                 </div>
               </div>
               <div class="font-semibold">Prossimo ritiro:</div>
