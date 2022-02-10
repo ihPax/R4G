@@ -2,7 +2,7 @@
 <div class="h-full w-full font-montserrat">
   <div
     v-if="!isMobile"
-    class="h-full w-full flex flex-row border-l-2 border-t-2 xs:border-black border-white rounded-tl-2xl"
+    class="h-full w-full flex flex-col lg:flex-row border-l-2 border-t-2 xs:border-black border-white rounded-tl-2xl"
   >
     <div class="h-full flex flex-col flex-grow p-6">
       <div class="text-4xl font-bold mb-3 sm:mb-6 lg:mb-12">Ciao {{ user.name }}!</div>
@@ -10,14 +10,14 @@
         <div
           class="flex flex-col-reverse lg:flex-row items-center shadow-inner rounded-lg border-2 border-gray-300"
         >
-          <div v-if="localBin == ''" class="h-80 w-full flex justify-center items-end">
-            <t-button2
+          <div v-if="localBin == ''" class="flex flex-col-reverse lg:flex-row items-center">
+            <t-button
               @click="changeBinStatus()"
               v-if="localBin == ''"
               class="flex flex-col mx-1 my-4"
             >
-              Collega il tuo cestino 
-            </t-button2> 
+              Collega il tuo cestino
+            </t-button> 
           </div>
           <div class="flex">
             <t-modal
@@ -80,7 +80,7 @@
       </div>
     </div>
 
-    <div class="hidden lg:flex flex-col flex-grow border-l-2 border-black">
+    <div class="flex flex-col flex-grow lg:border-l-2 border-black">
       <div class="flex flex-row border-black border-b-2 pb-12 justify-center">
         <div v-if="!user.zone_id">
           <t-modal v-model="showModal" header="Scegli il tuo Comune" close="chiudi">
@@ -115,7 +115,7 @@
       <div
         class="bg-blue-400 flex justify-center items-center shadow-inner rounded-lg text-center border-2 border-gray-300 mx-5"
       >
-        <div v-if="localBin == ''" class="h-80 w-full flex justify-center items-end">
+        <div v-if="localBin == ''" class="w-full flex justify-center items-end">
           <t-button2
             @click="changeBinStatus()"
             v-if="localBin == ''"
@@ -254,14 +254,17 @@ export default {
       this.showModal = !this.showModal;
     },
     changeBinStatus() {
-      if(!this.user.zone_id){
-       this.$fire({
-                    text: "Prima di collegare il cestino ti chiediamo di indicare il tuo quartiere di residenza",
-                    type: "warning",
-                    timer: 3000,
-                    });
+      if (!this.user.zone_id) {
+        this.$fire({
+          text: "Prima di collegare il cestino ti chiediamo di indicare il tuo quartiere di residenza",
+          type: "warning",
+          timer: 3000,
+        }).then(r => {
+          this.showModal = !this.showModal;
+          console.log(r);
+        });
 
-      }else{
+      } else {
         this.showModalMaterial = !this.showModalMaterial;
       }
      
