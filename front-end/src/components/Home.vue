@@ -32,13 +32,13 @@
                 <div class="font-bold pl-4 text-xl">
                   {{ bin.name }}  
                 </div>
-                  <div class="relative w-160" >
-                    <svg id="svg" width="160" height="160" viewPort="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" :style="`stroke:${color}`">
-                      <circle :r="r" cx="80" cy="80" fill="white" stroke-dasharray="314.15" stroke-dashoffset="0"></circle>
-                      <circle id="bar" :r="r" cx="80" cy="80" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;stroke:${color}`"></circle>
-                    </svg>
-                    <div class="h3 absolute font-bold text-xl" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{value}}%</div>
-                  </div>
+                <div class="relative w-160">
+                  <svg id="svg" width="160" height="160" viewPort="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" :style="`stroke:${color}`">
+                    <circle :r="r" cx="80" cy="80" fill="white" stroke-dasharray="314.15" stroke-dashoffset="0"></circle>
+                    <circle id="bar" :r="r" cx="80" cy="80" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;stroke:${color}`"></circle>
+                  </svg>
+                  <div class="h3 absolute font-bold text-xl" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{value}}%</div>
+                </div>
                 <div class="font-semibold pl-4 text-xl">Prossimo ritiro:</div>
                 <div class="font-normal pl-4 text-xl">
                   {{ bin.day | date }}
@@ -96,6 +96,7 @@
     </div>
   </div>
 
+  <!-- VERSIONE MOBILE -->
   <div v-else>
     <div class="max-w-full flex flex-col">
       <div class="bg-blue-50 mb-5 flex px-5 py-2 items-center">
@@ -113,9 +114,9 @@
       </div>
 
       <div
-        class="bg-blue-400 flex justify-center items-center shadow-inner rounded-lg text-center border-2 border-gray-300 mx-5"
+        class="flex flex-col mx-5"
       >
-        <div v-if="localBin == ''" class="w-full flex justify-center items-end">
+        <div v-if="localBin == ''" class="w-full flex justify-center items-end h-80 bg-blue-400 rounded-2xl">
           <t-button2
             @click="changeBinStatus()"
             v-if="localBin == ''"
@@ -132,41 +133,18 @@
           >
             <ModalMaterial @exit="closeMaterialModal"></ModalMaterial>
           </t-modal>
-          <div class="flex flex-col" v-if="localBin != ''">
-            <div class="flex flex-col p-5">
-              <div class="font-bold">
-                {{ bin.name }}
-              </div>
-              <div class="uk-card-body uk-flex uk-flex-center uk-flex-middle">
-                <div class="uk-inline-clip relative">
-                  <svg
-                    id="svg"
-                    width="200"
-                    height="200"
-                    viewPort="0 0 100 100"
-                    version="1.1"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <circle
-                      :r="r"
-                      cx="100"
-                      cy="100"
-                      fill="white"
-                      stroke-dasharray="314.15"
-                      stroke-dashoffset="0"
-                    ></circle>
-                    <circle
-                      id="bar"
-                      :r="r"
-                      cx="100"
-                      cy="100"
-                      fill="transparent"
-                      stroke-dasharray="314.15"
-                      stroke-dashoffset="0"
-                      :style="`stroke-dashoffset: ${rct}px;`"
-                    ></circle>
+          <div class="flex flex-col bg-blue-400 rounded-3xl" v-if="localBin != ''">
+            <div class="flex flex-col p-5 justify-center w-full">
+              <div class="flex justify-between items-center">
+                <div class="font-bold">
+                  {{ bin.name }}
+                </div>
+                <div class="relative">
+                  <svg id="svg" width="80" height="80" viewPort="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" :style="`stroke:${color}`">
+                    <circle r="25" cx="40" cy="40" fill="white" stroke-dasharray="314.15" stroke-dashoffset="0"></circle>
+                    <circle id="bar" r="25" cx="40" cy="40" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px; stroke:${color}`"></circle>
                   </svg>
-                  <div class="h3 uk-position-center absolute" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{ value }}</div>
+                  <div class="h3 absolute font-bold text-sm" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{value}}%</div>
                 </div>
               </div>
               <div class="font-semibold">Prossimo ritiro:</div>
@@ -177,33 +155,22 @@
           </div>
         </div>
 
-        <!-- <div class="bg-blue-400 rounded mx-4">
-        <div>
-          <t-modal
-            v-model="showModalMaterial"
-            header="Scegli il materiale"
-            close="chiudi"
-          >
-            <ModalMaterial @exit="closeMaterialModal"></ModalMaterial>
-          </t-modal>
-          <div class="flex flex-col" v-if="localBin != ''">
-            <div class="flex flex-col p-5">
-              <div class="font-bold overflow-x-hidden">
-                {{ bin.name }}
-              </div>
-              <div class="font-semibold">Prossimo ritiro:</div>
-              <div class="font-normal">
-                {{ bin.day | date }}
-              </div>
-            </div>
+        <div class="mt-4">
+          <div v-if="!user.zone_id" class="flex flex-col items-center">
+            <t-modal v-model="showModal" header="Scegli il tuo Comune" close="chiudi">
+              <Modal @exit="closeModal"></Modal>
+            </t-modal>
+            <t-button @click="showModalTrue()" type="button">Scegli il tuo comune</t-button>
+          </div>
+          <div v-if="user.zone_id">
+            <Calendar :is-expanded="true"></Calendar>
           </div>
         </div>
-      </div> -->
 
       </div>
     </div>
   </div>
-  </div>
+</div>
 </template>
 
 <script>
