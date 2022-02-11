@@ -230,6 +230,7 @@ export default {
       color:'grey',
       showModal: false,
       showModalMaterial: false,
+      userBin: {},
       bin: [
         {
           name: "",
@@ -241,17 +242,26 @@ export default {
       num: 0,
       r: 50,
       rct: 314.15,
-      value: 70,
+      value: 1
     };
   },
   async mounted() {
     this.user = JSON.parse(localStorage.getItem("AccessEmail"));
+    this.userBin = JSON.parse(localStorage.getItem("BinUser"));
     this.getBin();
     this.changePercent();
+    this.getDistance();
   },
   methods: {
     showModalTrue() {
       this.showModal = !this.showModal;
+    },
+    getDistance(){
+      let lenght = this.userBin.length +56;
+      let distance = this.userBin.distance +30;
+      let valore = Math.floor(((lenght-distance)*100)/56);
+      this.value = valore;
+      this.changePercent();
     },
     changeBinStatus() {
       if (!this.user.zone_id) {
@@ -279,6 +289,13 @@ export default {
     async getBin() {
       let response = await this.$axios.get("/r4g/view-bin-user/" + this.user.id);
       let viewBinUser = response.data;
+
+      let bin = await this.$axios.get("/r4g/bin/"+this.user.id);
+      let userBin = bin.data;
+
+      let BinUser = JSON.stringify(userBin);
+      localStorage.setItem("BinUser", BinUser);
+
       let res = await this.$axios.get("/r4g/material-bin/" + viewBinUser.bin_id);
       if (response) {
         let calendaBin = res.data;

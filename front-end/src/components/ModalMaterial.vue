@@ -26,7 +26,7 @@ mounted() {
 methods:{
    async chooseMaterial(materiale){
         this.user = JSON.parse(localStorage.getItem("AccessEmail"));
-        let  id = this.user.id;
+        let id = this.user.id;
         let response = await this.$axios.post("/r4g/new-bin/"+id,{name:materiale.name});
 
         this.bin = response.data;
@@ -39,7 +39,13 @@ methods:{
 
         let localBin = JSON.stringify(calendaBin);
         localStorage.setItem("Bin", localBin);
-        // localStorage.setItem("Materiale", materiale.name);
+
+        let bin = await this.$axios.get("/r4g/bin/"+id);
+        let userBin = bin.data;
+
+        let BinUser = JSON.stringify(userBin);
+        localStorage.setItem("BinUser", BinUser);
+
         this.$emit("exit", true);
     }
 }
