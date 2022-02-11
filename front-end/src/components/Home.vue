@@ -309,10 +309,13 @@ export default {
             dist = this.num;
             this.bin.name = this.localBin[i].material;
             this.weekDay(this.localBin[i].nDay);
+
           }
         } else {
           this.bin.name = this.localBin[1].material;
           this.weekDay(this.localBin[1].nDay);
+                      console.log("1",this.localBin[1].nDay)
+
         }
       }
 
@@ -328,19 +331,15 @@ export default {
     },
     weekDay(day) {
       let days = new Date();
-      let nDay = days.getDay();
-      if (Number(day) - Number(nDay) >= -1) {
-        console.log("if",days.getDate(), day)
-        let ritiro = days.setDate(days.getDate()+  day);
+      let nDay = days.getDay() - 1;
+      if (Number(nDay) > Number(day)) {
+        let ritiro = days.setDate(days.getDate() + (day-nDay) + 7);
         this.bin.day = new Date(ritiro);
-        console.log(this.bin.day)
-      } else if (Number(day) - Number(nDay) < -1) {
-        console.log("else")
-        console.log(day);
-        day = this.days + 7
-        //let correctDay = nDay - day;
-        let ritiro = days.setDate(day);
+        console.log( this.bin.day)
+      } else if (Number(nDay) <= Number(day)) {
+        let ritiro = days.setDate(days.getDate() +(day - nDay));
         this.bin.day = new Date(ritiro);
+
       }
 
       /*
