@@ -59,4 +59,9 @@ class BinController extends Controller
         
         return $list;
     }
+
+    //GET BIN
+    public function getBin($user_id){
+        return Bin::where("user_id",$user_id)->first();
+    }
 }

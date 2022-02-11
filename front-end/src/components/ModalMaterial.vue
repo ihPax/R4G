@@ -3,9 +3,9 @@
     <div
       v-for="(materiale,index) in materiali"
       :key="index"
-      class="flex flex-row cursor-pointer hover:bg-gray-200 p-3 rounded"
+      class="flex flex-row cursor-pointer hover:bg-gray-200 rounded"
     >
-      <p class="" @click="chooseMaterial(materiale)">{{ materiale.name }}</p>
+      <p class="w-full h-full p-3" @click="chooseMaterial(materiale)">{{ materiale.name }}</p>
     </div>
   </div>
 </template>
@@ -26,7 +26,7 @@ mounted() {
 methods:{
    async chooseMaterial(materiale){
         this.user = JSON.parse(localStorage.getItem("AccessEmail"));
-        let  id = this.user.id;
+        let id = this.user.id;
         let response = await this.$axios.post("/r4g/new-bin/"+id,{name:materiale.name});
 
         this.bin = response.data;
@@ -39,7 +39,13 @@ methods:{
 
         let localBin = JSON.stringify(calendaBin);
         localStorage.setItem("Bin", localBin);
-        // localStorage.setItem("Materiale", materiale.name);
+
+        let bin = await this.$axios.get("/r4g/bin/"+id);
+        let userBin = bin.data;
+
+        let BinUser = JSON.stringify(userBin);
+        localStorage.setItem("BinUser", BinUser);
+
         this.$emit("exit", true);
     }
 }

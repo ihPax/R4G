@@ -3,9 +3,9 @@
     <div
       v-for="(comune, index) in comuni"
       :key="index"
-      class="flex flex-row cursor-pointer hover:bg-gray-200 p-3 rounded"
+      class="flex flex-row cursor-pointer hover:bg-gray-200 rounded"
     >
-      <p class="" @click="saveZone(comune)">{{ comune.name }}</p>
+      <p class="w-full h-full p-3" @click="saveZone(comune)">{{ comune.name }}</p>
     </div>
   </div>
 </template>

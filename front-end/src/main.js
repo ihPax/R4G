@@ -1,10 +1,8 @@
+import './style.css';
 import Vue from 'vue';
 import App from './App.vue';
 import VCalendar from 'v-calendar';
 import axios from 'axios';
-
-import './style.css';
-
 import VueRouter from 'vue-router';
 import Home from "@/components/Home.vue";
 import Calendar from "@/components/Calendar.vue";
@@ -41,9 +39,7 @@ import {
 Vue.prototype.$axios = axios;
 axios.defaults.baseURL = "http://localhost:8000"
 // php artisan serve --host=192.168.0.2 --port=8000  <-- es. per far partire il server su questa porta
-
 Vue.use(VueRouter);
-
 Vue.use(VCalendar, {
   componentPrefix: 'v',  // Use <vc-calendar /> instead of <v-calendar />
   // ...other defaults

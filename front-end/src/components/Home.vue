@@ -2,24 +2,24 @@
 <div class="h-full w-full font-montserrat">
   <div
     v-if="!isMobile"
-    class="h-full w-full flex flex-row border-l-2 border-t-2 xs:border-black border-white rounded-tl-2xl"
+    class="h-full w-full flex flex-col lg:flex-row border-l-2 border-t-2 xs:border-black border-white rounded-tl-2xl"
   >
-    <div class="h-full flex flex-col flex-grow p-8">
+    <div class="h-full flex flex-col flex-grow p-6">
       <div class="text-4xl font-bold mb-3 sm:mb-6 lg:mb-12">Ciao {{ user.name }}!</div>
-      <div class="grid xs:grid-cols-2 gap-2 xs:gap-8">
+      <div class="grid grid-cols-2 gap-6">
         <div
           class="flex flex-col-reverse lg:flex-row items-center shadow-inner rounded-lg border-2 border-gray-300"
         >
-          <div v-if="localBin == ''" class="h-80 w-full flex justify-center items-end">
-            <t-button2
+          <div v-if="localBin == ''" class="flex flex-col-reverse lg:flex-row items-center">
+            <t-button
               @click="changeBinStatus()"
               v-if="localBin == ''"
               class="flex flex-col mx-1 my-4"
             >
-              Collega il tuo cestino 
-            </t-button2> 
+              Collega il tuo cestino
+            </t-button> 
           </div>
-          <div>
+          <div class="flex">
             <t-modal
               v-model="showModalMaterial"
               header="Scegli il materiale"
@@ -28,40 +28,40 @@
               <ModalMaterial @exit="closeMaterialModal"></ModalMaterial>
             </t-modal>
             <div class="flex flex-col" v-if="localBin != ''">
-              <div class="flex flex-col p-5">
-                <div class="font-bold pl-10 text-xl">
+              <div class="flex flex-col py-4">
+                <div class="font-bold pl-4 text-xl">
                   {{ bin.name }}  
                 </div>
-                  <div class="relative w-200" >
-                    <svg id="svg" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" :style="`stroke:${color}`">
-                      <circle :r="r" cx="100" cy="100" fill="white" stroke-dasharray="314.15" stroke-dashoffset="0"></circle>
-                      <circle id="bar" :r="r" cx="100" cy="100" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;stroke:${color}`"></circle>
+                  <div class="relative w-160" >
+                    <svg id="svg" width="160" height="160" viewPort="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" :style="`stroke:${color}`">
+                      <circle :r="r" cx="80" cy="80" fill="white" stroke-dasharray="314.15" stroke-dashoffset="0"></circle>
+                      <circle id="bar" :r="r" cx="80" cy="80" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;stroke:${color}`"></circle>
                     </svg>
                     <div class="h3 absolute font-bold text-xl" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{value}}%</div>
                   </div>
-                <div class="font-semibold pl-10 text-xl">Prossimo ritiro:</div>
-                <div class="font-normal pl-10 text-xl">
+                <div class="font-semibold pl-4 text-xl">Prossimo ritiro:</div>
+                <div class="font-normal pl-4 text-xl">
                   {{ bin.day | date }}
                 </div>
               </div>
             </div>
           </div>
-          <div class="flex flex-col mx-1 flex-shrink-0 flex-grow">
-            <span class="material-icons text-7xl xs:text-9xl lg:text-11xl">
-              <span v-if="localBin == ''">delete_forever</span>
-              <span v-if="bin.name == 'CARTA'">
+          <div class="flex flex-col mx-1">
+            <div class="material-icons text-7xl xs:text-9xl lg:text-11xl">
+              <div v-if="localBin == ''">delete_forever</div>
+              <div v-if="bin.name == 'CARTA'">
                 <img src="../assets/carta.png" class="w-40">
-              </span>
-              <span v-if="bin.name == 'SECCO'">
+              </div>
+              <div v-if="bin.name == 'SECCO'">
                 <img src="../assets/secco.png" class="w-40">
-              </span>
-              <span v-if="bin.name == 'UMIDO'">
+              </div>
+              <div v-if="bin.name == 'UMIDO'">
                 <img src="../assets/umido.png" class="w-40">
-              </span>
-              <span v-if="bin.name == 'PLASTICA/LATTINE'">
+              </div>
+              <div v-if="bin.name == 'PLASTICA/LATTINE'">
                 <img src="../assets/plastica.png" class="w-40">
-              </span>
-            </span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -80,7 +80,7 @@
       </div>
     </div>
 
-    <div class="hidden lg:flex flex-col flex-grow border-l-2 border-black">
+    <div class="flex flex-col flex-grow lg:border-l-2 border-black">
       <div class="flex flex-row border-black border-b-2 pb-12 justify-center">
         <div v-if="!user.zone_id">
           <t-modal v-model="showModal" header="Scegli il tuo Comune" close="chiudi">
@@ -115,7 +115,7 @@
       <div
         class="bg-blue-400 flex justify-center items-center shadow-inner rounded-lg text-center border-2 border-gray-300 mx-5"
       >
-        <div v-if="localBin == ''" class="h-80 w-full flex justify-center items-end">
+        <div v-if="localBin == ''" class="w-full flex justify-center items-end">
           <t-button2
             @click="changeBinStatus()"
             v-if="localBin == ''"
@@ -138,7 +138,7 @@
                 {{ bin.name }}
               </div>
               <div class="uk-card-body uk-flex uk-flex-center uk-flex-middle">
-                <div class="uk-inline-clip">
+                <div class="uk-inline-clip relative">
                   <svg
                     id="svg"
                     width="200"
@@ -166,7 +166,7 @@
                       :style="`stroke-dashoffset: ${rct}px;`"
                     ></circle>
                   </svg>
-                  <div class="h3 uk-position-center">{{ value }}</div>
+                  <div class="h3 uk-position-center absolute" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{ value }}</div>
                 </div>
               </div>
               <div class="font-semibold">Prossimo ritiro:</div>
@@ -230,6 +230,7 @@ export default {
       color:'grey',
       showModal: false,
       showModalMaterial: false,
+      userBin: {},
       bin: [
         {
           name: "",
@@ -241,27 +242,43 @@ export default {
       num: 0,
       r: 50,
       rct: 314.15,
-      value: 70,
+<<<<<<< HEAD
+      value: 40,
+=======
+      value: 1
+>>>>>>> 709ef81d0b531c0aceac72dfd00879f4a30c25b7
     };
   },
   async mounted() {
     this.user = JSON.parse(localStorage.getItem("AccessEmail"));
+    this.userBin = JSON.parse(localStorage.getItem("BinUser"));
     this.getBin();
     this.changePercent();
+    this.getDistance();
   },
   methods: {
     showModalTrue() {
       this.showModal = !this.showModal;
     },
+    getDistance(){
+      let lenght = this.userBin.length +56;
+      let distance = this.userBin.distance +30;
+      let valore = Math.floor(((lenght-distance)*100)/56);
+      this.value = valore;
+      this.changePercent();
+    },
     changeBinStatus() {
-      if(!this.user.zone_id){
-       this.$fire({
-                    text: "Prima di collegare il cestino ti chiediamo di indicare il tuo quartiere di residenza",
-                    type: "warning",
-                    timer: 3000,
-                    });
+      if (!this.user.zone_id) {
+        this.$fire({
+          text: "Prima di collegare il cestino ti chiediamo di indicare il tuo quartiere di residenza",
+          type: "warning",
+          timer: 3000,
+        }).then(r => {
+          this.showModal = !this.showModal;
+          console.log(r);
+        });
 
-      }else{
+      } else {
         this.showModalMaterial = !this.showModalMaterial;
       }
      
@@ -276,6 +293,13 @@ export default {
     async getBin() {
       let response = await this.$axios.get("/r4g/view-bin-user/" + this.user.id);
       let viewBinUser = response.data;
+
+      let bin = await this.$axios.get("/r4g/bin/"+this.user.id);
+      let userBin = bin.data;
+
+      let BinUser = JSON.stringify(userBin);
+      localStorage.setItem("BinUser", BinUser);
+
       let res = await this.$axios.get("/r4g/material-bin/" + viewBinUser.bin_id);
       if (response) {
         let calendaBin = res.data;
@@ -306,10 +330,13 @@ export default {
             dist = this.num;
             this.bin.name = this.localBin[i].material;
             this.weekDay(this.localBin[i].nDay);
+
           }
         } else {
           this.bin.name = this.localBin[1].material;
           this.weekDay(this.localBin[1].nDay);
+                      console.log("1",this.localBin[1].nDay)
+
         }
       }
 
@@ -325,19 +352,15 @@ export default {
     },
     weekDay(day) {
       let days = new Date();
-      let nDay = days.getDay();
-      if (Number(day) - Number(nDay) >= -1) {
-        console.log("if",days.getDate(), day)
-        let ritiro = days.setDate(days.getDate()+  day);
+      let nDay = days.getDay() - 1;
+      if (Number(nDay) > Number(day)) {
+        let ritiro = days.setDate(days.getDate() + (day-nDay) + 7);
         this.bin.day = new Date(ritiro);
-        console.log(this.bin.day)
-      } else if (Number(day) - Number(nDay) < -1) {
-        console.log("else")
-        console.log(day);
-        day = this.days + 7
-        //let correctDay = nDay - day;
-        let ritiro = days.setDate(day);
+        console.log( this.bin.day)
+      } else if (Number(nDay) <= Number(day)) {
+        let ritiro = days.setDate(days.getDate() +(day - nDay));
         this.bin.day = new Date(ritiro);
+
       }
 
       /*
@@ -504,9 +527,13 @@ export default {
 }
 
 
-.w-200{
-  width:200px;
-  height:200px
+.w-160 {
+  width: 160px;
+  height: 160px;
+}
+
+svg {
+  transform: rotate(-90deg);
 }
 
 </style>
