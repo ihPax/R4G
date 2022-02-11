@@ -10,6 +10,7 @@ import Home from "@/components/Home.vue";
 import Calendar from "@/components/Calendar.vue";
 import Landing from "@/components/Landing.vue";
 import Registration from "@/components/Registration.vue";
+import Account from "@/components/Account.vue";
 import Login from "@/components/Login.vue";
 import Dashboard from "@/components/Dashboard.vue";
 import PrivacyPolicy from "@/components/PrivacyPolicy.vue";
@@ -164,7 +165,7 @@ const routes = [
       {
         path: 'account',
         name: 'account',
-        component: Home,
+        component: Account,
       },
       {
         path: 'faq',
