@@ -20,7 +20,14 @@
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
           <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
             <div class="w-0 flex-1 flex items-center">
-              <span class="ml-2 flex-1 w-0 truncate"> {{ users.name }} </span>
+              <input
+                type="text"
+                placeholder="Name"
+                name="name"
+                autocomplete="name"
+                v-model="users.name"
+                class="border-2 border-yellow-500 px-2 rounded-lg w-1/2"
+              />
             </div>
           </li>
         </dd>
@@ -30,9 +37,14 @@
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
           <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
             <div class="w-0 flex-1 flex items-center">
-              <span class="ml-2 flex-1 w-0 truncate">
-                {{ users.surname }}
-              </span>
+              <input
+                type="text"
+                placeholder="Cognome"
+                name="Cognome"
+                autocomplete="Cognome"
+                v-model="users.surname"
+                class="border-2 border-yellow-500 px-2 rounded-lg w-1/2"
+              />
             </div>
           </li>
         </dd>
@@ -41,9 +53,14 @@
         <dt class="text-sm font-medium text-gray-500">Email address</dt>
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
           <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-            <div class="w-0 flex-1 flex items-center">
-              <span class="ml-2 flex-1 w-0 truncate"> {{ users.email }} </span>
-            </div>
+            <input
+              type="text"
+              placeholder="Email"
+              name="email"
+              autocomplete="email"
+              v-model="users.email"
+              class="border-2 border-yellow-500 px-2 rounded-lg w-1/2"
+            />
             <div class="ml-4 flex-shrink-0"></div>
           </li>
         </dd>
@@ -52,9 +69,14 @@
         <dt class="text-sm font-medium text-gray-500">Password</dt>
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
           <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-            <div class="w-0 flex-1 flex items-center">
-              <span class="ml-2 flex-1 w-0 truncate"> ********* </span>
-            </div>
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              autocomplete="password"
+              v-model="users.password"
+              class="border-2 border-yellow-500 px-2 rounded-lg w-1/2"
+            />
           </li>
         </dd>
       </div>
@@ -63,9 +85,15 @@
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
           <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
             <div class="w-0 flex-1 flex items-center">
-              <span class="ml-2 flex-1 w-0 truncate">
-                {{ users.birthday }}
-              </span>
+              <input
+                type="text"
+                onfocus="(this.type='date')"
+                placeholder="Birthday"
+                name="Birthday"
+                autocomplete="Birthday"
+                v-model="users.birthday"
+                class="border-2 border-yellow-500 px-2 rounded-lg w-1/2"
+              />
             </div>
           </li>
         </dd>
@@ -75,7 +103,14 @@
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
           <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
             <div class="w-0 flex-1 flex items-center">
-              <span class="ml-2 flex-1 w-0 truncate"> {{ zone.name }} </span>
+                          <input
+              type="text"
+              placeholder="Zone"
+              name="zone"
+              autocomplete="Zone"
+              v-model="zone.name"
+              class="border-2 border-yellow-500 px-2 rounded-lg w-1/2"
+            />
             </div>
           </li>
         </dd>
@@ -87,10 +122,29 @@
               class="w-0 flex-1 flex justify-center text-center items-center"
             >
               <button
-              @click="goToEdit"
+                @click="goToAccount"
                 class="
                   button button--moema
                   px-5
+                  py-2
+                  hover:bg-yellow-600 hover:text-white
+                  text-yellow-600
+                  border-yellow-500
+                  cursor-pointer
+                  border-2 border-solid
+                  rounded-lg
+                  mr-10
+                  text-sm text-center
+                  font-semibold
+                "
+              >
+                Indietro
+              </button>
+              <button
+                class="
+                  button button--moema
+                  px-5
+                  ml-10
                   py-2
                   hover:bg-yellow-600 hover:text-white
                   text-yellow-600
@@ -102,7 +156,7 @@
                   font-semibold
                 "
               >
-                Modifica
+                Salva
               </button>
             </div>
           </li>
@@ -128,10 +182,10 @@ export default {
     this.users = JSON.parse(localStorage.getItem("AccessEmail"));
     this.zone = JSON.parse(localStorage.getItem("Zone"));
   },
-    methods: {
-    goToEdit() {
+  methods: {
+    goToAccount() {
       this.$router.push({
-        name: "editaccount",
+        name: "account",
       });
     },
   },

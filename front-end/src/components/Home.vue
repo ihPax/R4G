@@ -242,11 +242,7 @@ export default {
       num: 0,
       r: 50,
       rct: 314.15,
-<<<<<<< HEAD
       value: 40,
-=======
-      value: 1
->>>>>>> 709ef81d0b531c0aceac72dfd00879f4a30c25b7
     };
   },
   async mounted() {
