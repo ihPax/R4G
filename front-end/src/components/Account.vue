@@ -6,8 +6,8 @@
       overflow-hidden
       sm:rounded-lg
       font-montserrat
-      mx-64
-      
+      max-w-xl
+      mx-auto
     "
   >
     <div class="px-4 py-5 sm:px-6 justify-center text-center">
