@@ -241,7 +241,7 @@ export default {
       num: 0,
       r: 50,
       rct: 314.15,
-      value: 70,
+      value: 40,
     };
   },
   async mounted() {
@@ -509,6 +509,10 @@ export default {
 .w-160 {
   width: 160px;
   height: 160px;
+}
+
+svg {
+  transform: rotate(-90deg);
 }
 
 </style>
