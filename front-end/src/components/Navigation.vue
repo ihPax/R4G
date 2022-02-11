@@ -73,7 +73,7 @@ export default {
         },
         {
           code: "faq",
-          label: "FAQ",
+          label: "FAQ - Domande frequenti",
         },
       ],
     };

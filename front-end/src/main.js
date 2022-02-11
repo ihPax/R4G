@@ -13,6 +13,7 @@ import Registration from "@/components/Registration.vue";
 import Login from "@/components/Login.vue";
 import Dashboard from "@/components/Dashboard.vue";
 import PrivacyPolicy from "@/components/PrivacyPolicy.vue";
+import Faq from "@/components/Faq.vue"
 import VueTailwind from 'vue-tailwind'
 import {
   //TInput,
@@ -169,7 +170,7 @@ const routes = [
       {
         path: 'faq',
         name: 'faq',
-        component: Home,
+        component: Faq,
       },
       {
         path: '*',  // qualsiasi cosa scritta dopo '/dashboard/' reindirizza alla dashboard
