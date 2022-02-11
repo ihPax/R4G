@@ -197,6 +197,7 @@ export default {
       color:'grey',
       showModal: false,
       showModalMaterial: false,
+      userBin: {},
       bin: [
         {
           name: "",
@@ -209,16 +210,26 @@ export default {
       r: 50,
       rct: 314.15,
       value: 25,
+
     };
   },
   async mounted() {
     this.user = JSON.parse(localStorage.getItem("AccessEmail"));
+    this.userBin = JSON.parse(localStorage.getItem("BinUser"));
     this.getBin();
     this.changePercent();
+    this.getDistance();
   },
   methods: {
     showModalTrue() {
       this.showModal = !this.showModal;
+    },
+    getDistance(){
+      let lenght = this.userBin.length +56;
+      let distance = this.userBin.distance +30;
+      let valore = Math.floor(((lenght-distance)*100)/56);
+      this.value = valore;
+      this.changePercent();
     },
     changeBinStatus() {
       if (!this.user.zone_id) {
@@ -246,6 +257,13 @@ export default {
     async getBin() {
       let response = await this.$axios.get("/r4g/view-bin-user/" + this.user.id);
       let viewBinUser = response.data;
+
+      let bin = await this.$axios.get("/r4g/bin/"+this.user.id);
+      let userBin = bin.data;
+
+      let BinUser = JSON.stringify(userBin);
+      localStorage.setItem("BinUser", BinUser);
+
       let res = await this.$axios.get("/r4g/material-bin/" + viewBinUser.bin_id);
       if (response) {
         let calendaBin = res.data;
@@ -276,10 +294,13 @@ export default {
             dist = this.num;
             this.bin.name = this.localBin[i].material;
             this.weekDay(this.localBin[i].nDay);
+
           }
         } else {
           this.bin.name = this.localBin[1].material;
           this.weekDay(this.localBin[1].nDay);
+                      console.log("1",this.localBin[1].nDay)
+
         }
       }
 
@@ -295,19 +316,15 @@ export default {
     },
     weekDay(day) {
       let days = new Date();
-      let nDay = days.getDay();
-      if (Number(day) - Number(nDay) >= -1) {
-        console.log("if",days.getDate(), day)
-        let ritiro = days.setDate(days.getDate()+  day);
+      let nDay = days.getDay() - 1;
+      if (Number(nDay) > Number(day)) {
+        let ritiro = days.setDate(days.getDate() + (day-nDay) + 7);
         this.bin.day = new Date(ritiro);
-        console.log(this.bin.day)
-      } else if (Number(day) - Number(nDay) < -1) {
-        console.log("else")
-        console.log(day);
-        day = this.days + 7
-        //let correctDay = nDay - day;
-        let ritiro = days.setDate(day);
+        console.log( this.bin.day)
+      } else if (Number(nDay) <= Number(day)) {
+        let ritiro = days.setDate(days.getDate() +(day - nDay));
         this.bin.day = new Date(ritiro);
+
       }
 
       /*
@@ -477,6 +494,10 @@ export default {
 .w-160 {
   width: 160px;
   height: 160px;
+}
+
+svg {
+  transform: rotate(-90deg);
 }
 
 </style>

@@ -10,8 +10,8 @@
       disable-page-swipe
       :min-date="new Date()"
     >
-      <template v-slot:day-content="{ day, attributes }">
-        <div class="flex flex-col h-full z-10 overflow-hidden">
+    <!-- <template v-slot:day-content="{ day, attributes }">
+        <div class="flex flex-col h-full z-10 overflow-hidden ">
           <span class="day-label text-sm text-gray-900 my-1">{{ day.day }}</span>
           <div class="flex-grow overflow-y-auto overflow-x-auto">
             <div
@@ -21,6 +21,23 @@
               :class="isExpanded ? 
               attr.customData.class + ' text-xxs w-2 h-2 mx-auto rounded-full sm:text-xs sm:leading-tight sm:rounded sm:p-2 sm:mx-1 sm:text-white sm:w-auto sm:h-auto' : 
               attr.customData.class + ' w-2 h-2 mx-auto rounded-full'"
+            >
+              <div class="hidden sm:block">{{ isExpanded ? attr.customData.title : "" }}</div> 
+            </div>
+          </div>
+        </div>
+      </template> -->
+
+      <template v-slot:day-content="{ day, attributes }">
+        <div v-for="attr in attributes" :key="attr.id"
+         class="flex flex-col h-full z-10 overflow-hidden ">
+          <span :class="!isExpanded ? attr.customData.class + ' flex content-center items-center justify-center text-white w-6 h-6 rounded-full text-sm'  :'day-label text-sm text-gray-900 my-1'">{{ day.day }}</span>
+          <div class="flex-grow overflow-y-auto overflow-x-auto">
+            <div
+              class="mt-0 mb-1 font-bold"
+              :class="isExpanded ? 
+              attr.customData.class + ' text-xxs w-2 h-2 mx-auto rounded-full sm:text-xs sm:leading-tight sm:rounded sm:p-2 sm:mx-1 sm:text-white sm:w-auto sm:h-auto' : 
+              ''"
             >
               <div class="hidden sm:block">{{ isExpanded ? attr.customData.title : "" }}</div> 
             </div>
