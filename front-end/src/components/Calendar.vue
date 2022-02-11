@@ -1,6 +1,6 @@
 <template>
   <div class="text-center section">
-    <h2 class="p-3 font-bold text-lg">
+    <h2 v-if="!isMobile" class="p-3 font-bold text-lg">
       Calendario <span v-if="isExpanded"> Comune di {{calendars.name}} </span>
     </h2>
     <v-calendar
@@ -36,6 +36,10 @@ export default {
   name: "Calendar",
   props: {
     isExpanded: {
+      type: Boolean,
+      default: true
+    },
+    isMobile: {
       type: Boolean,
       default: true
     },
