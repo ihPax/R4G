@@ -496,7 +496,7 @@ export default {
   height: 160px;
 }
 
-svg {
+#svg {
   transform: rotate(-90deg);
 }
 
