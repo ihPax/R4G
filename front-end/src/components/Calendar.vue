@@ -12,12 +12,12 @@
     >
     <template v-slot:day-content="{ day, attributes }">
         <div class="flex flex-col h-full z-10 overflow-hidden">
-          <span class="day-label text-sm text-gray-900 my-1">{{ day.day }}</span>
+          <span class="day-label text-sm text-gray-900 sm:my-1">{{ day.day }}</span>
           <div class="flex-grow overflow-y-auto overflow-x-auto">
             <div
               v-for="attr in attributes"
               :key="attr.id"
-              class="mt-0 mb-1 font-bold"
+              class="mt-0 sm:mb-1 font-bold"
               :class="isExpanded ? 
               attr.customData.class + ' text-xxs w-2 h-2 mx-auto rounded-full sm:text-xs sm:leading-tight sm:rounded sm:p-2 sm:mx-1 sm:text-white sm:w-auto sm:h-auto' : 
               attr.customData.class + ' w-2 h-2 mx-auto rounded-full'"
