@@ -170,7 +170,7 @@
             <t-button @click="showModalTrue()" type="button">Scegli il tuo comune</t-button>
           </div>
           <div v-if="user.zone_id">
-            <Calendar :is-expanded="true"></Calendar>
+            <Calendar :is-expanded="false"></Calendar>
           </div>
         </div>
 
@@ -227,7 +227,6 @@ export default {
     };
   },
   async mounted() {
-    console.log(this.isMobile)
     this.user = JSON.parse(localStorage.getItem("AccessEmail"));
     this.userBin = JSON.parse(localStorage.getItem("BinUser"));
     this.getBin();
@@ -241,7 +240,7 @@ export default {
     getDistance(){
       let lenght = this.userBin.length;
       let distance = this.userBin.distance;
-      let valore = Math.floor(((lenght-distance)*100)/56);
+      let valore = Math.floor(((lenght-distance)*100)/lenght);
       this.value = valore;
       this.changePercent();
     },
@@ -369,6 +368,7 @@ export default {
 
       let c2 = Math.PI * (this.rMobile * 2);
       this.rctMobile = ((100 - this.value) / 100) * c2;
+      console.log(`Il valore del riempimento è ${this.value}`)
       },
   },
   computed: {},

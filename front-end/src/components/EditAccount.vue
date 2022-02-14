@@ -6,7 +6,8 @@
       overflow-hidden
       sm:rounded-lg
       font-montserrat
-      mx-64
+      max-w-xl
+      mx-auto
     "
   >
     <div class="px-4 py-5 sm:px-6 justify-center text-center">
@@ -103,7 +104,7 @@
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
           <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
             <div class="w-0 flex-1 flex items-center">
-                          <input
+            <input
               type="text"
               placeholder="Zone"
               name="zone"
@@ -122,7 +123,7 @@
               class="w-0 flex-1 flex justify-center text-center items-center"
             >
               <button
-                @click="goToAccount"
+                @click="goToAccount()"
                 class="
                   button button--moema
                   px-5
@@ -141,6 +142,7 @@
                 Indietro
               </button>
               <button
+                type="button"
                 class="
                   button button--moema
                   px-5
@@ -176,6 +178,7 @@ export default {
   data() {
     return {
       users: {},
+      zone: {}
     };
   },
   async mounted() {

@@ -16,67 +16,16 @@
       </h3>
     </div>
     <div class="border-t border-gray-200">
-      <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500">Nome</dt>
+      <div
+        v-for="(field, index) in fields" :key="index"
+        class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+        :class="index % 2 == 0 ? 'bg-white' : 'bg-gray-50'"
+      >
+        <dt class="text-sm font-medium text-gray-500"> {{field.label}} </dt>
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
           <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
             <div class="w-0 flex-1 flex items-center">
-              <span class="ml-2 flex-1 w-0 truncate"> {{ users.name }} </span>
-            </div>
-          </li>
-        </dd>
-      </div>
-      <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500">Cognome</dt>
-        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-          <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-            <div class="w-0 flex-1 flex items-center">
-              <span class="ml-2 flex-1 w-0 truncate">
-                {{ users.surname }}
-              </span>
-            </div>
-          </li>
-        </dd>
-      </div>
-      <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500">Email address</dt>
-        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-          <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-            <div class="w-0 flex-1 flex items-center">
-              <span class="ml-2 flex-1 w-0 truncate"> {{ users.email }} </span>
-            </div>
-            <div class="ml-4 flex-shrink-0"></div>
-          </li>
-        </dd>
-      </div>
-      <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500">Password</dt>
-        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-          <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-            <div class="w-0 flex-1 flex items-center">
-              <span class="ml-2 flex-1 w-0 truncate"> ********* </span>
-            </div>
-          </li>
-        </dd>
-      </div>
-      <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500">Data di nascità</dt>
-        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-          <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-            <div class="w-0 flex-1 flex items-center">
-              <span class="ml-2 flex-1 w-0 truncate">
-                {{ users.birthday }}
-              </span>
-            </div>
-          </li>
-        </dd>
-      </div>
-      <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500">Quartiere</dt>
-        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-          <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-            <div class="w-0 flex-1 flex items-center">
-              <span class="ml-2 flex-1 w-0 truncate"> {{ zone.name }} </span>
+              <span class="ml-2 flex-1 w-0 truncate"> {{field.code}} </span>
             </div>
           </li>
         </dd>
@@ -88,7 +37,7 @@
               class="w-0 flex-1 flex justify-center text-center items-center"
             >
               <button
-              @click="goToEdit"
+              @click="goToEdit()"
                 class="
                   button button--moema
                   px-5
@@ -123,20 +72,48 @@ export default {
   data() {
     return {
       users: {},
-    };
+      zone: {},
+      fields: []
+    }
   },
   async mounted() {
     this.users = JSON.parse(localStorage.getItem("AccessEmail"));
     this.zone = JSON.parse(localStorage.getItem("Zone"));
+    this.fields = [
+        {        
+          label: "Nome",
+          code: this.users.name
+        },
+        {
+          label: "Cognome",
+          code: this.users.surname
+        },
+        {
+          label: "Email",
+          code: this.users.email
+        },
+        {
+          label: "Password",
+          code: "********"
+        },
+        {
+          label: "Data di nascita",
+          code: this.users.birthday
+        },
+        {
+          label: "Quartiere",
+          code: this.zone.name
+        },
+    ]
   },
     methods: {
     goToEdit() {
       this.$router.push({
-        name: "editaccount",
-      });
+        name: "editAccount",
+      })
     },
   },
-};
+}
 </script>
 
 <style>
