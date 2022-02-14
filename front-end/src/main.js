@@ -11,6 +11,7 @@ import Registration from "@/components/Registration.vue";
 import Account from "@/components/Account.vue";
 import Login from "@/components/Login.vue";
 import Dashboard from "@/components/Dashboard.vue";
+import EditAccount from "@/components/EditAccount.vue";
 import PrivacyPolicy from "@/components/PrivacyPolicy.vue";
 import VueTailwind from 'vue-tailwind'
 import {
@@ -167,6 +168,11 @@ const routes = [
         path: 'faq',
         name: 'faq',
         component: Home,
+      },
+      {
+        path: 'account/edit',
+        name: 'editaccount',
+        component: EditAccount,
       },
       {
         path: '*',  // qualsiasi cosa scritta dopo '/dashboard/' reindirizza alla dashboard
