@@ -10,7 +10,7 @@
       disable-page-swipe
       :min-date="new Date()"
     >
-    <!-- <template v-slot:day-content="{ day, attributes }">
+    <template v-slot:day-content="{ day, attributes }">
         <div class="flex flex-col h-full z-10 overflow-hidden ">
           <span class="day-label text-sm text-gray-900 my-1">{{ day.day }}</span>
           <div class="flex-grow overflow-y-auto overflow-x-auto">
@@ -26,9 +26,9 @@
             </div>
           </div>
         </div>
-      </template> -->
+      </template>
 
-      <template v-slot:day-content="{ day, attributes }">
+      <!-- <template v-slot:day-content="{ day, attributes }">
         <div v-for="attr in attributes" :key="attr.id"
          class="flex flex-col h-full z-10 overflow-hidden ">
           <span :class="!isExpanded ? attr.customData.class + ' flex content-center items-center justify-center text-white w-6 h-6 rounded-full text-sm'  :'day-label text-sm text-gray-900 my-1'">{{ day.day }}</span>
@@ -43,7 +43,7 @@
             </div>
           </div>
         </div>
-      </template>
+      </template> -->
     </v-calendar>
   </div>
 </template>
