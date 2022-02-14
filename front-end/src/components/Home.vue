@@ -141,7 +141,7 @@
           </t-modal>
           <div class="flex flex-col bg-blue-400 rounded-3xl" v-if="localBin != ''">
             <div class="flex flex-col p-5 justify-center w-full">
-              <div class="flex justify-between items-center">
+              <div class="flex justify-between items-center flex-wrap truncate">
                 <div class="font-bold">
                   {{ bin.name }}
                 </div>
