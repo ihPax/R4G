@@ -8,9 +8,11 @@
       font-montserrat
       max-w-xl
       mx-auto
+      h-screen
+      xs:h-full
     "
   >
-    <div class="px-4 py-5 sm:px-6 justify-center text-center">
+    <div class="px-4 py-2 sm:py-4 sm:px-6 justify-center text-center">
       <h3 class="text-xl leading-6 font-medium text-gray-900">
         Informazioni sul tuo Account
       </h3>
@@ -18,7 +20,7 @@
     <div class="border-t border-gray-200">
       <div
         v-for="(field, index) in fields" :key="index"
-        class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+        class="px-4 py-2 sm:py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
         :class="index % 2 == 0 ? 'bg-white' : 'bg-gray-50'"
       >
         <dt class="text-sm font-medium text-gray-500"> {{field.label}} </dt>
@@ -30,7 +32,7 @@
           </li>
         </dd>
       </div>
-      <div class="bg-gray-50 px-4 py-5 sm:gap-4 sm:px-6">
+      <div class="bg-white px-4 py-5 sm:gap-4 sm:px-6">
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0">
           <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
             <div
