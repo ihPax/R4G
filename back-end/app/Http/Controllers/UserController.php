@@ -77,4 +77,19 @@ class UserController extends Controller
         $userZone->save();
         return array("status" => 200, "message" => "Zona inserita");
     }
+
+    //UPDATE USER
+    public function updateUser(Request $request, $id){
+        $data = json_decode($request->getContent());
+        $user = User::find($id);
+
+        $user->name = $data->name;
+        $user->surname = $data->surname;
+        $user->birthday = $data->birthday;
+        $user->password = Hash::make($data->password);
+        $user->zone_id = $data->zone_id;
+
+        $user -> save();
+        return $user;
+    }
 }

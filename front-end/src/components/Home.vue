@@ -209,8 +209,7 @@ export default {
       num: 0,
       r: 50,
       rct: 314.15,
-      value: 25,
-
+      value: 1
     };
   },
   async mounted() {
