@@ -242,11 +242,7 @@ export default {
       num: 0,
       r: 50,
       rct: 314.15,
-<<<<<<< HEAD
-      value: 40,
-=======
       value: 1
->>>>>>> 709ef81d0b531c0aceac72dfd00879f4a30c25b7
     };
   },
   async mounted() {
@@ -261,8 +257,8 @@ export default {
       this.showModal = !this.showModal;
     },
     getDistance(){
-      let lenght = this.userBin.length +56;
-      let distance = this.userBin.distance +30;
+      let lenght = this.userBin.length;
+      let distance = this.userBin.distance;
       let valore = Math.floor(((lenght-distance)*100)/56);
       this.value = valore;
       this.changePercent();
@@ -521,7 +517,7 @@ export default {
 
 #svg circle {
   transition: stroke-dashoffset 1.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-  stroke: #c0c0c0;
+  stroke: #CFCFCF	;
   border: 20px solid black;
   stroke-width: 9;
 }
