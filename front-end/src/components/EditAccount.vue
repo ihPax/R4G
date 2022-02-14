@@ -16,7 +16,30 @@
       </h3>
     </div>
     <div class="border-t border-gray-200">
-      <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+
+      <div 
+        v-for="(field, index) in fields" :key="index"
+        class="px-4 py-2 sm:py-4 grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+        :class="index % 2 == 0 ? 'bg-white' : 'bg-gray-50'"
+      >
+        <dt class="text-sm font-medium text-gray-500"> {{field.label}} </dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <li class="pl-3 pr-4 py-2 sm:py-3 flex items-center justify-between text-sm">
+            <div class="w-0 flex-1 flex items-center">
+              <input
+                :type="field.type"
+                :onfocus="field.onfocus ? field.onfocusType : null"
+                :placeholder="field.label"
+                :name="field.type"
+                :autocomplete="field.type"
+                v-model="field.code"
+                class="border-2 border-yellow-500 px-2 rounded-lg w-1/2"
+              />
+            </div>
+          </li>
+        </dd>
+      </div> 
+      <!-- <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
         <dt class="text-sm font-medium text-gray-500">Nome</dt>
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
           <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
@@ -115,10 +138,10 @@
             </div>
           </li>
         </dd>
-      </div>
-      <div class="bg-gray-50 px-4 py-5 sm:gap-4 sm:px-6">
+      </div> -->
+      <div class="bg-white px-4 py-5 sm:gap-4 sm:px-6">
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0">
-          <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+          <li class="pl-3 pr-4 py-2 sm:py-3 flex items-center justify-between text-sm">
             <div
               class="w-0 flex-1 flex justify-center text-center items-center"
             >
@@ -178,12 +201,46 @@ export default {
   data() {
     return {
       users: {},
-      zone: {}
+      zone: {},
+      fields: []
     };
   },
   async mounted() {
     this.users = JSON.parse(localStorage.getItem("AccessEmail"));
     this.zone = JSON.parse(localStorage.getItem("Zone"));
+    this.fields = [
+        {        
+          label: "Nome",
+          code: this.users.name,
+          type: "text"
+        },
+        {
+          label: "Cognome",
+          code: this.users.surname,
+          type: "text"
+        },
+        {
+          label: "Email",
+          code: this.users.email,
+          type: "text"
+        },
+        {
+          label: "Password",
+          code: this.users.password,
+          type: "password"
+        },
+        {
+          label: "Data di nascita",
+          code: this.users.birthday,
+          type: "text",
+          onfocus: true,
+          onfocusType: "(this.type='date')"
+        },
+        {
+          label: "Quartiere",
+          code: this.zone.name
+        },
+    ]
   },
   methods: {
     goToAccount() {
