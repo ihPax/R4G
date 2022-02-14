@@ -8,15 +8,18 @@
       <div class="text-4xl font-bold mb-3 sm:mb-6 lg:mb-12">Ciao {{ user.name }}!</div>
       <div class="grid grid-cols-2 gap-6">
         <div
-          class="flex flex-col-reverse lg:flex-row items-center shadow-inner rounded-lg border-2 border-gray-300"
+          class="flex flex-col-reverse lg:flex-row items-center justify-between shadow-inner rounded-lg border-2 border-gray-300"
         >
-          <div v-if="localBin == ''" class="flex flex-col-reverse lg:flex-row items-center">
+          <div v-if="localBin == '' && !isLoading" class="flex flex-col-reverse lg:flex-row items-center">
             <t-button
               @click="changeBinStatus()"
               class="flex flex-col mx-1 my-4"
             >
               Collega il tuo cestino
             </t-button> 
+          </div>
+          <div v-if="isLoading" class="m-4">
+            <Loading></Loading>
           </div>
           <div class="flex">
             <t-modal
@@ -26,7 +29,7 @@
             >
               <ModalMaterial @exit="closeMaterialModal"></ModalMaterial>
             </t-modal>
-            <div class="flex flex-col" v-if="localBin != ''">
+            <div class="flex flex-col" v-if="localBin != '' && !isLoading">
               <div class="flex flex-col py-4">
                 <div class="font-bold pl-4 text-xl">
                   {{ bin.name }}  
@@ -48,7 +51,7 @@
           </div>
           <div class="flex flex-col mx-1">
             <div class="material-icons text-7xl xs:text-9xl lg:text-11xl">
-              <div v-if="localBin == ''">delete_forever</div>
+              <div v-if="localBin == '' && !isLoading">delete_forever</div>
               <div v-if="bin.name == 'CARTA'">
                 <img src="../assets/carta.png" class="w-40">
               </div>
@@ -66,7 +69,7 @@
         </div>
 
         <div v-for="index in 3" :key="index"
-          class="flex flex-col-reverse lg:flex-row items-center shadow-inner rounded-lg text-center border-2 border-gray-300"
+          class="flex flex-col-reverse lg:flex-row items-center justify-between shadow-inner rounded-lg text-center border-2 border-gray-300"
         >
           <t-button class="flex flex-col mx-1 my-4"> Collega il tuo cestino </t-button>
           <div></div>
@@ -116,7 +119,7 @@
       <div
         class="flex flex-col mx-5"
       >
-        <div v-if="localBin == ''" class="w-full flex justify-center items-end h-80 bg-blue-400 rounded-2xl">
+        <div v-if="localBin == '' && !isLoading" class="w-full flex justify-center items-end h-48 bg-blue-400 rounded-2xl">
           <t-button2
             @click="changeBinStatus()"
             v-if="localBin == ''"
@@ -124,6 +127,9 @@
           >
             Collega il tuo cestino
           </t-button2>
+        </div>
+        <div v-if="isLoading">
+          <Loading></Loading>
         </div>
         <div>
           <t-modal
@@ -178,12 +184,15 @@
 import Modal from "@/components/Modal";
 import Calendar from "@/components/Calendar";
 import ModalMaterial from "@/components/ModalMaterial";
+import Loading from "@/components/Loading";
+
 export default {
   name: "Home",
   components: {
     Calendar,
     Modal,
     ModalMaterial,
+    Loading
   },
   props: {
     isMobile: {
@@ -193,6 +202,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       access: "",
       user: {},
       color:'grey',
@@ -259,6 +269,7 @@ export default {
       this.getBin();
     },
     async getBin() {
+      this.isLoading = true;
       let response = await this.$axios.get("/r4g/view-bin-user/" + this.user.id);
       let viewBinUser = response.data;
 
@@ -268,13 +279,16 @@ export default {
       let BinUser = JSON.stringify(userBin);
       localStorage.setItem("BinUser", BinUser);
 
-      let res = await this.$axios.get("/r4g/material-bin/" + viewBinUser.bin_id);
-      if (response) {
-        let calendaBin = res.data;
-        this.localBin = JSON.stringify(calendaBin);
-        localStorage.setItem("Bin", this.localBin);
-        this.populateBin();
+      if (viewBinUser.bin_id) {
+        let res = await this.$axios.get("/r4g/material-bin/" + viewBinUser.bin_id)
+        if (response) {
+          let calendaBin = res.data;
+          this.localBin = JSON.stringify(calendaBin);
+          localStorage.setItem("Bin", this.localBin);
+          this.populateBin();
+        }
       }
+      this.isLoading = false;
     },
     populateBin() {
       this.localBin = JSON.parse(localStorage.getItem("Bin"));

@@ -103,8 +103,7 @@
             class="fixed text-red-400 font-bold text-2xl z-10"
             style="top: 50%; left: 50%; transform: translate(-50%, -50%)"
         >
-            <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-green-600">
-            </div>
+            <Loading></Loading>
         </div>
     </div>
 
@@ -182,11 +181,13 @@
 </template>
 
 <script>
-import LoginRegisterBar from '@/components/LoginRegisterBar.vue';
+import LoginRegisterBar from '@/components/LoginRegisterBar';
+import Loading from '@/components/Loading';
 
 export default {
     components: {
-      LoginRegisterBar
+      LoginRegisterBar,
+      Loading
     },
     props: {
         isMobile: {
