@@ -142,8 +142,8 @@
                 <div class="relative">
                 <!-- svg mobile -->
                   <svg id="svg" width="80" height="80" viewPort="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" :style="`stroke:${color}`">
-                    <circle r="25" cx="40" cy="40" fill="white" stroke-dasharray="314.15" stroke-dashoffset="0"></circle>
-                    <circle id="bar" r="25" cx="40" cy="40" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px; stroke:${color}`"></circle>
+                    <circle :r="rMobile" cx="40" cy="40" fill="white" stroke-dasharray="157.08" stroke-dashoffset="0"></circle>
+                    <circle id="bar" :r="rMobile" cx="40" cy="40" fill="transparent" stroke-dasharray="157.08" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rctMobile}px; stroke:${color}`"></circle>
                   </svg>
                   <div class="h3 absolute font-bold text-sm" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{value}}%</div>
                 </div>
@@ -188,7 +188,7 @@ export default {
   props: {
     isMobile: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   data() {
@@ -209,13 +209,15 @@ export default {
       localBin: [],
       num: 0,
       r: 50,
+      rMobile:25,
       rct: 314.15,
-      rctMobile:214.15,
+      rctMobile:314.15,
       value: 1,
 
     };
   },
   async mounted() {
+    console.log(this.isMobile)
     this.user = JSON.parse(localStorage.getItem("AccessEmail"));
     this.userBin = JSON.parse(localStorage.getItem("BinUser"));
     this.getBin();
@@ -350,7 +352,10 @@ export default {
       //let val = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
       let c = Math.PI * (this.r * 2);
       this.rct = ((100 - this.value) / 100) * c;
-    },
+
+      let c2 = Math.PI * (this.rMobile * 2);
+      this.rctMobile = ((100 - this.value) / 100) * c2;
+      },
   },
   computed: {},
   filters: {
