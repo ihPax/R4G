@@ -17,7 +17,7 @@
               class="flex flex-col mx-1 my-4"
             >
               Collega il tuo cestino
-            </t-button> 
+            </t-button>
           </div>
           <div v-if="isLoading" class="m-4">
             <Loading></Loading>
