@@ -1,9 +1,9 @@
 <template>
     <div class="h-full w-full font-montserrat">
-        <div v-if="!isMobile" class="h-full w-full flex flex-row border-l-2 border-t-2 xs:border-black border-white rounded-tl-2xl">
-            <div class="flex flex-col items-center justify-center w-full">
+        <div v-if="!isMobile" class="h-full w-full flex flex-row xs:border-black border-white rounded-tl-2xl shadow-xl">
+            <div class="flex flex-col items-center w-full">
                 <div class="py-3">
-                    <div class="font-bold text-2xl">Ciao! Come possiamo aiutarti?</div>
+                    <div class="font-bold text-2xl mt-10 mb-5">Ciao! Come possiamo aiutarti?</div>
                 </div>
                 <div>
                     <div>Ricevi l’assistenza, gli strumenti e le informazioni di cui hai bisogno per la tua sicurezza.</div>
@@ -36,6 +36,7 @@ export default {
     data() {
         return {
             show: false,
+            isOpen: true,
             questions: [
                 {
                     id: 1,
@@ -73,11 +74,11 @@ export default {
       type: Boolean,
       default: false,
     },
-    methods: {
-        show(question) {
-            for (let i = 0; i <= )
-        }
-    }
+    // methods: {
+    //     show(question) {
+    //         for (let i = 0; i <= )
+    //     }
+    // }
   },
 }
 </script>
