@@ -8,9 +8,11 @@
       font-montserrat
       max-w-xl
       mx-auto
+      h-screen
+      xs:h-full
     "
   >
-    <div class="px-4 py-5 sm:px-6 justify-center text-center">
+    <div class="px-4 py-2 sm:py-4 sm:px-6 justify-center text-center">
       <h3 class="text-xl leading-6 font-medium text-gray-900">
         Informazioni sul tuo Account
       </h3>
@@ -19,13 +21,13 @@
 
       <div 
         v-for="(field, index) in fields" :key="index"
-        class="px-4 py-2 sm:py-4 grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+        class="px-4 py-1 sm:py-3 grid sm:grid-cols-3 sm:gap-4 sm:px-6"
         :class="index % 2 == 0 ? 'bg-white' : 'bg-gray-50'"
       >
         <dt class="text-sm font-medium text-gray-500"> {{field.label}} </dt>
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-          <li class="pl-3 pr-4 py-2 sm:py-3 flex items-center justify-between text-sm">
-            <div class="w-0 flex-1 flex items-center">
+          <li class="pl-3 pr-4 py-1 xs:py-2 flex items-center text-sm">
+            <div class="w-0 flex-1 flex">
               <input
                 :type="field.type"
                 :onfocus="field.onfocus ? field.onfocusType : null"
@@ -33,7 +35,7 @@
                 :name="field.type"
                 :autocomplete="field.type"
                 v-model="field.code"
-                class="border-2 border-yellow-500 px-2 rounded-lg w-1/2"
+                class="border-2 border-yellow-500 px-2 rounded-lg w-full"
               />
             </div>
           </li>
