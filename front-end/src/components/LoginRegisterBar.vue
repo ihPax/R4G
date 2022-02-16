@@ -2,7 +2,7 @@
   <div>
     <div class="flex flex-row">
       <div class="flex flex-col">
-        <router-link to="/landing">
+        <router-link to="/landing" class="flex">
           <img
             src="../assets/logor4gblack.png"
             class="w-3/4 cursor-pointer"
@@ -22,7 +22,8 @@
               px-3
               py-2
               relative
-              mr-8
+              mr-4
+              xs:mr-8
               focus:outline-none
               border-2 border-solid border-yellow-500
               rounded-lg
