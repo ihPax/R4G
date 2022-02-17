@@ -27,7 +27,33 @@
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
           <li class="pl-3 pr-4 py-1 xs:py-2 flex items-center justify-between text-sm">
             <div class="w-0 flex-1 flex items-center">
-              <span class="ml-2 flex-1 w-0 truncate"> {{field.code}} </span>
+              <span v-if="!isEdit" class="ml-2 flex-1 w-0 truncate mb-1"> {{field.type != "password" ? field.code : "********" }} </span>
+              <div v-else class="w-full">
+                <input v-if="field.type == 'text' || field.type == 'password'"
+                  :type="field.type"
+                  :onfocus="field.onfocus ? field.onfocusType : null"
+                  :placeholder="field.label"
+                  :name="field.type"
+                  :autocomplete="field.type"
+                  v-model="field.code"
+                  class="border-2 border-yellow-500 px-2 rounded-lg w-full"
+                />
+                <select
+                  v-if="field.type == 'select'"
+                  class="border-2 border-yellow-500 px-2 rounded-lg w-full"
+                  :name="field.type"
+                  :id="field.type"
+                  v-model="field.code"
+                >
+                  <option
+                    v-for="option in field.options"
+                    :key="option.id"
+                    :value="option.name"
+                  >
+                    {{ option.name }}
+                  </option>
+                </select>
+              </div>
             </div>
           </li>
         </dd>
@@ -38,24 +64,9 @@
             <div
               class="w-0 flex-1 flex justify-center text-center items-center"
             >
-              <button
-              @click="goToEdit()"
-                class="
-                  button button--moema
-                  px-5
-                  py-2
-                  hover:bg-yellow-600 hover:text-white
-                  text-yellow-600
-                  border-yellow-500
-                  cursor-pointer
-                  border-2 border-solid
-                  rounded-lg
-                  text-sm text-center
-                  font-semibold
-                "
-              >
-                Modifica
-              </button>
+              <t-button @click="switchEditMode(); saveForm()" type="submit">
+                {{ isEdit ? "Salva" : "Modifica"}}
+              </t-button>
             </div>
           </li>
         </dd>
@@ -63,11 +74,7 @@
     </div>
   </div>
 </template>
- <!-- <div
-    v-if="!isMobile"
-    class="h-full w-full flex flex-row border-l-2 border-t-2 xs:border-black border-white rounded-tl-2xl"
-  >
-  -->
+
 <script>
 export default {
   name: "Account",
@@ -75,45 +82,80 @@ export default {
     return {
       users: {},
       zone: {},
-      fields: []
+      fields: [],
+      isEdit: false,
+      comuni: [],
+      form: {
+        name: "",
+        surname: "",
+        email: "",
+        password: "",
+        birthday: "",
+        zone: ""
+      }
     }
   },
   async mounted() {
     this.users = JSON.parse(localStorage.getItem("AccessEmail"));
     this.zone = JSON.parse(localStorage.getItem("Zone"));
+    this.comuni = (await this.$axios.get("/r4g/zones")).data;
+    console.log(this.comuni);
     this.fields = [
-        {        
-          label: "Nome",
-          code: this.users.name
-        },
-        {
-          label: "Cognome",
-          code: this.users.surname
-        },
-        {
-          label: "Email",
-          code: this.users.email
-        },
-        {
-          label: "Password",
-          code: "********"
-        },
-        {
-          label: "Data di nascita",
-          code: this.users.birthday
-        },
-        {
-          label: "Quartiere",
-          code: this.zone.name
-        },
+      {        
+        label: "Nome",
+        code: this.users.name,
+        type: "text"
+      },
+      {
+        label: "Cognome",
+        code: this.users.surname,
+        type: "text"
+      },
+      {
+        label: "Email",
+        code: this.users.email,
+        type: "text"
+      },
+      {
+        label: "Password",
+        code: this.form.password,
+        type: "password"
+      },
+      {
+        label: "Data di nascita",
+        code: this.users.birthday,
+        type: "text",
+        onfocus: true,
+        onfocusType: "(this.type='date')"
+      },
+      {
+        label: "Quartiere",
+        code: this.zone.name,
+        type: "select",
+        options: this.comuni
+      },
     ]
   },
-    methods: {
-    goToEdit() {
-      this.$router.push({
-        name: "editAccount",
-      })
+  methods: {
+    switchEditMode() {
+      this.isEdit = !this.isEdit;
     },
+    saveForm() {
+      // this.form.name = this.fields[0].code;
+      // this.form.surname = this.fields[1].code;
+      // this.form.email = this.fields[2].code;
+      // this.form.password = this.fields[3].code;
+      // this.form.birthday = this.fields[4].code;
+      // this.form.zone = this.fields[5].code;
+      
+      let form = this.form;
+      let i = 0;
+      for (let property in form) {
+        form[property] = this.fields[i].code;
+        i++;
+        console.log(`${property}: ${form[property]}`);
+      }
+    }
   },
 }
 </script>
