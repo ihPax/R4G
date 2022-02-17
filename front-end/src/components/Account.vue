@@ -29,18 +29,18 @@
             <div class="w-0 flex-1 flex items-center">
               <span v-if="!isEdit" class="ml-2 flex-1 w-0 truncate mb-1"> {{field.type != "password" ? field.code : "********" }} </span>
               <div v-else class="w-full">
-                <input v-if="field.type == 'text' || field.type == 'password'"
+                <input v-if="field.type == 'text' || field.type == 'password' || field.type == 'date'"
                   :type="field.type"
-                  :onfocus="field.onfocus ? field.onfocusType : null"
+                  
                   :placeholder="field.label"
                   :name="field.type"
                   :autocomplete="field.type"
                   v-model="field.code"
-                  class="border-2 border-yellow-500 px-2 rounded-lg w-full"
+                  class="border-2 border-yellow-500 px-2 rounded-lg w-full bg-white"
                 />
                 <select
                   v-if="field.type == 'select'"
-                  class="border-2 border-yellow-500 px-2 rounded-lg w-full"
+                  class="border-2 border-yellow-500 px-2 rounded-lg w-full bg-white"
                   :name="field.type"
                   :id="field.type"
                   v-model="field.code"
@@ -124,9 +124,7 @@ export default {
       {
         label: "Data di nascita",
         code: this.users.birthday,
-        type: "text",
-        onfocus: true,
-        onfocusType: "(this.type='date')"
+        type: "date",
       },
       {
         label: "Quartiere",
@@ -159,80 +157,3 @@ export default {
   },
 }
 </script>
-
-<style>
-/* Moema */
-.button--moema {
-  -webkit-transition: background-color 0.3s, color 0.3s;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.button--moema::before {
-  content: "";
-  position: absolute;
-  top: -20px;
-  left: -20px;
-  bottom: -20px;
-  right: -20px;
-  background: inherit;
-  border-radius: 50px;
-  z-index: -1;
-  opacity: 0.4;
-  -webkit-transform: scale3d(0.8, 0.5, 1);
-  transform: scale3d(0.8, 0.5, 1);
-}
-
-.button--moema:hover {
-  -webkit-transition: background-color 0.1s 0.3s, color 0.1s 0.3s;
-  transition: background-color 0.1s 0.3s, color 0.1s 0.3s;
-  -webkit-animation: anim-moema-1 0.3s forwards;
-  animation: anim-moema-1 0.3s forwards;
-}
-
-.button--moema:hover::before {
-  -webkit-animation: anim-moema-2 0.3s 0.3s forwards;
-  animation: anim-moema-2 0.3s 0.3s forwards;
-}
-@-webkit-keyframes anim-moema-1 {
-  60% {
-    -webkit-transform: scale3d(0.8, 0.8, 1);
-    transform: scale3d(0.8, 0.8, 1);
-  }
-  85% {
-    -webkit-transform: scale3d(1.1, 1.1, 1);
-    transform: scale3d(1.1, 1.1, 1);
-  }
-  100% {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-}
-@keyframes anim-moema-1 {
-  60% {
-    -webkit-transform: scale3d(0.8, 0.8, 1);
-    transform: scale3d(0.8, 0.8, 1);
-  }
-  85% {
-    -webkit-transform: scale3d(1.1, 1.1, 1);
-    transform: scale3d(1.1, 1.1, 1);
-  }
-  100% {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-}
-@-webkit-keyframes anim-moema-2 {
-  to {
-    opacity: 0;
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-}
-@keyframes anim-moema-2 {
-  to {
-    opacity: 0;
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-}
-</style>
