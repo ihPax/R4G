@@ -17,7 +17,7 @@
         Informazioni sul tuo Account
       </h3>
     </div>
-    <div class="border-t border-gray-200">
+    <div v-if="comuni != ''" class="border-t border-gray-200">
       <div
         v-for="(field, index) in fields" :key="index"
         class="px-4 py-1 sm:py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
@@ -72,12 +72,17 @@
         </dd>
       </div>
     </div>
+    <div v-else class="my-4"><Loading></Loading> </div>
   </div>
 </template>
 
 <script>
+import Loading from "@/components/Loading";
 export default {
   name: "Account",
+  components: {
+    Loading
+  },
   data() {
     return {
       users: {},
