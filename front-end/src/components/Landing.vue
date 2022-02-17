@@ -24,8 +24,10 @@
         min-h-1/2
         md:h-192
         bg-no-repeat bg-cover
-        mx-10
-        rounded-xl
+        mx-4
+        lg:mx-10
+        rounded
+        lg:rounded-xl
         overflow-hidden
       "
       style="
