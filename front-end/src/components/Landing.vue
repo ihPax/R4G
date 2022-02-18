@@ -1,88 +1,20 @@
 <template>
   <div class="w-full h-full bg-white text-gray-600">
-    <div class="flex-row flex">
-      <div class="flex-col flex">
-        <router-link to="/landing">
-          <img
-            src="../assets/logor4gblack.png"
-            class="w-3/4 mt-5 cursor-pointer"
-            alt="logo R4G"
-          />
-        </router-link>
-      </div>
+    <LoginRegisterBar></LoginRegisterBar>
+    <div class="flex flex-wrap py-2 xs:py-4">
       <div
         class="flex-col justify-center items-center text-center flex flex-grow"
       >
         <div class="flex-row flex justify-center align-center">
-          <a class="text-gray-600 font-semibold text-lg mx-8  hover:text-yellow-600 tracking-wide cursor-pointer  transition duration-300 ease-in-out"
+          <a class="text-gray-600 font-semibold text-lg mx-4 xs:mx-8  hover:text-yellow-600 tracking-wide cursor-pointer  transition duration-300 ease-in-out"
             href="#Works">Come funziona?</a
           >
-          <a class="text-gray-600 font-semibold text-lg mx-8 hover:text-green-600 cursor-pointer tracking-wide transition duration-300 ease-in-out"
+          <a class="text-gray-600 font-semibold text-lg mx-4 xs:mx-8 hover:text-green-600 cursor-pointer tracking-wide transition duration-300 ease-in-out"
             href="#Service">I nostri servizi</a
           >
-          <a class="text-gray-600 font-semibold text-lg mx-8 hover:text-blue-500 tracking-wide cursor-pointer transition duration-300 ease-in-out"
+          <a class="text-gray-600 font-semibold text-lg mx-4 xs:mx-8 hover:text-blue-500 tracking-wide cursor-pointer transition duration-300 ease-in-out"
             href="#Who">Chi siamo?</a
           >
-        </div>
-      </div>
-      <div class="flex-col flex justify-center items-center align-center">
-        <div
-          class="
-            flex-row flex flex-wrap
-            justify-center
-            py-10
-            text-gray-300
-            my-5
-            mr-10
-          "
-        >
-          <button
-            @click="goToRegistration()"
-            class="
-              button button--moema
-              px-5
-              py-2
-              hover:bg-yellow-600 hover:text-white
-              text-yellow-600
-              relative
-              border-yellow-500
-              block
-              focus:outline-none
-              cursor-pointer
-              border-2 border-solid
-              rounded-lg
-              mr-8
-              text-sm text-center
-              font-semibold
-              tracking-widest
-            "
-          >
-            Registrati
-          </button>
-          <button
-            @click="goToLogin()"
-            class="
-              button button--moema
-              px-5
-              py-2
-              mr-2
-              hover:text-white
-              relative
-              cursor-pointer
-              text-white
-              bg-yellow-600
-              border-yellow-500
-              block
-              focus:outline-none
-              border-2 border-solid
-              rounded-lg
-              text-sm text-center
-              font-semibold
-              tracking-widest
-            "
-          >
-            Accedi
-          </button>
         </div>
       </div>
     </div>
@@ -92,8 +24,10 @@
         min-h-1/2
         md:h-192
         bg-no-repeat bg-cover
-        mx-10
-        rounded-xl
+        mx-4
+        lg:mx-10
+        rounded
+        lg:rounded-xl
         overflow-hidden
       "
       style="
@@ -156,6 +90,7 @@
                   justify-center
                   items-center
                   lg:text-left
+                  flex-wrap
                 "
               >
                 <a
@@ -177,6 +112,7 @@
                     tracking-widest
                     align-middle
                     overflow-hidden
+                    xs:mx-4
                   "
                   data-text="Accedi!"
                 >
@@ -200,7 +136,7 @@
                     font-semibold
                     tracking-widest
                     align-middle
-                    ml-10
+                    m-4
                     overflow-hidden
                   "
                   data-text="Compra ora"
@@ -347,16 +283,13 @@
               Un piccolo gesto può fare la
               <b class="text-greenlanding"> differenza </b>, la raccolta
               differenziata è un
-              <b class="text-greenlanding"> dovere civico </b> e grazie al
-              Cestino Smart sarà molto più semplice adempiere ai propri doveri.
+              <b class="text-greenlanding"> diritto e dovere del cittadino </b> e grazie al
+              Cestino Smart potrai essere facilitato nel farla.
             </h3>
           </div>
           <div
             class="
-              grid grid-cols-2
-              justify-center
-              flex
-              items-center
+              grid xs:grid-cols-2 lg:grid-cols-4
               -mx-3
               text-center
             "
@@ -364,7 +297,8 @@
             <div
               class="
                 px-3
-                mb-8
+                mb-4
+                xs:mb-8
                 md:mb-12
                 flex
                 items-center
@@ -381,7 +315,8 @@
                   class="
                     text-center
                     mx-auto
-                    my-5
+                    my-2
+                    xs:my-5
                     rounded-full
                     h-20
                     w-20
@@ -400,7 +335,7 @@
                   />
                 </svg>
                 <p class="text-blueGray-600 leading-loose">
-                  Un Calendario intelligente, una verà e proprio comodità che ti
+                  Un Calendario intelligente, una vera e proprio comodità che ti
                   permette di risparmiare del tempo prezioso.
                 </p>
               </div>
@@ -408,7 +343,8 @@
             <div
               class="
                 px-3
-                mb-8
+                mb-4
+                xs:mb-8
                 md:mb-12
                 flex
                 items-center
@@ -427,7 +363,8 @@
                   class="
                     text-center
                     mx-auto
-                    my-5
+                    my-2
+                    xs:my-5
                     text-black
                     rounded-full
                     h-20
@@ -454,7 +391,8 @@
             <div
               class="
                 px-3
-                mb-8
+                mb-4
+                xs:mb-8
                 md:mb-12
                 flex
                 items-center
@@ -473,7 +411,8 @@
                   class="
                     text-center
                     mx-auto
-                    my-5
+                    my-2
+                    xs:my-5
                     rounded-full
                     h-20
                     w-20
@@ -492,15 +431,16 @@
                   />
                 </svg>
                 <p class="text-blueGray-600 leading-loose">
-                  Una Dashboard con la quale monitorare lo stato dei tuoi
-                  cestini.
+                  Una Dashboard nella quale puoi tenere d'occhio facilmente lo stato dei tuoi
+                  cestini, sia dal tuo pc che dal tuo smartphone.
                 </p>
               </div>
             </div>
             <div
               class="
                 px-3
-                mb-8
+                mb-4
+                xs:mb-8
                 md:mb-12
                 flex
                 items-center
@@ -517,7 +457,8 @@
                   class="
                     text-center
                     mx-auto
-                    my-5
+                    my-2
+                    xs:my-5
                     text-black
                     rounded-full
                     h-20
@@ -536,8 +477,8 @@
                   />
                 </svg>
                 <p class="text-blueGray-600">
-                  Un Calendario intelligente, una verà e proprio comodità che ti
-                  permette di risparmiare del tempo prezioso.
+                  Avrai a disposizione i dati delle settimane e mesi precedenti, 
+                  per scoprire se i tuoi consumi sono aumentati o diminuiti.
                 </p>
               </div>
             </div>
@@ -552,27 +493,20 @@
                 </h2>
                 <div class="py-6 lg:pr-24">
                   <p class="mb-6 leading-loose text-blueGray-600">
-                    Un Calendario intelligente, una verà e proprio comodità che
-                    ti permette di risparmiare del tempo prezioso. Un Calendario
-                    intelligente, una verà e proprio comodità che ti permette di
-                    risparmiare del tempo prezioso. Un Calendario intelligente,
-                    una verà e proprio comodità che ti permette di risparmiare
-                    del tempo prezioso.
-                  </p>
-                  <p class="mb-6 leading-loose text-blueGray-600 inline">
-                    Un Calendario intelligente, una verà e proprio comodità che
-                    ti permette di risparmiare del tempo prezioso.
+                    Siamo un team di sei ragazzi, studenti della fondazione ITS Academy Last, 
+                    indirizzo Digital Transformation Specialist, che ha sviluppato un progetto 
+                    per dare il suo contributo nel risolvere un problema che sta coinvolgendo 
+                    il mondo intero, ovvero il Cambiamento Climatico.
                   </p>
                   <p
                     class="mb-6 leading-loose text-blueGray-600"
                     v-if="read == true"
                   >
-                    Un Calendario intelligente, una verà e proprio comodità che
-                    ti permette di risparmiare del tempo prezioso. Un Calendario
-                    intelligente, una verà e proprio comodità che ti permette di
-                    risparmiare del tempo prezioso. Un Calendario intelligente,
-                    una verà e proprio comodità che ti permette di risparmiare
-                    del tempo prezioso.
+                    Abbiamo scelto di farlo con un innovativo sistema per controllare 
+                    i propri cestini, anche a distanza, e semplificarne la gestione 
+                    per incentivare le persone a fare la raccolta differenziata 
+                    e che avvisa il giorno in cui va portato all'esterno per la raccolta 
+                    un determinato tipo di rifiuti.
                   </p>
                   <button
                     @click="KeepReading()"
@@ -595,7 +529,9 @@
                     w-full
                     z-10
                     my-4
-                    h-full
+                    h-48
+                    xs:h-80
+                    lg:h-full
                     bg-cover bg-blue-200 bg-center
                   "
                   style="
@@ -613,7 +549,11 @@
 </template>
 
 <script>
+import LoginRegisterBar from "@/components/LoginRegisterBar.vue";
 export default {
+  components: {
+    LoginRegisterBar
+  },
   data() {
     return {
       read: false,

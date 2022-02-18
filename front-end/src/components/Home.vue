@@ -141,7 +141,7 @@
           </t-modal>
           <div class="flex flex-col bg-blue-400 rounded-3xl" v-if="localBin != ''">
             <div class="flex flex-col p-5 justify-center w-full">
-              <div class="flex justify-between items-center">
+              <div class="flex justify-between items-center flex-wrap truncate">
                 <div class="font-bold">
                   {{ bin.name }}
                 </div>
@@ -170,7 +170,7 @@
             <t-button @click="showModalTrue()" type="button">Scegli il tuo comune</t-button>
           </div>
           <div v-if="user.zone_id">
-            <Calendar :is-expanded="true"></Calendar>
+            <Calendar :is-expanded="false"></Calendar>
           </div>
         </div>
 
@@ -227,7 +227,6 @@ export default {
     };
   },
   async mounted() {
-    console.log(this.isMobile)
     this.user = JSON.parse(localStorage.getItem("AccessEmail"));
     this.userBin = JSON.parse(localStorage.getItem("BinUser"));
     this.getBin();
@@ -241,7 +240,6 @@ export default {
     getDistance(){
       let lenght = this.userBin.length;
       let distance = this.userBin.distance;
-      
       let valore = Math.floor(((lenght-distance)*100)/lenght);
       this.value = valore;
       this.changePercent();
@@ -370,6 +368,7 @@ export default {
 
       let c2 = Math.PI * (this.rMobile * 2);
       this.rctMobile = ((100 - this.value) / 100) * c2;
+      console.log(`Il valore del riempimento è ${this.value}`)
       },
   },
   computed: {},
@@ -429,89 +428,14 @@ export default {
   },
 };
 </script>
+
 <style>
-/* Moema */
-.button--moema {
-  -webkit-transition: background-color 0.3s, color 0.3s;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.button--moema::before {
-  content: "";
-  position: absolute;
-  top: -20px;
-  left: -20px;
-  bottom: -20px;
-  right: -20px;
-  background: inherit;
-  border-radius: 50px;
-  z-index: -1;
-  opacity: 0.4;
-  -webkit-transform: scale3d(0.8, 0.5, 1);
-  transform: scale3d(0.8, 0.5, 1);
-}
-
-.button--moema:hover {
-  -webkit-transition: background-color 0.1s 0.3s, color 0.1s 0.3s;
-  transition: background-color 0.1s 0.3s, color 0.1s 0.3s;
-  -webkit-animation: anim-moema-1 0.3s forwards;
-  animation: anim-moema-1 0.3s forwards;
-}
-
-.button--moema:hover::before {
-  -webkit-animation: anim-moema-2 0.3s 0.3s forwards;
-  animation: anim-moema-2 0.3s 0.3s forwards;
-}
-@-webkit-keyframes anim-moema-1 {
-  60% {
-    -webkit-transform: scale3d(0.8, 0.8, 1);
-    transform: scale3d(0.8, 0.8, 1);
-  }
-  85% {
-    -webkit-transform: scale3d(1.1, 1.1, 1);
-    transform: scale3d(1.1, 1.1, 1);
-  }
-  100% {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-}
-@keyframes anim-moema-1 {
-  60% {
-    -webkit-transform: scale3d(0.8, 0.8, 1);
-    transform: scale3d(0.8, 0.8, 1);
-  }
-  85% {
-    -webkit-transform: scale3d(1.1, 1.1, 1);
-    transform: scale3d(1.1, 1.1, 1);
-  }
-  100% {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-}
-@-webkit-keyframes anim-moema-2 {
-  to {
-    opacity: 0;
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-}
-@keyframes anim-moema-2 {
-  to {
-    opacity: 0;
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-}
-
 #svg circle {
   transition: stroke-dashoffset 1.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-  stroke: #CFCFCF	;
+  stroke: #CFCFCF;
   border: 20px solid black;
   stroke-width: 9;
 }
-
 
 .w-160 {
   width: 160px;
@@ -521,5 +445,4 @@ export default {
 #svg {
   transform: rotate(-90deg);
 }
-
 </style>
