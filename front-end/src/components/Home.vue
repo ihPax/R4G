@@ -8,16 +8,18 @@
       <div class="text-4xl font-bold mb-3 sm:mb-6 lg:mb-12">Ciao {{ user.name }}!</div>
       <div class="grid grid-cols-2 gap-6">
         <div
-          class="flex flex-col-reverse lg:flex-row items-center shadow-inner rounded-lg border-2 border-gray-300"
+          class="flex flex-col-reverse lg:flex-row items-center justify-between shadow-inner rounded-lg border-2 border-gray-300"
         >
-          <div v-if="localBin == ''" class="flex flex-col-reverse lg:flex-row items-center">
+          <div v-if="localBin == '' && !isLoading" class="flex flex-col-reverse lg:flex-row items-center">
             <t-button
               @click="changeBinStatus()"
-              v-if="localBin == ''"
               class="flex flex-col mx-1 my-4"
             >
               Collega il tuo cestino
-            </t-button> 
+            </t-button>
+          </div>
+          <div v-if="isLoading" class="m-4">
+            <Loading></Loading>
           </div>
           <div class="flex">
             <t-modal
@@ -27,12 +29,13 @@
             >
               <ModalMaterial @exit="closeMaterialModal"></ModalMaterial>
             </t-modal>
-            <div class="flex flex-col" v-if="localBin != ''">
+            <div class="flex flex-col" v-if="localBin != '' && !isLoading">
               <div class="flex flex-col py-4">
                 <div class="font-bold pl-4 text-xl">
                   {{ bin.name }}  
                 </div>
                 <div class="relative w-160">
+                <!-- svg desktop -->
                   <svg id="svg" width="160" height="160" viewPort="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" :style="`stroke:${color}`">
                     <circle :r="r" cx="80" cy="80" fill="white" stroke-dasharray="314.15" stroke-dashoffset="0"></circle>
                     <circle id="bar" :r="r" cx="80" cy="80" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;stroke:${color}`"></circle>
@@ -48,7 +51,7 @@
           </div>
           <div class="flex flex-col mx-1">
             <div class="material-icons text-7xl xs:text-9xl lg:text-11xl">
-              <div v-if="localBin == ''">delete_forever</div>
+              <div v-if="localBin == '' && !isLoading">delete_forever</div>
               <div v-if="bin.name == 'CARTA'">
                 <img src="../assets/carta.png" class="w-40">
               </div>
@@ -66,7 +69,7 @@
         </div>
 
         <div v-for="index in 3" :key="index"
-          class="flex flex-col-reverse lg:flex-row items-center shadow-inner rounded-lg text-center border-2 border-gray-300"
+          class="flex flex-col-reverse lg:flex-row items-center justify-between shadow-inner rounded-lg text-center border-2 border-gray-300"
         >
           <t-button class="flex flex-col mx-1 my-4"> Collega il tuo cestino </t-button>
           <div></div>
@@ -116,7 +119,7 @@
       <div
         class="flex flex-col mx-5"
       >
-        <div v-if="localBin == ''" class="w-full flex justify-center items-end h-80 bg-blue-400 rounded-2xl">
+        <div v-if="localBin == '' && !isLoading" class="w-full flex justify-center items-end h-48 bg-blue-400 rounded-2xl">
           <t-button2
             @click="changeBinStatus()"
             v-if="localBin == ''"
@@ -124,6 +127,9 @@
           >
             Collega il tuo cestino
           </t-button2>
+        </div>
+        <div v-if="isLoading">
+          <Loading></Loading>
         </div>
         <div>
           <t-modal
@@ -135,14 +141,15 @@
           </t-modal>
           <div class="flex flex-col bg-blue-400 rounded-3xl" v-if="localBin != ''">
             <div class="flex flex-col p-5 justify-center w-full">
-              <div class="flex justify-between items-center">
+              <div class="flex justify-between items-center flex-wrap truncate">
                 <div class="font-bold">
                   {{ bin.name }}
                 </div>
                 <div class="relative">
+                <!-- svg mobile -->
                   <svg id="svg" width="80" height="80" viewPort="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" :style="`stroke:${color}`">
-                    <circle r="25" cx="40" cy="40" fill="white" stroke-dasharray="314.15" stroke-dashoffset="0"></circle>
-                    <circle id="bar" r="25" cx="40" cy="40" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px; stroke:${color}`"></circle>
+                    <circle :r="rMobile" cx="40" cy="40" fill="white" stroke-dasharray="157.08" stroke-dashoffset="0"></circle>
+                    <circle id="bar" :r="rMobile" cx="40" cy="40" fill="transparent" stroke-dasharray="157.08" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rctMobile}px; stroke:${color}`"></circle>
                   </svg>
                   <div class="h3 absolute font-bold text-sm" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{value}}%</div>
                 </div>
@@ -163,7 +170,7 @@
             <t-button @click="showModalTrue()" type="button">Scegli il tuo comune</t-button>
           </div>
           <div v-if="user.zone_id">
-            <Calendar :is-expanded="true"></Calendar>
+            <Calendar :is-expanded="false"></Calendar>
           </div>
         </div>
 
@@ -177,21 +184,25 @@
 import Modal from "@/components/Modal";
 import Calendar from "@/components/Calendar";
 import ModalMaterial from "@/components/ModalMaterial";
+import Loading from "@/components/Loading";
+
 export default {
   name: "Home",
   components: {
     Calendar,
     Modal,
     ModalMaterial,
+    Loading
   },
   props: {
     isMobile: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   data() {
     return {
+      isLoading: false,
       access: "",
       user: {},
       color:'grey',
@@ -208,8 +219,11 @@ export default {
       localBin: [],
       num: 0,
       r: 50,
+      rMobile:25,
       rct: 314.15,
-      value: 1
+      rctMobile:314.15,
+      value: 1,
+
     };
   },
   async mounted() {
@@ -224,9 +238,9 @@ export default {
       this.showModal = !this.showModal;
     },
     getDistance(){
-      let lenght = this.userBin.length +56;
-      let distance = this.userBin.distance +30;
-      let valore = Math.floor(((lenght-distance)*100)/56);
+      let lenght = this.userBin.length;
+      let distance = this.userBin.distance;
+      let valore = Math.floor(((lenght-distance)*100)/lenght);
       this.value = valore;
       this.changePercent();
     },
@@ -254,6 +268,7 @@ export default {
       this.getBin();
     },
     async getBin() {
+      this.isLoading = true;
       let response = await this.$axios.get("/r4g/view-bin-user/" + this.user.id);
       let viewBinUser = response.data;
 
@@ -263,13 +278,16 @@ export default {
       let BinUser = JSON.stringify(userBin);
       localStorage.setItem("BinUser", BinUser);
 
-      let res = await this.$axios.get("/r4g/material-bin/" + viewBinUser.bin_id);
-      if (response) {
-        let calendaBin = res.data;
-        this.localBin = JSON.stringify(calendaBin);
-        localStorage.setItem("Bin", this.localBin);
-        this.populateBin();
+      if (viewBinUser.bin_id) {
+        let res = await this.$axios.get("/r4g/material-bin/" + viewBinUser.bin_id)
+        if (response) {
+          let calendaBin = res.data;
+          this.localBin = JSON.stringify(calendaBin);
+          localStorage.setItem("Bin", this.localBin);
+          this.populateBin();
+        }
       }
+      this.isLoading = false;
     },
     populateBin() {
       this.localBin = JSON.parse(localStorage.getItem("Bin"));
@@ -347,7 +365,11 @@ export default {
       //let val = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
       let c = Math.PI * (this.r * 2);
       this.rct = ((100 - this.value) / 100) * c;
-    },
+
+      let c2 = Math.PI * (this.rMobile * 2);
+      this.rctMobile = ((100 - this.value) / 100) * c2;
+      console.log(`Il valore del riempimento è ${this.value}`)
+      },
   },
   computed: {},
   filters: {
@@ -406,89 +428,14 @@ export default {
   },
 };
 </script>
+
 <style>
-/* Moema */
-.button--moema {
-  -webkit-transition: background-color 0.3s, color 0.3s;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.button--moema::before {
-  content: "";
-  position: absolute;
-  top: -20px;
-  left: -20px;
-  bottom: -20px;
-  right: -20px;
-  background: inherit;
-  border-radius: 50px;
-  z-index: -1;
-  opacity: 0.4;
-  -webkit-transform: scale3d(0.8, 0.5, 1);
-  transform: scale3d(0.8, 0.5, 1);
-}
-
-.button--moema:hover {
-  -webkit-transition: background-color 0.1s 0.3s, color 0.1s 0.3s;
-  transition: background-color 0.1s 0.3s, color 0.1s 0.3s;
-  -webkit-animation: anim-moema-1 0.3s forwards;
-  animation: anim-moema-1 0.3s forwards;
-}
-
-.button--moema:hover::before {
-  -webkit-animation: anim-moema-2 0.3s 0.3s forwards;
-  animation: anim-moema-2 0.3s 0.3s forwards;
-}
-@-webkit-keyframes anim-moema-1 {
-  60% {
-    -webkit-transform: scale3d(0.8, 0.8, 1);
-    transform: scale3d(0.8, 0.8, 1);
-  }
-  85% {
-    -webkit-transform: scale3d(1.1, 1.1, 1);
-    transform: scale3d(1.1, 1.1, 1);
-  }
-  100% {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-}
-@keyframes anim-moema-1 {
-  60% {
-    -webkit-transform: scale3d(0.8, 0.8, 1);
-    transform: scale3d(0.8, 0.8, 1);
-  }
-  85% {
-    -webkit-transform: scale3d(1.1, 1.1, 1);
-    transform: scale3d(1.1, 1.1, 1);
-  }
-  100% {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-}
-@-webkit-keyframes anim-moema-2 {
-  to {
-    opacity: 0;
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-}
-@keyframes anim-moema-2 {
-  to {
-    opacity: 0;
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-}
-
 #svg circle {
   transition: stroke-dashoffset 1.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-  stroke: #c0c0c0;
+  stroke: #CFCFCF;
   border: 20px solid black;
   stroke-width: 9;
 }
-
 
 .w-160 {
   width: 160px;
@@ -498,5 +445,4 @@ export default {
 #svg {
   transform: rotate(-90deg);
 }
-
 </style>

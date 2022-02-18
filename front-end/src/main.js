@@ -172,7 +172,7 @@ const routes = [
       },
       {
         path: 'account/edit',
-        name: 'editaccount',
+        name: 'editAccount',
         component: EditAccount,
       },
       {
