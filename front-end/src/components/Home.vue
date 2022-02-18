@@ -241,7 +241,8 @@ export default {
     getDistance(){
       let lenght = this.userBin.length;
       let distance = this.userBin.distance;
-      let valore = Math.floor(((lenght-distance)*100)/56);
+      
+      let valore = Math.floor(((lenght-distance)*100)/lenght);
       this.value = valore;
       this.changePercent();
     },
