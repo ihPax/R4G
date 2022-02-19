@@ -57,7 +57,7 @@ export default {
         },
         {
           googleCode: 'person',
-          code: 'account'
+          code: 'dashboard-account'
         },
       ]
     };

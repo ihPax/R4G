@@ -13,6 +13,7 @@ import Login from "@/components/Login.vue";
 import Dashboard from "@/components/Dashboard.vue";
 import PrivacyPolicy from "@/components/PrivacyPolicy.vue";
 import Faqs from "@/components/Faqs.vue"
+import DashboardAccount from "@/components/DashboardAccount.vue";
 import VueTailwind from 'vue-tailwind'
 import {
   //TInput,
@@ -122,7 +123,7 @@ const routes = [
   },
   {
     path: '/privacy-policy',
-    name: "PrivacyPolicy",
+    name: "privacy-policy",
     component: PrivacyPolicy,
   },
   {
@@ -168,6 +169,11 @@ const routes = [
         path: 'faqs',
         name: 'faqs',
         component: Faqs,
+      },
+      {
+        path: 'dashboard-account',
+        name: 'dashboard-account',
+        component: DashboardAccount,
       },
       {
         path: '*',  // qualsiasi cosa scritta dopo '/dashboard/' reindirizza alla dashboard

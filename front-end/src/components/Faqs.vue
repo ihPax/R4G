@@ -2,10 +2,19 @@
     <div class="h-full w-full rounded-tl-2xl flex">
         <div  class="border-black flex justify-center flex-grow">
             <div class="flex flex-col max-w-screen-lg xs:shadow-orangexl">
-                <div class="px-1 py-2 text-2xl leading-6 font-medium text-gray-900 border-b border-gray-200 flex justify-center">
+                <div class="p-2 xs:p-4 text-2xl leading-6 font-medium text-gray-900 border-b border-gray-200 flex justify-center bg-blue-50 xs:bg-white">
+                    <button>
+                        <svg 
+                        class="block xs:hidden transform rotate-90 h-8 w-8 mx-2 hover:cursor-pointer"
+                        @click="$router.go(-1)"
+                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                        >
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
                     <div> Ciao! Come possiamo aiutarti? </div>
                 </div>
-                <div class="px-2 py-1 xs:py-4 font-medium text-gray-900 border-b border-gray-200 flex justify-center">
+                <div class="p-2 xs:p-4 font-medium text-gray-900 border-b border-gray-200 flex justify-center">
                     <div> Ricevi l’assistenza, gli strumenti e le informazioni di cui hai bisogno per la tua sicurezza. </div>
                 </div>
                 <div 
@@ -13,7 +22,7 @@
                     @click="showAnswer(faq)"
                     class=""
                 > <!--  class="flex justify-between content-between flex-grow"  -->
-                    <div class="px-4 py-2 sm:p-4 cursor-pointer" :class="index % 2 == 0 ? 'bg-white' : 'bg-yellow-50'">
+                    <div class="p-2 sm:p-4 cursor-pointer" :class="index % 2 == 0 ? 'bg-white' : 'bg-yellow-50'">
                         <div class="flex items-center">
                             <div class="flex">
                                 <div class="font-medium">{{index + 1}}.&nbsp;</div>
