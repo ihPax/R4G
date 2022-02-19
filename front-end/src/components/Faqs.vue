@@ -90,13 +90,18 @@ export default {
         }
     },
     methods: {
-        showAnswer(faq) {
-            faq.show = !faq.show;
-            // for (let i = 0; i < this.questions.length; i++) {
-            //     if (this.questions[i].id == question.id) {
-            //         this.questions[i].show = true;
+        showAnswer(faqParam) {
+            faqParam.show = !faqParam.show;
+            if (faqParam.show == true) {
+                this.faqs.forEach(faq => {
+                    faq.show = faq.id == faqParam.id ? true : false;
+                })
+            }
+            // for (let i = 0; i < this.faqs.length; i++) {
+            //     if (this.faqs[i].id == faq.id) {
+            //         this.faqs[i].show = true;
             //     } else {
-            //         this.questions[i].show = false;
+            //         this.faqs[i].show = false;
             //     }
             // }
         }
