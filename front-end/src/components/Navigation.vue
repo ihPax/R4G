@@ -68,7 +68,7 @@ export default {
           label: "Account",
         },
         {
-          code: "faq",
+          code: "faqs",
           label: "FAQ",
         },
       ],
