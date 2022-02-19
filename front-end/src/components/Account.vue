@@ -5,23 +5,22 @@
       shadow-orangexl
       overflow-hidden
       sm:rounded-lg
-      font-montserrat
       max-w-xl
       mx-auto
       h-screen
       xs:h-full
     "
   >
-    <div class="px-4 py-2 sm:py-4 sm:px-6 justify-center text-center">
+    <div class="px-4 py-2 sm:py-4 sm:px-6 justify-center text-center border-b border-gray-200">
       <h3 class="text-xl leading-6 font-medium text-gray-900">
         Informazioni sul tuo Account
       </h3>
     </div>
-    <div v-if="comuni != ''" class="border-t border-gray-200">
+    <div v-if="comuni != ''">
       <div
         v-for="(field, index) in fields" :key="index"
         class="px-4 py-1 sm:py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
-        :class="index % 2 == 0 ? 'bg-white' : 'bg-gray-50'"
+        :class="index % 2 == 0 ? 'bg-white' : 'bg-yellow-50'"
       >
         <dt class="text-sm font-medium text-gray-500"> {{field.label}} </dt>
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
@@ -64,9 +63,9 @@
             <div
               class="w-0 flex-1 flex justify-center text-center items-center"
             >
-              <t-button @click="switchEditMode(); saveForm()" type="submit">
-                {{ isEdit ? "Salva" : "Modifica"}}
-              </t-button>
+              <t-button2 @click="switchEditMode(); saveForm()" type="submit">
+                {{ isEdit ? "Salva" : "Modifica" }}
+              </t-button2>
             </div>
           </li>
         </dd>

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="font-montserrat">
     <router-view :isMobile="isMobile"></router-view>
   </div>
 </template>

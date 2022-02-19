@@ -1,5 +1,5 @@
 <template>
-<div class="h-full w-full font-montserrat">
+<div class="h-full w-full">
     <div v-if="!isMobile" class="h-full w-full flex flex-col">
         <LoginRegisterBar></LoginRegisterBar>
         <form class="flex flex-row">
