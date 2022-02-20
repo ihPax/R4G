@@ -55,7 +55,7 @@
             @click="logout()"
         >
             <div class="flex items-center">
-                <div class="text-xl mr-2">Esci</div>
+                <div class="text-lg mr-2">Esci</div>
                 <div class="material-icons">logout</div>
             </div>
         </button>

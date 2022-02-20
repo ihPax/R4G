@@ -2,7 +2,7 @@
     <div class="h-full w-full rounded-tl-2xl flex">
         <div  class="border-black flex justify-center flex-grow">
             <div class="flex flex-col max-w-screen-lg xs:shadow-orangexl">
-                <div class="p-2 xs:p-4 text-2xl leading-6 font-medium text-gray-900 border-b border-gray-200 flex justify-center bg-blue-50 xs:bg-white">
+                <div class="p-4 sm:px-6 text-2xl leading-6 font-medium text-gray-900 border-b border-gray-200 flex justify-center bg-blue-50 xs:bg-white">
                     <button>
                         <svg 
                         class="block xs:hidden transform rotate-90 h-8 w-8 mx-2 hover:cursor-pointer"
@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <div>
-                    <t-button2 @click="goToLink()" class="mx-auto mt-12">Condividi il tuo feedback</t-button2>
+                    <t-button2 @click="goToLink()" class="mx-auto mt-8 xs:mb-4">Condividi il tuo feedback</t-button2>
                     <!-- class="border-2 border-orangelogo p-2 rounded-lg bg-orangelogo text-white mt-10" -->
                 </div>
             </div>

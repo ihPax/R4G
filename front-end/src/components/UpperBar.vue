@@ -19,7 +19,7 @@
 
   <!-- VERSIONE MOBILE -->
   <div v-else>
-    <div class="h-16 border-t border-black fixed bottom-0 w-full z-10 flex justify-around bg-gray-100">
+    <div class="h-16 border-t border-black fixed bottom-0 w-full z-10 flex justify-around bg-blue-50">
       <button 
         v-for="link in links" :key="link.id" 
         @click="goToLink(link)"

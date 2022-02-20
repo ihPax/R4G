@@ -10,9 +10,8 @@
       xs:h-full
     ">
         <div class="p-4 sm:px-6 flex justify-center items-center text-center border-b border-gray-200 bg-blue-50 xs:bg-white">
-            <button>
-                <svg 
-                    class="block xs:hidden transform rotate-90 h-8 w-8 mx-2 hover:cursor-pointer"
+            <button class="block xs:hidden">
+                <svg class="transform rotate-90 h-8 w-8 mx-2 hover:cursor-pointer"
                     @click="$router.go(-1)"
                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                 >
@@ -23,7 +22,7 @@
                 Condividi il tuo feedback
             </h3>
         </div>
-        <div class="max-w-lg mx-auto">
+        <div v-if="!isFeedbackSent" class="max-w-lg mx-auto">
             <div class="flex flex-col justify-center py-4 mx-2 max-w-screen-md" v-for="field in fields" :key="field.code">
                 <input v-if="field.type == 'text' || field.type == 'password' || field.type == 'date'"
                   :type="field.type"
@@ -71,16 +70,26 @@
                 >
                 </textarea>
             </div>
+            <div class="flex justify-center my-8">
+                <t-button2 
+                    @click="saveFeedback()"
+                    :disabled="!isFormValid"
+                    :class="{ 'cursor-not-allowed': !isFormValid }"
+                > Invia Feedback </t-button2>
+            </div>
+            <div v-if="!isFormValid" class="flex justify-center items-center text-center xs:pb-4">
+                <div class="border border-red-600 rounded px-2 py-1">* Campo obbligatorio</div>
+            </div>
         </div>
-        <div class="flex justify-center my-8">
-            <t-button2 
-                @click="saveFeedback()"
-                :disabled="!isFormValid"
-                :class="{ 'cursor-not-allowed': !isFormValid }"
-            > Invia Feedback </t-button2>
-        </div>
-        <div v-if="!isFormValid" class="flex justify-center items-center text-center">
-            <div class="border border-red-600 rounded px-2 py-1">* Campo obbligatorio</div>
+        <div v-else class="flex flex-col justify-end items-center pt-24">
+            <router-link to="/landing" class="flex justify-center items-center">
+                <img
+                    src="../assets/logor4gblack.png"
+                    class="cursor-pointer"
+                    alt="logo R4G"
+                />
+            </router-link>
+            <div class="font-medium text-xl pt-4 px-2 text-center">Grazie per il tuo feedback!</div>
         </div>
     </div> 
 </template>
@@ -95,7 +104,8 @@ export default {
                 name: "",
                 zone: "",
                 userFeedback: ""
-            }
+            },
+            isFeedbackSent: false
         }
     },
     mounted() {
@@ -125,6 +135,7 @@ export default {
             for (let property in this.newFeedback) {
                 console.log(`${property}: ${this.newFeedback[property]}`);
             }
+            this.isFeedbackSent = true;
             // if(!this.isFormValid) {
             //     this.$fire({
             //         text: "Per favore compila tutti i campi!",

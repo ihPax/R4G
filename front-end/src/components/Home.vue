@@ -102,7 +102,7 @@
   <!-- VERSIONE MOBILE -->
   <div v-else>
     <div class="max-w-full flex flex-col">
-      <div class="bg-blue-50 mb-5 flex px-5 py-2 items-center">
+      <div class="p-4 sm:px-6 flex justify-center items-center text-center border-b border-gray-200 bg-blue-50 xs:bg-white mb-4">
         <div class="material-icons text-4xl">
           accessibility_new
         </div>
@@ -117,7 +117,7 @@
       </div>
 
       <div
-        class="flex flex-col mx-5"
+        class="flex flex-col mx-4"
       >
         <div v-if="localBin == '' && !isLoading" class="w-full flex justify-center items-end h-48 bg-blue-400 rounded-2xl">
           <t-button2
@@ -128,7 +128,7 @@
             Collega il tuo cestino
           </t-button2>
         </div>
-        <div v-if="isLoading">
+        <div v-if="isLoading" class="flex justify-center items-center h-48 bg-blue-400 rounded-2xl">
           <Loading></Loading>
         </div>
         <div>
@@ -140,7 +140,7 @@
             <ModalMaterial @exit="closeMaterialModal"></ModalMaterial>
           </t-modal>
           <div class="flex flex-col bg-blue-400 rounded-3xl" v-if="localBin != ''">
-            <div class="flex flex-col p-5 justify-center w-full">
+            <div class="flex flex-col px-4 py-8 justify-center w-full">
               <div class="flex justify-between items-center flex-wrap truncate">
                 <div class="font-bold">
                   {{ bin.name }}

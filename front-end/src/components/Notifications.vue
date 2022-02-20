@@ -10,9 +10,8 @@
       xs:h-full
     ">
         <div class="p-4 sm:px-6 flex justify-center items-center text-center border-b border-gray-200 bg-blue-50 xs:bg-white">
-            <button>
-                <svg 
-                    class="block xs:hidden transform rotate-90 h-8 w-8 mx-2 hover:cursor-pointer"
+            <button class="block xs:hidden">
+                <svg class="transform rotate-90 h-8 w-8 mx-2 hover:cursor-pointer"
                     @click="$router.go(-1)"
                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                 >

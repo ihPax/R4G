@@ -28,7 +28,7 @@
     <div v-if="comuni != ''">
       <div
         v-for="(field, index) in fields" :key="index"
-        class="px-4 py-1 sm:py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+        class="px-4 py-1 sm:py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
         :class="index % 2 == 0 ? 'bg-white' : 'bg-yellow-50'"
       >
         <dt class="text-sm font-medium text-gray-500"> {{field.label}} </dt>
@@ -65,9 +65,9 @@
           </li>
         </dd>
       </div>
-      <div class="bg-white px-4 py-5 sm:gap-4 sm:px-6">
-        <dd class="mt-1 text-sm text-gray-900 sm:mt-0">
-          <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+      <div class="bg-white p-4 sm:gap-4 sm:px-6">
+        <dd class="text-sm text-gray-900 sm:mt-0">
+          <li class="py-2 flex items-center justify-center text-sm">
             <div
               class="w-0 flex-1 flex justify-center text-center items-center mt-4"
             >
