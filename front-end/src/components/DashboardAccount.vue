@@ -66,7 +66,7 @@
     class="fixed text-red-400 font-bold text-2xl z-10"
     style="top: 50%; left: 50%; transform: translate(-50%, -50%)"
   > 
-    Non esiste la versione desktop di questo componente!
+    Non esiste (ancora) la versione desktop di questo componente!
   </div>
 </div>
 </template>
@@ -105,7 +105,7 @@ export default {
                 },
                 {
                     label: 'Come funziona R4G',
-                    code: 'r4g-project',
+                    code: 'project-r4g',
                     isHeader: false
                 },
                 {

@@ -14,6 +14,9 @@ import Dashboard from "@/components/Dashboard.vue";
 import PrivacyPolicy from "@/components/PrivacyPolicy.vue";
 import Faqs from "@/components/Faqs.vue"
 import DashboardAccount from "@/components/DashboardAccount.vue";
+import Notifications from "@/components/Notifications.vue";
+import ProjectR4G from "@/components/ProjectR4G.vue";
+import ToS from "@/components/ToS.vue";
 import VueTailwind from 'vue-tailwind'
 import {
   //TInput,
@@ -174,6 +177,21 @@ const routes = [
         path: 'dashboard-account',
         name: 'dashboard-account',
         component: DashboardAccount,
+      },
+      {
+        path: 'notifications',
+        name: 'notifications',
+        component: Notifications,
+      },
+      {
+        path: 'project-r4g',
+        name: 'project-r4g',
+        component: ProjectR4G,
+      },
+      {
+        path: 'tos',
+        name: 'ToS',
+        component: ToS,
       },
       {
         path: '*',  // qualsiasi cosa scritta dopo '/dashboard/' reindirizza alla dashboard

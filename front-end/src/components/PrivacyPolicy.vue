@@ -1,6 +1,23 @@
 <template>
-    <div class='font-montserrat'>
-        <h1>Privacy Policy</h1>
+    <div class='font-montserrat p-4'>
+        <div class="flex xs:flex-col justify-center items-center">
+            <button>
+                <svg 
+                    class="block xs:hidden transform rotate-90 h-8 w-8 mx-2 hover:cursor-pointer"
+                    @click="$router.go(-1)"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                >
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </button>
+            <button
+                class="hidden xs:block font-bold px-4 py-1 rounded-full bg-white text-black border border-black"
+                @click="$router.go(-1)"
+            >
+                Torna indietro
+            </button>
+            <div class="text-xl font-bold my-2">Privacy Policy</div>
+        </div>
         <p>Last updated: December 16, 2021</p>
         <p>This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.</p>
         <p>We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy. This Privacy Policy has been created with the help of the <a href="https://www.privacypolicies.com/privacy-policy-generator/" target="_blank">Privacy Policy Generator</a>.</p>
