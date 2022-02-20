@@ -17,6 +17,7 @@ import DashboardAccount from "@/components/DashboardAccount.vue";
 import Notifications from "@/components/Notifications.vue";
 import ProjectR4G from "@/components/ProjectR4G.vue";
 import ToS from "@/components/ToS.vue";
+import Feedback from "@/components/Feedback.vue";
 import VueTailwind from 'vue-tailwind'
 import {
   //TInput,
@@ -192,6 +193,11 @@ const routes = [
         path: 'tos',
         name: 'ToS',
         component: ToS,
+      },
+      {
+        path: 'feedback',
+        name: 'feedback',
+        component: Feedback,
       },
       {
         path: '*',  // qualsiasi cosa scritta dopo '/dashboard/' reindirizza alla dashboard

@@ -37,19 +37,18 @@
             <div class="w-0 flex-1 flex items-center">
               <span v-if="!isEdit" class="ml-2 flex-1 w-0 truncate mb-1"> {{field.type != "password" ? field.code : "********" }} </span>
               <div v-else class="w-full">
-                <input v-if="field.type == 'text' || field.type == 'password' || field.type == 'date'"
+                <input v-if="field.type == 'text' || field.type == 'password' || field.type == 'date' || field.type == 'email'"
                   :type="field.type"
-                  
                   :placeholder="field.label"
-                  :name="field.type"
-                  :autocomplete="field.type"
+                  :name="field.autocomplete"
+                  :autocomplete="field.autocomplete"
                   v-model="field.code"
                   class="border-2 border-yellow-500 px-2 rounded-lg w-full bg-white"
                 />
                 <select
                   v-if="field.type == 'select'"
                   class="border-2 border-yellow-500 px-2 rounded-lg w-full bg-white"
-                  :name="field.type"
+                  :name="field.autocomplete"
                   :id="field.type"
                   v-model="field.code"
                 >
@@ -93,7 +92,7 @@ export default {
   },
   data() {
     return {
-      users: {},
+      user: {},
       zone: {},
       fields: [],
       isEdit: false,
@@ -108,39 +107,45 @@ export default {
       }
     }
   },
-  async mounted() {
-    this.users = JSON.parse(localStorage.getItem("AccessEmail"));
+  mounted() {
+    this.user = JSON.parse(localStorage.getItem("AccessEmail"));
     this.zone = JSON.parse(localStorage.getItem("Zone"));
-    this.comuni = (await this.$axios.get("/r4g/zones")).data;
+    this.comuni = JSON.parse(localStorage.getItem("Zones"));
     console.log(this.comuni);
     this.fields = [
       {        
         label: "Nome",
-        code: this.users.name,
+        autocomplete: "name",
+        code: this.user.name,
         type: "text"
       },
       {
         label: "Cognome",
-        code: this.users.surname,
+        autocomplete: "surname",
+        code: this.user.surname,
         type: "text"
       },
       {
         label: "Email",
-        code: this.users.email,
-        type: "text"
+        autocomplete: "email",
+        code: this.user.email,
+        type: "email"
       },
       {
         label: "Password",
+        autocomplete: "password",
         code: this.form.password,
         type: "password"
       },
       {
         label: "Data di nascita",
-        code: this.users.birthday,
+        autocomplete: "birthday",
+        code: this.user.birthday,
         type: "date",
       },
       {
         label: "Quartiere",
+        autocomplete: "zone",
         code: this.zone.name,
         type: "select",
         options: this.comuni
