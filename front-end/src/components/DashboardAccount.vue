@@ -6,21 +6,21 @@
         Account
       </h3>
     </div>
-    <div class="flex flex-col items-center p-4 border-b border-gray-200">
+    <div class="flex flex-col items-center px-4 py-2 border-b border-gray-200">
         <div class="flex justify-center items-center">
             <div class="material-icons text-4xl">
             accessibility_new
             </div>
-            <div class="font-medium">{{ user.name }}</div>
+            <div class="font-medium text-2xl">{{ user.name }}</div>
         </div>
     </div>
     <div class="flex flex-col p-2">
         <div v-for="(field, index) in fields" :key="index">
             <div
-                class="flex justify-between p-2"
+                class="flex justify-between items-center"
                 :class="{
-                    'text-xl font-semibold': field.isHeader,
-                    'cursor-pointer border-b border-black': !field.isHeader
+                    'text-lg font-semibold p-2': field.isHeader,
+                    'text-sm cursor-pointer border-b border-black p-1': !field.isHeader
                 }"
                 @click="!field.isHeader ? goToLink(field) : null"
                 :disabled="field.isHeader || !field.isHeader ? field.code == $route.name : null"
@@ -48,6 +48,17 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="flex justify-center py-4">
+        <button 
+            class="font-bold px-4 py-2 mx-5 rounded text-white bg-gray-800 hover:bg-gray-900 active:bg-gray-900 focus:ring-gray-900"
+            @click="logout()"
+        >
+            <div class="flex items-center">
+                <div class="mr-2">Esci</div>
+                <div class="material-icons">logout</div>
+            </div>
+        </button>
     </div>
   </div>
 
@@ -84,7 +95,7 @@ export default {
                 },
                 {
                     label: 'Notifiche',
-                    code: '',
+                    code: 'notifications',
                     isHeader: false,
                     googleCode: 'notifications'
                 },
@@ -109,7 +120,7 @@ export default {
                 },
                 {
                     label: 'Termini di servizio',
-                    code: '',
+                    code: 'ToS',
                     isHeader: false,
                     googleCode: 'menu_book'
                 },
@@ -128,11 +139,19 @@ export default {
     methods: {    
         goToLink(link) {
         if (link.code != this.$route.name) {
+                this.$router.push({
+                    name: link.code,
+                });
+            }
+        },
+        async logout(){
+            await this.$axios.get("/r4g/logout");
+            localStorage.removeItem("AccessEmail");
+            localStorage.removeItem("Zone");
             this.$router.push({
-            name: link.code,
+                name: "login",
             });
         }
-        },
     },
 }
 </script>

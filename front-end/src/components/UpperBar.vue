@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div id="upperbar" class="flex justify-between items-center mx-4" v-if="!isMobile">
+  <div v-if="!isMobile" id="upperbar" class="flex justify-between items-center mx-4">
     <div class="">
       <router-link to='/dashboard/home'>
         <img src="../assets/logor4gblack.png" class="cursor-pointer w-1/2" alt="logo R4G" />
@@ -17,6 +17,7 @@
     </button>
   </div>
 
+  <!-- VERSIONE MOBILE -->
   <div v-else>
     <div class="h-16 border-t border-black fixed bottom-0 w-full z-10 flex justify-around bg-gray-100">
       <button 
