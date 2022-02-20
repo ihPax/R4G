@@ -69,7 +69,7 @@
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0">
           <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
             <div
-              class="w-0 flex-1 flex justify-center text-center items-center"
+              class="w-0 flex-1 flex justify-center text-center items-center mt-4"
             >
               <t-button2 @click="switchEditMode(); saveForm()" type="submit">
                 {{ isEdit ? "Salva" : "Modifica" }}

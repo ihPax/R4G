@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <div>
-                    <t-button2 @click="goToLink()" class="mx-auto my-6">Condividi il tuo feedback</t-button2>
+                    <t-button2 @click="goToLink()" class="mx-auto mt-12">Condividi il tuo feedback</t-button2>
                     <!-- class="border-2 border-orangelogo p-2 rounded-lg bg-orangelogo text-white mt-10" -->
                 </div>
             </div>

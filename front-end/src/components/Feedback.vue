@@ -72,14 +72,14 @@
                 </textarea>
             </div>
         </div>
-        <div class="flex justify-center">
+        <div class="flex justify-center my-8">
             <t-button2 
                 @click="saveFeedback()"
                 :disabled="!isFormValid"
                 :class="{ 'cursor-not-allowed': !isFormValid }"
             > Invia Feedback </t-button2>
         </div>
-        <div v-if="!isFormValid" class="flex justify-center items-center text-center m-5">
+        <div v-if="!isFormValid" class="flex justify-center items-center text-center">
             <div class="border border-red-600 rounded px-2 py-1">* Campo obbligatorio</div>
         </div>
     </div> 

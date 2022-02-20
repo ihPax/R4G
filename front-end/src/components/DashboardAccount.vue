@@ -49,13 +49,13 @@
             </div>
         </div>
     </div>
-    <div class="flex justify-center py-4">
+    <div class="flex justify-center pt-8">
         <button 
             class="font-bold px-4 py-2 mx-5 rounded text-white bg-gray-800 hover:bg-gray-900 active:bg-gray-900 focus:ring-gray-900"
             @click="logout()"
         >
             <div class="flex items-center">
-                <div class="mr-2">Esci</div>
+                <div class="text-xl mr-2">Esci</div>
                 <div class="material-icons">logout</div>
             </div>
         </button>
