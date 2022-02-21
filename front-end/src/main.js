@@ -131,6 +131,11 @@ const routes = [
     component: PrivacyPolicy,
   },
   {
+    path: 'tos',
+    name: 'ToS',
+    component: ToS,
+  },
+  {
     path: '/registration',
     name: "registration",
     component: Registration,
@@ -188,11 +193,6 @@ const routes = [
         path: 'project-r4g',
         name: 'project-r4g',
         component: ProjectR4G,
-      },
-      {
-        path: 'tos',
-        name: 'ToS',
-        component: ToS,
       },
       {
         path: 'feedback',

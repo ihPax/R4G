@@ -6,12 +6,19 @@
         Account
       </h3>
     </div>
-    <div class="flex flex-col items-center px-4 py-2 border-b border-gray-200">
-        <div class="flex justify-center items-center">
+    <div class="flex flex-col px-4 py-2 border-b border-gray-200">
+        <div class="flex items-center">
             <div class="material-icons text-4xl">
             accessibility_new
             </div>
-            <div class="font-medium text-2xl">{{ user.name }}</div>
+            <div class="flex flex-col ml-3">
+                <div class="text-lg font-semibold">
+                    {{ user.name }}
+                </div>
+                <button @click="goToLink({code: 'account'})" class="text-xxs font-medium underline">
+                    Visualizza profilo
+                </button>
+            </div>
         </div>
     </div>
     <div class="flex flex-col p-2">
@@ -23,7 +30,7 @@
                     'text-sm cursor-pointer border-b border-black p-1': !field.isHeader
                 }"
                 @click="!field.isHeader ? goToLink(field) : null"
-                :disabled="field.isHeader || !field.isHeader ? field.code == $route.name : null"
+                :disabled="field.isHeader || !field.isHeader ? field.code == currentRouteName : null"
             >
                 <div class="flex">
                     <div v-if="!field.isHeader" class="material-icons mr-2">
@@ -136,9 +143,14 @@ export default {
     mounted() {
         this.user = JSON.parse(localStorage.getItem("AccessEmail"));
     },
+    computed: {
+        currentRouteName() {
+        return this.$route.matched[1].name;
+        },
+    },
     methods: {    
         goToLink(link) {
-        if (link.code != this.$route.name) {
+        if (link.code != this.currentRouteName) {
                 this.$router.push({
                     name: link.code,
                 });

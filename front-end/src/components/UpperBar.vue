@@ -19,12 +19,16 @@
 
   <!-- VERSIONE MOBILE -->
   <div v-else>
-    <div class="h-16 border-t border-black fixed bottom-0 w-full z-10 flex justify-around bg-blue-50">
+    <div class="h-16 border-t border-black fixed bottom-0 w-full z-10 flex justify-around">
       <button 
         v-for="link in links" :key="link.id" 
         @click="goToLink(link)"
         :disabled="link.code == currentRouteName"
         class="flex-grow"
+        :class="{
+          'cursor-pointer bg-blue-50': link.code != currentRouteName,
+          'cursor-auto bg-blue-200': link.code == currentRouteName
+        }"
       >
         <span class="material-icons">
           {{ link.googleCode }}

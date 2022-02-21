@@ -1,5 +1,14 @@
 <template>
-    <div class='font-montserrat'>
+    <div class="
+        font-montserrat
+      bg-white
+      shadow-orangexl
+      overflow-hidden
+      sm:rounded-lg
+      max-w-xl
+      mx-auto
+      h-full
+    ">
         <div class="flex xs:flex-col justify-center items-center p-4 sm:px-6 text-center border-b border-gray-200 bg-blue-50 xs:bg-white">
             <button class="block xs:hidden">
                 <svg class="transform rotate-90 h-8 w-8 mx-2 hover:cursor-pointer"
@@ -9,14 +18,11 @@
                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                 </svg>
             </button>
-            <button
-                class="hidden xs:block font-bold px-4 py-1 mb-2 rounded-xl bg-white text-black border border-black"
-                @click="$router.go(-1)"
-            >
-                Torna indietro
-            </button>
             <div class="text-xl leading-6 font-medium text-gray-900">Privacy Policy</div>
         </div>
+
+        <!-- Inserire qui il contenuto del componente! -->
+
         <div class="p-2">
             <p>Last updated: December 16, 2021</p>
             <p>This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.</p>
@@ -187,5 +193,31 @@
             <li>By email: <span class="font-bold">r4g.recycleteam@gmail.com</span></li>
             </ul>
         </div>
+
+        <!-- Fine contenuto -->
+
+        <router-link v-if="!isMobile" to="/landing" class="py-5 block bg-gray-200 font-medium">
+            <div class="flex flex-row justify-center cursor-pointer">
+                <div class="flex flex-col">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </div>
+                <div class="flex flex-col">
+                    <span>Torna alla Landing</span>
+                </div>
+            </div>
+        </router-link> 
     </div>
 </template>
+
+<script>
+export default {
+    props: {
+        isMobile: {
+            type: Boolean,
+            default: true
+        },
+    },
+}
+</script>

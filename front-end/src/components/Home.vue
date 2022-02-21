@@ -102,7 +102,7 @@
   <!-- VERSIONE MOBILE -->
   <div v-else>
     <div class="max-w-full flex flex-col">
-      <div class="p-4 sm:px-6 flex justify-center items-center text-center border-b border-gray-200 bg-blue-50 xs:bg-white mb-4">
+      <div class="p-4 sm:px-6 flex justify-center items-center border-b border-gray-200 bg-blue-50 xs:bg-white mb-4">
         <div class="material-icons text-4xl">
           accessibility_new
         </div>
