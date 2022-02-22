@@ -5,7 +5,7 @@
       shadow-orangexl
       overflow-hidden
       sm:rounded-lg
-      max-w-xl
+      max-w-lg
       mx-auto
       h-screen
       xs:h-full
@@ -22,9 +22,9 @@
                 </div>
                 <div class="flex flex-col ml-3">
                     <div class="text-lg font-semibold">
-                        {{ user.name }}
+                        {{ user.name }} <span v-if="!isMobile"> {{ user.surname }} </span>
                     </div>
-                    <button @click="goToLink({code: 'account'})" class="text-xxs font-medium underline">
+                    <button v-if="isMobile" @click="goToLink({code: 'account'})" class="text-xxs font-medium underline">
                         Visualizza profilo
                     </button>
                 </div>
@@ -65,7 +65,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex justify-center pt-8">
+        <div v-if="isMobile" class="flex justify-center pt-8">
             <button 
                 class="font-bold px-4 py-2 mx-5 rounded text-white bg-gray-800 hover:bg-gray-900 active:bg-gray-900 focus:ring-gray-900"
                 @click="logout()"

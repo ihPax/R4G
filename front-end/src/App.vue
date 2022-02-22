@@ -24,7 +24,7 @@ export default {
   methods: {
     currentWidth() {
       let currentWidth = window.innerWidth;
-      let breakpointXS = 475;
+      let breakpointXS = 476;
       this.isMobile = currentWidth < breakpointXS ? true : false;
     },
   },
