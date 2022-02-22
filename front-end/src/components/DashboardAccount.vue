@@ -15,14 +15,14 @@
                 Account
             </h3>
         </div>
-        <div class="flex flex-col px-4 py-2 border-b border-gray-200">
+        <div v-if="isMobile" class="flex flex-col px-4 py-2 border-b border-gray-200">
             <div class="flex items-center">
                 <div class="material-icons text-4xl">
                 accessibility_new
                 </div>
                 <div class="flex flex-col ml-3">
                     <div class="text-lg font-semibold">
-                        {{ user.name }} <span v-if="!isMobile"> {{ user.surname }} </span>
+                        {{ user.name }} <!-- <span v-if="!isMobile"> {{ user.surname }} </span> -->
                     </div>
                     <button v-if="isMobile" @click="goToLink({code: 'account'})" class="text-xxs font-medium underline">
                         Visualizza profilo
@@ -30,13 +30,13 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col p-2">
+        <div class="flex flex-col p-2 xs:p-1">
             <div v-for="(field, index) in fields" :key="index">
                 <div
-                    class="flex justify-between items-center"
+                    class="flex justify-between items-center xs:m-2"
                     :class="{
                         'text-lg font-semibold p-2': field.isHeader,
-                        'text-sm cursor-pointer border-b border-black p-1': !field.isHeader
+                        'text-sm cursor-pointer border-b border-black p-1 xs:p-2 xs:border xs:border-orangelogo xs:rounded xs:hover:bg-yellow-50': !field.isHeader
                     }"
                     @click="!field.isHeader ? goToLink(field) : null"
                     :disabled="field.isHeader || !field.isHeader ? field.code == currentRouteName : null"
