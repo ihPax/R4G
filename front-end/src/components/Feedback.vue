@@ -82,13 +82,13 @@
             </div>
         </div>
         <div v-else class="flex flex-col justify-end items-center pt-24">
-            <router-link to="/landing" class="flex justify-center items-center">
+            <div @click="goToLink()" class="flex justify-center items-center">
                 <img
                     src="../assets/logor4gblack.png"
                     class="cursor-pointer"
                     alt="logo R4G"
                 />
-            </router-link>
+            </div>
             <div class="font-medium text-xl pt-4 px-2 text-center">Grazie per il tuo feedback!</div>
         </div>
     </div> 
@@ -143,6 +143,11 @@ export default {
             //         timer: 3000,
             //     })
             // }
+        }, 
+        goToLink() {
+            this.$router.push({
+                name: "dashboard-account",
+            });
         }
     },
     computed: {

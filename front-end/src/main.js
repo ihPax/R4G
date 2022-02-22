@@ -131,7 +131,7 @@ const routes = [
     component: PrivacyPolicy,
   },
   {
-    path: 'tos',
+    path: '/tos',
     name: 'ToS',
     component: ToS,
   },
