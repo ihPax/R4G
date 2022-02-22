@@ -64,7 +64,7 @@ export default {
           label: "",
         },
         {
-          code: "account",
+          code: "dashboard-account",
           label: "Account",
         },
         {

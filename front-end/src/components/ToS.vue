@@ -1,6 +1,6 @@
 <template>
     <div class="
-        font-montserrat
+      font-montserrat
       bg-white
       shadow-orangexl
       overflow-hidden

@@ -1,6 +1,6 @@
 <template>
     <div class="h-full w-full rounded-tl-2xl flex">
-        <div  class="border-black flex justify-center flex-grow">
+        <div class="border-black flex justify-center flex-grow">
             <div class="flex flex-col max-w-screen-lg xs:shadow-orangexl">
                 <div class="p-4 sm:px-6 text-2xl leading-6 font-medium text-gray-900 border-b border-gray-200 flex justify-center bg-blue-50 xs:bg-white">
                     <button>
