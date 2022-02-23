@@ -71,7 +71,10 @@
             <div
               class="w-0 flex-1 flex justify-center text-center items-center mt-4"
             >
-              <t-button2 @click="switchEditMode(); saveForm()" type="submit">
+              <t-button @click="$router.go(-1)" class="hidden xs:block mx-2">
+                Annulla
+              </t-button>
+              <t-button2 @click="switchEditMode(); saveForm()" type="submit" class="xs:mx-2">
                 {{ isEdit ? "Salva" : "Modifica" }}
               </t-button2>
             </div>

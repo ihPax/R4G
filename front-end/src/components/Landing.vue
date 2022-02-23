@@ -545,6 +545,11 @@
         </div>
       </div>
     </div>
+    <a href="#" 
+      class="fixed mb-4 mr-4 bottom-0 right-0 w-12 h-12 rounded-full bg-orangelogo flex justify-center items-center opacity-80"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 rotate-180"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
   </div>
 </template>
 
@@ -554,11 +559,13 @@ export default {
   components: {
     LoginRegisterBar
   },
+  props: {},
   data() {
     return {
       read: false,
     };
   },
+  mounted() {},
   methods: {
     goToRegistration() {
       this.$router.push({
