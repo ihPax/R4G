@@ -7,13 +7,13 @@
       >
         <div class="flex-row flex justify-center align-center">
           <a class="text-gray-600 font-semibold text-lg p-4 xs:px-8 hover:text-yellow-600 tracking-wide cursor-pointer transition duration-300 ease-in-out"
-            href="#Works">Come funziona?</a
+            @click="scrollById('Works')">Come funziona?</a
           >
           <a class="text-gray-600 font-semibold text-lg p-4 xs:px-8 hover:text-green-600 tracking-wide cursor-pointer transition duration-300 ease-in-out"
-            href="#Service">I nostri servizi</a
+            @click="scrollById('Service')">I nostri servizi</a
           >
           <a class="text-gray-600 font-semibold text-lg p-4 xs:px-8 hover:text-blue-500 tracking-wide cursor-pointer transition duration-300 ease-in-out"
-            href="#Who">Chi siamo?</a
+            @click="scrollById('Who')">Chi siamo?</a
           >
         </div>
       </div>
@@ -544,33 +544,26 @@
         </div>
       </div>
     </div>
-    <transition name="fade">
-      <button id="pagetop" class="z-50 fixed right-0 bottom-0 w-12 h-12 rounded-full bg-orangelogo opacity-80 hover:opacity-100 flex justify-center items-center mb-4 mr-4 shadow-md transition duration-300 ease-in-out" v-show="scY > 300" @click="toTop">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="#fff" d="M5 15l7-7 7 7" />
-        </svg>
-      </button>
-    </transition>
+    <ButtonToTop></ButtonToTop>
   </div>
 </template>
 
 <script>
 import LoginRegisterBar from "@/components/LoginRegisterBar.vue";
+import ButtonToTop from "@/components/ButtonToTop.vue";
+
 export default {
   components: {
-    LoginRegisterBar
+    LoginRegisterBar,
+    ButtonToTop
   },
   props: {},
   data() {
     return {
       read: false,
-      scTimer: 0,
-      scY: 0,
     };
   },
-  mounted() {
-    window.addEventListener('scroll', this.handleScroll);
-  },
+  mounted() {},
   methods: {
     goToRegistration() {
       this.$router.push({
@@ -585,20 +578,10 @@ export default {
     KeepReading() {
       this.read = !this.read;
     },
-    handleScroll() {
-        if (this.scTimer) return;
-        this.scTimer = setTimeout(() => {
-          this.scY = window.scrollY;
-          clearTimeout(this.scTimer);
-          this.scTimer = 0;
-        }, 100);
-      },
-      toTop() {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
-      },
+    scrollById(id) {
+      let element = document.getElementById(id);
+      element.scrollIntoView({behavior: "smooth"});
+    }
   },
 };
 </script>
