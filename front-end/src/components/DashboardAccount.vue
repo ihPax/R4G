@@ -16,7 +16,7 @@
             </h3>
         </div>
         <div v-if="isMobile" class="flex flex-col px-4 py-2 border-b border-gray-200">
-            <div class="flex items-center">
+            <div class="flex items-center cursor-pointer" @click="goToLink({code: 'account'})">
                 <div class="material-icons text-4xl">
                 accessibility_new
                 </div>
@@ -24,19 +24,19 @@
                     <div class="text-lg font-semibold">
                         {{ user.name }} <!-- <span v-if="!isMobile"> {{ user.surname }} </span> -->
                     </div>
-                    <button v-if="isMobile" @click="goToLink({code: 'account'})" class="text-xxs font-medium underline">
+                    <button v-if="isMobile" class="text-xxs font-medium underline">
                         Visualizza profilo
                     </button>
                 </div>
             </div>
         </div>
-        <div class="flex flex-col p-2 xs:p-1">
+        <div class="flex flex-col p-2 xs:px-1">
             <div v-for="(field, index) in fields" :key="index">
                 <div
                     class="flex justify-between items-center xs:m-2"
                     :class="{
-                        'text-lg font-semibold p-2': field.isHeader,
-                        'text-sm cursor-pointer border-b border-black p-1 xs:p-2 xs:border xs:border-orangelogo xs:rounded xs:hover:bg-yellow-50': !field.isHeader
+                        'text-lg font-semibold pt-4': field.isHeader,
+                        'text-sm cursor-pointer border-b border-gray-400 py-1 xs:p-2 xs:border xs:border-orangelogo xs:rounded xs:hover:bg-yellow-50': !field.isHeader
                     }"
                     @click="!field.isHeader ? goToLink(field) : null"
                     :disabled="field.isHeader || !field.isHeader ? field.code == currentRouteName : null"
@@ -105,7 +105,7 @@ export default {
                     label: 'Notifiche',
                     code: 'notifications',
                     isHeader: false,
-                    googleCode: 'notifications'
+                    googleCode: 'notifications_none'
                 },
                 {
                     label: 'Assistenza',
@@ -130,13 +130,13 @@ export default {
                     label: 'Termini di servizio',
                     code: 'ToS',
                     isHeader: false,
-                    googleCode: 'menu_book'
+                    googleCode: 'event_note'
                 },
                 {
                     label: 'Impostazioni della privacy',
                     code: 'privacy-policy',
                     isHeader: false,
-                    googleCode: 'lock'
+                    googleCode: 'lock_outline'
                 },
             ]
         }
