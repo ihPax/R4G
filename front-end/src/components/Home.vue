@@ -128,7 +128,7 @@
             Collega il tuo cestino
           </t-button2>
         </div>
-        <div v-if="isLoading" class="flex justify-center items-center h-48 bg-blue-400 rounded-2xl">
+        <div v-if="isLoading" class="flex justify-center items-center h-72 bg-blue-400 rounded-2xl">
           <Loading></Loading>
         </div>
         <div>
@@ -141,19 +141,30 @@
           </t-modal>
           <div class="flex flex-col bg-blue-400 rounded-2xl" v-if="localBin != ''">
             <div class="flex flex-col px-4 pt-3 justify-center w-full">
-              <div class="flex justify-between items-center flex-wrap truncate">
+              <div class="truncate">
                 <div class="font-bold text-white text-2xl">
-                  {{ bin.name }}
-                  <img src="../assets/plastica.png" class="w-24 lg:w-32 xl:w-40 mt-3 ml-5">
+                  <div>
+                    {{ bin.name }}
+                  </div>
+                  <div class="flex justify-between">
+                    <img src="../assets/plastica.png" class="inline h-24">
+                  <div class="relative">
+                    <svg id="svg" width="120" height="120" viewPort="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" :style="`stroke:${color}`">
+                      <circle :r="r" cx="60" cy="60" fill="white" stroke-dasharray="314.15" stroke-dashoffset="0"></circle>
+                      <circle id="bar" :r="r" cx="60" cy="60" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;stroke:${color}`"></circle>
+                    </svg>
+                    <div class="h3 absolute font-bold text-xl z-10 text-black" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{value}}%</div>
+                  </div>
+                  </div>
                 </div>
                 <!--circle %-->
-                <div class="relative">
+                <!-- <div class="relative">
                   <svg id="svg" width="120" height="120" viewPort="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" :style="`stroke:${color}`">
                     <circle :r="r" cx="60" cy="60" fill="white" stroke-dasharray="314.15" stroke-dashoffset="0"></circle>
                     <circle id="bar" :r="r" cx="60" cy="60" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;stroke:${color}`"></circle>
                   </svg>
                   <div class="h3 absolute font-bold text-xl" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{value}}%</div>
-                </div>
+                </div> -->
               </div>
               <div class="font-normal mt-3 text-white">Prossimo ritiro:</div>
               <div class="flex flex-col font-bold text-white text-xl">
@@ -323,7 +334,7 @@ export default {
         } else {
           this.bin.name = this.localBin[1].material;
           this.weekDay(this.localBin[1].nDay);
-                      console.log("1",this.localBin[1].nDay)
+          console.log("1",this.localBin[1].nDay)
 
         }
       }
@@ -348,7 +359,6 @@ export default {
       } else if (Number(nDay) <= Number(day)) {
         let ritiro = days.setDate(days.getDate() +(day - nDay));
         this.bin.day = new Date(ritiro);
-
       }
 
       /*
