@@ -5,7 +5,7 @@
       shadow-orangexl
       overflow-hidden
       sm:rounded-lg
-      max-w-lg
+      max-w-2xl
       mx-auto
       h-screen
       xs:h-full
