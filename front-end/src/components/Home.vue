@@ -140,25 +140,32 @@
             <ModalMaterial @exit="closeMaterialModal"></ModalMaterial>
           </t-modal>
           <div class="flex flex-col bg-blue-400 rounded-2xl" v-if="localBin != ''">
-            <div class="flex flex-col px-4 py-8 justify-center w-full">
+            <div class="flex flex-col px-4 pt-3 justify-center w-full">
               <div class="flex justify-between items-center flex-wrap truncate">
-                <div class="font-bold">
+                <div class="font-bold text-white text-2xl">
                   {{ bin.name }}
+                  <img src="../assets/plastica.png" class="w-24 lg:w-32 xl:w-40 mt-3 ml-5">
                 </div>
+                <!--circle %-->
                 <div class="relative">
-                <!-- svg mobile -->
-                  <svg id="svg" width="80" height="80" viewPort="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" :style="`stroke:${color}`">
-                    <circle :r="rMobile" cx="40" cy="40" fill="white" stroke-dasharray="157.08" stroke-dashoffset="0"></circle>
-                    <circle id="bar" :r="rMobile" cx="40" cy="40" fill="transparent" stroke-dasharray="157.08" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rctMobile}px; stroke:${color}`"></circle>
+                  <svg id="svg" width="120" height="120" viewPort="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" :style="`stroke:${color}`">
+                    <circle :r="r" cx="60" cy="60" fill="white" stroke-dasharray="314.15" stroke-dashoffset="0"></circle>
+                    <circle id="bar" :r="r" cx="60" cy="60" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;stroke:${color}`"></circle>
                   </svg>
-                  <div class="h3 absolute font-bold text-sm" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{value}}%</div>
+                  <div class="h3 absolute font-bold text-xl" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{value}}%</div>
                 </div>
               </div>
-              <div class="font-semibold">Prossimo ritiro:</div>
-              <div class="font-normal">
+              <div class="font-normal mt-3 text-white">Prossimo ritiro:</div>
+              <div class="flex flex-col font-bold text-white text-xl">
                 {{ bin.day | date }}
               </div>
             </div>
+            <!--delete bin-->
+            <button class="flex justify-end mb-4 mr-4" @click="deleteBin()">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 rounded-full bg-white p-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+            </button>
           </div>
         </div>
 
@@ -369,7 +376,14 @@ export default {
       let c2 = Math.PI * (this.rMobile * 2);
       this.rctMobile = ((100 - this.value) / 100) * c2;
       console.log(`Il valore del riempimento è ${this.value}`)
-      },
+    },
+    async deleteBin(){
+      let id = this.userBin.id;
+      await this.$axios.delete("/r4g/delete-bin-user/" + id);
+      await this.$axios.delete("/r4g/delete-bin/" + id);
+      localStorage.removeItem('BinUser');
+      localStorage.removeItem('UserBin');
+    }
   },
   computed: {},
   filters: {

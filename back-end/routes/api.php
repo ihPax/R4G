@@ -42,6 +42,8 @@ Route::put('/update-bin/{id}', [BinController::class, 'updateBin']);
 Route::get('/view-bin/{id}', [BinController::class, 'viewMateriale']);
 Route::get('/material-bin/{id}', [BinController::class, 'materialBin']);
 Route::get('/bin/{id}', [BinController::class, 'getBin']);
+Route::delete('/delete-bin/{id}', [BinController::class, 'deleteBin']);
 
 Route::post('/save-bin-user', [BinUserController::class, 'save_bin_user']);
 Route::get('/view-bin-user/{user_id}', [BinUserController::class, 'view_bin_userId']);
+Route::delete('/delete-bin-user/{id}', [BinUserController::class, 'delete_bin_user']);

@@ -64,4 +64,9 @@ class BinController extends Controller
     public function getBin($user_id){
         return Bin::where("user_id",$user_id)->first();
     }
+
+    //DELETE BIN
+    public function deleteBin($id){
+        return Bin::destroy($id);
+    }
 }
