@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="font-montserrat">
     <router-view :isMobile="isMobile"></router-view>
   </div>
 </template>
@@ -24,7 +24,7 @@ export default {
   methods: {
     currentWidth() {
       let currentWidth = window.innerWidth;
-      let breakpointXS = 475;
+      let breakpointXS = 476;
       this.isMobile = currentWidth < breakpointXS ? true : false;
     },
   },

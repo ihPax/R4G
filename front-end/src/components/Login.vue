@@ -1,8 +1,8 @@
 <template>
-<div class="h-full w-full font-montserrat">
+<div class="h-full w-full">
     <div v-if="!isMobile" class="h-full w-full flex flex-col">
         <LoginRegisterBar></LoginRegisterBar>
-        <form class="flex flex-row">
+        <form class="flex flex-row" @keyup.enter="isFormValid ? login() : null" >
             <div class="flex flex-col border-2 border-black rounded-2xl m-auto px-20 py-10">
                 <div class="flex flex-row justify-center mb-8">
                     <div class="flex flex-col">

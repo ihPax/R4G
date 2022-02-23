@@ -11,9 +11,13 @@ import Registration from "@/components/Registration.vue";
 import Account from "@/components/Account.vue";
 import Login from "@/components/Login.vue";
 import Dashboard from "@/components/Dashboard.vue";
-import EditAccount from "@/components/EditAccount.vue";
 import PrivacyPolicy from "@/components/PrivacyPolicy.vue";
-import Faq from "@/components/Faq.vue"
+import Faqs from "@/components/Faqs.vue"
+import DashboardAccount from "@/components/DashboardAccount.vue";
+import Notifications from "@/components/Notifications.vue";
+import ProjectR4G from "@/components/ProjectR4G.vue";
+import ToS from "@/components/ToS.vue";
+import Feedback from "@/components/Feedback.vue";
 import VueTailwind from 'vue-tailwind'
 import {
   //TInput,
@@ -123,8 +127,13 @@ const routes = [
   },
   {
     path: '/privacy-policy',
-    name: "PrivacyPolicy",
+    name: "privacy-policy",
     component: PrivacyPolicy,
+  },
+  {
+    path: '/tos',
+    name: 'ToS',
+    component: ToS,
   },
   {
     path: '/registration',
@@ -166,14 +175,29 @@ const routes = [
         component: Account,
       },
       {
-        path: 'faq',
-        name: 'faq',
-        component: Faq,
+        path: 'faqs',
+        name: 'faqs',
+        component: Faqs,
       },
       {
-        path: 'account/edit',
-        name: 'editAccount',
-        component: EditAccount,
+        path: 'dashboard-account',
+        name: 'dashboard-account',
+        component: DashboardAccount,
+      },
+      {
+        path: 'notifications',
+        name: 'notifications',
+        component: Notifications,
+      },
+      {
+        path: 'project-r4g',
+        name: 'project-r4g',
+        component: ProjectR4G,
+      },
+      {
+        path: 'feedback',
+        name: 'feedback',
+        component: Feedback,
       },
       {
         path: '*',  // qualsiasi cosa scritta dopo '/dashboard/' reindirizza alla dashboard
