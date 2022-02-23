@@ -182,6 +182,7 @@
                   text-sm text-center
                   font-semibold
                 "
+                @click="save()"
               >
                 Salva
               </button>
@@ -250,6 +251,11 @@ export default {
         name: "account",
       });
     },
+    async save(){
+      let id = this.users.id;
+      let res = await this.$axios.put("/r4g/update-user/"+id,this.fields);
+      console.log(res);
+    }
   },
 };
 </script>
