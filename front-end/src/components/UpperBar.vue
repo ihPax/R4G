@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div id="upperbar" class="flex justify-between items-center mx-4" v-if="!isMobile">
+  <div v-if="!isMobile" id="upperbar" class="flex justify-between items-center mx-4">
     <div class="">
       <router-link to='/dashboard/home'>
         <img src="../assets/logor4gblack.png" class="cursor-pointer w-1/2" alt="logo R4G" />
@@ -17,13 +17,18 @@
     </button>
   </div>
 
+  <!-- VERSIONE MOBILE -->
   <div v-else>
-    <div class="h-16 border-t border-black fixed bottom-0 w-full z-10 flex justify-around bg-gray-100">
+    <div class="h-16 border-t border-black fixed bottom-0 w-full z-10 flex justify-around">
       <button 
         v-for="link in links" :key="link.id" 
         @click="goToLink(link)"
         :disabled="link.code == currentRouteName"
         class="flex-grow"
+        :class="{
+          'cursor-pointer bg-blue-50': link.code != currentRouteName,
+          'cursor-auto bg-blue-200': link.code == currentRouteName
+        }"
       >
         <span class="material-icons">
           {{ link.googleCode }}
@@ -57,7 +62,7 @@ export default {
         },
         {
           googleCode: 'person',
-          code: 'account'
+          code: 'dashboard-account'
         },
       ]
     };
@@ -79,6 +84,7 @@ export default {
       await this.$axios.get("/r4g/logout");
       localStorage.removeItem("AccessEmail");
       localStorage.removeItem("Zone");
+      localStorage.removeItem("Zones");
       this.$router.push({
         name: "login",
       });

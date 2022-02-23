@@ -1,7 +1,6 @@
 <template>
   <div id="navbar" class="h-full flex">
     <div class="flex flex-col">
-
       <!-- <div v-if="isMobile" class="flex flex-row-reverse m-5 z-20" @click="burgerToggle()">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -24,11 +23,23 @@
         <button
           v-for="(link, index) in links"
           :key="link.code"
-          class="p-2 sm:p-3 my-1 sm:my-2 mx-2 text-lg sm:text-xl rounded sm:rounded-xl font-bold"
+          class="
+            p-2
+            sm:p-3
+            my-1
+            sm:my-2
+            mx-2
+            text-lg
+            sm:text-xl
+            rounded
+            sm:rounded-xl
+            font-bold
+          "
           :class="{
             'bg-green-300 cursor-auto ': link.code == currentRouteName,
             'flex-grow cursor-auto': index == 3,
-            'hover:bg-black hover:text-white hover:border-black': index != 3 && link.code != currentRouteName
+            'hover:bg-black hover:text-white hover:border-black':
+              index != 3 && link.code != currentRouteName,
           }"
           :disabled="link.code == currentRouteName"
           @click="goToLink(link)"
@@ -64,11 +75,11 @@ export default {
           label: "",
         },
         {
-          code: "account",
+          code: "dashboard-account",
           label: "Account",
         },
         {
-          code: "faq",
+          code: "faqs",
           label: "FAQ",
         },
       ],

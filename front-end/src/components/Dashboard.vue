@@ -41,11 +41,14 @@ export default {
   },
   data() {
     return {
-      user: {}
+      user: {},
+      comuni: []
     }
   },
-  mounted() {
+  async mounted() {
     this.user = JSON.parse(localStorage.getItem("AccessEmail"));
+    this.comuni = (await this.$axios.get("/r4g/zones")).data;
+    localStorage.setItem("Zones", JSON.stringify(this.comuni));
   }
 };
 </script>

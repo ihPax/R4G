@@ -1,5 +1,6 @@
 <template>
-    <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-green-600 mx-auto">
+    <div class="h-32 w-32 mx-auto">
+        <img src="../assets/r4gif.gif" alt="">
     </div>
 </template>
 

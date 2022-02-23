@@ -1,12 +1,12 @@
 <template lang="html">
-<div class="h-full w-full font-montserrat">
+<div class="h-full w-full">
   <div
     v-if="!isMobile"
     class="h-full w-full flex flex-col lg:flex-row border-l-2 border-t-2 xs:border-black border-white rounded-tl-2xl"
   >
     <div class="h-full flex flex-col flex-grow p-6">
       <div class="text-4xl font-bold mb-3 sm:mb-6 lg:mb-12">Ciao {{ user.name }}!</div>
-      <div class="grid grid-cols-2 gap-6">
+      <div class="grid sm:grid-cols-2 gap-6">
         <div
           class="flex flex-col-reverse lg:flex-row items-center justify-between shadow-inner rounded-lg border-2 border-gray-300"
         >
@@ -18,7 +18,7 @@
               Collega il tuo cestino
             </t-button>
           </div>
-          <div v-if="isLoading" class="m-4">
+          <div v-if="isLoading" class="m-20 place-self-center">
             <Loading></Loading>
           </div>
           <div class="flex">
@@ -30,20 +30,20 @@
               <ModalMaterial @exit="closeMaterialModal"></ModalMaterial>
             </t-modal>
             <div class="flex flex-col" v-if="localBin != '' && !isLoading">
-              <div class="flex flex-col py-4">
-                <div class="font-bold pl-4 text-xl">
+              <div class="flex flex-col py-4 justify-center">
+                <div class="font-bold pl-4 text-lg">
                   {{ bin.name }}  
                 </div>
-                <div class="relative w-160">
+                <div class="relative w-120">
                 <!-- svg desktop -->
-                  <svg id="svg" width="160" height="160" viewPort="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" :style="`stroke:${color}`">
-                    <circle :r="r" cx="80" cy="80" fill="white" stroke-dasharray="314.15" stroke-dashoffset="0"></circle>
-                    <circle id="bar" :r="r" cx="80" cy="80" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;stroke:${color}`"></circle>
+                  <svg id="svg" width="120" height="120" viewPort="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" :style="`stroke:${color}`">
+                    <circle :r="r" cx="60" cy="60" fill="white" stroke-dasharray="314.15" stroke-dashoffset="0"></circle>
+                    <circle id="bar" :r="r" cx="60" cy="60" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;stroke:${color}`"></circle>
                   </svg>
                   <div class="h3 absolute font-bold text-xl" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{value}}%</div>
                 </div>
-                <div class="font-semibold pl-4 text-xl">Prossimo ritiro:</div>
-                <div class="font-normal pl-4 text-xl">
+                <div class="font-semibold pl-4 text-lg">Prossimo ritiro:</div>
+                <div class="font-normal pl-4 ">
                   {{ bin.day | date }}
                 </div>
               </div>
@@ -53,24 +53,24 @@
             <div class="material-icons text-7xl xs:text-9xl lg:text-11xl">
               <div v-if="localBin == '' && !isLoading">delete_forever</div>
               <div v-if="bin.name == 'CARTA'">
-                <img src="../assets/carta.png" class="w-40">
+                <img src="../assets/carta.png" class="w-24 lg:w-32 xl:w-40">
               </div>
               <div v-if="bin.name == 'SECCO'">
-                <img src="../assets/secco.png" class="w-40">
+                <img src="../assets/secco.png" class="w-24 lg:w-32 xl:w-40">
               </div>
               <div v-if="bin.name == 'UMIDO'">
-                <img src="../assets/umido.png" class="w-40">
+                <img src="../assets/umido.png" class="w-24 lg:w-32 xl:w-40">
               </div>
               <div v-if="bin.name == 'PLASTICA/LATTINE'">
-                <img src="../assets/plastica.png" class="w-40">
+                <img src="../assets/plastica.png" class="w-24 lg:w-32 xl:w-40">
               </div>
             </div>
           </div>
         </div>
 
         <div v-for="index in 3" :key="index"
-          class="flex flex-col-reverse lg:flex-row items-center justify-between shadow-inner rounded-lg text-center border-2 border-gray-300"
-        >
+          class="xs:hidden sm:flex flex-col-reverse lg:flex-row items-center justify-between shadow-inner rounded-lg text-center border-2 border-gray-300"
+        > <!-- Sopra tolgo momentaneamente la visualizzazione degli altri 3 cestini nel breakpoint sm -->
           <t-button class="flex flex-col mx-1 my-4"> Collega il tuo cestino </t-button>
           <div></div>
           <div class="flex flex-col mx-1 flex-shrink-0 flex-grow">
@@ -102,7 +102,7 @@
   <!-- VERSIONE MOBILE -->
   <div v-else>
     <div class="max-w-full flex flex-col">
-      <div class="bg-blue-50 mb-5 flex px-5 py-2 items-center">
+      <div class="p-4 sm:px-6 flex justify-center items-center border-b border-gray-200 bg-blue-50 xs:bg-white mb-4">
         <div class="material-icons text-4xl">
           accessibility_new
         </div>
@@ -117,7 +117,7 @@
       </div>
 
       <div
-        class="flex flex-col mx-5"
+        class="flex flex-col mx-4"
       >
         <div v-if="localBin == '' && !isLoading" class="w-full flex justify-center items-end h-48 bg-blue-400 rounded-2xl">
           <t-button2
@@ -128,7 +128,7 @@
             Collega il tuo cestino
           </t-button2>
         </div>
-        <div v-if="isLoading">
+        <div v-if="isLoading" class="flex justify-center items-center h-48 bg-blue-400 rounded-2xl">
           <Loading></Loading>
         </div>
         <div>
@@ -139,8 +139,8 @@
           >
             <ModalMaterial @exit="closeMaterialModal"></ModalMaterial>
           </t-modal>
-          <div class="flex flex-col bg-blue-400 rounded-3xl" v-if="localBin != ''">
-            <div class="flex flex-col p-5 justify-center w-full">
+          <div class="flex flex-col bg-blue-400 rounded-2xl" v-if="localBin != ''">
+            <div class="flex flex-col px-4 py-8 justify-center w-full">
               <div class="flex justify-between items-center flex-wrap truncate">
                 <div class="font-bold">
                   {{ bin.name }}
@@ -218,10 +218,10 @@ export default {
       binLinked: [],
       localBin: [],
       num: 0,
-      r: 50,
-      rMobile:25,
+      r: 37.5,
+      rMobile: 25,
       rct: 314.15,
-      rctMobile:314.15,
+      rctMobile: 314.15,
       value: 1,
 
     };
@@ -434,12 +434,12 @@ export default {
   transition: stroke-dashoffset 1.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   stroke: #CFCFCF;
   border: 20px solid black;
-  stroke-width: 9;
+  stroke-width: 8;
 }
 
-.w-160 {
-  width: 160px;
-  height: 160px;
+.w-120 {
+  width: 120px;
+  height: 120px;
 }
 
 #svg {

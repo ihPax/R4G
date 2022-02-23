@@ -1,7 +1,7 @@
 <template>
   <div class="text-center section">
-    <h2 class="p-3 font-bold text-lg">
-      Calendario <span v-if="isExpanded"> Comune di {{calendars.name}} </span>
+    <h2 class="flex justify-center font-bold text-lg">
+      <div v-if="isExpanded" class="py-3 bg-blue-50 xs:bg-white font-medium xs:font-bold"> Calendario comune di {{calendars.name}} </div>
     </h2>
     <v-calendar
       class="custom-calendar max-w-full"

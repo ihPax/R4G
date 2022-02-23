@@ -5,7 +5,6 @@
       shadow-orangexl
       overflow-hidden
       sm:rounded-lg
-      font-montserrat
       max-w-xl
       mx-auto
       h-screen
