@@ -64,11 +64,11 @@ export default {
           label: "",
         },
         {
-          code: "account",
+          code: "dashboard-account",
           label: "Account",
         },
         {
-          code: "faq",
+          code: "faqs",
           label: "FAQ",
         },
       ],

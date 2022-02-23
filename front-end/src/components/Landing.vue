@@ -6,13 +6,13 @@
         class="flex-col justify-center items-center text-center flex flex-grow"
       >
         <div class="flex-row flex justify-center align-center">
-          <a class="text-gray-600 font-semibold text-lg mx-4 xs:mx-8  hover:text-yellow-600 tracking-wide cursor-pointer  transition duration-300 ease-in-out"
+          <a class="text-gray-600 font-semibold text-lg p-4 xs:px-8 hover:text-yellow-600 tracking-wide cursor-pointer transition duration-300 ease-in-out"
             href="#Works">Come funziona?</a
           >
-          <a class="text-gray-600 font-semibold text-lg mx-4 xs:mx-8 hover:text-green-600 cursor-pointer tracking-wide transition duration-300 ease-in-out"
+          <a class="text-gray-600 font-semibold text-lg p-4 xs:px-8 hover:text-green-600 tracking-wide cursor-pointer transition duration-300 ease-in-out"
             href="#Service">I nostri servizi</a
           >
-          <a class="text-gray-600 font-semibold text-lg mx-4 xs:mx-8 hover:text-blue-500 tracking-wide cursor-pointer transition duration-300 ease-in-out"
+          <a class="text-gray-600 font-semibold text-lg p-4 xs:px-8 hover:text-blue-500 tracking-wide cursor-pointer transition duration-300 ease-in-out"
             href="#Who">Chi siamo?</a
           >
         </div>
@@ -281,7 +281,7 @@
             </h2>
             <h3 class="text-blueGray-600 text-center text-md max-w-md mx-auto">
               Un piccolo gesto può fare la
-              <b class="text-greenlanding"> differenza </b>, la raccolta
+              <b class="text-greenlanding"> differenza</b>, la raccolta
               differenziata è un
               <b class="text-greenlanding"> diritto e dovere del cittadino </b> e grazie al
               Cestino Smart potrai essere facilitato nel farla.
@@ -545,6 +545,11 @@
         </div>
       </div>
     </div>
+    <a href="#" 
+      class="fixed mb-4 mr-4 bottom-0 right-0 w-12 h-12 rounded-full bg-orangelogo flex justify-center items-center opacity-80"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 rotate-180"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
   </div>
 </template>
 
@@ -554,11 +559,13 @@ export default {
   components: {
     LoginRegisterBar
   },
+  props: {},
   data() {
     return {
       read: false,
     };
   },
+  mounted() {},
   methods: {
     goToRegistration() {
       this.$router.push({
