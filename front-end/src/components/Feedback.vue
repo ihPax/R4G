@@ -105,11 +105,16 @@ export default {
                 zone: "",
                 userFeedback: ""
             },
-            isFeedbackSent: false
+            isFeedbackSent: false, 
+            zone: ""
         }
     },
     mounted() {
         this.comuni = JSON.parse(localStorage.getItem("Zones"));
+        this.zone = JSON.parse(localStorage.getItem("Zone"));
+        this.newFeedback.zone = this.zone.name;
+        this.user = JSON.parse(localStorage.getItem("AccessEmail"));
+        this.newFeedback.name = this.user.name;
         this.fields = [
             {        
                 label: "Nome",

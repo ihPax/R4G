@@ -35,7 +35,7 @@
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
           <li class="pl-3 pr-4 py-1 xs:py-2 flex items-center justify-between text-sm">
             <div class="w-0 flex-1 flex items-center">
-              <span v-if="!isEdit" class="ml-2 flex-1 w-0 truncate mb-1"> {{field.type != "password" ? field.code : "********" }} </span>
+              <span v-if="!isEdit || field.type =='email' " class="ml-2 flex-1 w-0 truncate mb-1"> {{field.type != "password" ? field.code : "********" }} </span>
               <div v-else class="w-full">
                 <input v-if="field.type == 'text' || field.type == 'password' || field.type == 'date' || field.type == 'email'"
                   :type="field.type"
@@ -51,11 +51,13 @@
                   :name="field.autocomplete"
                   :id="field.type"
                   v-model="field.code"
+                  
                 >
                   <option
                     v-for="option in field.options"
                     :key="option.id"
                     :value="option.name"
+                    
                   >
                     {{ option.name }}
                   </option>
@@ -106,7 +108,13 @@ export default {
         email: "",
         password: "",
         birthday: "",
-        zone: ""
+        zone_id: "",
+      },
+      formWitoutPassword: {
+        name: "",
+        surname: "",
+        birthday: "",
+        zone_id: "",
       }
     }
   },
@@ -159,21 +167,40 @@ export default {
     switchEditMode() {
       this.isEdit = !this.isEdit;
     },
-    saveForm() {
-      // this.form.name = this.fields[0].code;
-      // this.form.surname = this.fields[1].code;
-      // this.form.email = this.fields[2].code;
-      // this.form.password = this.fields[3].code;
-      // this.form.birthday = this.fields[4].code;
-      // this.form.zone = this.fields[5].code;
-      
+    async saveForm() {
+      if(this.isEdit == false){
       let form = this.form;
       let i = 0;
       for (let property in form) {
         form[property] = this.fields[i].code;
         i++;
-        console.log(`${property}: ${form[property]}`);
+        //console.log(`${property}: ${form[property]}`);
+      }     
+      for(let i = 0; i < this.comuni.length; i++){
+        if(this.comuni[i].name == this.form.zone_id){
+          this.form.zone_id = this.comuni[i].id
+        }
       }
+
+      if(this.form.password!= ""){
+        let response = await this.$axios.put("/r4g/update-user/" + this.user.id ,this.form);
+        localStorage.setItem("AccessEmail", JSON.stringify(response.data));
+
+
+      }else{
+          this.formWitoutPassword.name = this.form.name;
+          this.formWitoutPassword.surname = this.form.surname;
+          this.formWitoutPassword.birthday = this.form.birthday;
+          this.formWitoutPassword.zone_id = this.form.zone_id
+        
+       let response =  await this.$axios.put("/r4g/update-user-without-password/" + this.user.id ,this.formWitoutPassword);
+       localStorage.setItem("AccessEmail", JSON.stringify(response.data));
+
+
+      }
+      
+     
+    }
     }
   },
 }

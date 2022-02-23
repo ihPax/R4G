@@ -92,4 +92,18 @@ class UserController extends Controller
         $user -> save();
         return $user;
     }
+
+    //UPDATE USER WITHOUT PASSWORD
+    public function updateUserWithoutPassword(Request $request, $id){
+        $data = json_decode($request->getContent());
+        $user = User::find($id);
+
+        $user->name = $data->name;
+        $user->surname = $data->surname;
+        $user->birthday = $data->birthday;
+        $user->zone_id = $data->zone_id;
+
+        $user -> save();
+        return $user;
+    }
 }
