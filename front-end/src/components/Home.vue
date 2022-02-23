@@ -18,7 +18,7 @@
               Collega il tuo cestino
             </t-button>
           </div>
-          <div v-if="isLoading" class="m-20 place-self-center">
+          <div v-if="isLoading" class="place-self-center">
             <Loading></Loading>
           </div>
           <div class="flex">
@@ -119,7 +119,7 @@
       <div
         class="flex flex-col mx-4"
       >
-        <div v-if="localBin == '' && !isLoading" class="w-full flex justify-center items-end h-48 bg-blue-400 rounded-2xl">
+        <div v-if="localBin == '' && !isLoading" class="w-full flex justify-center items-end h-72 bg-blue-400 rounded-2xl">
           <t-button2
             @click="changeBinStatus()"
             v-if="localBin == ''"

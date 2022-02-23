@@ -1,6 +1,6 @@
 <template>
-    <div class="">
-        <img src="../assets/r4gif.gif" alt="animazione caricamento">
+    <div class="mx-auto">
+        <img class="w-full h-full" src="../assets/r4gif.gif" alt="animazione caricamento">
     </div>
 </template>
 
