@@ -356,23 +356,7 @@ export default {
         let ritiro = days.setDate(days.getDate() +(day - nDay));
         this.bin.day = new Date(ritiro);
       }
-
-      /*
-      if (day == 0) {
-        this.bin.day = "Lunedi";
-      } else if (day == 1) {
-        this.bin.day = "Martedì";
-      } else if (day == 2) {
-        this.bin.day = "Mercoledì";
-      } else if (day == 3) {
-        this.bin.day = "Giovedì";
-      } else if (day == 4) {
-        this.bin.day = "Venerdì";
-      } else if (day == 5) {
-        this.bin.day = "Sabato";
-      } else if (day == 6) {
-        this.bin.day = "DOmenica";
-      }*/
+      
     },
     changePercent() {
       //let val = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
