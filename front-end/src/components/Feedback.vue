@@ -95,8 +95,8 @@
 </template>
 
 <script>
-import{ init } from '@emailjs/browser';
-init("user_fLpGOT5sbHA3nWKUqwHXr");
+// import{ init } from '@emailjs/browser';
+// init("user_fLpGOT5sbHA3nWKUqwHXr");
 import emailjs from 'emailjs-com';
 export default {
   name: 'Feedback',
@@ -162,21 +162,19 @@ export default {
     },
   methods: {
     sendEmail() {
-      try {
-          this.newFeedback.email = this.user.email
-        emailjs.send('service_ycoky5a', 'template_rdp3vls',this.newFeedback,'user_fLpGOT5sbHA3nWKUqwHXr')
-       
-
-      } catch(error) {
-          console.log({error})
-
-      }
-       //Reset form field
-      this.newFeedback.to_name = ''
-      this.newFeedback.zone = ''
-      this.newFeedback.message = ''
-      this.newFeedback.type = ''
-      this.newFeedback.email = ''
+        try {
+            this.newFeedback.email = this.user.email
+            emailjs.send('service_ycoky5a', 'template_rdp3vls',this.newFeedback,'user_fLpGOT5sbHA3nWKUqwHXr')
+            this.isFeedbackSent = true
+        } catch(error) {
+        //console.log({error})
+        }
+        //Reset form field
+        this.newFeedback.to_name = ''
+        this.newFeedback.zone = ''
+        this.newFeedback.message = ''
+        this.newFeedback.type = ''
+        this.newFeedback.email = ''
     },
      goToLink() {
             this.$router.push({
