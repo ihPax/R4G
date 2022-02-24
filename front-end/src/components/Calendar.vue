@@ -1,7 +1,7 @@
 <template>
   <div class="text-center section">
     <h2 class="flex justify-center font-bold text-lg">
-      <div v-if="isExpanded" class="py-3 bg-blue-50 xs:bg-white font-medium xs:font-bold"> Calendario comune di {{calendars.name}} </div>
+      <div v-if="isExpanded" class="py-3 bg-blue-50 xs:bg-white font-medium xs:font-bold"> Calendario zona di {{calendars.name}} </div>
     </h2>
     <v-calendar
       class="custom-calendar max-w-full"
@@ -45,12 +45,22 @@
         </div>
       </template> -->
     </v-calendar>
+    <div v-if="isExpanded" class="flex flex-col items-center mt-10">
+      <t-modal v-model="showModal" header="Scegli il tuo Comune" close="chiudi">
+        <Modal @exit="closeModal"></Modal>
+      </t-modal>
+      <t-button @click="showModalTrue()" type="button">Cambia la zona</t-button>
+    </div>
   </div>
 </template>
 
 <script>
+import Modal from "@/components/Modal";
 export default {
   name: "Calendar",
+  components: {
+    Modal
+  },
   props: {
     isExpanded: {
       type: Boolean,
@@ -58,23 +68,13 @@ export default {
     },
   },
   data() {
-    // const month = new Date().getMonth();
-    // const year = new Date().getFullYear();
     return {
       masks: {
         weekdays: "WWW",
       },
       calendars: [],
       attributes: [],
-      // attributes: [
-      //   {
-      //     id: 1,
-      //     customData: {
-      //       title: "Carta",
-      //       class: "bg-green-600",
-      //     },
-      //     dates: { months: [1,2,3,4,5,6], weekdays: 2 },
-      //   },
+      showModal: false
     };
   },
   mounted() {
@@ -86,7 +86,6 @@ export default {
   methods: {
     calendar() {
       for (let i = 0; i < this.calendars.calendars.length; i++) {
-        // console.log(this.attributes[i].customData.title)
         this.attributes.push({
           customData: {
             title: this.calendars.calendars[i].material,
@@ -94,12 +93,15 @@ export default {
           },
           dates: { months: [1,2,3,4,5,6], weekdays: this.calendars.calendars[i].nDay + 2 },
         });
-        // console.log(this.calendars.calendars[i].nDay + 2);
-        // this.attributes[i].customData.title = this.calendars.calendars[i].material;
-        // this.attributes[i].customData.class = this.calendars.calendars[i].class;
-        // this.attributes[i].dates.weekdays = this.calendars.calendars[i].nDay + 2;
       }
     },
+    closeModal() {
+      this.showModal = !this.showModal;
+    },
+    showModalTrue() {
+      this.showModal = !this.showModal;
+      //JSON.parse(localStorage.getItem("Zone")) || "";
+    }
   },
 };
 </script>

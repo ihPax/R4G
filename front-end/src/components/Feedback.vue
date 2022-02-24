@@ -102,10 +102,22 @@ export default {
   name: 'Feedback',
   data() {
     return {
+        Type:[
+            {id:0,
+            name:"Assistenza"},
+             {id:1,
+            name:"Feedback"},
+             {id:2,
+            name:"Problemi"},
+             {id:3,
+            name:"Altro"}
+        ],
          newFeedback: {
                 to_name: "",
                  zone: "",
-                 message: ""
+                 message: "",
+                 email:"",
+                 type:""
              },
       comuni: [],
       fields: [],
@@ -113,12 +125,17 @@ export default {
 
     }
   },
-  mounted() {
+   
+    mounted() {
         this.comuni = JSON.parse(localStorage.getItem("Zones"));
+        this.zone = JSON.parse(localStorage.getItem("Zone"));
+        this.newFeedback.zone = this.zone.name;
+        this.user = JSON.parse(localStorage.getItem("AccessEmail"));
+        this.newFeedback.to_name = this.user.name;
         this.fields = [
             {        
                 label: "Nome",
-                code: "name",
+                code: "to_name",
                 type: "text"
             },
             {        
@@ -128,44 +145,38 @@ export default {
                 options: this.comuni,
             },
             {        
+                label: "Type",
+                code: "type",
+                type: "select",
+                options: this.Type,
+
+
+            },
+            {        
                 label: "Dicci la tua",
-                code: "userFeedback",
+                code: "message",
                 type: "textarea"
             },
+            
         ]
     },
   methods: {
-    // sendEmail(e) {
-    //   try {
-    //     emailjs.sendForm('service_ycoky5a', 'template_rdp3vls', e.target,
-    //     'YOUR_USER_ID', {
-    //       name: this.name,
-    //       email: this.email,
-    //       message: this.message
-    //     })
-
-    //   } catch(error) {
-    //       console.log({error})
-    //   }
-    //   // Reset form field
-    //   this.name = ''
-    //   this.email = ''
-    //   this.message = ''
-    // },
     sendEmail() {
       try {
+          this.newFeedback.email = this.user.email
         emailjs.send('service_ycoky5a', 'template_rdp3vls',this.newFeedback,'user_fLpGOT5sbHA3nWKUqwHXr')
-        console.log(this.newFeedback)
        
 
       } catch(error) {
           console.log({error})
 
       }
-      // Reset form field
-      //this.newFeedback.name = ''
-      //this.newFeedback.zone = ''
-      this.newFeedback.userFeedback = ''
+       //Reset form field
+      this.newFeedback.to_name = ''
+      this.newFeedback.zone = ''
+      this.newFeedback.message = ''
+      this.newFeedback.type = ''
+      this.newFeedback.email = ''
     },
      goToLink() {
             this.$router.push({
@@ -177,76 +188,13 @@ export default {
   computed: {
          isFormValid() {
              return (
-                 this.newFeedback.name != "" &&
+                 this.newFeedback.to_name != "" &&
                  this.newFeedback.zone != "" &&
-                 this.newFeedback.userFeedback != ""
+                 this.newFeedback.message != "" &&
+                 this.newFeedback.type != ""
              );
          },
      },
 }
-// export default {
-//     data() {
-//         return {
-//             comuni: [],
-//             fields: [],
-//             newFeedback: {
-//                 name: "",
-//                 zone: "",
-//                 userFeedback: ""
-//             },
-//             isFeedbackSent: false
-//         }
-//     },
-//     mounted() {
-//         this.comuni = JSON.parse(localStorage.getItem("Zones"));
-//         this.fields = [
-//             {        
-//                 label: "Nome",
-//                 code: "name",
-//                 type: "text"
-//             },
-//             {        
-//                 label: "Zona",
-//                 code: "zone",
-//                 type: "select",
-//                 options: this.comuni,
-//             },
-//             {        
-//                 label: "Dicci la tua",
-//                 code: "userFeedback",
-//                 type: "textarea"
-//             },
-//         ]
-//     },
-//     methods: {
-//         saveFeedback() {
-//             //mostro in console una proprietà per riga dell'oggetto che invierò al backend
-//             for (let property in this.newFeedback) {
-//                 console.log(`${property}: ${this.newFeedback[property]}`);
-//             }
-//             this.isFeedbackSent = true;
-//             // if(!this.isFormValid) {
-//             //     this.$fire({
-//             //         text: "Per favore compila tutti i campi!",
-//             //         type: "warning",
-//             //         timer: 3000,
-//             //     })
-//             // }
-//         }, 
-//         goToLink() {
-//             this.$router.push({
-//                 name: "dashboard-account",
-//             });
-//         }
-//     },
-//     computed: {
-//         isFormValid() {
-//             return (
-//                 this.newFeedback.name != "" &&
-//                 this.newFeedback.zone != "" &&
-//                 this.newFeedback.userFeedback != ""
-//             );
-//         },
-//     },
-// }
+
 </script>

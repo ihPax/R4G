@@ -3,17 +3,17 @@
     <LoginRegisterBar></LoginRegisterBar>
     <div class="flex flex-wrap py-2 xs:py-4">
       <div
-        class="flex-col justify-center items-center text-center flex flex-grow"
+        class="flex-col justify-center items-center flex flex-grow"
       >
         <div class="flex-row flex justify-center align-center">
           <a class="text-gray-600 font-semibold text-lg p-4 xs:px-8 hover:text-yellow-600 tracking-wide cursor-pointer transition duration-300 ease-in-out"
-            href="#Works">Come funziona?</a
+            @click="scrollById('Works')">Come funziona?</a
           >
           <a class="text-gray-600 font-semibold text-lg p-4 xs:px-8 hover:text-green-600 tracking-wide cursor-pointer transition duration-300 ease-in-out"
-            href="#Service">I nostri servizi</a
+            @click="scrollById('Service')">I nostri servizi</a
           >
           <a class="text-gray-600 font-semibold text-lg p-4 xs:px-8 hover:text-blue-500 tracking-wide cursor-pointer transition duration-300 ease-in-out"
-            href="#Who">Chi siamo?</a
+            @click="scrollById('Who')">Chi siamo?</a
           >
         </div>
       </div>
@@ -64,7 +64,7 @@
                 items-center
               "
             >
-              <div class="mx-auto lg:mx-0 mb-12 text-center lg:text-center">
+              <div class="mx-auto lg:mx-0 mb-12 xs:text-center">
                 <h2
                   class="
                     text-3xl
@@ -269,17 +269,16 @@
           <div class="mb-2 w-full">
             <h2
               class="
-                justify-center
-                text-center
+                xs:justify-center
                 flex
                 text-greenlanding text-4xl
                 font-bold font-heading
-                mb-2
+                mb-6 xs:mb-2
               "
             >
               I nostri servizi
             </h2>
-            <h3 class="text-blueGray-600 text-center text-md max-w-md mx-auto">
+            <h3 class="text-blueGray-600 xs:text-center text-md max-w-md mx-auto">
               Un piccolo gesto può fare la
               <b class="text-greenlanding"> differenza</b>, la raccolta
               differenziata è un
@@ -291,7 +290,7 @@
             class="
               grid xs:grid-cols-2 lg:grid-cols-4
               -mx-3
-              text-center
+              xs:text-center
             "
           >
             <div
@@ -313,7 +312,7 @@
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   class="
-                    text-center
+                    xs:text-center
                     mx-auto
                     my-2
                     xs:my-5
@@ -356,12 +355,12 @@
               "
             >
               <div
-                class="mt-4 flex-grow justify-center items-center text-center"
+                class="mt-4 flex-grow justify-center items-center xs:text-center"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   class="
-                    text-center
+                    xs:text-center
                     mx-auto
                     my-2
                     xs:my-5
@@ -404,7 +403,7 @@
               "
             >
               <div
-                class="mt-4 flex-grow items-center justify-center text-center"
+                class="mt-4 flex-grow items-center justify-center xs:text-center"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -545,19 +544,18 @@
         </div>
       </div>
     </div>
-    <a href="#" 
-      class="fixed mb-4 mr-4 bottom-0 right-0 w-12 h-12 rounded-full bg-orangelogo flex justify-center items-center opacity-80"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 rotate-180"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-    </a>
+    <ButtonToTop></ButtonToTop>
   </div>
 </template>
 
 <script>
 import LoginRegisterBar from "@/components/LoginRegisterBar.vue";
+import ButtonToTop from "@/components/ButtonToTop.vue";
+
 export default {
   components: {
-    LoginRegisterBar
+    LoginRegisterBar,
+    ButtonToTop
   },
   props: {},
   data() {
@@ -580,6 +578,10 @@ export default {
     KeepReading() {
       this.read = !this.read;
     },
+    scrollById(id) {
+      let element = document.getElementById(id);
+      element.scrollIntoView({behavior: "smooth"});
+    }
   },
 };
 </script>
