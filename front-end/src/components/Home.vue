@@ -144,7 +144,18 @@
               <div class="flex justify-between items-center flex-wrap truncate">
                 <div class="font-bold text-white text-2xl">
                   {{ bin.name }}
-                  <img src="../assets/plastica.png" class="w-24 lg:w-32 xl:w-40 mt-3 ml-5">
+                  <div v-if="bin.name == 'CARTA'">
+                    <img src="../assets/carta.png" class="w-24 lg:w-32 xl:w-40">
+                  </div>
+                  <div v-if="bin.name == 'SECCO'">
+                    <img src="../assets/secco.png" class="w-24 lg:w-32 xl:w-40">
+                  </div>
+                  <div v-if="bin.name == 'UMIDO'">
+                    <img src="../assets/umido.png" class="w-24 lg:w-32 xl:w-40">
+                  </div>
+                  <div v-if="bin.name == 'PLASTICA/LATTINE'">
+                    <img src="../assets/plastica.png" class="w-24 lg:w-32 xl:w-40">
+                  </div>
                 </div>
                 <!--circle %-->
                 <div class="relative">
@@ -168,7 +179,7 @@
             </button>
           </div>
         </div>
-
+        <!--calendario-->
         <div class="mt-4">
           <div v-if="!user.zone_id" class="flex flex-col items-center">
             <t-modal v-model="showModal" header="Scegli il tuo Comune" close="chiudi">
@@ -303,7 +314,6 @@ export default {
       let dist = 100;
       for (let i = 1; i < this.localBin.length; i++) {
         if (this.localBin.length > 2) {
-          //nDay = day.add(1).day();
           this.num = 0;
           nDay = day.getDay();
 
@@ -314,20 +324,18 @@ export default {
               nDay = 0;
             }
           }
+
           if (this.num < dist) {
             dist = this.num;
             this.bin.name = this.localBin[i].material;
             this.weekDay(this.localBin[i].nDay);
-
           }
         } else {
           this.bin.name = this.localBin[1].material;
           this.weekDay(this.localBin[1].nDay);
-                      console.log("1",this.localBin[1].nDay)
-
         }
       }
-
+      
       if(this.bin.name == 'SECCO'){
         this.color = '#9CA3AF'
       }else if (this.bin.name =='CARTA'){
