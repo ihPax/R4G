@@ -18,7 +18,7 @@
               Collega il tuo cestino
             </t-button>
           </div>
-          <div v-if="isLoading" class="m-20 place-self-center">
+          <div v-if="isLoading" class="place-self-center">
             <Loading></Loading>
           </div>
           <div class="flex">
@@ -119,7 +119,7 @@
       <div
         class="flex flex-col mx-4"
       >
-        <div v-if="localBin == '' && !isLoading" class="w-full flex justify-center items-end h-48 bg-blue-400 rounded-2xl">
+        <div v-if="localBin == '' && !isLoading" class="w-full flex justify-center items-end h-72 bg-blue-400 rounded-2xl">
           <t-button2
             @click="changeBinStatus()"
             v-if="localBin == ''"
@@ -128,7 +128,7 @@
             Collega il tuo cestino
           </t-button2>
         </div>
-        <div v-if="isLoading" class="flex justify-center items-center h-48 bg-blue-400 rounded-2xl">
+        <div v-if="isLoading" class="flex justify-center items-center h-72 bg-blue-400 rounded-2xl">
           <Loading></Loading>
         </div>
         <div>
@@ -141,7 +141,7 @@
           </t-modal>
           <div class="flex flex-col bg-blue-400 rounded-2xl" v-if="localBin != ''">
             <div class="flex flex-col px-4 pt-3 justify-center w-full">
-              <div class="flex justify-between items-center flex-wrap truncate">
+              <div class="truncate">
                 <div class="font-bold text-white text-2xl">
                   <div>
                     {{ bin.name }}
@@ -175,7 +175,7 @@
             </button>
           </div>
         </div>
-        
+
         <div class="mt-4">
           <div v-if="!user.zone_id" class="flex flex-col items-center">
             <t-modal v-model="showModal" header="Scegli il tuo Comune" close="chiudi">
@@ -330,7 +330,7 @@ export default {
         } else {
           this.bin.name = this.localBin[1].material;
           this.weekDay(this.localBin[1].nDay);
-                      console.log("1",this.localBin[1].nDay)
+          console.log("1",this.localBin[1].nDay)
 
         }
       }
@@ -355,7 +355,6 @@ export default {
       } else if (Number(nDay) <= Number(day)) {
         let ritiro = days.setDate(days.getDate() +(day - nDay));
         this.bin.day = new Date(ritiro);
-
       }
 
       /*
@@ -448,7 +447,6 @@ export default {
     },
   },
 };
-//dajee
 </script>
 
 <style>
@@ -468,4 +466,3 @@ export default {
   transform: rotate(-90deg);
 }
 </style>
-
