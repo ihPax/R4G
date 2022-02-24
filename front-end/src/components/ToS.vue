@@ -72,12 +72,17 @@
                     <span>Torna indietro</span>
                 </div>
             </div>
-        </div> 
+        </div>
+        <ButtonToTop></ButtonToTop>
     </div> 
 </template>
 
 <script>
+import ButtonToTop from "@/components/ButtonToTop.vue";
 export default {
+    components: {
+        ButtonToTop,
+    },
     props: {
         isMobile: {
             type: Boolean,

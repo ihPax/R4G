@@ -103,7 +103,7 @@
                         <input type="checkbox" id="acceptTOS" v-model="validCheck" class="w-4 h-4">
                     </div>
                     <div class="flex flex-col">
-                        <label for="acceptTOS">Accetto i Termini di Servizio</label>
+                        <label for="acceptTOS">Accetto i <button @click="goToLink('ToS')" class="underline">Termini di Servizio</button></label>
                     </div>
                 </div>
 
@@ -218,7 +218,7 @@
         <!--TOS-->
         <div class="flex flex-row justify-center items-baseline mt-5">
             <input type="checkbox" id="acceptToS" v-model="validCheck" class="w-6 h-6 ml-5">
-            <label for="acceptToS" class="ml-5 my-auto">Accetto i Termini di Servizio</label>
+            <label for="acceptTOS" class="ml-5 my-auto">Accetto i <button @click="goToLink('ToS')" class="underline">Termini di Servizio</button></label>
         </div>
 
         <!--BUTTON REGISTRATION-->
@@ -238,7 +238,7 @@
         <div class="flex text-sm m-5 justify-center">
             <span class="mr-2"> Sei già un membro? </span>
             <button
-                @click="goToLogin()"
+                @click="goToLink('login')"
                 class="text-sm font-medium focus:outline-none"
             >
                 Accedi
@@ -285,9 +285,9 @@ export default {
     },
     mounted() {},
     methods:{
-        goToLogin(){
+        goToLink(link){
             this.$router.push({
-                name: "login"
+                name: link
             });
         },
         async userRegister(){
