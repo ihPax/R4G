@@ -143,28 +143,37 @@
             <div class="flex flex-col px-4 pt-3 justify-center w-full">
               <div class="flex justify-between items-center flex-wrap truncate">
                 <div class="font-bold text-white text-2xl">
-                  {{ bin.name }}
-                  <div v-if="bin.name == 'CARTA'">
-                    <img src="../assets/carta.png" class="w-24 lg:w-32 xl:w-40">
-                  </div>
-                  <div v-if="bin.name == 'SECCO'">
-                    <img src="../assets/secco.png" class="w-24 lg:w-32 xl:w-40">
-                  </div>
-                  <div v-if="bin.name == 'UMIDO'">
-                    <img src="../assets/umido.png" class="w-24 lg:w-32 xl:w-40">
-                  </div>
-                  <div v-if="bin.name == 'PLASTICA/LATTINE'">
-                    <img src="../assets/plastica.png" class="w-24 lg:w-32 xl:w-40">
+                  <div>{{ bin.name }}</div>
+                  <div class="flex justify-between">
+                    <div v-if="bin.name == 'CARTA'">
+                      <img src="../assets/carta.png" class="w-24 lg:w-32 xl:w-40">
+                    </div>
+                    <div >
+                      <img v-if="bin.name == 'SECCO'" src="../assets/secco.png" class="inline h-24">
+                    </div>
+                    <div v-if="bin.name == 'UMIDO'">
+                      <img src="../assets/umido.png" class="w-24 lg:w-32 xl:w-40">
+                    </div>
+                    <div v-if="bin.name == 'PLASTICA/LATTINE'">
+                      <img src="../assets/plastica.png" class="w-24 lg:w-32 xl:w-40">
+                    </div>
+                    <div class="relative">
+                      <svg id="svg" width="120" height="120" viewPort="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" :style="`stroke:${color}`">
+                        <circle :r="r" cx="60" cy="60" fill="white" stroke-dasharray="314.15" stroke-dashoffset="0"></circle>
+                        <circle id="bar" :r="r" cx="60" cy="60" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;stroke:${color}`"></circle>
+                      </svg>
+                      <div class="h3 absolute font-bold text-xl z-10 text-black" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{value}}%</div>
+                    </div>
                   </div>
                 </div>
                 <!--circle %-->
-                <div class="relative">
+                <!-- <div class="relative">
                   <svg id="svg" width="120" height="120" viewPort="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" :style="`stroke:${color}`">
                     <circle :r="r" cx="60" cy="60" fill="white" stroke-dasharray="314.15" stroke-dashoffset="0"></circle>
                     <circle id="bar" :r="r" cx="60" cy="60" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;stroke:${color}`"></circle>
                   </svg>
                   <div class="h3 absolute font-bold text-xl" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{value}}%</div>
-                </div>
+                </div> -->
               </div>
               <div class="font-normal mt-3 text-white">Prossimo ritiro:</div>
               <div class="flex flex-col font-bold text-white text-xl">
