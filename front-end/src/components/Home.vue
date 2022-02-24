@@ -447,7 +447,6 @@ export default {
     },
   },
 };
-//dajee
 </script>
 
 <style>
@@ -467,4 +466,3 @@ export default {
   transform: rotate(-90deg);
 }
 </style>
-

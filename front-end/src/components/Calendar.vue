@@ -82,9 +82,11 @@ export default {
     if (this.calendars != "") {
       this.calendar();
     }
+    console.log("dopo chiusura")
   },
   methods: {
     calendar() {
+      console.log("inzio")
       for (let i = 0; i < this.calendars.calendars.length; i++) {
         this.attributes.push({
           customData: {
@@ -97,10 +99,15 @@ export default {
     },
     closeModal() {
       this.showModal = !this.showModal;
+      this.attributes = [];
+      this.calendars = JSON.parse(localStorage.getItem("Zone")) || "";
+      if (this.calendars != "") {
+        this.calendar();
+      }
+      console.log(this.calendars.calendars.length)
     },
     showModalTrue() {
       this.showModal = !this.showModal;
-      //JSON.parse(localStorage.getItem("Zone")) || "";
     }
   },
 };
