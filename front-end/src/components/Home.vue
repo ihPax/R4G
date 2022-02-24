@@ -246,6 +246,7 @@ export default {
     this.getBin();
     this.changePercent();
     this.getDistance();
+    console.log(this.userBin)
   },
   methods: {
     showModalTrue() {
@@ -256,7 +257,7 @@ export default {
       let distance = this.userBin.distance;
       let valore = Math.floor(((lenght-distance)*100)/lenght);
       this.value = valore;
-      this.changePercent();
+      //this.changePercent();
     },
     changeBinStatus() {
       if (!this.user.zone_id) {
@@ -384,11 +385,14 @@ export default {
       console.log(`Il valore del riempimento è ${this.value}`)
     },
     async deleteBin(){
+      this.userBin = JSON.parse(localStorage.getItem("BinUser"));
       let id = this.userBin.id;
       await this.$axios.delete("/r4g/delete-bin-user/" + id);
       await this.$axios.delete("/r4g/delete-bin/" + id);
       localStorage.removeItem('BinUser');
       localStorage.removeItem('UserBin');
+      this.localBin = [];
+      this.userBin = [];
     }
   },
   computed: {},
