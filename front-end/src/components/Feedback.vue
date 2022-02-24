@@ -1,5 +1,5 @@
 <template>
-    <div class="
+ <div class="
       bg-white
       shadow-orangexl
       overflow-hidden
@@ -72,7 +72,7 @@
             </div>
             <div class="flex justify-center my-8">
                 <t-button2 
-                    @click="saveFeedback()"
+                    @click="sendEmail()"
                     :disabled="!isFormValid"
                     :class="{ 'cursor-not-allowed': !isFormValid }"
                 > Invia Feedback </t-button2>
@@ -91,24 +91,29 @@
             </div>
             <div class="font-medium text-xl pt-4 px-2 text-center">Grazie per il tuo feedback!</div>
         </div>
-    </div> 
+    </div>  
 </template>
 
 <script>
+import{ init } from '@emailjs/browser';
+init("user_fLpGOT5sbHA3nWKUqwHXr");
+import emailjs from 'emailjs-com';
 export default {
-    data() {
-        return {
-            comuni: [],
-            fields: [],
-            newFeedback: {
-                name: "",
-                zone: "",
-                userFeedback: ""
-            },
-            isFeedbackSent: false
-        }
-    },
-    mounted() {
+  name: 'Feedback',
+  data() {
+    return {
+         newFeedback: {
+                to_name: "",
+                 zone: "",
+                 message: ""
+             },
+      comuni: [],
+      fields: [],
+      isFeedbackSent: false
+
+    }
+  },
+  mounted() {
         this.comuni = JSON.parse(localStorage.getItem("Zones"));
         this.fields = [
             {        
@@ -129,35 +134,119 @@ export default {
             },
         ]
     },
-    methods: {
-        saveFeedback() {
-            //mostro in console una proprietà per riga dell'oggetto che invierò al backend
-            for (let property in this.newFeedback) {
-                console.log(`${property}: ${this.newFeedback[property]}`);
-            }
-            this.isFeedbackSent = true;
-            // if(!this.isFormValid) {
-            //     this.$fire({
-            //         text: "Per favore compila tutti i campi!",
-            //         type: "warning",
-            //         timer: 3000,
-            //     })
-            // }
-        }, 
-        goToLink() {
+  methods: {
+    // sendEmail(e) {
+    //   try {
+    //     emailjs.sendForm('service_ycoky5a', 'template_rdp3vls', e.target,
+    //     'YOUR_USER_ID', {
+    //       name: this.name,
+    //       email: this.email,
+    //       message: this.message
+    //     })
+
+    //   } catch(error) {
+    //       console.log({error})
+    //   }
+    //   // Reset form field
+    //   this.name = ''
+    //   this.email = ''
+    //   this.message = ''
+    // },
+    sendEmail() {
+      try {
+        emailjs.send('service_ycoky5a', 'template_rdp3vls',this.newFeedback,'user_fLpGOT5sbHA3nWKUqwHXr')
+        console.log(this.newFeedback)
+       
+
+      } catch(error) {
+          console.log({error})
+
+      }
+      // Reset form field
+      //this.newFeedback.name = ''
+      //this.newFeedback.zone = ''
+      this.newFeedback.userFeedback = ''
+    },
+     goToLink() {
             this.$router.push({
                 name: "dashboard-account",
             });
         }
-    },
-    computed: {
-        isFormValid() {
-            return (
-                this.newFeedback.name != "" &&
-                this.newFeedback.zone != "" &&
-                this.newFeedback.userFeedback != ""
-            );
-        },
-    },
+
+  },
+  computed: {
+         isFormValid() {
+             return (
+                 this.newFeedback.name != "" &&
+                 this.newFeedback.zone != "" &&
+                 this.newFeedback.userFeedback != ""
+             );
+         },
+     },
 }
+// export default {
+//     data() {
+//         return {
+//             comuni: [],
+//             fields: [],
+//             newFeedback: {
+//                 name: "",
+//                 zone: "",
+//                 userFeedback: ""
+//             },
+//             isFeedbackSent: false
+//         }
+//     },
+//     mounted() {
+//         this.comuni = JSON.parse(localStorage.getItem("Zones"));
+//         this.fields = [
+//             {        
+//                 label: "Nome",
+//                 code: "name",
+//                 type: "text"
+//             },
+//             {        
+//                 label: "Zona",
+//                 code: "zone",
+//                 type: "select",
+//                 options: this.comuni,
+//             },
+//             {        
+//                 label: "Dicci la tua",
+//                 code: "userFeedback",
+//                 type: "textarea"
+//             },
+//         ]
+//     },
+//     methods: {
+//         saveFeedback() {
+//             //mostro in console una proprietà per riga dell'oggetto che invierò al backend
+//             for (let property in this.newFeedback) {
+//                 console.log(`${property}: ${this.newFeedback[property]}`);
+//             }
+//             this.isFeedbackSent = true;
+//             // if(!this.isFormValid) {
+//             //     this.$fire({
+//             //         text: "Per favore compila tutti i campi!",
+//             //         type: "warning",
+//             //         timer: 3000,
+//             //     })
+//             // }
+//         }, 
+//         goToLink() {
+//             this.$router.push({
+//                 name: "dashboard-account",
+//             });
+//         }
+//     },
+//     computed: {
+//         isFormValid() {
+//             return (
+//                 this.newFeedback.name != "" &&
+//                 this.newFeedback.zone != "" &&
+//                 this.newFeedback.userFeedback != ""
+//             );
+//         },
+//     },
+// }
 </script>
