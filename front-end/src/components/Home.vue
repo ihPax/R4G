@@ -147,7 +147,6 @@
                     {{ bin.name }}
                   </div>
                   <div class="flex justify-between">
-                    <!-- <img src="../assets/plastica.png" class="inline h-24"> -->
                     <img v-if="bin.name == 'CARTA'" src="../assets/carta.png" class="h-24 flex-shrink-0">
                     <img v-if="bin.name == 'SECCO'" src="../assets/secco.png" class="h-24 flex-shrink-0">
                     <img v-if="bin.name == 'UMIDO'" src="../assets/umido.png" class="h-24 flex-shrink-0">
@@ -246,11 +245,15 @@ export default {
     this.getBin();
     this.changePercent();
     this.getDistance();
+    console.log(this.userBin)
   },
   methods: {
+    //apre la modale delle zone
     showModalTrue() {
       this.showModal = !this.showModal;
     },
+
+    //calcola la distanza rilevata dai sensori
     getDistance(){
       let lenght = this.userBin.length;
       let distance = this.userBin.distance;
@@ -258,6 +261,8 @@ export default {
       this.value = valore;
       this.changePercent();
     },
+
+    //alert che ti avvisa di scegliere prima la zona e poi il cestino
     changeBinStatus() {
       if (!this.user.zone_id) {
         this.$fire({
@@ -274,13 +279,19 @@ export default {
       }
      
     },
+
+    //chiude la modale al click della scelta della zona
     closeModal() {
       this.showModal = !this.showModal;
     },
+
+    //chiude la modale al click del tipo di cestino
     closeMaterialModal() {
       this.showModalMaterial = !this.showModalMaterial;
       this.getBin();
     },
+
+    //prende il bin dal database e lo setta nel localStorage
     async getBin() {
       this.isLoading = true;
       let response = await this.$axios.get("/r4g/view-bin-user/" + this.user.id);
@@ -303,6 +314,8 @@ export default {
       }
       this.isLoading = false;
     },
+
+    //metodo che scorre localBin e prende giorno e materiale e prossimo ritiro
     populateBin() {
       this.localBin = JSON.parse(localStorage.getItem("Bin"));
       let day = new Date();
@@ -310,7 +323,6 @@ export default {
       let dist = 100;
       for (let i = 1; i < this.localBin.length; i++) {
         if (this.localBin.length > 2) {
-          //nDay = day.add(1).day();
           this.num = 0;
           nDay = day.getDay();
 
@@ -345,6 +357,8 @@ export default {
         this.color = '#1E3A8A'
       }
     },
+
+    //stabilisce il prossimo ritiro
     weekDay(day) {
       let days = new Date();
       let nDay = days.getDay() - 1;
@@ -356,27 +370,32 @@ export default {
         let ritiro = days.setDate(days.getDate() +(day - nDay));
         this.bin.day = new Date(ritiro);
       }
-      
     },
+
+    //calcolo percentuale del cestino
     changePercent() {
-      //let val = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
       let c = Math.PI * (this.r * 2);
       this.rct = ((100 - this.value) / 100) * c;
 
       let c2 = Math.PI * (this.rMobile * 2);
       this.rctMobile = ((100 - this.value) / 100) * c2;
-      console.log(`Il valore del riempimento è ${this.value}`, this.rct)
     },
+
+    //metodo per eliminare il cestino
     async deleteBin(){
+      this.userBin = JSON.parse(localStorage.getItem("BinUser"));
       let id = this.userBin.id;
       await this.$axios.delete("/r4g/delete-bin-user/" + id);
       await this.$axios.delete("/r4g/delete-bin/" + id);
       localStorage.removeItem('BinUser');
       localStorage.removeItem('UserBin');
+      this.localBin = [];
+      this.userBin = [];
     }
   },
   computed: {},
   filters: {
+    //ritorna il prossimo ritiro in modo corretto
     date: (value) => {
       let day = value.getDay() - 1;
       let nameDay = "";
