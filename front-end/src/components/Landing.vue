@@ -103,6 +103,7 @@
         </div>
       </div>
     </div>
+
     <!--I NOSTRI SERVIZI-->
     <div class="py-6 bg-white" id="Service">
       <div class="pt-10 pb-12">
@@ -197,6 +198,13 @@
                     e che avvisa il giorno in cui va portato all'esterno per la raccolta 
                     un determinato tipo di rifiuti.
                   </p>
+                  <p class="mb-6 leading-loose text-blueGray-600" v-if="read == true">
+                    Il team è riusciuto a realizzare questo progetto unenendo diverse le diverse
+                    competenze tecniche tra Graphic Design, IoT e sviluppo front-end e back-end.
+                    Tale prodotto è stato realizzato con specifiche caratteristiche grazie al
+                    lavoro nella ricerca dei competitor, in modo tale da poter portare un nuovo
+                    tipo di prodotto, e con una serie di interviste a tutti coloro a cui possa interessare. 
+                  </p>
                   <button @click="KeepReading()" class="text-underline text-yellow-500">
                     <span v-if="read == true">Leggi meno.</span>
                     <span v-if="read == false"> Continua a leggere...</span>
@@ -215,9 +223,27 @@
         </div>
 
         <!--FOOTER-->
-
-        <div>
+        <div class="py-8 bg-white" id="Who">
+          <div class="container mx-auto">
+            <div class="flex flex-wrap lg:flex-nowrap">
+              <div class="flex">
+                <img src="../assets/logor4gblack.png" class="w-3/4 cursor-pointer" alt="logo R4G"/>
+              </div>
+              <div class="flex">
+                <div class="flex-col">
+                  Termini di Servizio
+                </div>
+                <div class="flex-col">
+                  Politica sulla Privacy
+                </div>
+                <div class="flex-col">
+                  r4g.recycleteam@gmail.com
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
     <ButtonToTop></ButtonToTop>
