@@ -98,13 +98,7 @@
                     <span>Torna alla Landing</span>
                 </div>
             </div>
-        </router-link>     
-        <div v-if="isLogging"
-            class="fixed text-red-400 font-bold text-2xl z-10"
-            style="top: 50%; left: 50%; transform: translate(-50%, -50%)"
-        >
-            <Loading></Loading>
-        </div>
+        </router-link>
     </div>
 
     <!-- MOBILE -->
@@ -176,6 +170,12 @@
             <div class="border border-red-600 rounded px-2 py-1">* Campo obbligatorio</div>
         </div>
     </form>
+    <div v-if="isLogging"
+        class="fixed text-red-400 font-bold text-2xl z-10"
+        style="top: 50%; left: 50%; transform: translate(-50%, -50%)"
+    >
+        <Loading></Loading>
+    </div>
 </div>
     
 </template>
