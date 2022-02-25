@@ -21,7 +21,7 @@
                     v-for="(faq, index) in faqs" :key="index" 
                     @click="showAnswer(faq)"
                     class=""
-                > <!--  class="flex justify-between content-between flex-grow"  -->
+                >
                     <div class="p-2 sm:p-4 cursor-pointer" :class="index % 2 == 0 ? 'bg-white' : 'bg-yellow-50'">
                         <div class="flex items-center">
                             <div class="flex">
@@ -40,8 +40,7 @@
                     </div>
                 </div>
                 <div>
-                    <t-button2 @click="goToLink()" class="mx-auto mt-8 xs:mb-4">Condividi il tuo feedback</t-button2>
-                    <!-- class="border-2 border-orangelogo p-2 rounded-lg bg-orangelogo text-white mt-10" -->
+                    <t-button2 @click="goToLink()" class="mx-auto mt-8 xs:mb-4">Contattaci</t-button2>
                 </div>
             </div>
         </div>
@@ -55,38 +54,38 @@ export default {
             faqs: [
                 {
                     id: 1,
-                    question: "Come posso modificare il mio quartiere di residenza?",
-                    answer: "Dalla sezione account > informazioni personali > modifica i tuoi dati",
+                    question: "Non riesco a collegare il cestino, come mai?",
+                    answer: "Assicurati di aver associato correttamente la zona di residenza, altrimenti contattaci",
                     show: false
                 },
                 {
                     id: 2,
-                    question: "A che ora viene effettuato il servizio di raccolta?",
-                    answer: "Dalle ore 9:00 del giorno stesso fino alla mattina seguente",
+                    question: "La mia zona di residenza non è presente in lista, come faccio?",
+                    answer: "In lista ci sono tutte le zone in cui passa la raccolta porta a porta nel comune di Verona",
                     show: false
                 },
                 {
                     id: 3,
-                    question: "Come posso cambiare la mia password?",
-                    answer: "R",
+                    question: "La capienza indicata non rispecchia il reale riempimento",
+                    answer: "Elimina il cestino e riassocialo, se il problema persiste contattaci",
                     show: false
                 },
                 {
                     id: 4,
-                    question: "Come posso fare per collegare un nuovo cestino al mio account?",
-                    answer: "R",
+                    question: "Non mi arrivano le notifiche, ma nella sezione account > notifiche vengono registrate, come mai?",
+                    answer: "Assicurati che la mail sia corretta, altrimenti riseleziona la zona desiderata",
                     show: false
                 },
                 {
                     id: 5,
-                    question: "Come recupero il mio account?",
-                    answer: "R",
+                    question: "Il calendario segna la raccolta di un rifuto, ma non sono passati al ritiro?",
+                    answer: "Assicurati di aver selezionato correttamente la zona, altrimenti ti suggeriamo di contattare l'ente incaricato alla raccolta",
                     show: false
                 },
                 {
                     id: 6,
-                    question: "Domanda 6",
-                    answer: "R",
+                    question: "Il dispositivo collegato al cestino non invia i dati. Cosa possa fare?",
+                    answer: "Controlla che il tutto sia ben collegato, in alternativa ti suggeriamo di spegnere e riaccendere in modo che possa riconnettersi. Se il problema persiste, contattaci",
                     show: false
                 },
             ],
@@ -106,13 +105,6 @@ export default {
                     faq.show = faq.id == faqParam.id ? true : false;
                 })
             }
-            // for (let i = 0; i < this.faqs.length; i++) {
-            //     if (this.faqs[i].id == faq.id) {
-            //         this.faqs[i].show = true;
-            //     } else {
-            //         this.faqs[i].show = false;
-            //     }
-            // }
         },
         goToLink() {
             this.$router.push({

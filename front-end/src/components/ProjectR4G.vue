@@ -22,7 +22,37 @@
                 Come funziona R4G
             </h3>
         </div>
-        
+
+        <!--CONTENUTO-->
+        <div class="p-4">
+            <h1 class="font-bold text-lg">Che cos'è?</h1>
+            <p>
+                R4G ha lo scopo di incentivare la raccolta differenziata, 
+                il cestino rileva la capienza mediante un sensore di prossimità 
+                collegato ad una scheda Arduino ed è munito di un modulo WiFi per 
+                trasmettere i dati all’app. La capienza potrà essere visualizzata 
+                nell’applicazione e sarà possibile settare il calendario della raccolta 
+                in base alla zona, in modo che tramite una notifica l’utente possa essere 
+                avvisato sul tipo di rifiuto che verrà ritirato il giorno dopo e se la capienza supera l’80%. 
+                Il tutto anche da remoto.
+            </p>
+            <h1 class="font-bold text-lg mt-5">Punti di forza</h1>
+            <p>
+                1.	Incentivare la raccolta differenziata tra i privati cittadini ed imprese;
+            </p>
+            <p>
+                2.	Permette di settare e visualizzare il calendario della propria zona;
+            </p>
+            <p>
+                3.	Mostra il livello di riempimento e avvisa quando supera 80%;
+            </p>
+            <p>
+                4.	Notifica cosa passa il giorno dopo;
+            </p>
+            <p>
+                5.	Permette di controllare il livello dei cestini da remoto.
+            </p>
+        </div>
     </div> 
 </template>
 

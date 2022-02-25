@@ -483,6 +483,7 @@
             </div>
           </div>
         </div>
+        <!--CHI SIAMO-->
         <div class="py-20 bg-blueGray-50" id="Who">
           <div class="container px-4 mx-auto">
             <div class="flex flex-wrap lg:flex-nowrap">
@@ -542,6 +543,7 @@
             </div>
           </div>
         </div>
+        <!--FOOTER-->
       </div>
     </div>
     <ButtonToTop></ButtonToTop>
