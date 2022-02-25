@@ -222,27 +222,7 @@
           </div>
         </div>
 
-        <!--FOOTER-->
-        <div class="py-8 bg-white" id="Who">
-          <div class="container mx-auto">
-            <div class="flex flex-wrap lg:flex-nowrap">
-              <div class="flex">
-                <img src="../assets/logor4gblack.png" class="w-3/4 cursor-pointer" alt="logo R4G"/>
-              </div>
-              <div class="flex">
-                <div class="flex-col">
-                  Termini di Servizio
-                </div>
-                <div class="flex-col">
-                  Politica sulla Privacy
-                </div>
-                <div class="flex-col">
-                  r4g.recycleteam@gmail.com
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Footer @scroll="scrollById(id)"></Footer>
 
       </div>
     </div>
@@ -253,11 +233,13 @@
 <script>
 import LoginRegisterBar from "@/components/LoginRegisterBar.vue";
 import ButtonToTop from "@/components/ButtonToTop.vue";
+import Footer from "@/components/Footer.vue";
 
 export default {
   components: {
     LoginRegisterBar,
-    ButtonToTop
+    ButtonToTop,
+    Footer
   },
   props: {},
   data() {

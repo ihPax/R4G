@@ -99,7 +99,7 @@ export default {
   },
   methods: {
     calendar() {
-      console.log("inzio")
+      console.log("inizio")
       for (let i = 0; i < this.calendars.calendars.length; i++) {
         this.attributes.push({
           customData: {

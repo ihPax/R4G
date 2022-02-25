@@ -11,6 +11,12 @@
       xs:h-full
     "
   >
+    <div v-if="isLoading"
+      class="fixed text-red-400 font-bold text-2xl z-10"
+      style="top: 50%; left: 50%; transform: translate(-50%, -50%)"
+    >
+      <Loading></Loading>
+    </div>
     <button @click="$router.go(-1)" :disabled="!isMobile" :class="{'cursor-auto': !isMobile}" class="w-full p-4 sm:px-6 flex justify-center items-center text-center border-b border-gray-200 bg-blue-50 xs:bg-white">
         <div class="block xs:hidden">
             <svg class="transform rotate-90 h-8 w-8 mx-2 hover:cursor-pointer"
@@ -24,9 +30,9 @@
         </h3>
     </button>
     <div v-if="comuni != ''">
-      <div
+      <form
         v-for="(field, index) in fields" :key="index"
-        class="px-4 py-1 sm:py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+        class="px-4 py-1 sm:py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 border-b border-yellow-100"
         :class="index % 2 == 0 ? 'bg-white' : 'bg-yellow-50'"
       >
         <dt class="text-sm font-medium text-gray-500"> {{field.label}} </dt>
@@ -64,7 +70,7 @@
             </div>
           </li>
         </dd>
-      </div>
+      </form>
       <div class="bg-white p-4 sm:gap-4 sm:px-6">
         <dd class="text-sm text-gray-900 sm:mt-0">
           <li class="py-2 flex items-center justify-center text-sm">
@@ -82,7 +88,6 @@
         </dd>
       </div>
     </div>
-    <div v-else class="my-4"><Loading></Loading> </div>
   </div>
 </template>
 
@@ -106,6 +111,7 @@ export default {
       fields: [],
       isEdit: false,
       comuni: [],
+      isLoading: false,
       form: {
         name: "",
         surname: "",
@@ -114,7 +120,7 @@ export default {
         birthday: "",
         zone_id: "",
       },
-      formWitoutPassword: {
+      formWithoutPassword: {
         name: "",
         surname: "",
         birthday: "",
@@ -123,34 +129,35 @@ export default {
     }
   },
   mounted() {
+    this.isLoading = true;
     this.user = JSON.parse(localStorage.getItem("AccessEmail"));
     this.zone = JSON.parse(localStorage.getItem("Zone"));
     this.comuni = JSON.parse(localStorage.getItem("Zones"));
     console.log(this.comuni);
     this.fields = [
-      {        
+      {
         label: "Nome",
         autocomplete: "name",
         code: this.user.name,
-        type: "text"
+        type: "text",
       },
       {
         label: "Cognome",
         autocomplete: "surname",
         code: this.user.surname,
-        type: "text"
+        type: "text",
       },
       {
         label: "Email",
         autocomplete: "email",
         code: this.user.email,
-        type: "email"
+        type: "email",
       },
       {
         label: "Password",
         autocomplete: "password",
         code: this.form.password,
-        type: "password"
+        type: "password",
       },
       {
         label: "Data di nascita",
@@ -163,49 +170,59 @@ export default {
         autocomplete: "zone",
         code: this.zone.name,
         type: "select",
-        options: this.comuni
+        options: this.comuni,
       },
-    ]
+    ];
+    this.isLoading = false;
   },
   methods: {
     switchEditMode() {
       this.isEdit = !this.isEdit;
     },
     async saveForm() {
-      if(this.isEdit == false){
-      let form = this.form;
-      let i = 0;
-      for (let property in form) {
-        form[property] = this.fields[i].code;
-        i++;
-        //console.log(`${property}: ${form[property]}`);
-      }     
-      for(let i = 0; i < this.comuni.length; i++){
-        if(this.comuni[i].name == this.form.zone_id){
-          this.form.zone_id = this.comuni[i].id
+      if (this.isEdit == false) {
+        this.isLoading = true;
+        let form = this.form;
+        let i = 0;
+        for (let property in form) {
+          form[property] = this.fields[i].code;
+          i++;
+          // console.log(`${property}: ${form[property]}`);
         }
+        for (let i = 0; i < this.comuni.length; i++) {
+          if (this.comuni[i].name == this.form.zone_id) {
+            this.form.zone_id = this.comuni[i].id;
+          }
+        }
+        if (this.form.password == "") {
+          this.formWithoutPassword.name = this.form.name;
+          this.formWithoutPassword.surname = this.form.surname;
+          this.formWithoutPassword.birthday = this.form.birthday;
+          this.formWithoutPassword.zone_id = this.form.zone_id;
+          let response = await this.$axios.put(
+            "/r4g/update-user-without-password/" + this.user.id,
+            this.formWithoutPassword
+          );
+          localStorage.setItem("AccessEmail", JSON.stringify(response.data));
+        } else if (this.form.password!= "" && this.form.password.length < 6) {
+          this.$fire({
+            text: "La password dev'essere lunga almeno 6 caratteri!",
+            type: "warning",
+            timer: 3000,
+            }).then(() => {
+              console.log(this.form.password)
+            });    
+        } else {
+          let response = await this.$axios.put(
+            "/r4g/update-user/" + this.user.id,
+            this.form
+          );
+          localStorage.setItem("AccessEmail", JSON.stringify(response.data));
+        }
+        this.form.password = "";
+        this.isLoading = false;
       }
-
-      if(this.form.password!= ""){
-        let response = await this.$axios.put("/r4g/update-user/" + this.user.id ,this.form);
-        localStorage.setItem("AccessEmail", JSON.stringify(response.data));
-
-
-      }else{
-          this.formWitoutPassword.name = this.form.name;
-          this.formWitoutPassword.surname = this.form.surname;
-          this.formWitoutPassword.birthday = this.form.birthday;
-          this.formWitoutPassword.zone_id = this.form.zone_id
-        
-       let response =  await this.$axios.put("/r4g/update-user-without-password/" + this.user.id ,this.formWitoutPassword);
-       localStorage.setItem("AccessEmail", JSON.stringify(response.data));
-
-
-      }
-      
-     
-    }
-    }
+    },
   },
-}
+};
 </script>
