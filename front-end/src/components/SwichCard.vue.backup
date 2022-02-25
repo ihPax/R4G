@@ -2,13 +2,14 @@
   <div>
     <VueSlickCarousel :arrows="false" :dots="false">
       <!--prima card -->
-      <!-- <div  class="flex flex-col p-4">
+
+      <div class="flex flex-col mx-4 px-4" >
         <div class="flex flex-col bg-blue-400 rounded-2xl" v-if="localBin != ''">
           <div class="flex flex-col px-4 pt-3 justify-center w-full">
             <div class="truncate">
               <div class="font-bold text-white text-2xl">
                 <div>
-                  {{i}}. {{ bin.name }}
+                  {{ bin.name }}
                 </div>
                 <div class="flex justify-between">
                   <img
@@ -92,10 +93,10 @@
             </svg>
           </button>
         </div>
-      </div> -->
+      </div>
 
       <!--seconda card prova, non funziona-->
-      <div class="flex flex-col p-4">
+      <div class="flex flex-col mx-4">
         <div>
           <div class="flex flex-col bg-blue-400 rounded-2xl">
             <div class="flex flex-col px-4 pt-3 justify-center w-full">
@@ -169,7 +170,7 @@
       </div>
 
       <!-- terza card per delete cestino -->
-      <div class="flex flex-col p-4">
+      <div class="flex flex-col mx-4">
         <div class="w-full flex justify-center items-end h-72 bg-blue-400 rounded-2xl">
           <t-button2 @click="changeBinStatus()" class="flex flex-col mx-1 my-4">
             Collega il tuo cestino
@@ -193,12 +194,12 @@
 <script>
 import VueSlickCarousel from "slick-vuejs";
 import "slick-vuejs/dist/slick-vuejs.css";
-// import ModalMaterial from "@/components/ModalMaterial";
+import ModalMaterial from "@/components/ModalMaterial";
 
 export default {
   components: {
     VueSlickCarousel,
-    // ModalMaterial,
+    ModalMaterial,
   },
   data() {
     return {
