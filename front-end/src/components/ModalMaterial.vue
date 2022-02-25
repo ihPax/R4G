@@ -3,9 +3,9 @@
     <div
       v-for="(materiale,index) in materiali"
       :key="index"
-      class="flex flex-row cursor-pointer hover:bg-gray-200 rounded"
+      class="flex flex-row cursor-pointer hover:bg-blue-100 rounded"
     >
-      <p class="w-full h-full p-3" @click="chooseMaterial(materiale)">{{ materiale.name }}</p>
+      <p class="w-full h-full p-3 font-medium" @click="chooseMaterial(materiale)">{{ materiale.name }}</p>
     </div>
   </div>
 </template>

@@ -49,7 +49,7 @@
               </div>
             </div>
           </div>
-          <div class="flex flex-col mx-1">
+          <div class="flex lg:flex-col">
             <div class="material-icons text-7xl xs:text-9xl lg:text-11xl">
               <div v-if="localBin == '' && !isLoading">delete_forever</div>
               <div v-if="bin.name == 'CARTA'">
@@ -65,11 +65,16 @@
                 <img src="../assets/plastica.png" class="w-24 lg:w-32 xl:w-40">
               </div>
             </div>
+            <button v-if="localBin != '' && !isLoading" class="flex justify-end m-4" @click="deleteBin()">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 rounded-full bg-white p-2 border-2 text-orangelogo transition duration-150 ease-out hover:bg-gray-100" fill="none" viewBox="0 0 24 24" :stroke="color" :style="`border-color: ${color};`">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+            </button>
           </div>
         </div>
 
         <div v-for="index in 3" :key="index"
-          class="xs:hidden sm:flex flex-col-reverse lg:flex-row items-center justify-between shadow-inner rounded-lg text-center border-2 border-gray-300"
+          class="xs:hidden sm:flex flex-col-reverse lg:flex-row items-center justify-between shadow-inner rounded-lg text-center border-2"
         > <!-- Sopra tolgo momentaneamente la visualizzazione degli altri 3 cestini nel breakpoint sm -->
           <t-button class="flex flex-col mx-1 my-4"> Collega il tuo cestino </t-button>
           <div></div>
@@ -139,7 +144,7 @@
           >
             <ModalMaterial @exit="closeMaterialModal"></ModalMaterial>
           </t-modal>
-          <div class="flex flex-col bg-blue-400 rounded-2xl" v-if="localBin != ''">
+          <div class="flex flex-col rounded-2xl" v-if="localBin != '' && !isLoading" :style="`background-color:${color}`">
             <div class="flex flex-col px-4 pt-3 justify-center w-full">
               <div class="truncate">
                 <div class="font-bold text-white text-2xl">
@@ -154,7 +159,7 @@
                     <div class="relative">
                       <svg id="svg" width="120" height="120" viewPort="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" :style="`stroke:${color}`">
                         <circle :r="r" cx="60" cy="60" fill="white" stroke-dasharray="235.26" stroke-dashoffset="0"></circle>
-                        <circle id="bar" :r="r" cx="60" cy="60" fill="transparent" stroke-dasharray="235.26" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;stroke:${color}`"></circle>
+                        <circle id="bar" :r="r" cx="60" cy="60" fill="transparent" stroke-dasharray="235.26" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;`" stroke='#000000'></circle>
                       </svg>
                       <div class="h3 absolute font-bold text-xl z-10 text-black" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{value}}%</div>
                     </div>
@@ -167,11 +172,13 @@
               </div>
             </div>
             <!--delete bin-->
-            <button class="flex justify-end mb-4 mr-4" @click="deleteBin()">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 rounded-full bg-white p-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-              </svg>
-            </button>
+            <div class="flex justify-end mb-4 mr-4">
+              <button @click="deleteBin()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 rounded-full bg-white p-2 border-2 border-black" fill="none" viewBox="0 0 24 24" stroke="#000000">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -236,7 +243,6 @@ export default {
       rct: 235.26,
       rctMobile: 235.26,
       value: 1,
-
     };
   },
   async mounted() {
@@ -258,7 +264,7 @@ export default {
       let lenght = this.userBin.length;
       let distance = this.userBin.distance;
       let valore = Math.floor(((lenght-distance)*100)/lenght);
-      this.value = valore;
+      this.value = isNaN(valore) ? 0 : valore;
       this.changePercent();
     },
 
@@ -383,6 +389,7 @@ export default {
 
     //metodo per eliminare il cestino
     async deleteBin(){
+      this.isLoading = true;
       this.userBin = JSON.parse(localStorage.getItem("BinUser"));
       let id = this.userBin.id;
       await this.$axios.delete("/r4g/delete-bin-user/" + id);
@@ -391,6 +398,8 @@ export default {
       localStorage.removeItem('UserBin');
       this.localBin = [];
       this.userBin = [];
+      this.bin = [];
+      this.isLoading = false;
     }
   },
   computed: {},

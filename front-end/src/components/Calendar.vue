@@ -12,15 +12,18 @@
     >
     <template v-slot:day-content="{ day, attributes }">
         <div class="flex flex-col h-full z-10 overflow-hidden">
-          <span class="day-label text-sm text-gray-900 sm:my-1">{{ day.day }}</span>
+          <span 
+            class="day-label text-gray-900 sm:my-1"
+            :class="isExpanded ? 'text-base' : 'text-sm'"
+          >{{ day.day }}</span>
           <div class="flex-grow overflow-y-auto overflow-x-auto">
             <div
               v-for="attr in attributes"
               :key="attr.id"
-              class="mt-0 sm:mb-1 font-bold"
+              class="sm:mb-1 font-bold"
               :class="isExpanded ? 
-              attr.customData.class + ' text-xxs w-2 h-2 mx-auto rounded-full sm:text-xs sm:leading-tight sm:rounded sm:p-2 sm:mx-1 sm:text-white sm:w-auto sm:h-auto' : 
-              attr.customData.class + ' w-2 h-2 mx-auto rounded-full'"
+              attr.customData.class + ' mt-1 mb-3 w-4 h-4 mx-auto rounded-full sm:text-xs sm:leading-tight sm:rounded sm:p-2 sm:mx-1 sm:text-white sm:w-auto sm:h-auto' : 
+              attr.customData.class + ' mt-0 w-2 h-2 mx-auto rounded-full'"
             >
               <div class="hidden sm:block">{{ isExpanded ? attr.customData.title : "" }}</div> 
             </div>
@@ -49,7 +52,13 @@
       <t-modal v-model="showModal" header="Scegli il tuo Comune" close="chiudi">
         <Modal @exit="closeModal"></Modal>
       </t-modal>
-      <t-button @click="showModalTrue()" type="button">Cambia la zona</t-button>
+      <t-button v-if="!isMobile" @click="showModalTrue()" type="button">Cambia la zona</t-button>
+      <button v-else 
+        class="font-bold text-base px-4 py-2 mx-5 rounded border-2 border-orangelogo text-orangelogo bg-white"
+        @click="showModalTrue()"
+      >
+        <div class="">Cambia la zona</div>
+      </button>
     </div>
   </div>
 </template>
@@ -63,6 +72,10 @@ export default {
   },
   props: {
     isExpanded: {
+      type: Boolean,
+      default: true
+    },
+    isMobile: {
       type: Boolean,
       default: true
     },
