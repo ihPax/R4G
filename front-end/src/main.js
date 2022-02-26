@@ -62,13 +62,13 @@ const settings = {
   't-button': {
     component: TButton,
     props: {
-      classes: 'button button--moema px-3 py-2 hover:bg-yellow-600 hover:text-white text-yellow-600 relative border-yellow-500 block focus:outline-none border-2 border-solid rounded-lg text-sm text-center font-semibold tracking-widest',
+      classes: 'button button--moema px-3 py-2 hover:bg-yellow-600 hover:text-white text-yellow-600 relative border-yellow-500 block focus:outline-none border-2 border-solid rounded-lg text-sm text-center font-semibold tracking-widest disabled:border-gray-400 disabled:cursor-not-allowed disabled:text-gray-400',
     }
   },
   't-button2': {
     component: TButton,
     props: {
-      classes: 'button button--moema px-3 py-2 bg-yellow-600 text-white relative hover:border-yellow-500 block focus:outline-none border-2 border-solid rounded-lg text-sm text-center font-semibold tracking-widest',
+      classes: 'button button--moema px-3 py-2 bg-yellow-600 text-white relative border-yellow-100 hover:border-yellow-500 block focus:outline-none border-2 border-solid rounded-lg text-sm text-center font-semibold tracking-widest disabled:bg-gray-400 disabled:border-gray-100 disabled:cursor-not-allowed',
     }
   },
 't-modal': {
@@ -215,7 +215,10 @@ const routes = [
 
 const router = new VueRouter({
   mode: "history",
-  routes
+  routes,
+  scrollBehavior() {
+    return {x: 0, y: 0}
+  }
 });
 
 Vue.config.productionTip = false

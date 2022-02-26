@@ -28,7 +28,7 @@
                   :name="field.code"
                   :autocomplete="field.code"
                   v-model="newFeedback[field.code]"
-                  class="border-2 px-2 rounded-lg w-full bg-white"
+                  class="border-2 px-2 rounded-lg w-full bg-white outline-none"
                   :class="{
                     'border-red-600': !isFormValid && !newFeedback[field.code],
                     'border-yellow-500': newFeedback[field.code]
@@ -36,7 +36,7 @@
                 />
                 <select
                   v-if="field.type == 'select'"
-                  class="border-2 px-2 rounded-lg w-full bg-white"
+                  class="border-2 px-2 rounded-lg w-full bg-white outline-none"
                   :class="{
                     'border-red-600': !isFormValid && !newFeedback[field.code],
                     'border-yellow-500': newFeedback[field.code]
@@ -57,7 +57,7 @@
                 <textarea v-if="field.type == 'textarea'"
                     v-model="newFeedback[field.code]"
                     :placeholder="field.label"
-                    class="border-2 px-2 rounded-lg w-full bg-white"
+                    class="border-2 px-2 rounded-lg w-full bg-white outline-none"
                     :class="{
                         'border-red-600': !isFormValid && !newFeedback[field.code],
                         'border-yellow-500': newFeedback[field.code]
@@ -69,11 +69,12 @@
                 </textarea>
             </div>
             <div class="flex justify-center my-8">
-                <t-button2 
+                <t-button2
                     @click="sendEmail()"
                     :disabled="!isFormValid"
-                    :class="{ 'cursor-not-allowed': !isFormValid }"
-                > Invia Feedback </t-button2>
+                > 
+                    Invia Feedback 
+                </t-button2>
             </div>
             <div v-if="!isFormValid" class="flex justify-center items-center text-center xs:pb-4">
                 <div class="border border-red-600 rounded px-2 py-1">* Campo obbligatorio</div>

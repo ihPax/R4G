@@ -42,6 +42,7 @@
                     <span class="font-medium">{{index+1}}.</span> {{point}}<span v-if="index < points.length-1">;</span><span v-else>.</span>
                 </p>
             </div>
+            <div class="mb-24 xs:mb-4"></div>
         </div>
     </div> 
 </template>

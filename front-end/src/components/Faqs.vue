@@ -1,5 +1,5 @@
 <template>
-    <div class="h-full w-full rounded-tl-2xl flex">
+    <div class="h-full w-full rounded-tl-2xl flex max-w-screen-md mx-auto">
         <div class="border-black flex justify-center flex-grow">
             <div class="flex flex-col max-w-screen-lg xs:shadow-orangexl">
                 <button @click="$router.go(-1)" :disabled="!isMobile" :class="{'cursor-auto': !isMobile}" class="w-full p-4 sm:px-6 flex justify-center items-center text-center border-b border-gray-200 bg-blue-50 xs:bg-white text-xl font-medium">
@@ -41,6 +41,7 @@
                 <div>
                     <t-button2 @click="goToLink()" class="mx-auto mt-8 xs:mb-4">Contattaci</t-button2>
                 </div>
+                <div class="mb-24 xs:mb-4"></div>
             </div>
         </div>
     </div>
