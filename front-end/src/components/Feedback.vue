@@ -1,5 +1,5 @@
 <template>
- <div class="
+    <div class="
       bg-white
       shadow-orangexl
       overflow-hidden
@@ -66,7 +66,7 @@
                     }"
                     :id="field.code"
                     cols="30"
-                    rows="10"
+                    rows="8"
                 >
                 </textarea>
             </div>
@@ -99,33 +99,40 @@
 // init("user_fLpGOT5sbHA3nWKUqwHXr");
 import emailjs from 'emailjs-com';
 export default {
-  name: 'Feedback',
-  data() {
-    return {
-        Type:[
-            {id:0,
-            name:"Assistenza"},
-             {id:1,
-            name:"Feedback"},
-             {id:2,
-            name:"Problemi"},
-             {id:3,
-            name:"Altro"}
-        ],
-         newFeedback: {
+    name: 'Feedback',
+    data() {
+        return {
+            feedbackType: [
+                {
+                    id: 0,
+                    name: "Assistenza"
+                },
+                {
+                    id: 1,
+                    name: "Feedback"
+                },
+                {
+                    id: 2,
+                    name: "Problemi"
+                },
+                {
+                    id: 3,
+                    name: "Altro"
+                }
+            ],
+            newFeedback: {
                 to_name: "",
-                 zone: "",
-                 message: "",
-                 email:"",
-                 type:""
-             },
-      comuni: [],
-      fields: [],
-      isFeedbackSent: false
-
-    }
-  },
-   
+                zone: "",
+                message: "",
+                email:"",
+                type:""
+            },
+            comuni: [],
+            fields: [],
+            isFeedbackSent: false,
+            error: {}
+        }
+    },
     mounted() {
         this.comuni = JSON.parse(localStorage.getItem("Zones"));
         this.zone = JSON.parse(localStorage.getItem("Zone"));
@@ -145,54 +152,61 @@ export default {
                 options: this.comuni,
             },
             {        
-                label: "Type",
+                label: "Tipologia",
                 code: "type",
                 type: "select",
-                options: this.Type,
-
-
+                options: this.feedbackType,
             },
             {        
                 label: "Dicci la tua",
                 code: "message",
                 type: "textarea"
-            },
-            
+            },   
         ]
     },
-  methods: {
-    sendEmail() {
-        try {
-            this.newFeedback.email = this.user.email
-            emailjs.send('service_ycoky5a', 'template_rdp3vls',this.newFeedback,'user_fLpGOT5sbHA3nWKUqwHXr')
-            this.isFeedbackSent = true
-        } catch(error) {
-        //console.log({error})
-        }
-        //Reset form field
-        this.newFeedback.to_name = ''
-        this.newFeedback.zone = ''
-        this.newFeedback.message = ''
-        this.newFeedback.type = ''
-        this.newFeedback.email = ''
-    },
-     goToLink() {
+    methods: {
+        sendEmail() {
+            try {
+                this.newFeedback.email = this.user.email;
+                emailjs.send('service_ycoky5a', 'template_rdp3vls', this.newFeedback, 'user_fLpGOT5sbHA3nWKUqwHXr')
+                .then(response => {
+                    console.log('SUCCESS!', response.status, response.text);
+                    this.isFeedbackSent = true;
+                    //Reset form fields
+                    for (let property in this.newFeedback) {
+                        this.newFeedback[property] = "";
+                        //console.log(`${property}: ${this.newFeedback[property]}`);
+                    }
+                }, error => {
+                    console.log('FAILED...', error);
+                    this.$fire({
+                        text: "Si è verificato un errore. Controlla la connessione e riprova!",
+                        type: "warning",
+                        timer: 3000,
+                        }).then(() => {
+                        console.log(error);
+                    }); 
+                });
+            } catch(error) {
+                //console.log({error})
+            }
+        },
+        goToLink() {
             this.$router.push({
                 name: "dashboard-account",
             });
         }
-
-  },
-  computed: {
-         isFormValid() {
-             return (
-                 this.newFeedback.to_name != "" &&
-                 this.newFeedback.zone != "" &&
-                 this.newFeedback.message != "" &&
-                 this.newFeedback.type != ""
-             );
-         },
-     },
+    },
+    computed: {
+        isFormValid() {
+            return (
+                this.newFeedback.to_name != "" &&
+                this.newFeedback.zone != "" &&
+                this.newFeedback.message != "" &&
+                this.newFeedback.type != ""
+            );
+        },
+    },
 }
 
 </script>

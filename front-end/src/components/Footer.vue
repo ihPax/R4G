@@ -9,7 +9,7 @@
         />
       </div>
       <div class="container px-4 mx-auto">
-        <div class="xs:flex flex-wrap lg:flex-nowrap justify-between items-center">
+        <div class="xs:flex flex-wrap lg:flex-nowrap justify-between items-center mx-auto">
           <router-link to="/tos" class="flex justify-center my-2 p-2 hover:bg-yellow-100 rounded">
             <span class="cursor-pointer"> Termini di Servizio </span>
           </router-link>

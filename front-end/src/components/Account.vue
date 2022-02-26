@@ -48,7 +48,14 @@
                   :autocomplete="field.autocomplete"
                   v-model="field.code"
                   class="border-2 border-yellow-500 px-2 rounded-lg w-full bg-white"
+                  :class="field.type == 'password' ? 'relative' : null"
                 />
+                <span v-if="field.type == 'password' && !isPasswordVisible" @click="isPasswordVisible=!isPasswordVisible; field.type = 'text'" class="material-icons absolute -ml-8 cursor-pointer">
+                  visibility_off
+                </span>
+                <span v-if="field.toggleVisibility && isPasswordVisible" @click="isPasswordVisible=!isPasswordVisible; field.type = 'password'" class="material-icons absolute -ml-8 cursor-pointer">
+                  visibility 
+                </span>
                 <select
                   v-if="field.type == 'select'"
                   class="border-2 border-yellow-500 px-2 rounded-lg w-full bg-white"
@@ -80,7 +87,7 @@
               <t-button @click="$router.go(-1)" class="hidden xs:block mx-2">
                 Annulla
               </t-button>
-              <t-button2 @click="switchEditMode(); saveForm()" type="submit" class="xs:mx-2">
+              <t-button2 @click="saveForm(); switchEditMode();" type="submit" class="xs:mx-2">
                 {{ isEdit ? "Salva" : "Modifica" }}
               </t-button2>
             </div>
@@ -125,7 +132,8 @@ export default {
         surname: "",
         birthday: "",
         zone_id: "",
-      }
+      },
+      isPasswordVisible: false
     }
   },
   mounted() {
@@ -158,6 +166,7 @@ export default {
         autocomplete: "password",
         code: this.form.password,
         type: "password",
+        toggleVisibility: true
       },
       {
         label: "Data di nascita",
@@ -180,7 +189,7 @@ export default {
       this.isEdit = !this.isEdit;
     },
     async saveForm() {
-      if (this.isEdit == false) {
+      if (this.isEdit == true) {
         this.isLoading = true;
         let form = this.form;
         let i = 0;
@@ -210,7 +219,7 @@ export default {
             type: "warning",
             timer: 3000,
             }).then(() => {
-              console.log(this.form.password)
+              console.log("La password viene resettata nel form, infatti:" + this.form.password)
             });    
         } else {
           let response = await this.$axios.put(
