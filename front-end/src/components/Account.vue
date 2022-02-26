@@ -38,7 +38,7 @@
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
           <li class="pl-3 pr-4 py-1 xs:py-2 flex items-center justify-between text-sm">
             <div class="w-0 flex-1 flex items-center">
-              <span v-if="!isEdit || field.type =='email' " class="ml-2 flex-1 w-0 truncate mb-1"> {{field.type == "password" || field.toggleVisibility == true ? "********" : field.code }} </span>
+              <span v-if="!isEdit || field.type =='email' " class="ml-2 flex-1 w-0 truncate mb-1"> {{field.isPasswordHidden != undefined ? "********" : field.code }}</span>
               <div v-else class="w-full">
                 <input v-if="field.type == 'text' || field.type == 'password' || field.type == 'date' || field.type == 'email'"
                   :type="field.type"
