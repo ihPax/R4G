@@ -26,7 +26,7 @@
       <div class="container px-4 mx-auto relative h-full">
         <div class="flex flex-wrap items-center -mx-3 h-full">
           <div class="w-full lg:w-2/2 px-3 h-full">
-            <div class="py-20 md:py-12 h-full flex flex-col md:justify-center items-center">
+            <div class="py-8 md:py-12 h-full flex flex-col md:justify-center items-center">
               <div class="mx-auto lg:mx-0 mb-12 xs:text-center">
                 <h2 class="text-3xl md:text-5xl mb-4 font-bold font-heading text-white">
                   Noi aiutiamo te, tu aiuta il pianeta.
@@ -52,7 +52,7 @@
     </div>
 
     <!--COME FUNZIONA-->
-    <div class="py-20 bg-blueGray-50">
+    <div class="py-8 bg-blueGray-50">
       <div class="container px-4 mx-auto">
         <div class="flex flex-col items-center justify-center max-w-2xl lg:max-w-full mb-12">
           <div class="w-full mb-4 lg:mb-0" id="Works">
@@ -105,8 +105,8 @@
     </div>
 
     <!--I NOSTRI SERVIZI-->
-    <div class="py-6 bg-white" id="Service">
-      <div class="pt-10 pb-12">
+    <div class="pt-6 bg-white" id="Service">
+      <div class="pt-4">
         <div class="container px-4 mx-auto">
           <div class="mb-2 w-full">
             <h2 class="xs:justify-center flex text-greenlanding text-4xl font-bold font-heading mb-6 xs:mb-2">
@@ -177,7 +177,7 @@
         </div>
 
         <!--CHI SIAMO-->
-        <div class="py-16 bg-blueGray-50" id="Who">
+        <div class="py-8 bg-blueGray-50" id="Who">
           <div class="container px-4 mx-auto">
             <div class="flex flex-wrap lg:flex-nowrap">
               <div class="w-full lg:w-2/3">
@@ -199,7 +199,7 @@
                     un determinato tipo di rifiuti.
                   </p>
                   <p class="mb-6 leading-loose text-blueGray-600" v-if="read == true">
-                    Il team è riusciuto a realizzare questo progetto unenendo diverse le diverse
+                    Il team è riusciuto a realizzare questo progetto unendo le diverse
                     competenze tecniche tra Graphic Design, IoT e sviluppo front-end e back-end.
                     Tale prodotto è stato realizzato con specifiche caratteristiche grazie al
                     lavoro nella ricerca dei competitor, in modo tale da poter portare un nuovo
@@ -222,7 +222,7 @@
           </div>
         </div>
 
-        <Footer @scroll="scrollById(id)"></Footer>
+        <Footer></Footer>
 
       </div>
     </div>
