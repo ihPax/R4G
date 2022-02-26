@@ -2,7 +2,7 @@
     <div class="
       font-montserrat
       bg-white
-      shadow-orangexl
+      xs:shadow-orangexl
       overflow-hidden
       sm:rounded-lg
       max-w-xl

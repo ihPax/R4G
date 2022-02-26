@@ -2,13 +2,12 @@
   <div
     class="
       bg-white
-      shadow-orangexl
+      xs:shadow-orangexl
       overflow-hidden
       sm:rounded-lg
       max-w-xl
       mx-auto
-      h-screen
-      xs:h-full
+      h-full
     "
   >
     <div class="px-4 py-2 sm:py-4 sm:px-6 justify-center text-center">

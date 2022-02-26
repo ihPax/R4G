@@ -1,13 +1,12 @@
 <template>
     <div class="
       bg-white
-      shadow-orangexl
+      xs:shadow-orangexl
       overflow-hidden
       sm:rounded-lg
       max-w-xl
       mx-auto
-      h-screen
-      xs:h-full
+      h-full
     ">
         <button @click="$router.go(-1)" :disabled="!isMobile" :class="{'cursor-auto': !isMobile}" class="w-full p-4 sm:px-6 flex justify-center items-center text-center border-b border-gray-200 bg-blue-50 xs:bg-white">
             <div class="block xs:hidden">

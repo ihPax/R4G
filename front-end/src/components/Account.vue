@@ -2,13 +2,12 @@
   <div
     class="
       bg-white
-      shadow-orangexl
+      xs:shadow-orangexl
       overflow-hidden
       sm:rounded-lg
       max-w-xl
       mx-auto
-      h-screen
-      xs:h-full
+      h-full
     "
   >
     <div v-if="isLoading"
@@ -50,10 +49,10 @@
                   class="border-2 border-yellow-500 px-2 rounded-lg w-full bg-white"
                   :class="field.type == 'password' ? 'relative' : null"
                 />
-                <span v-if="field.type == 'password' && !isPasswordVisible" @click="isPasswordVisible=!isPasswordVisible; field.type = 'text'" class="material-icons absolute -ml-8 cursor-pointer">
+                <span v-if="field.isPasswordHidden == true" @click="toggleVisibility(field, 'text')" class="material-icons absolute -ml-8 cursor-pointer">
                   visibility_off
                 </span>
-                <span v-if="field.toggleVisibility && isPasswordVisible" @click="isPasswordVisible=!isPasswordVisible; field.type = 'password'" class="material-icons absolute -ml-8 cursor-pointer">
+                <span v-if="field.isPasswordHidden == false" @click="toggleVisibility(field, 'password')" class="material-icons absolute -ml-8 cursor-pointer">
                   visibility 
                 </span>
                 <select
@@ -133,7 +132,6 @@ export default {
         birthday: "",
         zone_id: "",
       },
-      isPasswordVisible: false
     }
   },
   mounted() {
@@ -166,7 +164,7 @@ export default {
         autocomplete: "password",
         code: this.form.password,
         type: "password",
-        toggleVisibility: true
+        isPasswordHidden: true
       },
       {
         label: "Data di nascita",
@@ -185,6 +183,13 @@ export default {
     this.isLoading = false;
   },
   methods: {
+    /** The function, applied to a button, toggle password visibility from true to false and viceversa.
+     * @param {object} field The Object passed to the function.
+     * @param {string} newInputType The new input type (from 'password' to 'text' and viceversa.*/
+    toggleVisibility(field, newInputType) {
+      field.isPasswordHidden =! field.isPasswordHidden; 
+      field.type = newInputType;
+    },
     switchEditMode() {
       this.isEdit = !this.isEdit;
     },
@@ -228,8 +233,8 @@ export default {
           );
           localStorage.setItem("AccessEmail", JSON.stringify(response.data));
         }
-        this.form.password = "";
         this.isLoading = false;
+        this.form.password = "";
       }
     },
   },
