@@ -1,7 +1,7 @@
 <template>
   <div class="text-center section">
     <h2 class="flex justify-center font-bold text-lg">
-      <div v-if="isExpanded" class="py-3 bg-blue-50 xs:bg-white font-medium xs:font-bold"> Calendario zona di {{calendars.name}} </div>
+      <div v-if="isExpanded" class="py-3 border-b border-gray-200 xs:border-b-0 bg-blue-50 xs:bg-white font-medium xs:font-bold"> Calendario zona di {{calendars.name}} </div>
     </h2>
     <v-calendar
       class="custom-calendar max-w-full"
@@ -53,12 +53,12 @@
         <Modal @exit="closeModal"></Modal>
       </t-modal>
       <t-button v-if="!isMobile" @click="showModalTrue()" type="button">Cambia la zona</t-button>
-      <button v-else 
-        class="font-bold text-base px-4 py-2 mx-5 rounded border-2 border-orangelogo text-orangelogo bg-white"
+      <t-button v-else 
+        class=""
         @click="showModalTrue()"
       >
         <div class="">Cambia la zona</div>
-      </button>
+      </t-button>
     </div>
   </div>
 </template>
@@ -132,6 +132,10 @@ export default {
 }
 ::-webkit-scrollbar-track {
   display: none;
+}
+
+/deep/ .vc-container {
+  border-color: rgb(255, 255, 255);  
 }
 /deep/ .custom-calendar.vc-container {
   --day-border: 1px solid #b8c2cc;

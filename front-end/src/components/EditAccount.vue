@@ -8,6 +8,7 @@
       max-w-xl
       mx-auto
       h-full
+      flex flex-col
     "
   >
     <div class="px-4 py-2 sm:py-4 sm:px-6 justify-center text-center">

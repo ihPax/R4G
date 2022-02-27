@@ -7,6 +7,7 @@
       max-w-xl
       mx-auto
       h-full
+      flex flex-col
     ">
         <button @click="$router.go(-1)" :disabled="!isMobile" :class="{'cursor-auto': !isMobile}" class="w-full p-4 sm:px-6 flex justify-center items-center text-center border-b border-gray-200 bg-blue-50 xs:bg-white">
             <div class="block xs:hidden">
@@ -196,27 +197,19 @@
 
         <!-- Fine contenuto -->
 
-        <div v-if="!isMobile" class="py-5 block bg-yellow-100 font-medium cursor-pointer" @click="$router.go(-1)">
-            <div class="flex flex-row justify-center">
-                <div class="flex flex-col">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                    </svg>
-                </div>
-                <div class="flex flex-col">
-                    <span>Torna indietro</span>
-                </div>
-            </div>
-        </div>
+        <GoBack :isMobile="isMobile"></GoBack>
         <ButtonToTop></ButtonToTop>
     </div>
 </template>
 
 <script>
 import ButtonToTop from "@/components/ButtonToTop.vue";
+import GoBack from "@/components/GoBack.vue";
+
 export default {
     components: {
         ButtonToTop,
+        GoBack
     },
     props: {
         isMobile: {

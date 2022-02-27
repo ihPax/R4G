@@ -8,6 +8,7 @@
       max-w-2xl
       mx-auto
       h-full
+      flex flex-col
     ">
         <div class="p-4 sm:px-6 justify-center text-center border-b border-gray-200 bg-blue-50 xs:bg-white">
             <h3 class="text-xl leading-6 font-medium text-gray-900">

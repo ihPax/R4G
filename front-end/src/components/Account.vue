@@ -8,6 +8,7 @@
       max-w-xl
       mx-auto
       h-full
+      flex flex-col
     "
   >
     <div v-if="isLoading"
