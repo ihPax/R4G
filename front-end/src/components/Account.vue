@@ -186,13 +186,37 @@ export default {
   methods: {
     /** The function, applied to a button, toggle password visibility from true to false and viceversa.
      * @param {object} field The Object passed to the function.
-     * @param {string} newInputType The new input type (from 'password' to 'text' and viceversa.*/
+     * @param {string} newInputType The new input type (from 'password' to 'text' and viceversa).*/
     toggleVisibility(field, newInputType) {
       field.isPasswordHidden =! field.isPasswordHidden; 
       field.type = newInputType;
     },
     switchEditMode() {
       this.isEdit = !this.isEdit;
+    },
+    /** Method to catch Axios exceptions.
+     * @param e {object} Error
+     */
+    catchError(e) {
+      let err;
+      if (e.response) {
+        err = e.response;
+      } else if (e.request) {
+        err = e.request;
+      } else {
+        console.log('Error', e.message);
+      }
+      if (err) {
+        let message = err.statusText;
+        message == "" ? message = "Impossibile raggiungere il server!" : null;
+        this.$fire({
+        text: message,
+        type: "warning",
+        timer: 3000,
+        }).then(() => {
+          this.isLoading = false
+        })
+      }
     },
     async saveForm() {
       if (this.isEdit == true) {
@@ -217,7 +241,9 @@ export default {
           let response = await this.$axios.put(
             "/r4g/update-user-without-password/" + this.user.id,
             this.formWithoutPassword
-          );
+          ).catch((e) => {
+            this.catchError(e);
+          });
           localStorage.setItem("AccessEmail", JSON.stringify(response.data));
         } else if (this.form.password!= "" && this.form.password.length < 6) {
           this.$fire({
@@ -231,7 +257,9 @@ export default {
           let response = await this.$axios.put(
             "/r4g/update-user/" + this.user.id,
             this.form
-          );
+          ).catch((e) => {
+            this.catchError(e);
+          });
           localStorage.setItem("AccessEmail", JSON.stringify(response.data));
         }
         this.isLoading = false;

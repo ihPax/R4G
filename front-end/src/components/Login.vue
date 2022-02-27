@@ -233,47 +233,60 @@ export default {
                 name: "registration"
             });
         },
-        async login(){
-            this.isLogging = true;
-            this.rememberEmail();
-            let res = await this.$axios
-            .post("/r4g/login",this.user)
-            .catch((e) => {
-                let err;
-                if (e.response) {
-                    err = e.response;
-                } else if (e.request) {
-                    err = e.request;
-                } else {
-                    console.log('Error', e.message);
-                }
+        /** Method to catch Axios exceptions.
+         * @param e {object} Error
+         * @param isLogin {boolean} The request is to log in or not. Default false
+         */
+        catchError(e, isLogin = false) {
+            console.log(e)
+            let err;
+            if (e.response) {
+                err = e.response;
+            } else if (e.request) {
+                err = e.request;
+            } else {
+                console.log('Error', e.message);
+            }
+            if (isLogin) {
                 if (err.status == 401) {
                     err.statusText = "Email e/o password non corretta";
                 } else if (err.status == 422) {
                     err.statusText = "Email non valida e/o password con meno di 6 caratteri";
                 }
-                if (err) {
-                    this.$fire({
-                    text: err.statusText,
-                    type: "warning",
-                    timer: 3000,
-                    }).then(() => {
-                        this.isLogging = false
-                    });
-                    // this.$alert(err.statusText).then(() => {
-                    //     this.isLogging = false;
-                    // });
-                }
+            }
+            if (err) {
+                let message = err.statusText;
+                message == "" ? message = "Impossibile raggiungere il server!" : null;
+                this.$fire({
+                text: message,
+                type: "warning",
+                timer: 3000,
+                }).then(() => {
+                    this.isLogging = false
+                });
+                // this.$alert(err.statusText).then(() => {
+                //     this.isLogging = false;
+                // });
+            }
+        },
+        async login(){
+            this.isLogging = true;
+            this.rememberEmail();
+            let res = await this.$axios
+            .post("/r4g/login", this.user)
+            .catch((e) => {
+                this.catchError(e, true);
             });
-
             if (res) {
                 this.Alluser = res.data.user;
-
                 //archivazione dell'email nel local storage per la sessione
                 let parsed = JSON.stringify(this.Alluser);
                 localStorage.setItem("AccessEmail", parsed);
                 if(this.Alluser.zone_id != null){
-                    let res = await this.$axios.get("/r4g/zone-calendar/"+ this.Alluser.zone_id);
+                    let res = await this.$axios.get("/r4g/zone-calendar/" + this.Alluser.zone_id)
+                    .catch((e) => {
+                        this.catchError(e, true);
+                    });
                     let zone = res.data;
                     let calendar = JSON.stringify(zone);
                     localStorage.setItem(
