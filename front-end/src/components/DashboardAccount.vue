@@ -5,7 +5,7 @@
       xs:shadow-orangexl
       overflow-hidden
       sm:rounded-lg
-      max-w-2xl
+      max-w-xl
       mx-auto
       h-full
       flex flex-col

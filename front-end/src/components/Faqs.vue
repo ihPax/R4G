@@ -1,7 +1,7 @@
 <template>
-    <div class="h-full w-full rounded-tl-2xl flex max-w-screen-md mx-auto">
+    <div class="h-full rounded-tl-2xl flex max-w-screen-md mx-auto">
         <div class="border-black flex justify-center flex-grow">
-            <div class="flex flex-col max-w-screen-lg xs:shadow-orangexl">
+            <div class="flex flex-col xs:shadow-orangexl">
                 <button @click="$router.go(-1)" :disabled="!isMobile" :class="{'cursor-auto': !isMobile}" class="w-full p-4 sm:px-6 flex justify-center items-center text-center border-b border-gray-200 bg-blue-50 xs:bg-white text-xl font-medium">
                     <div>
                         <svg 
@@ -14,7 +14,7 @@
                     <div> Ciao! Come possiamo aiutarti? </div>
                 </button>
                 <div class="p-2 xs:p-4 font-medium text-gray-900 border-b border-gray-200 flex justify-center">
-                    <div> Ricevi l’assistenza, gli strumenti e le informazioni di cui hai bisogno per la tua sicurezza. </div>
+                    <div> Ricevi assistenza, strumenti e informazioni di cui hai bisogno per la tua sicurezza. </div>
                 </div>
                 <div 
                     v-for="(faq, index) in faqs" :key="index" 
@@ -55,37 +55,37 @@ export default {
                 {
                     id: 1,
                     question: "Non riesco a collegare il cestino, come mai?",
-                    answer: "Assicurati di aver associato correttamente la zona di residenza, altrimenti contattaci",
+                    answer: "Assicurati di aver associato correttamente la zona di residenza, altrimenti contattaci.",
                     show: false
                 },
                 {
                     id: 2,
                     question: "La mia zona di residenza non è presente in lista, come faccio?",
-                    answer: "In lista ci sono tutte le zone in cui passa la raccolta porta a porta nel comune di Verona",
+                    answer: "In lista ci sono tutte le zone in cui passa la raccolta porta a porta nel comune di Verona.",
                     show: false
                 },
                 {
                     id: 3,
                     question: "La capienza indicata non rispecchia il reale riempimento",
-                    answer: "Elimina il cestino e riassocialo, se il problema persiste contattaci",
+                    answer: "Elimina il cestino e riassocialo, se il problema persiste contattaci.",
                     show: false
                 },
                 {
                     id: 4,
                     question: "Non mi arrivano le notifiche, ma nella sezione account > notifiche vengono registrate, come mai?",
-                    answer: "Assicurati che la mail sia corretta, altrimenti riseleziona la zona desiderata",
+                    answer: "Assicurati che la mail sia corretta, altrimenti riseleziona la zona desiderata.",
                     show: false
                 },
                 {
                     id: 5,
                     question: "Il calendario segna la raccolta di un rifuto, ma non sono passati al ritiro?",
-                    answer: "Assicurati di aver selezionato correttamente la zona, altrimenti ti suggeriamo di contattare l'ente incaricato alla raccolta",
+                    answer: "Assicurati di aver selezionato correttamente la zona, altrimenti ti suggeriamo di contattare l'ente incaricato alla raccolta.",
                     show: false
                 },
                 {
                     id: 6,
                     question: "Il dispositivo collegato al cestino non invia i dati. Cosa possa fare?",
-                    answer: "Controlla che il tutto sia ben collegato, in alternativa ti suggeriamo di spegnere e riaccendere in modo che possa riconnettersi. Se il problema persiste, contattaci",
+                    answer: "Controlla che tutto sia collegato bene. In caso, prova a spegnerlo e riaccenderlo. Se il problema persiste, contattaci.",
                     show: false
                 },
             ],
