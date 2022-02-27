@@ -47,9 +47,10 @@
                   :id="field.code"
                   v-model="newFeedback[field.code]"
                 >
+                  <option hidden disabled value="">{{field.optionPlaceholder}}</option>
                   <option
-                    v-for="option in field.options"
-                    :key="option.id"
+                    v-for="(option, index) in field.options"
+                    :key="index"
                     :value="option.name"
                   >
                     {{ option.name }}
@@ -119,7 +120,7 @@ export default {
                 },
                 {
                     id: 2,
-                    name: "Problemi"
+                    name: "Informazioni generali"
                 },
                 {
                     id: 3,
@@ -162,6 +163,7 @@ export default {
                 code: "type",
                 type: "select",
                 options: this.feedbackType,
+                optionPlaceholder: "Seleziona il tipo di richiesta",
             },
             {        
                 label: "Dicci la tua",

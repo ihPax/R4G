@@ -62,6 +62,7 @@
                         <input type='text' placeholder="Data di nascita" name="birthday" autocomplete="birthday" v-model="newUser.birthday" 
                             class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"
                             onfocus="(this.type='date')"
+                            :max="new Date()"
                         />
                     </div>
                 </div>
@@ -99,10 +100,10 @@
                 </div>
 
                 <div class="flex flex-row m-auto mt-5 justify-between">
-                    <div class="flex flex-col m-auto mr-3">
+                    <div class="flex flex-col m-auto">
                         <input type="checkbox" id="acceptTOS" v-model="validCheck" class="w-4 h-4">
                     </div>
-                    <div class="flex flex-col">
+                    <div class="flex flex-col pl-3">
                         <label for="acceptTOS">Accetto i <button @click="goToLink('ToS')" class="underline">Termini di Servizio</button></label>
                     </div>
                 </div>
@@ -166,59 +167,63 @@
         <!--NOME-->
         <div class="flex flex-col mt-5 justify-between">
             <input type='text' placeholder="Nome" name="name" autocomplete="name" v-model="newUser.name" 
-                class="mx-5 border-2 border-gray-200 px-5 rounded-lg h-12"
+                class="border-2 border-orangelogo mx-5 px-5 rounded-lg h-12"
                 :class="{
                     'border border-red-600 text-black': !isFormValid && !newUser.name,
                     'bg-white': isFormValid
-                }"/>
+                }"
+            />
         </div>
 
         <!--COGNOME-->
         <div class="flex flex-col mt-5 justify-between">
             <input type='text' placeholder="Cognome" name="surname" autocomplete="surname" v-model="newUser.surname" 
-                class="mx-5 border-2 border-gray-200 px-5 rounded-lg h-12"
+                class="border-2 border-orangelogo mx-5 px-5 rounded-lg h-12"
                 :class="{
                     'border border-red-600 text-black': !isFormValid && !newUser.surname,
                     'bg-white': isFormValid
-                }"/>
+                }"
+            />
         </div>
 
          <!--DATA-->
         <div class="flex flex-row mt-5 justify-between">
             <input type='text' placeholder="Data di nascita" name="birthday" autocomplete="birthday" v-model="newUser.birthday" 
-                class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full bg-white h-12"
+                class="border-2 border-orangelogo mx-5 px-5 rounded-lg h-12 w-full bg-white"
                 :class="{
                     'border border-red-600 text-black': !isFormValid && !newUser.birthday
                 }"
                 onfocus="(this.type='date')"
-                onblur="(this.type='text')"
-        />
+                :max="new Date()"
+            />
         </div>
 
         <!--EMAIL-->
         <div class="flex flex-row mt-5 justify-between">
             <input type='text' placeholder="Email" name="email" autocomplete="email" v-model="newUser.email" 
-                class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full h-12"
+                class="border-2 border-orangelogo mx-5 px-5 rounded-lg h-12 w-full"
                 :class="{
                     'border border-red-600 text-black': !isFormValid && !newUser.email,
                     'bg-white': isFormValid
-                }"/>
+                }"
+            />
         </div>
 
         <!--PASSWORD-->
         <div class="flex flex-row mt-5 justify-between">
             <input type='password' placeholder="Password" name="password" autocomplete="password" v-model="newUser.password" 
-                class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full h-12"
+                class="border-2 border-orangelogo mx-5 px-5 rounded-lg h-12 w-full"
                 :class="{
                     'border border-red-600 text-black': !isFormValid && !newUser.password,
                     'bg-white': isFormValid
-                }"/>
+                }"
+            />
         </div>
 
         <!--TOS-->
         <div class="flex flex-row justify-center items-baseline mt-5">
-            <input type="checkbox" id="acceptToS" v-model="validCheck" class="w-6 h-6 ml-5">
-            <label for="acceptTOS" class="ml-5 my-auto">Accetto i <button @click="goToLink('ToS')" class="underline">Termini di Servizio</button></label>
+            <input type="checkbox" id="acceptToS" v-model="validCheck" class="w-6 h-6 ml-5 cursor-pointer">
+            <label for="acceptToS" class="pl-5 my-auto">Accetto i <button @click="goToLink('ToS')" class="underline">Termini di Servizio</button></label>
         </div>
 
         <!--BUTTON REGISTRATION-->
@@ -290,15 +295,20 @@ export default {
                 name: link
             });
         },
+        showAlert(textToShow) {
+            this.$fire({
+                text: textToShow,
+                type: "warning",
+                timer: 3000,
+            }).then(() => {
+                this.isLogging = false
+            });
+        },
         async userRegister(){
             if (this.newUser.password.length < 6) {
-                this.$fire({
-                    text: "La password dev'essere lunga almeno 6 caratteri!",
-                    type: "warning",
-                    timer: 2500,
-                    }).then(() => {
-                        this.isLogging = false
-                    });
+                this.showAlert("La password dev'essere lunga almeno 6 caratteri!");
+            } else if (new Date(this.newUser.birthday) > new Date()) {
+                this.showAlert("La tua data di nascita non può essere successiva ad oggi!");
             } else {
                 let response = await this.$axios.post("/r4g/register",this.newUser);
                 this.newUser = response.data;
