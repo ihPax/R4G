@@ -75,8 +75,8 @@ const settings = {
   component: TModal,
     props: {
     fixedClasses: {
-      overlay: 'z-40  overflow-auto scrolling-touch left-0 top-0 bottom-0 right-0 w-full h-full fixed bg-opacity-50',
-        wrapper: 'relative mx-auto z-50 max-w-lg px-3 py-12',
+      overlay: 'z-40  left-0 top-0 bottom-0 right-0 w-full h-full fixed bg-opacity-50',
+        wrapper: 'relative mx-auto z-50 max-w-lg px-3 py-12 justify-center items-center flex',
           modal: 'overflow-visible relative  rounded',
             body: 'p-3',
               header: 'border-b p-3 rounded-t font-bold',
@@ -86,7 +86,7 @@ const settings = {
     classes: {
       overlay: 'bg-black',
         wrapper: ' ',
-          modal: 'bg-white ',
+          modal: 'bg-white w-3/5',
             body: 'p-3',
               header: 'border-gray-100',
                 footer: 'bg-gray-100',
