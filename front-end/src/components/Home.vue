@@ -270,7 +270,6 @@ export default {
     //calcola la distanza rilevata dal sensore
     async getDistance(){
       let lenght = this.userBin.length + 100;
-      //while(lenght<200){
       let arrayFeeds = await axios.get("https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2");
       console.log("distanza",arrayFeeds.data.feeds)
       let lastElement = arrayFeeds.data.feeds.pop();
@@ -280,7 +279,6 @@ export default {
       this.value = isNaN(valore) ? 0 : valore;
       console.log("percentuale",this.value)
       this.changePercent();
-      //}
     },
 
     //alert che ti avvisa di scegliere prima la zona e poi il cestino
