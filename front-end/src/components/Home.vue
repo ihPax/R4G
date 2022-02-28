@@ -209,6 +209,7 @@ import Modal from "@/components/Modal";
 import Calendar from "@/components/Calendar";
 import ModalMaterial from "@/components/ModalMaterial";
 import Loading from "@/components/Loading";
+import axios from 'axios';
 // import SwichCard from "@/components/SwichCard";
 
 export default {
@@ -266,13 +267,20 @@ export default {
       this.showModal = !this.showModal;
     },
 
-    //calcola la distanza rilevata dai sensori
-    getDistance(){
-      let lenght = this.userBin.length;
-      let distance = this.userBin.distance;
+    //calcola la distanza rilevata dal sensore
+    async getDistance(){
+      let lenght = this.userBin.length + 100;
+      //while(lenght<200){
+      let arrayFeeds = await axios.get("https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2");
+      console.log("distanza",arrayFeeds.data.feeds)
+      let lastElement = arrayFeeds.data.feeds.pop();
+      let distance = lastElement.field1;
+      console.log("valore",distance)
       let valore = Math.floor(((lenght-distance)*100)/lenght);
       this.value = isNaN(valore) ? 0 : valore;
+      console.log("percentuale",this.value)
       this.changePercent();
+      //}
     },
 
     //alert che ti avvisa di scegliere prima la zona e poi il cestino
@@ -409,7 +417,11 @@ export default {
       this.isLoading = false;
     }
   },
-  computed: {},
+  computed: {
+    getValue : function(){
+      return this.value;
+    }
+  },
   filters: {
     //ritorna il prossimo ritiro in modo corretto
     date: (value) => {
