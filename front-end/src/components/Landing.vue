@@ -26,10 +26,10 @@
       <div class="container px-4 mx-auto relative h-full">
         <div class="flex flex-wrap items-center -mx-3 h-full">
           <div class="w-full lg:w-2/2 px-3 h-full">
-            <div class="py-20 md:py-12 h-full flex flex-col md:justify-center items-center">
+            <div class="py-8 md:py-12 h-full flex flex-col md:justify-center items-center">
               <div class="mx-auto lg:mx-0 mb-12 xs:text-center">
                 <h2 class="text-3xl md:text-5xl mb-4 font-bold font-heading text-white">
-                  Noi aiutiamo te, tu aiuta il pianeta.
+                  Noi aiutiamo te, <div class="xs:inline">tu aiuta il pianeta.</div>
                 </h2>
                 <p class="text-blueGray-200 leading-relaxed text-lg md:text-2xl">
                   Collega il tuo cestino e scopri come la tecnologia può
@@ -52,7 +52,7 @@
     </div>
 
     <!--COME FUNZIONA-->
-    <div class="py-20 bg-blueGray-50">
+    <div class="py-8 bg-blueGray-50">
       <div class="container px-4 mx-auto">
         <div class="flex flex-col items-center justify-center max-w-2xl lg:max-w-full mb-12">
           <div class="w-full mb-4 lg:mb-0" id="Works">
@@ -105,8 +105,8 @@
     </div>
 
     <!--I NOSTRI SERVIZI-->
-    <div class="py-6 bg-white" id="Service">
-      <div class="pt-10 pb-12">
+    <div class="pt-6 bg-white" id="Service">
+      <div class="pt-4">
         <div class="container px-4 mx-auto">
           <div class="mb-2 w-full">
             <h2 class="xs:justify-center flex text-greenlanding text-4xl font-bold font-heading mb-6 xs:mb-2">
@@ -122,8 +122,8 @@
           </div>
           <div class="grid xs:grid-cols-2 lg:grid-cols-4 -mx-3 xs:text-center">
             <div class="px-3 mb-4 xs:mb-8 md:mb-12 flex items-center mt-2 text-sm leading-loose max-w-sm mx-auto">
-              <div class="mt-4 flex-grow">
-                <svg xmlns="http://www.w3.org/2000/svg" class="xs:text-center mx-auto my-2 xs:my-5 rounded-full h-20 w-20 text-black border-2 border-greenborder"
+              <div class="xs:mt-4 flex-grow">
+                <svg xmlns="http://www.w3.org/2000/svg" class="xs:text-center mx-auto my-2 xs:my-5 rounded-full h-16 w-16 xs:h-20 xs:w-20   text-black border-2 border-greenborder"
                   fill="none" viewBox="4 -2 16 30" stroke="currentColor"
                 >
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
@@ -135,8 +135,8 @@
               </div>
             </div>
             <div class="px-3 mb-4 xs:mb-8 md:mb-12 flex items-center mt-2 text-sm leading-loose max-w-sm mx-auto">
-              <div class="mt-4 flex-grow justify-center items-center xs:text-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="xs:text-center mx-auto my-2 xs:my-5 text-black rounded-full h-20 w-20 border-2 border-greenborder"
+              <div class="xs:mt-4 flex-grow justify-center items-center xs:text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="xs:text-center mx-auto my-2 xs:my-5 text-black rounded-full h-16 w-16 xs:h-20 xs:w-20   border-2 border-greenborder"
                   fill="none" viewBox="4 -2 16 30" stroke="currentColor"
                 >
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
@@ -148,8 +148,8 @@
               </div>
             </div>
             <div class="px-3 mb-4 xs:mb-8 md:mb-12 flex items-center mt-2 text-sm leading-loose max-w-smmx-auto">
-              <div class="mt-4 flex-grow items-center justify-center xs:text-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="text-center mx-auto my-2 xs:my-5 rounded-full h-20 w-20 text-black border-2 border-greenborder"
+              <div class="xs:mt-4 flex-grow items-center justify-center xs:text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="text-center mx-auto my-2 xs:my-5 rounded-full h-16 w-16 xs:h-20 xs:w-20   text-black border-2 border-greenborder"
                   fill="none" viewBox="4 -2 16 30" stroke="currentColor"
                 >
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
@@ -161,8 +161,8 @@
               </div>
             </div>
             <div class="px-3 mb-4 xs:mb-8 md:mb-12 flex items-center mt-2 text-sm leading-loose max-w-sm mx-auto">
-              <div class="mt-4 flex-grow">
-                <svg xmlns="http://www.w3.org/2000/svg" class="text-center mx-auto my-2 xs:my-5 rounded-full h-20 w-20 text-black border-2 border-greenborder" 
+              <div class="xs:mt-4 flex-grow">
+                <svg xmlns="http://www.w3.org/2000/svg" class="text-center mx-auto my-2 xs:my-5 rounded-full h-16 w-16 xs:h-20 xs:w-20   text-black border-2 border-greenborder" 
                   fill="none" viewBox="4 -2 16 30" stroke="currentColor"
                 >
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
@@ -177,7 +177,7 @@
         </div>
 
         <!--CHI SIAMO-->
-        <div class="py-16 bg-blueGray-50" id="Who">
+        <div class="py-8 bg-blueGray-50" id="Who">
           <div class="container px-4 mx-auto">
             <div class="flex flex-wrap lg:flex-nowrap">
               <div class="w-full lg:w-2/3">
@@ -199,7 +199,7 @@
                     un determinato tipo di rifiuti.
                   </p>
                   <p class="mb-6 leading-loose text-blueGray-600" v-if="read == true">
-                    Il team è riusciuto a realizzare questo progetto unenendo diverse le diverse
+                    Il team è riusciuto a realizzare questo progetto unendo le diverse
                     competenze tecniche tra Graphic Design, IoT e sviluppo front-end e back-end.
                     Tale prodotto è stato realizzato con specifiche caratteristiche grazie al
                     lavoro nella ricerca dei competitor, in modo tale da poter portare un nuovo
@@ -211,7 +211,7 @@
                   </button>
                 </div>
               </div>
-              <div class="relative w-full my-12 lg:w-1/2 lg:my-0 sm:flex flex-col">
+              <div class="relative w-full my-0 xs:my-12 lg:w-1/2 lg:my-0 sm:flex flex-col">
                 <div class="relative mx-auto rounded-xl w-full z-10 my-4 h-48 xs:h-80 lg:h-full bg-cover bg-blue-200 bg-center"
                   style="background-image: url(https://images.unsplash.com/photo-1604187351574-c75ca79f5807?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cmVjeWNsZXxlbnwwfHwwfHw%3D&w=1000&q=80);"
                   alt=""
@@ -222,27 +222,7 @@
           </div>
         </div>
 
-        <!--FOOTER-->
-        <div class="py-8 bg-white" id="Who">
-          <div class="container mx-auto">
-            <div class="flex flex-wrap lg:flex-nowrap">
-              <div class="flex">
-                <img src="../assets/logor4gblack.png" class="w-3/4 cursor-pointer" alt="logo R4G"/>
-              </div>
-              <div class="flex">
-                <div class="flex-col">
-                  Termini di Servizio
-                </div>
-                <div class="flex-col">
-                  Politica sulla Privacy
-                </div>
-                <div class="flex-col">
-                  r4g.recycleteam@gmail.com
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Footer></Footer>
 
       </div>
     </div>
@@ -253,11 +233,13 @@
 <script>
 import LoginRegisterBar from "@/components/LoginRegisterBar.vue";
 import ButtonToTop from "@/components/ButtonToTop.vue";
+import Footer from "@/components/Footer.vue";
 
 export default {
   components: {
     LoginRegisterBar,
-    ButtonToTop
+    ButtonToTop,
+    Footer
   },
   props: {},
   data() {

@@ -1,8 +1,8 @@
 <template>
-<div class="h-full w-full">
+<div class="h-full w-full" @keyup.enter="isFormValid ? login() : null">
     <div v-if="!isMobile" class="h-full w-full flex flex-col">
         <LoginRegisterBar></LoginRegisterBar>
-        <form class="flex flex-row" @keyup.enter="isFormValid ? login() : null" >
+        <form class="flex flex-row">
             <div class="flex flex-col border-2 border-black rounded-2xl m-auto px-20 py-10">
                 <div class="flex flex-row justify-center mb-8">
                     <div class="flex flex-col">
@@ -120,9 +120,9 @@
         <!--EMAIL-->
         <div class="flex flex-row mt-5 justify-between">
             <input type='text' placeholder="Email" name="email" autocomplete="email" v-model="user.email" 
-            class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full h-12"
+            class="border-2 border-orangelogo mx-5 px-5 rounded-lg w-full h-12"
             :class="{
-                'border border-red-600': !isFormValid && !user.email,
+                'border border-red-600 text-black': !isFormValid && !user.email,
                 'bg-white': isFormValid
             }"/>
         </div>
@@ -130,7 +130,7 @@
         <!--PASSWORD-->
         <div class="flex flex-row my-5 justify-between">
             <input type='password' placeholder="Password" name="password" autocomplete="password" v-model="user.password" 
-            class="mx-5 border-2 border-gray-200 px-5 rounded-lg w-full h-12"
+            class="border-2 border-orangelogo mx-5 px-5 rounded-lg w-full h-12"
             :class="{
                 'border border-red-600 text-black': !isFormValid && !user.password,
                 'bg-white': isFormValid
@@ -233,47 +233,60 @@ export default {
                 name: "registration"
             });
         },
-        async login(){
-            this.isLogging = true;
-            this.rememberEmail();
-            let res = await this.$axios
-            .post("/r4g/login",this.user)
-            .catch((e) => {
-                let err;
-                if (e.response) {
-                    err = e.response;
-                } else if (e.request) {
-                    err = e.request;
-                } else {
-                    console.log('Error', e.message);
-                }
+        /** Method to catch Axios exceptions.
+         * @param e {object} Error
+         * @param isLogin {boolean} The request is to log in or not. Default false
+         */
+        catchError(e, isLogin = false) {
+            console.log(e)
+            let err;
+            if (e.response) {
+                err = e.response;
+            } else if (e.request) {
+                err = e.request;
+            } else {
+                console.log('Error', e.message);
+            }
+            if (isLogin) {
                 if (err.status == 401) {
                     err.statusText = "Email e/o password non corretta";
                 } else if (err.status == 422) {
                     err.statusText = "Email non valida e/o password con meno di 6 caratteri";
                 }
-                if (err) {
-                    this.$fire({
-                    text: err.statusText,
-                    type: "warning",
-                    timer: 3000,
-                    }).then(() => {
-                        this.isLogging = false
-                    });
-                    // this.$alert(err.statusText).then(() => {
-                    //     this.isLogging = false;
-                    // });
-                }
+            }
+            if (err) {
+                let message = err.statusText;
+                message == "" ? message = "Impossibile raggiungere il server!" : null;
+                this.$fire({
+                text: message,
+                type: "warning",
+                timer: 3000,
+                }).then(() => {
+                    this.isLogging = false
+                });
+                // this.$alert(err.statusText).then(() => {
+                //     this.isLogging = false;
+                // });
+            }
+        },
+        async login(){
+            this.isLogging = true;
+            this.rememberEmail();
+            let res = await this.$axios
+            .post("/r4g/login", this.user)
+            .catch((e) => {
+                this.catchError(e, true);
             });
-
             if (res) {
                 this.Alluser = res.data.user;
-
                 //archivazione dell'email nel local storage per la sessione
                 let parsed = JSON.stringify(this.Alluser);
                 localStorage.setItem("AccessEmail", parsed);
                 if(this.Alluser.zone_id != null){
-                    let res = await this.$axios.get("/r4g/zone-calendar/"+ this.Alluser.zone_id);
+                    let res = await this.$axios.get("/r4g/zone-calendar/" + this.Alluser.zone_id)
+                    .catch((e) => {
+                        this.catchError(e, true);
+                    });
                     let zone = res.data;
                     let calendar = JSON.stringify(zone);
                     localStorage.setItem(

@@ -2,13 +2,13 @@
   <div>
     <div class="flex flex-row">
       <div class="flex flex-col">
-        <router-link to="/landing" class="flex">
+        <button class="flex cursor-pointer disabled:cursor-auto" @click="goToLink({code: 'Landing'})" :disabled="currentRouteName == 'Landing'">
           <img
             src="../assets/logor4gblack.png"
-            class="w-3/4 cursor-pointer"
+            class="w-3/4"
             alt="logo R4G"
           />
-        </router-link>
+        </button>
       </div>
       <div
         class="flex flex-grow justify-end items-center" 
@@ -16,7 +16,7 @@
         <div class="flex" v-for="link in links" :key="link.code">        
           <button
             @click="goToLink(link)"
-            :disabled="link.code == $route.name"
+            :disabled="link.code == currentRouteName"
             class="
               button button--moema
               px-3
@@ -60,9 +60,14 @@ export default {
       ]
     }
   },
+  computed: {
+    currentRouteName() {
+      return this.$route.matched[0].name;
+    },
+  },
   methods: {    
     goToLink(link) {
-      if (link.code != this.$route.name) {
+      if (link.code != this.currentRouteName) {
         this.$router.push({
           name: link.code,
         });

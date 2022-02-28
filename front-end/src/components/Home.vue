@@ -49,7 +49,7 @@
               </div>
             </div>
           </div>
-          <div class="flex lg:flex-col">
+          <div class="flex lg:flex-col justify-between">
             <div class="material-icons text-7xl xs:text-9xl lg:text-11xl">
               <div v-if="localBin == '' && !isLoading">delete_forever</div>
               <div v-if="bin.name == 'CARTA'">
@@ -65,11 +65,11 @@
                 <img src="../assets/plastica.png" class="w-24 lg:w-32 xl:w-40">
               </div>
             </div>
-            <button v-if="localBin != '' && !isLoading" class="flex justify-end m-4" @click="deleteBin()">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 rounded-full bg-white p-2 border-2 text-orangelogo transition duration-150 ease-out hover:bg-gray-100" fill="none" viewBox="0 0 24 24" :stroke="color" :style="`border-color: ${color};`">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-              </svg>
-            </button>
+              <button v-if="localBin != '' && !isLoading" class="flex justify-end m-4" @click="deleteBin()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 rounded-full bg-white p-2 border-2 text-orangelogo transition duration-150 ease-out hover:bg-gray-100" fill="none" viewBox="0 0 24 24" :stroke="color" :style="`border-color: ${color};`">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </button>
           </div>
         </div>
 
@@ -121,9 +121,11 @@
         </div>
       </div>
 
+  
       <div
         class="flex flex-col mx-4"
       >
+      <!-- collega il tuo cestino  -->
         <div v-if="localBin == '' && !isLoading" class="w-full flex justify-center items-end h-72 bg-blue-400 rounded-2xl">
           <t-button2
             @click="changeBinStatus()"
@@ -171,7 +173,7 @@
                 {{ bin.day | date }}
               </div>
             </div>
-            <!--delete bin-->
+
             <div class="flex justify-end mb-4 mr-4">
               <button @click="deleteBin()">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 rounded-full bg-white p-2 border-2 border-black" fill="none" viewBox="0 0 24 24" stroke="#000000">
@@ -181,6 +183,8 @@
             </div>
           </div>
         </div>
+          <!-- <SwichCard></SwichCard> -->
+
 
         <div class="mt-4">
           <div v-if="!user.zone_id" class="flex flex-col items-center">
@@ -205,6 +209,7 @@ import Modal from "@/components/Modal";
 import Calendar from "@/components/Calendar";
 import ModalMaterial from "@/components/ModalMaterial";
 import Loading from "@/components/Loading";
+// import SwichCard from "@/components/SwichCard";
 
 export default {
   name: "Home",
@@ -212,7 +217,8 @@ export default {
     Calendar,
     Modal,
     ModalMaterial,
-    Loading
+    Loading,
+    // SwichCard
   },
   props: {
     isMobile: {
@@ -243,6 +249,7 @@ export default {
       rct: 235.26,
       rctMobile: 235.26,
       value: 1,
+
     };
   },
   async mounted() {
@@ -251,7 +258,7 @@ export default {
     this.getBin();
     this.changePercent();
     this.getDistance();
-    console.log(this.userBin)
+    console.log(this.userBin);
   },
   methods: {
     //apre la modale delle zone
@@ -390,6 +397,7 @@ export default {
     //metodo per eliminare il cestino
     async deleteBin(){
       this.isLoading = true;
+      this.bin = [];
       this.userBin = JSON.parse(localStorage.getItem("BinUser"));
       let id = this.userBin.id;
       await this.$axios.delete("/r4g/delete-bin-user/" + id);
@@ -398,7 +406,6 @@ export default {
       localStorage.removeItem('UserBin');
       this.localBin = [];
       this.userBin = [];
-      this.bin = [];
       this.isLoading = false;
     }
   },

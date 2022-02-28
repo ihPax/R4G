@@ -2,15 +2,21 @@
   <div
     class="
       bg-white
-      shadow-orangexl
+      xs:shadow-orangexl
       overflow-hidden
       sm:rounded-lg
       max-w-xl
       mx-auto
-      h-screen
-      xs:h-full
+      h-full
+      flex flex-col
     "
   >
+    <div v-if="isLoading"
+      class="fixed text-red-400 font-bold text-2xl z-10"
+      style="top: 50%; left: 50%; transform: translate(-50%, -50%)"
+    >
+      <Loading></Loading>
+    </div>
     <button @click="$router.go(-1)" :disabled="!isMobile" :class="{'cursor-auto': !isMobile}" class="w-full p-4 sm:px-6 flex justify-center items-center text-center border-b border-gray-200 bg-blue-50 xs:bg-white">
         <div class="block xs:hidden">
             <svg class="transform rotate-90 h-8 w-8 mx-2 hover:cursor-pointer"
@@ -24,16 +30,16 @@
         </h3>
     </button>
     <div v-if="comuni != ''">
-      <div
+      <form
         v-for="(field, index) in fields" :key="index"
-        class="px-4 py-1 sm:py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+        class="px-4 py-1 sm:py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 border-b border-yellow-100"
         :class="index % 2 == 0 ? 'bg-white' : 'bg-yellow-50'"
       >
         <dt class="text-sm font-medium text-gray-500"> {{field.label}} </dt>
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
           <li class="pl-3 pr-4 py-1 xs:py-2 flex items-center justify-between text-sm">
             <div class="w-0 flex-1 flex items-center">
-              <span v-if="!isEdit || field.type =='email' " class="ml-2 flex-1 w-0 truncate mb-1"> {{field.type != "password" ? field.code : "********" }} </span>
+              <span v-if="!isEdit || field.type =='email' " class="ml-2 flex-1 w-0 truncate mb-1"> {{field.isPasswordHidden != undefined ? "********" : field.code }}</span>
               <div v-else class="w-full">
                 <input v-if="field.type == 'text' || field.type == 'password' || field.type == 'date' || field.type == 'email'"
                   :type="field.type"
@@ -42,7 +48,14 @@
                   :autocomplete="field.autocomplete"
                   v-model="field.code"
                   class="border-2 border-yellow-500 px-2 rounded-lg w-full bg-white"
+                  :class="field.type == 'password' ? 'relative' : null"
                 />
+                <span v-if="field.isPasswordHidden == true" @click="toggleVisibility(field, 'text')" class="material-icons absolute -ml-8 cursor-pointer">
+                  visibility_off
+                </span>
+                <span v-if="field.isPasswordHidden == false" @click="toggleVisibility(field, 'password')" class="material-icons absolute -ml-8 cursor-pointer">
+                  visibility 
+                </span>
                 <select
                   v-if="field.type == 'select'"
                   class="border-2 border-yellow-500 px-2 rounded-lg w-full bg-white"
@@ -64,7 +77,7 @@
             </div>
           </li>
         </dd>
-      </div>
+      </form>
       <div class="bg-white p-4 sm:gap-4 sm:px-6">
         <dd class="text-sm text-gray-900 sm:mt-0">
           <li class="py-2 flex items-center justify-center text-sm">
@@ -74,7 +87,7 @@
               <t-button @click="$router.go(-1)" class="hidden xs:block mx-2">
                 Annulla
               </t-button>
-              <t-button2 @click="switchEditMode(); saveForm()" type="submit" class="xs:mx-2">
+              <t-button2 @click="saveForm(); switchEditMode();" type="submit" class="xs:mx-2">
                 {{ isEdit ? "Salva" : "Modifica" }}
               </t-button2>
             </div>
@@ -82,7 +95,6 @@
         </dd>
       </div>
     </div>
-    <div v-else class="my-4"><Loading></Loading> </div>
   </div>
 </template>
 
@@ -106,6 +118,7 @@ export default {
       fields: [],
       isEdit: false,
       comuni: [],
+      isLoading: false,
       form: {
         name: "",
         surname: "",
@@ -114,43 +127,45 @@ export default {
         birthday: "",
         zone_id: "",
       },
-      formWitoutPassword: {
+      formWithoutPassword: {
         name: "",
         surname: "",
         birthday: "",
         zone_id: "",
-      }
+      },
     }
   },
   mounted() {
+    this.isLoading = true;
     this.user = JSON.parse(localStorage.getItem("AccessEmail"));
     this.zone = JSON.parse(localStorage.getItem("Zone"));
     this.comuni = JSON.parse(localStorage.getItem("Zones"));
     console.log(this.comuni);
     this.fields = [
-      {        
+      {
         label: "Nome",
         autocomplete: "name",
         code: this.user.name,
-        type: "text"
+        type: "text",
       },
       {
         label: "Cognome",
         autocomplete: "surname",
         code: this.user.surname,
-        type: "text"
+        type: "text",
       },
       {
         label: "Email",
         autocomplete: "email",
         code: this.user.email,
-        type: "email"
+        type: "email",
       },
       {
         label: "Password",
         autocomplete: "password",
         code: this.form.password,
-        type: "password"
+        type: "password",
+        isPasswordHidden: true
       },
       {
         label: "Data di nascita",
@@ -163,49 +178,94 @@ export default {
         autocomplete: "zone",
         code: this.zone.name,
         type: "select",
-        options: this.comuni
+        options: this.comuni,
       },
-    ]
+    ];
+    this.isLoading = false;
   },
   methods: {
+    /** The function, applied to a button, toggle password visibility from true to false and viceversa.
+     * @param {object} field The Object passed to the function.
+     * @param {string} newInputType The new input type (from 'password' to 'text' and viceversa).*/
+    toggleVisibility(field, newInputType) {
+      field.isPasswordHidden =! field.isPasswordHidden; 
+      field.type = newInputType;
+    },
     switchEditMode() {
       this.isEdit = !this.isEdit;
     },
+    /** Method to catch Axios exceptions.
+     * @param e {object} Error
+     */
+    catchError(e) {
+      let err;
+      if (e.response) {
+        err = e.response;
+      } else if (e.request) {
+        err = e.request;
+      } else {
+        console.log('Error', e.message);
+      }
+      if (err) {
+        let message = err.statusText;
+        message == "" ? message = "Impossibile raggiungere il server!" : null;
+        this.$fire({
+        text: message,
+        type: "warning",
+        timer: 3000,
+        }).then(() => {
+          this.isLoading = false
+        })
+      }
+    },
     async saveForm() {
-      if(this.isEdit == false){
-      let form = this.form;
-      let i = 0;
-      for (let property in form) {
-        form[property] = this.fields[i].code;
-        i++;
-        //console.log(`${property}: ${form[property]}`);
-      }     
-      for(let i = 0; i < this.comuni.length; i++){
-        if(this.comuni[i].name == this.form.zone_id){
-          this.form.zone_id = this.comuni[i].id
+      if (this.isEdit == true) {
+        this.isLoading = true;
+        let form = this.form;
+        let i = 0;
+        for (let property in form) {
+          form[property] = this.fields[i].code;
+          i++;
+          // console.log(`${property}: ${form[property]}`);
         }
+        for (let i = 0; i < this.comuni.length; i++) {
+          if (this.comuni[i].name == this.form.zone_id) {
+            this.form.zone_id = this.comuni[i].id;
+          }
+        }
+        if (this.form.password == "") {
+          this.formWithoutPassword.name = this.form.name;
+          this.formWithoutPassword.surname = this.form.surname;
+          this.formWithoutPassword.birthday = this.form.birthday;
+          this.formWithoutPassword.zone_id = this.form.zone_id;
+          let response = await this.$axios.put(
+            "/r4g/update-user-without-password/" + this.user.id,
+            this.formWithoutPassword
+          ).catch((e) => {
+            this.catchError(e);
+          });
+          localStorage.setItem("AccessEmail", JSON.stringify(response.data));
+        } else if (this.form.password!= "" && this.form.password.length < 6) {
+          this.$fire({
+            text: "La password dev'essere lunga almeno 6 caratteri!",
+            type: "warning",
+            timer: 3000,
+            }).then(() => {
+              console.log("La password viene resettata nel form, infatti:" + this.form.password)
+            });    
+        } else {
+          let response = await this.$axios.put(
+            "/r4g/update-user/" + this.user.id,
+            this.form
+          ).catch((e) => {
+            this.catchError(e);
+          });
+          localStorage.setItem("AccessEmail", JSON.stringify(response.data));
+        }
+        this.isLoading = false;
+        this.form.password = "";
       }
-
-      if(this.form.password!= ""){
-        let response = await this.$axios.put("/r4g/update-user/" + this.user.id ,this.form);
-        localStorage.setItem("AccessEmail", JSON.stringify(response.data));
-
-
-      }else{
-          this.formWitoutPassword.name = this.form.name;
-          this.formWitoutPassword.surname = this.form.surname;
-          this.formWitoutPassword.birthday = this.form.birthday;
-          this.formWitoutPassword.zone_id = this.form.zone_id
-        
-       let response =  await this.$axios.put("/r4g/update-user-without-password/" + this.user.id ,this.formWitoutPassword);
-       localStorage.setItem("AccessEmail", JSON.stringify(response.data));
-
-
-      }
-      
-     
-    }
-    }
+    },
   },
-}
+};
 </script>
