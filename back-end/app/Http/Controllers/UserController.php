@@ -80,6 +80,10 @@ class UserController extends Controller
 
     //UPDATE USER
     public function updateUser(Request $request, $id){
+        $this->validate($request,[
+            'password' => 'bail|required|min:6'
+        ]);
+        
         $data = json_decode($request->getContent());
         $user = User::find($id);
 
