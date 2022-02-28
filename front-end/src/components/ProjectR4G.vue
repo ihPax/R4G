@@ -24,7 +24,10 @@
 
         <!--CONTENUTO-->
         <div class="p-4">
-            <h1 class="font-bold text-lg">Che cos'è?</h1>
+            <!-- <div class="flex justify-center ">
+                <img src="../assets/promor4g.gif" class="h-72 p-2 bg-gray-200 rounded">
+            </div> -->
+            <h1 class="font-bold text-lg mt-5">Che cos'è?</h1>
             <p>
                 R4G ha lo scopo di incentivare la raccolta differenziata, 
                 il cestino rileva la capienza mediante un sensore di prossimità 
@@ -52,11 +55,30 @@
                 5.	Permette di controllare il livello dei cestini da remoto.
             </p>
         </div>
+
+        <!--VERSIONE DESKTOP-->
+        <div v-if="!isMobile" class="py-5 block bg-yellow-100 font-medium cursor-pointer" @click="$router.go(-1)">
+            <div class="flex flex-row justify-center">
+                <div class="flex flex-col">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </div>
+                <div class="flex flex-col">
+                    <span>Torna indietro</span>
+                </div>
+            </div>
+        </div>
+        <ButtonToTop></ButtonToTop>
     </div> 
 </template>
 
 <script>
+import ButtonToTop from "@/components/ButtonToTop.vue";
 export default {
+    components: {
+        ButtonToTop,
+    },
     props: {
         isMobile: {
             type: Boolean,
