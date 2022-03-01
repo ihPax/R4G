@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -14,10 +15,13 @@ class UserController extends Controller
     //REGISTRATION NEW USER
     public function register(request $request){
         $validator = Validator::make($request->all(),[
-            'password' => 'required|string|min:6'
+            'password' => 'required|string|min:24'
         ]);
+
+        Log::info("Funziona");
+        
         if ($validator->fails()) {
-            return array("status" => 400, "message" => "Inserisci correttamente la password");
+            return response()->json($validator->errors())->status(422);
         }
 
         $newUserData = json_decode($request->getContent());
@@ -35,10 +39,24 @@ class UserController extends Controller
 
     //LOGIN USER
     public function login(Request $request){
+        $validator = Validator::make($request->all(), [
+            'email' => 'bail|required|email',
+            'password' => 'bail|required|string|min:6'
+        ]);
+
+        Log::info($validator->fails());
+        //Per vederli in console: tail -f storage/logs/laravel.log
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
         $this->validate($request,[
             'email' => 'bail|required|email',
             'password' => 'bail|required|min:6'
         ]);
+
+        
 
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
             $user = Auth::user();
