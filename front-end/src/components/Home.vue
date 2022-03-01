@@ -126,7 +126,7 @@
         class="flex flex-col mx-4"
       >
       <!-- collega il tuo cestino  -->
-        <div v-if="localBin == '' && !isLoading" class="w-full flex justify-center items-end h-72 bg-blue-400 rounded-2xl">
+        <!-- <div v-if="localBin == '' && !isLoading" class="w-full flex justify-center items-end h-72 bg-blue-400 rounded-2xl">
           <t-button2
             @click="changeBinStatus()"
             v-if="localBin == ''"
@@ -181,10 +181,9 @@
                 </svg>
               </button>
             </div>
-          </div>
-        </div>
-          <!-- <SwichCard></SwichCard> -->
-
+          </div> 
+        </div>-->
+          <SwichCard></SwichCard>
 
         <div class="mt-4">
           <div v-if="!user.zone_id" class="flex flex-col items-center">
@@ -209,7 +208,8 @@ import Modal from "@/components/Modal";
 import Calendar from "@/components/Calendar";
 import ModalMaterial from "@/components/ModalMaterial";
 import Loading from "@/components/Loading";
-// import SwichCard from "@/components/SwichCard";
+import axios from 'axios';
+ import SwichCard from "@/components/SwichCard";
 
 export default {
   name: "Home",
@@ -218,7 +218,7 @@ export default {
     Modal,
     ModalMaterial,
     Loading,
-    // SwichCard
+     SwichCard
   },
   props: {
     isMobile: {
@@ -266,12 +266,17 @@ export default {
       this.showModal = !this.showModal;
     },
 
-    //calcola la distanza rilevata dai sensori
-    getDistance(){
-      let lenght = this.userBin.length;
-      let distance = this.userBin.distance;
+    //calcola la distanza rilevata dal sensore
+    async getDistance(){
+      let lenght = this.userBin.length + 100;
+      let arrayFeeds = await axios.get("https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2");
+      console.log("distanza",arrayFeeds.data.feeds)
+      let lastElement = arrayFeeds.data.feeds.pop();
+      let distance = lastElement.field1;
+      console.log("valore",distance)
       let valore = Math.floor(((lenght-distance)*100)/lenght);
       this.value = isNaN(valore) ? 0 : valore;
+      console.log("percentuale",this.value)
       this.changePercent();
     },
 
@@ -308,13 +313,14 @@ export default {
     async getBin() {
       this.isLoading = true;
       let response = await this.$axios.get("/r4g/view-bin-user/" + this.user.id);
-      let viewBinUser = response.data;
+      let viewBinUser = response.data; //bin con userId e binId
 
       let bin = await this.$axios.get("/r4g/bin/"+this.user.id);
-      let userBin = bin.data;
+      let userBin = bin.data; //statistiche bin
 
       let BinUser = JSON.stringify(userBin);
-      localStorage.setItem("BinUser", BinUser);
+      localStorage.setItem("BinUser", BinUser); 
+      console.log('viewBinUser', viewBinUser, 'userBin', userBin)
 
       if (viewBinUser.bin_id) {
         let res = await this.$axios.get("/r4g/material-bin/" + viewBinUser.bin_id)
@@ -409,7 +415,11 @@ export default {
       this.isLoading = false;
     }
   },
-  computed: {},
+  computed: {
+    getValue : function(){
+      return this.value;
+    }
+  },
   filters: {
     //ritorna il prossimo ritiro in modo corretto
     date: (value) => {

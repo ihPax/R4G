@@ -2,13 +2,14 @@
   <div>
     <VueSlickCarousel :arrows="false" :dots="false">
       <!--prima card -->
-      <!-- <div  class="flex flex-col p-4">
-        <div class="flex flex-col bg-blue-400 rounded-2xl" v-if="localBin != ''">
+      <div  class="flex flex-col p-4" v-if="viewBinUser.bin_id" > 
+        <div class="flex flex-col bg-blue-400 rounded-2xl h-72" v-if="localBin != ''" :style="`background-color:${color}`"> 
           <div class="flex flex-col px-4 pt-3 justify-center w-full">
             <div class="truncate">
               <div class="font-bold text-white text-2xl">
                 <div>
-                  {{i}}. {{ bin.name }}
+                  <!-- {{i}}. -->
+                  {{ bin.name }}
                 </div>
                 <div class="flex justify-between">
                   <img
@@ -39,6 +40,7 @@
                       viewPort="0 0 60 60"
                       version="1.1"
                       xmlns="http://www.w3.org/2000/svg"
+                      stroke='#000'
                       :style="`stroke:${color}`"
                     >
                       <circle
@@ -57,14 +59,14 @@
                         fill="transparent"
                         stroke-dasharray="235.26"
                         stroke-dashoffset="0"
-                        :style="`stroke-dashoffset: ${rct}px;stroke:${color}`"
+                        :style="`stroke-dashoffset: ${rct}px;stroke:#000`"
                       ></circle>
                     </svg>
                     <div
-                      class="h3 absolute font-bold text-xl z-10 text-black"
-                      style="left: 50%; top: 50%; transform: translate(-50%, -50%)"
+                      class="h3 absolute font-bold text-xl z-10 text-black percentCenter "
+                      
                     >
-                      {{ value }}%
+                    {{ value }}%
                     </div>
                   </div>
                 </div>
@@ -92,12 +94,12 @@
             </svg>
           </button>
         </div>
-      </div> -->
+      </div>
 
       <!--seconda card prova, non funziona-->
       <div class="flex flex-col p-4">
         <div>
-          <div class="flex flex-col bg-blue-400 rounded-2xl">
+          <div class="flex flex-col bg-blue-400 rounded-2xl h-72" :style="`background-color:#166534`">
             <div class="flex flex-col px-4 pt-3 justify-center w-full">
               <div class="truncate">
                 <div class="font-bold text-white text-2xl">
@@ -113,7 +115,7 @@
                         viewPort="0 0 60 60"
                         version="1.1"
                         xmlns="http://www.w3.org/2000/svg"
-                        :style="`stroke:red`"
+                        :style="`stroke:#000`"
                       >
                         <circle
                           :r="r"
@@ -131,21 +133,20 @@
                           fill="transparent"
                           stroke-dasharray="235.26"
                           stroke-dashoffset="0"
-                          :style="`stroke-dashoffset: ${rct}px;stroke:red`"
+                          :style="`stroke-dashoffset: ${rctProva}px;stroke:#000`"
                         ></circle>
                       </svg>
                       <div
-                        class="h3 absolute font-bold text-xl z-10 text-black"
-                        style="left: 50%; top: 50%; transform: translate(-50%, -50%)"
+                        class="h3 absolute font-bold text-xl z-10 text-black percentCenter"
                       >
-                        90%
+                        {{valueProva}}%
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="font-normal mt-3 text-white">Prossimo ritiro:</div>
-              <div class="flex flex-col font-bold text-white text-xl">Oggi</div>
+              <div class="flex flex-col font-bold text-white text-xl"> Mercoledì 16 Marzo 2022 </div>
             </div>
             <!--delete bin-->
             <button class="flex justify-end mb-4 mr-4">
@@ -182,7 +183,7 @@
             header="Scegli il materiale"
             close="chiudi"
           >
-            <ModalMaterial @exit="closeMaterialModal"></ModalMaterial>
+            <ModalMaterial @exit="closeMaterialModal" ></ModalMaterial>
           </t-modal>
         </div>
       </div>
@@ -193,12 +194,12 @@
 <script>
 import VueSlickCarousel from "slick-vuejs";
 import "slick-vuejs/dist/slick-vuejs.css";
-// import ModalMaterial from "@/components/ModalMaterial";
+ import ModalMaterial from "@/components/ModalMaterial";
 
 export default {
   components: {
     VueSlickCarousel,
-    // ModalMaterial,
+     ModalMaterial,
   },
   data() {
     return {
@@ -206,7 +207,10 @@ export default {
       rMobile: 25,
       rct: 235.26,
       rctMobile: 235.26,
+      rctProva:235.26,
+      valueProva:60,
       isLoading: false,
+      viewBinUser:"",
       value: 1,
       localBin: [],
       bin: [
@@ -255,6 +259,8 @@ export default {
       localStorage.removeItem("UserBin");
       this.localBin = [];
       this.userBin = [];
+      let response = await this.$axios.get("/r4g/view-bin-user/" + this.user.id);
+      this.viewBinUser = response.data;
     },
     weekDay(day) {
       let days = new Date();
@@ -276,6 +282,10 @@ export default {
 
       let c2 = Math.PI * (this.rMobile * 2);
       this.rctMobile = ((100 - this.value) / 100) * c2;
+
+      let c3 = Math.PI * (this.rctProva * 2);
+      this.rctProva = ((100 - this.valueProva) / 100) * c3;
+
     },
     populateBin() {
       this.localBin = JSON.parse(localStorage.getItem("Bin"));
@@ -315,11 +325,12 @@ export default {
       } else if (this.bin.name == "PLASTICA/LATTINE") {
         this.color = "#1E3A8A";
       }
+
     },
     async getBin() {
       this.isLoading = true;
       let response = await this.$axios.get("/r4g/view-bin-user/" + this.user.id);
-      let viewBinUser = response.data;
+      this.viewBinUser = response.data;
 
       let bin = await this.$axios.get("/r4g/bin/" + this.user.id);
       let userBin = bin.data;
@@ -327,8 +338,8 @@ export default {
       let BinUser = JSON.stringify(userBin);
       localStorage.setItem("BinUser", BinUser);
 
-      if (viewBinUser.bin_id) {
-        let res = await this.$axios.get("/r4g/material-bin/" + viewBinUser.bin_id);
+      if (this.viewBinUser.bin_id) {
+        let res = await this.$axios.get("/r4g/material-bin/" + this.viewBinUser.bin_id);
         if (response) {
           let calendaBin = res.data;
           this.localBin = JSON.stringify(calendaBin);
@@ -419,4 +430,11 @@ export default {
 #svg {
   transform: rotate(-90deg);
 }
+
+.percentCenter{
+  left: 50%; 
+  top: 50%; 
+  transform: translate(-50%, -50%)
+}
+
 </style>
