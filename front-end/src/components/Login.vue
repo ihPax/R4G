@@ -60,7 +60,7 @@
                 <div class="flex flex-row m-auto mt-3">
                     <div class="flex flex-col text-white text-xl">
                         <button type="button"
-                            :disabled="!isFormValid || isLogging"
+                            :disabled="!isFormValid || isLoading"
                             class="font-bold px-4 py-1 rounded-full"
                             :class="{
                                 'cursor-pointer bg-black': isFormValid,
@@ -170,7 +170,7 @@
             <div class="border border-red-600 rounded px-2 py-1">* Campo obbligatorio</div>
         </div>
     </form>
-    <div v-if="isLogging"
+    <div v-if="isLoading"
         class="fixed text-red-400 font-bold text-2xl z-10"
         style="top: 50%; left: 50%; transform: translate(-50%, -50%)"
     >
@@ -202,7 +202,7 @@ export default {
                 password: ""
             },
             Alluser:[],
-            isLogging: false,
+            isLoading: false,
             isRemembered: false
         }
     },
@@ -238,7 +238,6 @@ export default {
          * @param isLogin {boolean} The request is to log in or not. Default false
          */
         catchError(e, isLogin = false) {
-            console.log(e)
             let err;
             if (e.response) {
                 err = e.response;
@@ -261,32 +260,26 @@ export default {
                 text: message,
                 type: "warning",
                 timer: 3000,
-                }).then(() => {
-                    this.isLogging = false
-                });
+                })
+                // .then(() => {
+                //     this.isLoading = false
+                // });
                 // this.$alert(err.statusText).then(() => {
-                //     this.isLogging = false;
+                //     this.isLoading = false;
                 // });
             }
         },
         async login(){
-            this.isLogging = true;
+            this.isLoading = true;
             this.rememberEmail();
-            let res = await this.$axios
-            .post("/r4g/login", this.user)
-            .catch((e) => {
-                this.catchError(e, true);
-            });
-            if (res) {
+            try {
+                let res = await this.$axios.post("/r4g/login", this.user);
                 this.Alluser = res.data.user;
                 //archivazione dell'email nel local storage per la sessione
                 let parsed = JSON.stringify(this.Alluser);
                 localStorage.setItem("AccessEmail", parsed);
                 if(this.Alluser.zone_id != null){
                     let res = await this.$axios.get("/r4g/zone-calendar/" + this.Alluser.zone_id)
-                    .catch((e) => {
-                        this.catchError(e, true);
-                    });
                     let zone = res.data;
                     let calendar = JSON.stringify(zone);
                     localStorage.setItem(
@@ -300,6 +293,10 @@ export default {
                         name: "home"
                     });
                 }
+            } catch(e) {
+                this.catchError(e, true);
+            }  finally {
+                this.isLoading = false;
             }
         }
     }

@@ -147,7 +147,7 @@
                 </p>
               </div>
             </div>
-            <div class="px-3 mb-4 xs:mb-8 md:mb-12 flex items-center mt-2 text-sm leading-loose max-w-smmx-auto">
+            <div class="px-3 mb-4 xs:mb-8 md:mb-12 flex items-center mt-2 text-sm leading-loose max-w-sm mx-auto">
               <div class="xs:mt-4 flex-grow items-center justify-center xs:text-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="text-center mx-auto my-2 xs:my-5 rounded-full h-16 w-16 xs:h-20 xs:w-20   text-black border-2 border-greenborder"
                   fill="none" viewBox="4 -2 16 30" stroke="currentColor"

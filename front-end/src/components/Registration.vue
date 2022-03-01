@@ -253,16 +253,24 @@
             <div class="border border-red-600 rounded px-2 py-1">* Campo obbligatorio</div>
         </div>
     </form>
+    <div v-if="isLoading"
+        class="fixed text-red-400 font-bold text-2xl z-10"
+        style="top: 50%; left: 50%; transform: translate(-50%, -50%)"
+    >
+        <Loading></Loading>
+    </div>
 </div>
 
 </template>
 
 <script>
 import LoginRegisterBar from '@/components/LoginRegisterBar.vue';
+import Loading from "@/components/Loading";
 
 export default {
     components: {
-      LoginRegisterBar
+      LoginRegisterBar,
+      Loading
     },
     props: {
         isMobile: {
@@ -280,6 +288,7 @@ export default {
                 email:"",
                 password:""
             },
+            isLoading: false
         }
     },
     computed:{
@@ -301,20 +310,53 @@ export default {
                 type: "warning",
                 timer: 3000,
             }).then(() => {
-                this.isLogging = false
+                this.isLoading = false
             });
         },
+        /** Method to catch Axios exceptions.
+         * @param e {object} Error
+         */
+        catchError(e) {
+        let err;
+        if (e.response) {
+            err = e.response;
+        } else if (e.request) {
+            err = e.request;
+        } else {
+            console.log('Error', e.message);
+        }
+        if (err) {
+            let message = err.statusText;
+            message == "" ? message = "Impossibile raggiungere il server!" : null;
+            this.$fire({
+            text: message,
+            type: "warning",
+            timer: 3000,
+            })
+            // .then(() => {
+            // this.isLoading = false
+            // })
+        }
+        },
         async userRegister(){
+            this.isLoading = true;
             if (this.newUser.password.length < 6) {
                 this.showAlert("La password dev'essere lunga almeno 6 caratteri!");
             } else if (new Date(this.newUser.birthday) > new Date()) {
                 this.showAlert("La tua data di nascita non può essere successiva ad oggi!");
             } else {
-                let response = await this.$axios.post("/r4g/register",this.newUser);
-                this.newUser = response.data;
-                this.$router.push({
-                    name: "login"
-                });
+                try {
+                    let response = await this.$axios.post("/r4g/register",this.newUser)
+                    console.log("Questa è la response: " + response)
+                    this.newUser = response.data;
+                    this.$router.push({
+                        name: "login"
+                    });
+                } catch(e) {
+                    this.catchError(e);
+                } finally {
+                    this.isLoading = false;
+                }
             }
         }
     }
