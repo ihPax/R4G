@@ -15,7 +15,7 @@ class UserController extends Controller
     //REGISTRATION NEW USER
     public function register(request $request){
         $validator = Validator::make($request->all(),[
-            'password' => 'required|string|min:24'
+            'password' => 'required|string|min:6'
         ]);
 
         Log::info("Funziona");
@@ -55,8 +55,6 @@ class UserController extends Controller
             'email' => 'bail|required|email',
             'password' => 'bail|required|min:6'
         ]);
-
-        
 
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
             $user = Auth::user();
