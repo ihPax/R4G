@@ -347,7 +347,6 @@ export default {
             } else {
                 try {
                     let response = await this.$axios.post("/r4g/register",this.newUser)
-                    console.log("Questa è la response: " + response)
                     this.newUser = response.data;
                     this.$router.push({
                         name: "login"

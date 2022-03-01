@@ -15,13 +15,17 @@ class UserController extends Controller
     //REGISTRATION NEW USER
     public function register(request $request){
         $validator = Validator::make($request->all(),[
-            'password' => 'required|string|min:6'
+            'name' => 'bail|required|string|min:2',
+            'surname' => 'bail|required|string|min:2',
+            'birthday' => 'bail|required|date',
+            'email' => 'bail|required|email',
+            'password' => 'bail|required|string|min:6'
         ]);
 
         Log::info("Funziona");
         
         if ($validator->fails()) {
-            return response()->json($validator->errors())->status(422);
+            return response()->json($validator->errors(), 400);
         }
 
         $newUserData = json_decode($request->getContent());
