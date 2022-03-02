@@ -47,14 +47,11 @@ export default {
         }
       }
       if (this.err) {
-        let message = this.err.statusText;
-        message == "" ? message = "Impossibile raggiungere il server!" : null;
+        let message = (e == "Error: Network Error") ? "Impossibile raggiungere il server!" : this.err.statusText;
         this.$fire({
           text: message,
           type: "warning",
           timer: 3000,
-        }).then(() => {
-          this.isLoading = false
         });
       }
     },

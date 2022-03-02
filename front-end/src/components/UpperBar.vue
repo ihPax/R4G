@@ -1,5 +1,11 @@
 <template>
 <div>
+  <div v-if="isLoading"
+    class="fixed text-red-400 font-bold text-2xl z-10"
+    style="top: 50%; left: 50%; transform: translate(-50%, -50%)"
+  >
+    <Loading></Loading>
+  </div>
   <div v-if="!isMobile" id="upperbar" class="flex justify-between items-center mx-4">
     <div class="">
       <router-link to='/dashboard/home'>
@@ -41,8 +47,12 @@
 </template>
 
 <script>
+import Loading from '@/components/Loading';
 export default {
   name: "UpperBar",
+  components: {
+    Loading
+  },
   props: {
     isMobile: {
       type: Boolean,
@@ -51,6 +61,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       links: [
         {
           googleCode: 'home',
@@ -81,6 +92,7 @@ export default {
       }
     },
     async logout() {
+      this.isLoading = true;
       try {
         await this.$axios.get("/r4g/logout");
         localStorage.removeItem("AccessEmail");
@@ -91,6 +103,8 @@ export default {
         });
       } catch(e) {
         this.$emit('catch-error', e);
+      } finally {
+        this.isLoading = false;
       }
     }
   },

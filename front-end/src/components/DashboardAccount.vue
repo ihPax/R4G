@@ -10,6 +10,12 @@
       h-full
       flex flex-col
     ">
+        <div v-if="isLoading"
+            class="fixed text-red-400 font-bold text-2xl z-10"
+            style="top: 50%; left: 50%; transform: translate(-50%, -50%)"
+        >
+            <Loading></Loading>
+        </div>
         <div class="p-4 sm:px-6 justify-center text-center border-b border-gray-200 bg-blue-50 xs:bg-white">
             <h3 class="text-xl leading-6 font-medium text-gray-900">
                 Account
@@ -80,7 +86,11 @@
 </template>
 
 <script>
+import Loading from '@/components/Loading';
 export default {
+    components: {
+        Loading
+    },
     props: {
         isMobile: {
             type: Boolean,
@@ -90,6 +100,7 @@ export default {
     data() {
         return {
             user: {},
+            isLoading: false,
             fields: [
                 {
                     label: 'Impostazioni account',
@@ -158,6 +169,7 @@ export default {
             }
         },
         async logout(){
+            this.isLoading = true;
             try {
                 await this.$axios.get("/r4g/logout");
                 localStorage.removeItem("AccessEmail");
@@ -168,6 +180,8 @@ export default {
                 });
             } catch(e) {
                 this.$emit('catch-error', e);
+            } finally {
+                this.isLoading = false;
             }
         }
     },

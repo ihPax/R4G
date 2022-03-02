@@ -1,5 +1,11 @@
 <template>
   <div>
+    <div v-if="isLoading"
+      class="fixed text-red-400 font-bold text-2xl z-10"
+      style="top: 50%; left: 50%; transform: translate(-50%, -50%)"
+    >
+      <Loading></Loading>
+    </div>
     <div v-if="user" class="h-full xs:h-screen flex flex-col">
       <UpperBar :isMobile="isMobile" @catch-error="catchErr"></UpperBar>
       <div
@@ -23,6 +29,7 @@ import Navigation from "@/components/Navigation.vue";
 import UpperBar from "@/components/UpperBar.vue";
 import NotLogged from "@/components/NotLogged.vue";
 import ButtonToTop from "@/components/ButtonToTop.vue";
+import Loading from '@/components/Loading';
 
 export default {
   name: "App",
@@ -31,6 +38,7 @@ export default {
     UpperBar,
     NotLogged,
     ButtonToTop,
+    Loading,
   },
   props: {
     isMobile: {
@@ -42,16 +50,20 @@ export default {
     return {
       user: {},
       comuni: [],
-      err: {}
+      err: {},
+      isLoading: false,
     }
   },
   async mounted() {
+    this.isLoading = true;
     this.user = JSON.parse(localStorage.getItem("AccessEmail"));
     try {
       this.comuni = (await this.$axios.get("/r4g/zones")).data;
       localStorage.setItem("Zones", JSON.stringify(this.comuni));
     } catch(e) {
       this.catchErr(e);
+    } finally {
+      this.isLoading = false;
     }
   },
   methods: {
@@ -68,14 +80,11 @@ export default {
       }
       console.log(this.err);
       if (this.err) {
-        let message = this.err.statusText;
-        message == "" ? message = "Impossibile raggiungere il server!" : null;
+        let message = (e == "Error: Network Error") ? "Impossibile raggiungere il server!" : this.err.statusText;
         this.$fire({
           text: message,
           type: "warning",
           timer: 3000,
-        }).then(() => {
-          this.isLoading = false
         });
       }
     },
