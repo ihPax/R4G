@@ -233,42 +233,6 @@ export default {
                 name: "registration"
             });
         },
-        /** Method to catch Axios exceptions.
-         * @param e {object} Error
-         * @param isLogin {boolean} The request is to log in or not. Default false
-         */
-        catchError(e, isLogin = false) {
-            let err;
-            if (e.response) {
-                err = e.response;
-            } else if (e.request) {
-                err = e.request;
-            } else {
-                console.log('Error', e.message);
-            }
-            if (isLogin) {
-                if (err.status == 401) {
-                    err.statusText = "Email e/o password non corretta";
-                } else if (err.status == 422) {
-                    err.statusText = "Email non valida e/o password con meno di 6 caratteri";
-                }
-            }
-            if (err) {
-                let message = err.statusText;
-                message == "" ? message = "Impossibile raggiungere il server!" : null;
-                this.$fire({
-                text: message,
-                type: "warning",
-                timer: 3000,
-                })
-                // .then(() => {
-                //     this.isLoading = false
-                // });
-                // this.$alert(err.statusText).then(() => {
-                //     this.isLoading = false;
-                // });
-            }
-        },
         async login(){
             this.isLoading = true;
             this.rememberEmail();
@@ -294,7 +258,8 @@ export default {
                     });
                 }
             } catch(e) {
-                this.catchError(e, true);
+                let isLogin = true;
+                this.$emit('catch-error', e, isLogin);
             }  finally {
                 this.isLoading = false;
             }

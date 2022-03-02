@@ -80,14 +80,18 @@ export default {
         });
       }
     },
-    async logout(){
-      await this.$axios.get("/r4g/logout");
-      localStorage.removeItem("AccessEmail");
-      localStorage.removeItem("Zone");
-      localStorage.removeItem("Zones");
-      this.$router.push({
-        name: "login",
-      });
+    async logout() {
+      try {
+        await this.$axios.get("/r4g/logout");
+        localStorage.removeItem("AccessEmail");
+        localStorage.removeItem("Zone");
+        localStorage.removeItem("Zones");
+        this.$router.push({
+          name: "login",
+        });
+      } catch(e) {
+        this.$emit('catch-error', e);
+      }
     }
   },
 };

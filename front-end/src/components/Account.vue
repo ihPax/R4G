@@ -194,30 +194,6 @@ export default {
     switchEditMode() {
       this.isEdit = !this.isEdit;
     },
-    /** Method to catch Axios exceptions.
-     * @param e {object} Error
-     */
-    catchError(e) {
-      let err;
-      if (e.response) {
-        err = e.response;
-      } else if (e.request) {
-        err = e.request;
-      } else {
-        console.log('Error', e.message);
-      }
-      if (err) {
-        let message = err.statusText;
-        message == "" ? message = "Impossibile raggiungere il server!" : null;
-        this.$fire({
-        text: message,
-        type: "warning",
-        timer: 3000,
-        }).then(() => {
-          this.isLoading = false
-        })
-      }
-    },
     async saveForm() {
       if (this.isEdit == true) {
         this.isLoading = true;
@@ -234,17 +210,18 @@ export default {
           }
         }
         if (this.form.password == "") {
-          this.formWithoutPassword.name = this.form.name;
-          this.formWithoutPassword.surname = this.form.surname;
-          this.formWithoutPassword.birthday = this.form.birthday;
-          this.formWithoutPassword.zone_id = this.form.zone_id;
-          let response = await this.$axios.put(
-            "/r4g/update-user-without-password/" + this.user.id,
-            this.formWithoutPassword
-          ).catch((e) => {
-            this.catchError(e);
-          });
-          localStorage.setItem("AccessEmail", JSON.stringify(response.data));
+          try {
+            this.formWithoutPassword.name = this.form.name;
+            this.formWithoutPassword.surname = this.form.surname;
+            this.formWithoutPassword.birthday = this.form.birthday;
+            this.formWithoutPassword.zone_id = this.form.zone_id;
+            let response = await this.$axios.put(
+              "/r4g/update-user-without-password/" + this.user.id,
+              this.formWithoutPassword);
+            localStorage.setItem("AccessEmail", JSON.stringify(response.data));
+          } catch(e) {
+            this.$emit('catch-error', e);
+          }
         } else if (this.form.password!= "" && this.form.password.length < 6) {
           this.$fire({
             text: "La password dev'essere lunga almeno 6 caratteri!",
@@ -254,13 +231,17 @@ export default {
               console.log("La password viene resettata nel form, infatti:" + this.form.password)
             });    
         } else {
-          let response = await this.$axios.put(
-            "/r4g/update-user/" + this.user.id,
-            this.form
-          ).catch((e) => {
-            this.catchError(e);
-          });
-          localStorage.setItem("AccessEmail", JSON.stringify(response.data));
+          try {
+            let response = await this.$axios.put(
+              "/r4g/update-user/" + this.user.id,
+              this.form
+            ).catch((e) => {
+              this.catchError(e);
+            });
+            localStorage.setItem("AccessEmail", JSON.stringify(response.data));
+          } catch(e) {
+            this.$emit('catch-error', e);
+          }
         }
         this.isLoading = false;
         this.form.password = "";

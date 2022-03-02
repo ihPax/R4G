@@ -313,31 +313,6 @@ export default {
                 this.isLoading = false
             });
         },
-        /** Method to catch Axios exceptions.
-         * @param e {object} Error
-         */
-        catchError(e) {
-        let err;
-        if (e.response) {
-            err = e.response;
-        } else if (e.request) {
-            err = e.request;
-        } else {
-            console.log('Error', e.message);
-        }
-        if (err) {
-            let message = err.statusText;
-            message == "" ? message = "Impossibile raggiungere il server!" : null;
-            this.$fire({
-            text: message,
-            type: "warning",
-            timer: 3000,
-            })
-            // .then(() => {
-            // this.isLoading = false
-            // })
-        }
-        },
         async userRegister(){
             this.isLoading = true;
             if (this.newUser.password.length < 6) {
@@ -352,7 +327,7 @@ export default {
                         name: "login"
                     });
                 } catch(e) {
-                    this.catchError(e);
+                    this.$emit('catch-error', e);
                 } finally {
                     this.isLoading = false;
                 }

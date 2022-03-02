@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="font-montserrat">
-    <router-view :isMobile="isMobile"></router-view>
+    <router-view :isMobile="isMobile" @catch-error="catchErr"></router-view>
   </div>
 </template>
 
@@ -26,6 +26,37 @@ export default {
       let currentWidth = window.innerWidth;
       let breakpointXS = 476;
       this.isMobile = currentWidth < breakpointXS ? true : false;
+    },
+    /** Method to catch Axios exceptions.
+     * @param e {object} Error
+     */
+    catchErr(e, isLogin = false) {
+      if (e.response) {
+        this.err = e.response;
+      } else if (e.request) {
+        this.err = e.request;
+      } else {
+        console.log('Error', e.message);
+      }
+      console.log(this.err);
+      if (isLogin) {
+        if (this.err.status == 401) {
+          this.err.statusText = "Email e/o password non corretta";
+        } else if (this.err.status == 422) {
+          this.err.statusText = "Email non valida e/o password con meno di 6 caratteri";
+        }
+      }
+      if (this.err) {
+        let message = this.err.statusText;
+        message == "" ? message = "Impossibile raggiungere il server!" : null;
+        this.$fire({
+          text: message,
+          type: "warning",
+          timer: 3000,
+        }).then(() => {
+          this.isLoading = false
+        });
+      }
     },
   },
 };
