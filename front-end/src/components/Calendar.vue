@@ -50,7 +50,7 @@
     </v-calendar>
     <div v-if="isExpanded" class="flex flex-col items-center mt-10">
       <t-modal v-model="showModal" header="Scegli il tuo Comune" close="chiudi">
-        <Modal @exit="closeModal"></Modal>
+        <Modal @exit="closeModal" @catch-error="catchErr"></Modal>
       </t-modal>
       <t-button v-if="!isMobile" @click="showModalTrue()" type="button">Cambia la zona</t-button>
       <t-button v-else 
@@ -95,11 +95,9 @@ export default {
     if (this.calendars != "") {
       this.calendar();
     }
-    console.log("dopo chiusura")
   },
   methods: {
     calendar() {
-      console.log("inizio")
       for (let i = 0; i < this.calendars.calendars.length; i++) {
         this.attributes.push({
           customData: {
@@ -121,6 +119,10 @@ export default {
     },
     showModalTrue() {
       this.showModal = !this.showModal;
+    },
+    catchErr(e) {
+      this.$emit('catch-error', e);
+      this.closeModal();
     }
   },
 };

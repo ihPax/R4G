@@ -28,35 +28,35 @@ export default {
   },
   methods: {
     async saveZone(comune) {
-      this.user = JSON.parse(localStorage.getItem("AccessEmail"));
+      try {
+        this.user = JSON.parse(localStorage.getItem("AccessEmail"));
 
-      let idZone = { zone_id: comune.id };
+        let idZone = { zone_id: comune.id };
 
-      await this.$axios.post(
-        "/r4g/insert-zone/" + this.user.email,
-        idZone
-      );
+        await this.$axios.post(
+          "/r4g/insert-zone/" + this.user.email,
+          idZone
+        );
 
-      let responseUser = await this.$axios.get(
-        "/r4g/currentUser/" + this.user.email
-      );
-      this.newUser = responseUser.data;
+        let responseUser = await this.$axios.get(
+          "/r4g/currentUser/" + this.user.email
+        );
+        this.newUser = responseUser.data;
 
-      let parsed = JSON.stringify(this.newUser);
-      localStorage.setItem("AccessEmail", parsed);
+        let parsed = JSON.stringify(this.newUser);
+        localStorage.setItem("AccessEmail", parsed);
 
-      let res = await this.$axios.get(
-        "/r4g/zone-calendar/" + this.newUser.zone_id
-      );
-      let zone = res.data;
-      let calendar = JSON.stringify(zone);
-      localStorage.setItem("Zone", calendar);
+        let res = await this.$axios.get(
+          "/r4g/zone-calendar/" + this.newUser.zone_id
+        );
+        let zone = res.data;
+        let calendar = JSON.stringify(zone);
+        localStorage.setItem("Zone", calendar);
 
-      this.$router.push({
-        name: "calendar",
-      });
-
-      this.$emit("exit", true);
+        this.$emit("exit", true);
+      } catch(e) {
+        this.$emit('catch-error', e);
+      }
     },
   },
 };

@@ -11,20 +11,21 @@
 </template>
 
 <script>
-import materiali from "../../materiali.json"
+import materiali from "../../materiali.json";
 export default {
-data(){
+  data() {
     return {
-        materiali:materiali,
-        user:[],
-        bin:[]
+      materiali: materiali,
+      user: [],
+      bin: []
     }
-},
-mounted() {
+  },
+  mounted() {
     console.log(materiali)
-},
-methods:{
-   async chooseMaterial(materiale){
+  },
+  methods: {
+    async chooseMaterial(materiale) {
+      try {
         this.user = JSON.parse(localStorage.getItem("AccessEmail"));
         let id = this.user.id;
         let response = await this.$axios.post("/r4g/new-bin/"+id,{name:materiale.name});
@@ -47,7 +48,10 @@ methods:{
         localStorage.setItem("BinUser", BinUser);
 
         this.$emit("exit", true);
+      } catch(e) {
+        this.$emit('catch-error', e);
+      }
     }
-}
+  }
 }
 </script>
