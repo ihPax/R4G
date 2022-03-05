@@ -1,9 +1,9 @@
 <template>
-  <div class="flex flex-col h-64 overflow-auto">
+  <div class="flex flex-col overflow-auto">
     <div
       v-for="(comune, index) in comuni"
       :key="index"
-      class="flex flex-row cursor-pointer hover:bg-blue-100 rounded"
+      class="flex flex-row cursor-pointer bg-blue-50 hover:bg-blue-100 my-1 rounded"
     >
       <p class="w-full h-full p-3 font-medium" @click="saveZone(comune)">{{ comune.name }}</p>
     </div>

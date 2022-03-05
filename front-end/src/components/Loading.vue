@@ -27,6 +27,7 @@ export default {
             format: 'rgb' 
         });
         this.spinnerColor = color;
+        console.log(`%c COLORE SPINNER `, `background: ${this.spinnerColor}; color: #fff; font-weight: bold`);
     }
 }
 </script>

@@ -42,8 +42,16 @@
                         <span class='text-red-500 font-bold' v-if="!user.password">*</span>
                         <span v-else>&nbsp;&nbsp;</span>
                     </div>
-                    <div class="flex flex-col">
-                        <input type='password' placeholder="Password" name="password" v-model="user.password" autocomplete="password" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
+                    <div class="flex flex-col relative">
+                        <input :type="isPasswordHidden ? 'password' : 'text'" placeholder="Password" name="password" v-model="user.password" autocomplete="password" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
+                        <div v-if="isPasswordHidden == true" @click="isPasswordHidden = false" 
+                            class="material-icons absolute top-0 right-0 mt-1 -mr-4 cursor-pointer">
+                                visibility_off
+                        </div>
+                        <div v-if="isPasswordHidden == false" @click="isPasswordHidden = true"
+                            class="material-icons absolute top-0 right-0 mt-1 -mr-4 cursor-pointer">
+                                visibility
+                        </div>
                     </div>
                 </div>
 
@@ -120,21 +128,32 @@
         <!--EMAIL-->
         <div class="flex flex-row mt-5 justify-between">
             <input type='text' placeholder="Email" name="email" autocomplete="email" v-model="user.email" 
-            class="border-2 border-orangelogo mx-5 px-5 rounded-lg w-full h-12"
-            :class="{
-                'border border-red-600 text-black': !isFormValid && !user.email,
-                'bg-white': isFormValid
-            }"/>
+                class="border-2 border-orangelogo mx-5 px-5 rounded-lg w-full h-12"
+                :class="{
+                    'border border-red-600 text-black': !isFormValid && !user.email,
+                    'bg-white': isFormValid
+                }"
+            />
         </div>
 
         <!--PASSWORD-->
-        <div class="flex flex-row my-5 justify-between">
-            <input type='password' placeholder="Password" name="password" autocomplete="password" v-model="user.password" 
-            class="border-2 border-orangelogo mx-5 px-5 rounded-lg w-full h-12"
-            :class="{
-                'border border-red-600 text-black': !isFormValid && !user.password,
-                'bg-white': isFormValid
-            }"/>
+        <div class="flex flex-row my-5 justify-between relative">
+            <input :type="isPasswordHidden ? 'password' : 'text'"
+                placeholder="Password" name="password" autocomplete="password" v-model="user.password" 
+                class="border-2 border-orangelogo mx-5 px-5 rounded-lg w-full h-12"
+                :class="{
+                    'border border-red-600 text-black': !isFormValid && !user.password,
+                    'bg-white': isFormValid
+                }"
+            />
+            <div v-if="isPasswordHidden == true" @click="isPasswordHidden = false" 
+                class="material-icons absolute top-0 right-0 p-2 mt-1 mr-6 cursor-pointer">
+                    visibility_off
+            </div>
+            <div v-if="isPasswordHidden == false" @click="isPasswordHidden = true"
+                class="material-icons absolute top-0 right-0 p-2 mt-1 mr-6 cursor-pointer">
+                    visibility
+            </div>
         </div>
 
         <!--BUTTON LOGIN-->
@@ -203,7 +222,8 @@ export default {
             },
             Alluser:[],
             isLoading: false,
-            isRemembered: false
+            isRemembered: false,
+            isPasswordHidden: true
         }
     },
     mounted(){

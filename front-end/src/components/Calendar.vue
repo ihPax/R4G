@@ -49,7 +49,7 @@
       </template> -->
     </v-calendar>
     <div v-if="isExpanded" class="flex flex-col items-center mt-10">
-      <t-modal v-model="showModal" header="Scegli il tuo Comune" close="chiudi">
+      <t-modal v-model="showModal" header="Scegli la tua zona" close="chiudi">
         <Modal @exit="closeModal" @catch-error="catchErr"></Modal>
       </t-modal>
       <t-button v-if="!isMobile" @click="showModalTrue()" type="button">Cambia la zona</t-button>
