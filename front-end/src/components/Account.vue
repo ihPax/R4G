@@ -63,6 +63,7 @@
                   :id="field.type"
                   v-model="field.code"
                 >
+                  <option hidden disabled value="">{{field.optionPlaceholder}}</option>
                   <option
                     v-for="option in field.options"
                     :key="option.id"
@@ -86,7 +87,7 @@
                 Annulla
               </t-button>
               <t-button2 @click="saveForm(); switchEditMode();" type="submit" :disabled="isLoading" class="xs:mx-2">
-                {{ isEdit ? "Salva" : "Modifica" }}
+                {{ isEdit ? "Salva" : "Modifica" }} {{zone.name == undefined ? "Ciao" : ""}}
               </t-button2>
             </div>
           </li>
@@ -136,9 +137,9 @@ export default {
   mounted() {
     this.isLoading = true;
     this.user = JSON.parse(localStorage.getItem("AccessEmail"));
-    this.zone = JSON.parse(localStorage.getItem("Zone"));
     this.comuni = JSON.parse(localStorage.getItem("Zones"));
-    console.log(this.comuni);
+    let zone = JSON.parse(localStorage.getItem("Zone"));
+    this.zone.name = zone ? zone.name : '';
     this.fields = [
       {
         label: "Nome",
@@ -177,6 +178,7 @@ export default {
         code: this.zone.name,
         type: "select",
         options: this.comuni,
+        optionPlaceholder: "Seleziona la tua zona"
       },
     ];
     this.isLoading = false;

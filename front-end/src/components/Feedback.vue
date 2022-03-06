@@ -67,8 +67,16 @@
                     :id="field.code"
                     cols="30"
                     rows="8"
+                    :keydown="liveCountDown(newFeedback[field.code])"
+                    :maxlength="textAreaFeedback.maxCharacters"
                 >
                 </textarea>
+                <div v-if="field.type == 'textarea'" 
+                    class="text-xxs px-2 py-1" 
+                    :class="textAreaFeedback.maxCharacters == textAreaFeedback.messageLength ? 'text-red-400 font-medium' : 'text-gray-500'"
+                >
+                    Caratteri rimasti: {{textAreaFeedback.maxCharacters - textAreaFeedback.messageLength}}
+                </div>
             </div>
             <div class="flex justify-center my-8">
                 <t-button2
@@ -137,13 +145,18 @@ export default {
             comuni: [],
             fields: [],
             isFeedbackSent: false,
-            error: {}
+            error: {},
+            textAreaFeedback: {
+                messageLength: 0,
+                maxCharacters: 200,
+                isFirstAlert: true
+            }
         }
     },
     mounted() {
         this.comuni = JSON.parse(localStorage.getItem("Zones"));
-        this.zone = JSON.parse(localStorage.getItem("Zone"));
-        this.newFeedback.zone = this.zone.name;
+        let zone = JSON.parse(localStorage.getItem("Zone"));
+        zone ? this.newFeedback.zone = zone.name : null;
         this.user = JSON.parse(localStorage.getItem("AccessEmail"));
         this.newFeedback.to_name = this.user.name;
         this.fields = [
@@ -157,6 +170,7 @@ export default {
                 code: "zone",
                 type: "select",
                 options: this.comuni,
+                optionPlaceholder: "Seleziona la tua zona"
             },
             {        
                 label: "Tipologia",
@@ -166,7 +180,7 @@ export default {
                 optionPlaceholder: "Seleziona il tipo di richiesta",
             },
             {        
-                label: "Dicci la tua",
+                label: "Spiega il tuo problema o facci conoscere la tua opinione!",
                 code: "message",
                 type: "textarea"
             },   
@@ -203,6 +217,21 @@ export default {
             this.$router.push({
                 name: "dashboard-account",
             });
+        },
+        liveCountDown(text) {
+            this.textAreaFeedback.messageLength = text.length;
+            if (
+                this.textAreaFeedback.messageLength == this.textAreaFeedback.maxCharacters &&
+                this.textAreaFeedback.isFirstAlert == true         
+            ) {
+                this.$fire({
+                text: "Hai raggiunto il limite massimo di caratteri!",
+                type: "warning",
+                timer: 5000,
+                }).then(() => {
+                    this.textAreaFeedback.isFirstAlert = false;
+                });
+            }
         }
     },
     computed: {
