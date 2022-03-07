@@ -26,6 +26,7 @@ class BinUserController extends Controller
 
     //DELETE BIN-USER
     public function delete_bin_user($id){
+        
         return BinUser::destroy($id);
     }
 }
