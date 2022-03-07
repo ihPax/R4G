@@ -227,10 +227,15 @@ export default {
         }
     },
     mounted(){
-        let emailStoraged = JSON.parse(localStorage.getItem("Email"));
-        if (emailStoraged) {
-            this.user.email = emailStoraged;
-            this.isRemembered = true;
+        let emailFromRegistration = localStorage.getItem("EmailFromRegistration");
+        if (emailFromRegistration) {
+            this.user.email = emailFromRegistration;
+        } else {
+            let emailStoraged = JSON.parse(localStorage.getItem("Email"));
+            if (emailStoraged) {
+                this.user.email = emailStoraged;
+                this.isRemembered = true;
+            }
         }
     },
     computed:{
@@ -255,6 +260,7 @@ export default {
         },
         async login(){
             this.isLoading = true;
+            localStorage.removeItem("EmailFromRegistration");
             this.rememberEmail();
             try {
                 let res = await this.$axios.post("/r4g/login", this.user);

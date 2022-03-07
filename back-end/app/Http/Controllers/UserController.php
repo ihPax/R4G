@@ -105,7 +105,8 @@ class UserController extends Controller
             'surname'  => 'bail|required|string|min:2',
             'birthday' => 'bail|required|date',
             'email'    => 'bail|required|email',
-            'password' => 'bail|nullable|string|min:6'
+            'password' => 'bail|nullable|string|min:6',
+            'zone_id'  => 'bail|nullable|numeric'
         ]);
 
         if ($validator->fails()) {
@@ -118,11 +119,12 @@ class UserController extends Controller
         $user->name = $data->name;
         $user->surname = $data->surname;
         $user->birthday = $data->birthday;
-        if ($user->password != "") {
+        if ($data->password != "") {
             $user->password = Hash::make($data->password);
         }
-        $user->zone_id = $data->zone_id;
-
+        if ($data->zone_id != "") {
+            $user->zone_id = $data->zone_id;
+        }
         $user -> save();
         return $user;
     }

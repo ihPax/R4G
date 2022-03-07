@@ -217,6 +217,12 @@ export default {
               this.form
             )
             localStorage.setItem("AccessEmail", JSON.stringify(response.data));
+            let zone_id = this.form.zone_id;
+            if (zone_id != null) {
+              let zone = ( await this.$axios.get("/r4g/zone-calendar/" + zone_id) ).data;
+              let calendar = JSON.stringify(zone);
+              localStorage.setItem("Zone", calendar);
+            }
           } catch(e) {
             this.$emit('catch-error', e);
           }
