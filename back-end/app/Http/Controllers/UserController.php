@@ -100,9 +100,17 @@ class UserController extends Controller
 
     //UPDATE USER
     public function updateUser(Request $request, $id){
-        $this->validate($request,[
-            'password' => 'bail|required|min:6'
+        $validator = Validator::make($request->all(),[
+            'name' => 'bail|required|string|min:2',
+            'surname' => 'bail|required|string|min:2',
+            'birthday' => 'bail|required|date',
+            'email' => 'bail|required|email',
+            'password' => 'bail|required|string|min:6'
         ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
         
         $data = json_decode($request->getContent());
         $user = User::find($id);
@@ -121,6 +129,17 @@ class UserController extends Controller
     public function updateUserWithoutPassword(Request $request, $id){
         $data = json_decode($request->getContent());
         $user = User::find($id);
+
+        $validator = Validator::make($request->all(),[
+            'name' => 'bail|required|string|min:2',
+            'surname' => 'bail|required|string|min:2',
+            'birthday' => 'bail|required|date',
+            'email' => 'bail|required|email'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
 
         $user->name = $data->name;
         $user->surname = $data->surname;

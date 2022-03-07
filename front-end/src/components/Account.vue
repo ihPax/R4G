@@ -87,7 +87,7 @@
                 Annulla
               </t-button>
               <t-button2 @click="saveForm(); switchEditMode();" type="submit" :disabled="isLoading" class="xs:mx-2">
-                {{ isEdit ? "Salva" : "Modifica" }} {{zone.name == undefined ? "Ciao" : ""}}
+                {{ isEdit ? "Salva" : "Modifica" }}
               </t-button2>
             </div>
           </li>
