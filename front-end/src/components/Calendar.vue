@@ -1,7 +1,7 @@
 <template>
   <div class="text-center section">
     <h2 class="flex justify-center font-bold text-lg">
-      <div v-if="isExpanded" class="py-3 border-b border-gray-200 xs:border-b-0 bg-blue-50 xs:bg-white font-medium xs:font-bold"> Calendario zona di {{calendars.name}} </div>
+      <div v-if="isExpanded" class="flex-grow py-4 border-b border-gray-200 xs:border-b-0 bg-blue-50 xs:bg-white font-medium xs:font-bold text-xl"> Calendario zona di {{calendars.name}} </div>
     </h2>
     <v-calendar
       class="custom-calendar max-w-full"
@@ -49,8 +49,8 @@
       </template> -->
     </v-calendar>
     <div v-if="isExpanded" class="flex flex-col items-center mt-10">
-      <t-modal v-model="showModal" header="Scegli il tuo Comune" close="chiudi">
-        <Modal @exit="closeModal"></Modal>
+      <t-modal v-model="showModal" header="Scegli la tua zona" close="chiudi">
+        <Modal @exit="closeModal" @catch-error="catchErr"></Modal>
       </t-modal>
       <t-button v-if="!isMobile" @click="showModalTrue()" type="button">Cambia la zona</t-button>
       <t-button v-else 
@@ -95,11 +95,9 @@ export default {
     if (this.calendars != "") {
       this.calendar();
     }
-    console.log("dopo chiusura")
   },
   methods: {
     calendar() {
-      console.log("inizio")
       for (let i = 0; i < this.calendars.calendars.length; i++) {
         this.attributes.push({
           customData: {
@@ -121,6 +119,10 @@ export default {
     },
     showModalTrue() {
       this.showModal = !this.showModal;
+    },
+    catchErr(e) {
+      this.$emit('catch-error', e);
+      this.closeModal();
     }
   },
 };

@@ -1,9 +1,9 @@
 <template>
- <div class="flex flex-col h-64 overflow-auto">
+ <div class="flex flex-col overflow-auto">
     <div
       v-for="(materiale,index) in materiali"
       :key="index"
-      class="flex flex-row cursor-pointer hover:bg-blue-100 rounded"
+      class="flex flex-row cursor-pointer bg-blue-50 hover:bg-blue-100 my-1 rounded"
     >
       <p class="w-full h-full p-3 font-medium" @click="chooseMaterial(materiale)">{{ materiale.name }}</p>
     </div>
@@ -11,20 +11,21 @@
 </template>
 
 <script>
-import materiali from "../../materiali.json"
+import materiali from "../../materiali.json";
 export default {
-data(){
+  data() {
     return {
-        materiali:materiali,
-        user:[],
-        bin:[]
+      materiali: materiali,
+      user: [],
+      bin: []
     }
-},
-mounted() {
+  },
+  mounted() {
     console.log(materiali)
-},
-methods:{
-   async chooseMaterial(materiale){
+  },
+  methods: {
+    async chooseMaterial(materiale) {
+      try {
         this.user = JSON.parse(localStorage.getItem("AccessEmail"));
         let id = this.user.id;
         let response = await this.$axios.post("/r4g/new-bin/"+id,{name:materiale.name});
@@ -47,7 +48,10 @@ methods:{
         localStorage.setItem("BinUser", BinUser);
 
         this.$emit("exit", true);
+      } catch(e) {
+        this.$emit('catch-error', e);
+      }
     }
-}
+  }
 }
 </script>

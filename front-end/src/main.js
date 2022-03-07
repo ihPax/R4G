@@ -76,18 +76,18 @@ const settings = {
   component: TModal,
     props: {
     fixedClasses: {
-      overlay: 'z-40  left-0 top-0 bottom-0 right-0 w-full h-full fixed bg-opacity-50',
-        wrapper: 'relative mx-auto z-50 max-w-lg px-3 py-12 justify-center items-center flex',
-          modal: 'overflow-visible relative  rounded',
+      overlay: 'z-40 left-0 top-0 bottom-0 right-0 w-full h-full fixed bg-opacity-50',
+        wrapper: 'relative mx-auto z-50 max-w-lg px-3 py-6 xs:py-12 justify-center items-center flex',
+          modal: 'overflow-visible relative rounded',
             body: 'p-3',
-              header: 'border-b p-3 rounded-t font-bold',
+              header: 'border-b border-black p-3 rounded-t font-bold',
                 footer: ' p-3 rounded-b',
                   close: 'flex items-center justify-center rounded-full absolute right-0 top-0 -m-3 h-8 w-8 transition duration-100 ease-in-out focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50'
     },
     classes: {
       overlay: 'bg-black',
-        wrapper: ' ',
-          modal: 'bg-white w-3/5',
+        wrapper: 'w-screen h-full',
+          modal: 'bg-white w-9/10',
             body: 'p-3',
               header: 'border-gray-100',
                 footer: 'bg-gray-100',
