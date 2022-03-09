@@ -6,6 +6,8 @@ use App\Models\Bin;
 use App\Models\Calendar;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class BinController extends Controller
 {
@@ -68,5 +70,23 @@ class BinController extends Controller
     //DELETE BIN
     public function deleteBin($id){
         return Bin::destroy($id);
+    }
+
+    //SEND EMAIL 80%
+    public function sendEmailPercent($id){
+        $bins = DB::table("bins")->where('id',$id)->first();
+        $user_id = $bins->user_id;
+        $material = $bins->name;
+
+        $users = DB::table("users")->where('id',$user_id)->first();
+        $email = $users->email;
+
+        Mail::send('emailPercent',['name' => $material],function($message) use($email){
+            $message->from('r4g.recycleteam@gmail.com');
+            $message->to($email);
+            $message->subject('R4G - Notifica Percentuale');
+        });
+
+        return array("status" => 200, "message" => "Email Inviata");
     }
 }
