@@ -258,7 +258,7 @@ export default {
     this.getBin();
     this.changePercent();
     this.getDistance();
-    console.log(this.userBin);
+    console.log(this.userBin.id);
   },
   methods: {
     //apre la modale delle zone
@@ -276,8 +276,18 @@ export default {
       console.log("valore",distance)
       let valore = Math.floor(((lenght-distance)*100)/lenght);
       this.value = isNaN(valore) ? 0 : valore;
-      console.log("percentuale",this.value)
+
+      if(this.value > 80){
+        this.sendEMail()
+      }
+
       this.changePercent();
+    },
+
+    async sendEMail(){
+      await axios.get("/r4g/view-bin-user/" + this.userBin.id)
+            console.log("id cestino",this.userBin.id);
+
     },
 
     //alert che ti avvisa di scegliere prima la zona e poi il cestino
@@ -295,7 +305,6 @@ export default {
       } else {
         this.showModalMaterial = !this.showModalMaterial;
       }
-     
     },
 
     //chiude la modale al click della scelta della zona

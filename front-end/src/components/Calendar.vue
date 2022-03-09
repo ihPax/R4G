@@ -1,7 +1,7 @@
 <template>
   <div class="text-center section">
     <h2 class="flex justify-center font-bold text-lg">
-      <div v-if="isExpanded" class="flex-grow py-4 border-b border-gray-200 xs:border-b-0 bg-blue-50 xs:bg-white font-medium xs:font-bold text-xl"> Calendario zona di {{calendars.name}} </div>
+      <div v-if="isExpanded" class="flex-grow py-4 border-b border-gray-200 xs:border-b-0 bg-blue-50 xs:bg-white font-medium xs:font-bold text-xl"> Calendario <span v-if="isZoneSettled">zona di {{calendars.name}}</span> </div>
     </h2>
     <v-calendar
       class="custom-calendar max-w-full"
@@ -30,23 +30,6 @@
           </div>
         </div>
       </template>
-
-      <!-- <template v-slot:day-content="{ day, attributes }">
-        <div v-for="attr in attributes" :key="attr.id"
-         class="flex flex-col h-full z-10 overflow-hidden ">
-          <span :class="!isExpanded ? attr.customData.class + ' flex content-center items-center justify-center text-white w-6 h-6 rounded-full text-sm'  :'day-label text-sm text-gray-900 my-1'">{{ day.day }}</span>
-          <div class="flex-grow overflow-y-auto overflow-x-auto">
-            <div
-              class="mt-0 mb-1 font-bold"
-              :class="isExpanded ? 
-              attr.customData.class + ' text-xxs w-2 h-2 mx-auto rounded-full sm:text-xs sm:leading-tight sm:rounded sm:p-2 sm:mx-1 sm:text-white sm:w-auto sm:h-auto' : 
-              ''"
-            >
-              <div class="hidden sm:block">{{ isExpanded ? attr.customData.title : "" }}</div> 
-            </div>
-          </div>
-        </div>
-      </template> -->
     </v-calendar>
     <div v-if="isExpanded" class="flex flex-col items-center mt-10">
       <t-modal v-model="showModal" header="Scegli la tua zona" close="chiudi">
@@ -85,18 +68,24 @@ export default {
       masks: {
         weekdays: "WWW",
       },
-      calendars: [],
+      calendars: {},
       attributes: [],
-      showModal: false
+      showModal: false,
+      isZoneSettled: false
     };
   },
   mounted() {
-    this.calendars = JSON.parse(localStorage.getItem("Zone")) || "";
-    if (this.calendars != "") {
-      this.calendar();
-    }
+    this.getZone();
   },
   methods: {
+    getZone() {
+      let zone = JSON.parse(localStorage.getItem("Zone"));
+      if (zone) {
+        this.isZoneSettled = true;
+        this.calendars = zone;
+        this.calendar();
+      }
+    },
     calendar() {
       for (let i = 0; i < this.calendars.calendars.length; i++) {
         this.attributes.push({
@@ -111,10 +100,7 @@ export default {
     closeModal() {
       this.showModal = !this.showModal;
       this.attributes = [];
-      this.calendars = JSON.parse(localStorage.getItem("Zone")) || "";
-      if (this.calendars != "") {
-        this.calendar();
-      }
+      this.getZone();
       console.log(this.calendars.calendars.length)
     },
     showModalTrue() {

@@ -87,7 +87,7 @@
                 Annulla
               </t-button>
               <t-button2 @click="saveForm(); switchEditMode();" type="submit" :disabled="isLoading" class="xs:mx-2">
-                {{ isEdit ? "Salva" : "Modifica" }} {{zone.name == undefined ? "Ciao" : ""}}
+                {{ isEdit ? "Salva" : "Modifica" }}
               </t-button2>
             </div>
           </li>
@@ -124,13 +124,7 @@ export default {
         email: "",
         password: "",
         birthday: "",
-        zone_id: "",
-      },
-      formWithoutPassword: {
-        name: "",
-        surname: "",
-        birthday: "",
-        zone_id: "",
+        zone_id: null,
       },
     }
   },
@@ -197,10 +191,9 @@ export default {
     async saveForm() {
       if (this.isEdit == true) {
         this.isLoading = true;
-        let form = this.form;
         let i = 0;
-        for (let property in form) {
-          form[property] = this.fields[i].code;
+        for (let property in this.form) {
+          this.form[property] = this.fields[i].code;
           i++;
           // console.log(`${property}: ${form[property]}`);
         }
@@ -209,20 +202,7 @@ export default {
             this.form.zone_id = this.comuni[i].id;
           }
         }
-        if (this.form.password == "") {
-          try {
-            this.formWithoutPassword.name = this.form.name;
-            this.formWithoutPassword.surname = this.form.surname;
-            this.formWithoutPassword.birthday = this.form.birthday;
-            this.formWithoutPassword.zone_id = this.form.zone_id;
-            let response = await this.$axios.put(
-              "/r4g/update-user-without-password/" + this.user.id,
-              this.formWithoutPassword);
-            localStorage.setItem("AccessEmail", JSON.stringify(response.data));
-          } catch(e) {
-            this.$emit('catch-error', e);
-          }
-        } else if (this.form.password!= "" && this.form.password.length < 6) {
+        if (this.form.password != "" && this.form.password.length < 6) {
           this.$fire({
             text: "La password dev'essere lunga almeno 6 caratteri!",
             type: "warning",
@@ -237,6 +217,12 @@ export default {
               this.form
             )
             localStorage.setItem("AccessEmail", JSON.stringify(response.data));
+            let zone_id = this.form.zone_id;
+            if (zone_id) {
+              let zone = ( await this.$axios.get("/r4g/zone-calendar/" + zone_id) ).data;
+              let calendar = JSON.stringify(zone);
+              localStorage.setItem("Zone", calendar);
+            }
           } catch(e) {
             this.$emit('catch-error', e);
           }
