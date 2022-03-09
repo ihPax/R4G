@@ -59,9 +59,8 @@
                         <span v-else>&nbsp;&nbsp;</span>
                     </div>
                     <div class="flex flex-col w-full">
-                        <input type='text' placeholder="Data di nascita" name="birthday" autocomplete="birthday" v-model="newUser.birthday" 
+                        <input :type="isInputDate == true ? 'date' : 'text'" @click="isInputDate = true" placeholder="Data di nascita" name="birthday" autocomplete="birthday" v-model="newUser.birthday" 
                             class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"
-                            onfocus="(this.type='date')"
                             :max="new Date()"
                         />
                     </div>
@@ -156,7 +155,7 @@
         </router-link>
     </div>
 
-    <!-- MOBILE -->
+    <!-- VERSIONE MOBILE -->
     <form v-else class="h-full w-full flex flex-col">
         <div class="flex flex-col justify-center">
             <router-link to="/landing" class="flex justify-center items-center">
@@ -196,12 +195,11 @@
 
          <!--DATA-->
         <div class="flex flex-row mt-5 justify-between">
-            <input type='text' placeholder="Data di nascita" name="birthday" autocomplete="birthday" v-model="newUser.birthday" 
+            <input :type="isInputDate == true ? 'date' : 'text'" @click="isInputDate = true" placeholder="Data di nascita" name="birthday" autocomplete="birthday" v-model="newUser.birthday" 
                 class="border-2 border-orangelogo mx-5 px-5 rounded-lg h-12 w-full bg-white"
                 :class="{
                     'border border-red-600 text-black': !isFormValid && !newUser.birthday
                 }"
-                onfocus="(this.type='date')"
                 :max="new Date()"
             />
         </div>
@@ -305,7 +303,8 @@ export default {
                 password:""
             },
             isLoading: false,
-            isPasswordHidden: true
+            isPasswordHidden: true,
+            isInputDate: false
         }
     },
     computed:{
@@ -340,6 +339,8 @@ export default {
                 try {
                     let response = await this.$axios.post("/r4g/register",this.newUser)
                     this.newUser = response.data;
+                    let email = localStorage.setItem("EmailFromRegistration", this.newUser.email);
+                    console.log(email);
                     this.$router.push({
                         name: "login"
                     });

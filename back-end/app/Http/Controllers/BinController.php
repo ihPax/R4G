@@ -34,7 +34,7 @@ class BinController extends Controller
 
     //VIEW ALL
     public function viewMateriale($id){
-        $bin = Bin::with(["zones"])->where("id",$id)->first();
+        $bin = Bin::with(["zones"])->where("id",$id)->get();
         return $bin;
     }
 
@@ -62,7 +62,7 @@ class BinController extends Controller
 
     //GET BIN
     public function getBin($user_id){
-        return Bin::where("user_id",$user_id)->first();
+        return Bin::where("user_id",$user_id)->get();
     }
 
     //DELETE BIN

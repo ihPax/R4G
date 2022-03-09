@@ -15,10 +15,10 @@ class UserController extends Controller
     //REGISTRATION NEW USER
     public function register(request $request){
         $validator = Validator::make($request->all(),[
-            'name' => 'bail|required|string|min:2',
-            'surname' => 'bail|required|string|min:2',
+            'name'     => 'bail|required|string|min:2',
+            'surname'  => 'bail|required|string|min:2',
             'birthday' => 'bail|required|date',
-            'email' => 'bail|required|email',
+            'email'    => 'bail|required|email',
             'password' => 'bail|required|string|min:6'
         ]);
 
@@ -44,7 +44,7 @@ class UserController extends Controller
     //LOGIN USER
     public function login(Request $request){
         $validator = Validator::make($request->all(), [
-            'email' => 'bail|required|email',
+            'email'    => 'bail|required|email',
             'password' => 'bail|required|string|min:6'
         ]);
 
@@ -56,7 +56,7 @@ class UserController extends Controller
         }
 
         $this->validate($request,[
-            'email' => 'bail|required|email',
+            'email'    => 'bail|required|email',
             'password' => 'bail|required|min:6'
         ]);
 
@@ -64,13 +64,13 @@ class UserController extends Controller
             $user = Auth::user();
             return response()->json([
               'status' => 'success',
-              'user' => $user,
+              'user'   => $user,
             ]
             ,200); 
         }else{ 
             return response()->json([
               'status' => 'error',
-              'user' => 'Unauthorized Access'
+              'user'   => 'Unauthorized Access'
             ]
             ,401); 
         }
@@ -100,9 +100,18 @@ class UserController extends Controller
 
     //UPDATE USER
     public function updateUser(Request $request, $id){
-        $this->validate($request,[
-            'password' => 'bail|required|min:6'
+        $validator = Validator::make($request->all(),[
+            'name'     => 'bail|required|string|min:2',
+            'surname'  => 'bail|required|string|min:2',
+            'birthday' => 'bail|required|date',
+            'email'    => 'bail|required|email',
+            'password' => 'bail|nullable|string|min:6',
+            'zone_id'  => 'bail|nullable|numeric'
         ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
         
         $data = json_decode($request->getContent());
         $user = User::find($id);
@@ -110,23 +119,12 @@ class UserController extends Controller
         $user->name = $data->name;
         $user->surname = $data->surname;
         $user->birthday = $data->birthday;
-        $user->password = Hash::make($data->password);
-        $user->zone_id = $data->zone_id;
-
-        $user -> save();
-        return $user;
-    }
-
-    //UPDATE USER WITHOUT PASSWORD
-    public function updateUserWithoutPassword(Request $request, $id){
-        $data = json_decode($request->getContent());
-        $user = User::find($id);
-
-        $user->name = $data->name;
-        $user->surname = $data->surname;
-        $user->birthday = $data->birthday;
-        $user->zone_id = $data->zone_id;
-
+        if ($data->password != "") {
+            $user->password = Hash::make($data->password);
+        }
+        if ($data->zone_id != "") {
+            $user->zone_id = $data->zone_id;
+        }
         $user -> save();
         return $user;
     }
