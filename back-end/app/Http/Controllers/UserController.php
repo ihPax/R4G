@@ -116,16 +116,25 @@ class UserController extends Controller
         $data = json_decode($request->getContent());
         $user = User::find($id);
 
-        $user->name = $data->name;
-        $user->surname = $data->surname;
-        $user->birthday = $data->birthday;
-        if ($data->password != "") {
-            $user->password = Hash::make($data->password);
+        //verifico se la email nella richiesta è quella ssociata all'id nel db
+        if ($data->email === $user->email) {
+            $user->name = $data->name;
+            $user->surname = $data->surname;
+            $user->birthday = $data->birthday;
+            if ($data->password != "") {
+                $user->password = Hash::make($data->password);
+            }
+            if ($data->zone_id != "") {
+                $user->zone_id = $data->zone_id;
+            }
+            $user -> save();
+            return $user;
+        } else { 
+            return response()->json([
+              'status' => 'error',
+              'user'   => 'Unauthorized Access'
+            ]
+            , 401); 
         }
-        if ($data->zone_id != "") {
-            $user->zone_id = $data->zone_id;
-        }
-        $user -> save();
-        return $user;
     }
 }
