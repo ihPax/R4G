@@ -168,64 +168,6 @@
         </div>
 
         <div class="flex flex-col mx-4">
-          <!-- collega il tuo cestino  -->
-          <!-- <div v-if="localBin == '' && !isLoading" class="w-full flex justify-center items-end h-72 bg-blue-400 rounded-2xl">
-          <t-button2
-            @click="changeBinStatus()"
-            v-if="localBin == ''"
-            class="flex flex-col mx-1 my-4"
-          >
-            Collega il tuo cestino
-          </t-button2>
-        </div>
-        <div v-if="isLoading" class="flex justify-center items-center h-72 bg-blue-400 rounded-2xl">
-          <Loading></Loading>
-        </div>
-        <div>
-          <t-modal
-            v-model="showModalMaterial"
-            header="Scegli il materiale"
-            close="chiudi"
-          >
-            <ModalMaterial @exit="closeMaterialModal"></ModalMaterial>
-          </t-modal>
-          <div class="flex flex-col rounded-2xl" v-if="localBin != '' && !isLoading" :style="`background-color:${color}`">
-            <div class="flex flex-col px-4 pt-3 justify-center w-full">
-              <div class="truncate">
-                <div class="font-bold text-white text-2xl">
-                  <div>
-                    {{ bin.name }}
-                  </div>
-                  <div class="flex justify-between">
-                    <img v-if="bin.name == 'CARTA'" src="../assets/carta.png" class="h-24 flex-shrink-0">
-                    <img v-if="bin.name == 'SECCO'" src="../assets/secco.png" class="h-24 flex-shrink-0">
-                    <img v-if="bin.name == 'UMIDO'" src="../assets/umido.png" class="h-24 flex-shrink-0">
-                    <img v-if="bin.name == 'PLASTICA/LATTINE'" src="../assets/plastica.png" class="h-24 flex-shrink-0">
-                    <div class="relative">
-                      <svg id="svg" width="120" height="120" viewPort="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" :style="`stroke:${color}`">
-                        <circle :r="r" cx="60" cy="60" fill="white" stroke-dasharray="235.26" stroke-dashoffset="0"></circle>
-                        <circle id="bar" :r="r" cx="60" cy="60" fill="transparent" stroke-dasharray="235.26" stroke-dashoffset="0" :style="`stroke-dashoffset: ${rct}px;`" stroke='#000000'></circle>
-                      </svg>
-                      <div class="h3 absolute font-bold text-xl z-10 text-black" style="left:50%; top:50%; transform: translate(-50%, -50%)">{{value}}%</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="font-normal mt-3 text-white">Prossimo ritiro:</div>
-              <div class="flex flex-col font-bold text-white text-xl">
-                {{ bin.day | date }}
-              </div>
-            </div>
-
-            <div class="flex justify-end mb-4 mr-4">
-              <button @click="deleteBin()">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 rounded-full bg-white p-2 border-2 border-black" fill="none" viewBox="0 0 24 24" stroke="#000000">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                </svg>
-              </button>
-            </div>
-          </div> 
-        </div>-->
           <SwichCard
             :changeBin="changeBin"
             @changeBinMobile="changeBin = $event"
@@ -303,8 +245,12 @@ export default {
   async mounted() {
     this.user = JSON.parse(localStorage.getItem("AccessEmail"));
     this.getBin();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5ec509e825b7dddddcfc7bbd498bba45981e0928
   },
+
   //metodo che controlla se la variabile changeBin cambia, se passa il valore add prenderva i valori dal localstorage,
   //se passa il valore remove toglie i valori del cestino dal localstorage
   watch: {
@@ -322,14 +268,9 @@ export default {
         this.userBin = [];
         this.changeBin = "";
       }
-
-      /*if (newQuestion.indexOf('?') > -1) {
-        this.getAnswer()
-      }*/
     },
   },
   methods: {
-
     //apre la modale delle zone
     showModalTrue() {
       this.showModal = !this.showModal;
@@ -382,7 +323,7 @@ export default {
           timer: 3000,
         }).then((r) => {
           this.showModal = !this.showModal;
-          console.log(r);
+          console.log(r); //NON E' DA TOGLIERE
         });
       } else {
         this.showModalMaterial = !this.showModalMaterial;
@@ -417,7 +358,6 @@ export default {
           let BinUser = JSON.stringify(userBin);
           localStorage.setItem("BinUser", BinUser);
           this.userBin = JSON.parse(localStorage.getItem("BinUser"));
-
 
           if (viewBinUser.bin_id) {
             this.changePercent();
