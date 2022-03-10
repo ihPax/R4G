@@ -388,9 +388,6 @@ export default {
     },
 
     async getDistance() {
-       if(this.viewBinUser.bin_id){
-        
-      
       let length = this.userBin.length;
       let arrayFeeds = await axios.get("https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2");
       let lastElement = arrayFeeds.data.feeds.pop();
@@ -409,7 +406,7 @@ export default {
       }
 
       this.changePercent();
-       }
+       
       
     },
 
