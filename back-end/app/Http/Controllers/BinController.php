@@ -42,23 +42,24 @@ class BinController extends Controller
 
     //VIEW BIN WITH MATERIAL
     public function materialBin($id){
-        $bin = Bin::where("id",$id)->first();
-        $name_material = $bin->name;
-        
-        $user = User::where("id",$bin->user_id)->first(); 
-        $id_zone = $user->zone_id;
-
-        $calendar = Calendar::where("zone_id",$id_zone)->get();
-
         $list = [];
-        array_push($list, $bin);
-
-        foreach($calendar as $cal){
-            if($name_material == $cal->material){
-                array_push($list, $cal);
-            }
-        }
+        $bin = Bin::where("id",$id)->first();
+        if ($bin != null) {
+            $name_material = $bin->name;
         
+            $user = User::where("id",$bin->user_id)->first(); 
+            $id_zone = $user->zone_id;
+
+            $calendar = Calendar::where("zone_id",$id_zone)->get();
+
+            array_push($list, $bin);
+
+            foreach($calendar as $cal){
+                if($name_material == $cal->material){
+                    array_push($list, $cal);
+                }
+            }
+        }  
         return $list;
     }
 
@@ -75,6 +76,7 @@ class BinController extends Controller
     //SEND EMAIL 80% - sendEmail = 1 (true)
     public function sendEmailPercent($id){
         $bins = Bin::where('id',$id)->first();
+        
         $user_id = $bins->user_id;
         $material = $bins->name;
 
