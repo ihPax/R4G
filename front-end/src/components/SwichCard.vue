@@ -256,6 +256,7 @@ export default {
     }*/
   },
   methods: {
+    //alert che ti avvisa di scegliere prima la zona e poi il cestino
     changeBinStatus() {
       this.user = JSON.parse(localStorage.getItem("AccessEmail"));
       if (!this.user.zone_id) {
@@ -280,20 +281,25 @@ export default {
         this.showModalMaterial = !this.showModalMaterial;
       }
     },
+
+    //dovrebbe mostrare la modale dei comuni ma non avviene
     showModalTrue() {
       this.showModal = !this.showModal;
     },
-
+//dovrebbe chiudere la modale dei comuni ma non avviene
     closeModal() {
       this.showModal = !this.showModal;
     },
 
+    //chiude la finestra modale dei materiali, passa i dati e richiama la funzione getBin()
     closeMaterialModal() {
       this.showModalMaterial = !this.showModalMaterial;
       //passa il valore add alla home quando il cestino viene rimosso, e verrà poi letto nel watch
       this.$emit("changeBinMobile", "add");
       this.getBin();
     },
+
+    //cancella il cestino
     async deleteBin() {
       this.isLoading = true;
       this.bin = [];
@@ -313,6 +319,8 @@ export default {
       //passa il valore remove alla home quando il cestino viene rimosso, e verrà poi letto nel watch
       this.$emit("changeBinMobile", "remove");
     },
+
+    //stabilisce il prossimo ritiro
     weekDay(day) {
       let days = new Date();
       let nDay = days.getDay() - 1;
@@ -336,6 +344,8 @@ export default {
       let c3 = Math.PI * (this.rctProva * 2);
       this.rctProva = ((100 - this.valueProva) / 100) * c3;
     },
+
+    //metodo che scorre localBin e prende giorno e materiale e prossimo ritiro
     populateBin() {
       this.localBin = JSON.parse(localStorage.getItem("Bin"));
       let day = new Date();
@@ -374,6 +384,8 @@ export default {
         this.color = "#1E3A8A";
       }
     },
+
+    //prende il bin dal database e lo setta nel localStorage
     async getBin() {
       this.isLoading = true;
       let response = await this.$axios.get("/r4g/view-bin-user/" + this.user.id);
@@ -400,6 +412,8 @@ export default {
       this.isLoading = false;
     },
 
+    
+    //calcola la distanza rilevata dal sensore
     async getDistance() {
       let length = this.userBin[0].length;
       let arrayFeeds = await axios.get(

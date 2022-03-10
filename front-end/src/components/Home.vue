@@ -302,10 +302,8 @@ export default {
   },
   async mounted() {
     this.user = JSON.parse(localStorage.getItem("AccessEmail"));
-    //this.userBin = JSON.parse(localStorage.getItem("BinUser"));
     this.getBin();
-    // this.changePercent();
-    // this.getDistance();
+
   },
   //metodo che controlla se la variabile changeBin cambia, se passa il valore add prenderva i valori dal localstorage,
   //se passa il valore remove toglie i valori del cestino dal localstorage
@@ -400,7 +398,6 @@ export default {
     //chiude la modale al click del tipo di cestino
     closeMaterialModal() {
       this.showModalMaterial = !this.showModalMaterial;
-      //
       this.getBin();
     },
 
