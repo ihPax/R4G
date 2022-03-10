@@ -76,11 +76,6 @@ class UserController extends Controller
         }
     }
 
-    //CURRENT-USER
-    public function currentUser($email){
-       return User::where("email", $email)->first();
-    }
-
     //LOGOUT
     public function logout(){
         Auth::logout(); 
