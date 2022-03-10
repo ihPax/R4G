@@ -258,7 +258,6 @@ export default {
     this.getBin();
     this.changePercent();
     this.getDistance();
-    console.log(this.userBin[0].id);
   },
   methods: {
     //apre la modale delle zone
@@ -268,7 +267,8 @@ export default {
 
     //calcola la distanza rilevata dal sensore
     async getDistance(){
-      let length = this.userBin[0].length;
+      console.log("home distance", this.userBin.length)
+      let length = this.userBin.length;
       let arrayFeeds = await axios.get("https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2");
       let lastElement = arrayFeeds.data.feeds.pop();
       let distance = lastElement.field1;
@@ -374,7 +374,6 @@ export default {
         } else {
           this.bin.name = this.localBin[1].material;
           this.weekDay(this.localBin[1].nDay);
-          console.log("1",this.localBin[1].nDay)
 
         }
       }

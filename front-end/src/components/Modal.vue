@@ -30,28 +30,14 @@ export default {
     async saveZone(comune) {
       try {
         this.user = JSON.parse(localStorage.getItem("AccessEmail"));
-
+        this.user.zone_id = comune.id;
         let idZone = { zone_id: comune.id };
 
-        await this.$axios.post(
-          "/r4g/insert-zone/" + this.user.email,
-          idZone
-        );
+        await this.$axios.post("/r4g/insert-zone/" + this.user.email, idZone);
+        localStorage.setItem("AccessEmail", JSON.stringify(this.user));
 
-        let responseUser = await this.$axios.get(
-          "/r4g/currentUser/" + this.user.email
-        );
-        this.newUser = responseUser.data;
-
-        let parsed = JSON.stringify(this.newUser);
-        localStorage.setItem("AccessEmail", parsed);
-
-        let res = await this.$axios.get(
-          "/r4g/zone-calendar/" + this.newUser.zone_id
-        );
-        let zone = res.data;
-        let calendar = JSON.stringify(zone);
-        localStorage.setItem("Zone", calendar);
+        let zone = ( await this.$axios.get("/r4g/zone-calendar/" + this.user.zone_id) ).data;
+        localStorage.setItem("Zone", JSON.stringify(zone));
 
         this.$emit("exit", true);
       } catch(e) {

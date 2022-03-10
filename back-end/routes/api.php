@@ -26,7 +26,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/register',[UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
-Route::get('/currentUser/{email}', [UserController::class, 'currentUser']);
 Route::get('/logout', [UserController::class, 'logout']);
 Route::post('/insert-zone/{email}', [UserController::class, 'saveZone']);
 Route::put('/update-user/{id}', [UserController::class, 'updateUser']);

@@ -44,8 +44,8 @@ import {
 
 Vue.prototype.$axios = axios;
 axios.defaults.baseURL = "http://localhost:8000/"
-//axios.defaults.baseURL = "http://172.16.22.253:8000/" <-- mettere URL su rete locale per testare progetto per es. su smartphone
-// php artisan serve --host=172.16.22.253 --port=8000   <-- per far partire il server su host e porta personalizzati
+//axios.defaults.baseURL = "http://172.16.21.36:8000/"  // <-- mettere URL su rete locale per testare progetto per es. su smartphone
+// php artisan serve --host=172.16.21.36 --port=8000   <-- per far partire il server su host e porta personalizzati
 Vue.use(VueRouter);
 Vue.use(VCalendar, {
   componentPrefix: 'v',  // Use <vc-calendar /> instead of <v-calendar />

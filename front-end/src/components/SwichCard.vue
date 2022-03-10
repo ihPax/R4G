@@ -3,6 +3,7 @@
     <VueSlickCarousel :arrows="false" :dots="false">
       <!--prima card -->
       <div  class="flex flex-col p-4" v-if="viewBinUser.bin_id" > 
+      
         <div class="flex flex-col bg-blue-400 rounded-2xl h-72" v-if="localBin != ''" :style="`background-color:${color}`"> 
           <div class="flex flex-col px-4 pt-3 justify-center w-full">
             <div class="truncate">
@@ -75,6 +76,7 @@
             <div class="font-normal mt-3 text-white">Prossimo ritiro:</div>
             <div class="flex flex-col font-bold text-white text-xl">
               {{ bin.day | date }}
+              
             </div>
           </div>
           <button class="flex justify-end mb-4 mr-4" @click="deleteBin()">
@@ -103,7 +105,7 @@
             <div class="flex flex-col px-4 pt-3 justify-center w-full">
               <div class="truncate">
                 <div class="font-bold text-white text-2xl">
-                  <div>CARTA</div>
+                  <div>CARTA - CARD PROVA</div>
                   <div class="flex justify-between">
                     <img src="../assets/carta.png" class="h-24 flex-shrink-0" />
 
@@ -194,7 +196,9 @@
 <script>
 import VueSlickCarousel from "slick-vuejs";
 import "slick-vuejs/dist/slick-vuejs.css";
- import ModalMaterial from "@/components/ModalMaterial";
+import ModalMaterial from "@/components/ModalMaterial";
+import axios from 'axios';
+
 
 export default {
   components: {
@@ -210,7 +214,7 @@ export default {
       rctProva:235.26,
       valueProva:60,
       isLoading: false,
-      viewBinUser:"",
+      viewBinUser:[],
       value: 1,
       localBin: [],
       bin: [
@@ -241,7 +245,16 @@ export default {
           this.showModal = !this.showModal;
           console.log(r);
         });
-      } else {
+      }
+      if(this.viewBinUser.bin_id){
+        this.$fire({
+          text:
+            "Attualmente possediamo un solo cestino e non puoi aggiungerne altri :)",
+          type: "warning",
+          timer: 3000,
+        })
+      }
+      else {
         this.showModalMaterial = !this.showModalMaterial;
       }
     },
@@ -250,17 +263,18 @@ export default {
       this.getBin();
     },
     async deleteBin() {
+      this.isLoading = true;
       this.bin = [];
+      this.viewBinUser = [];
       this.userBin = JSON.parse(localStorage.getItem("BinUser"));
-      let id = this.userBin.id;
+      let id = this.userBin[0].id;
       await this.$axios.delete("/r4g/delete-bin-user/" + id);
       await this.$axios.delete("/r4g/delete-bin/" + id);
-      localStorage.removeItem("BinUser");
-      localStorage.removeItem("UserBin");
+      localStorage.removeItem('BinUser');
+      localStorage.removeItem('UserBin');
       this.localBin = [];
       this.userBin = [];
-      let response = await this.$axios.get("/r4g/view-bin-user/" + this.user.id);
-      this.viewBinUser = response.data;
+      this.isLoading = false;
     },
     weekDay(day) {
       let days = new Date();
@@ -268,7 +282,6 @@ export default {
       if (Number(nDay) > Number(day)) {
         let ritiro = days.setDate(days.getDate() + (day - nDay) + 7);
         this.bin.day = new Date(ritiro);
-        console.log(this.bin.day);
       } else if (Number(nDay) <= Number(day)) {
         let ritiro = days.setDate(days.getDate() + (day - nDay));
         this.bin.day = new Date(ritiro);
@@ -312,7 +325,6 @@ export default {
         } else {
           this.bin.name = this.localBin[1].material;
           this.weekDay(this.localBin[1].nDay);
-          console.log("1", this.localBin[1].nDay);
         }
       }
 
@@ -337,10 +349,9 @@ export default {
 
       let BinUser = JSON.stringify(userBin);
       localStorage.setItem("BinUser", BinUser);
-
       if (this.viewBinUser.bin_id) {
         let res = await this.$axios.get("/r4g/material-bin/" + this.viewBinUser.bin_id);
-        if (response) {
+        if (res) {
           let calendaBin = res.data;
           this.localBin = JSON.stringify(calendaBin);
           localStorage.setItem("Bin", this.localBin);
@@ -349,12 +360,30 @@ export default {
       }
       this.isLoading = false;
     },
-    getDistance() {
-      let lenght = this.userBin.length;
-      let distance = this.userBin.distance;
-      let valore = Math.floor(((lenght - distance) * 100) / lenght);
-      this.value = valore;
+    async getDistance() {
+
+       let length = this.userBin.length;
+      let arrayFeeds = await axios.get("https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2");
+      let lastElement = arrayFeeds.data.feeds.pop();
+      let distance = lastElement.field1;
+      let valore = Math.round(100-(((length-distance)*100)/length));
+      this.value = isNaN(valore) ? 0 : valore;
+
+      if(this.value > 100){
+        this.value = 100;
+      }
+
+      if(this.value > 80){
+        this.sendEMail()
+      }else if(this.value <= 80){
+        await axios.put("/r4g/not-send-email-percent/" + this.userBin[0].id);
+      }
+
       this.changePercent();
+      
+    },
+    async sendEMail(){
+      await axios.get("/r4g/send-email-percent/" + this.userBin[0].id)
     },
   },
   filters: {
