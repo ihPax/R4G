@@ -255,6 +255,7 @@ export default {
   async mounted() {
     this.user = JSON.parse(localStorage.getItem("AccessEmail"));
     this.userBin = JSON.parse(localStorage.getItem("BinUser"));
+    console.log(this.userBin )
     this.getBin();
     this.changePercent();
     this.getDistance();
@@ -291,7 +292,8 @@ export default {
 
     //invio email capienza oltre l'80%
     async sendEMail(){
-      await axios.get("/r4g/send-email-percent/" + this.userBin[0].id)
+      console.log('sium',this.userBin)
+      //await axios.get("/r4g/send-email-percent/" + this.userBin.id)
     },
 
     //alert che ti avvisa di scegliere prima la zona e poi il cestino
