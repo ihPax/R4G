@@ -245,10 +245,6 @@ export default {
   async mounted() {
     this.user = JSON.parse(localStorage.getItem("AccessEmail"));
     this.getBin();
-<<<<<<< HEAD
-
-=======
->>>>>>> 5ec509e825b7dddddcfc7bbd498bba45981e0928
   },
 
   //metodo che controlla se la variabile changeBin cambia, se passa il valore add prenderva i valori dal localstorage,
