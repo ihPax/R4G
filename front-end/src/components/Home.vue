@@ -255,11 +255,11 @@ export default {
   async mounted() {
     this.user = JSON.parse(localStorage.getItem("AccessEmail"));
     this.userBin = JSON.parse(localStorage.getItem("BinUser"));
+    console.log(this.userBin )
     this.getBin();
-    if (this.binExist == true) {
-      this.changePercent();
-      this.getDistance();
-    }  
+    //if (this.binExist == true) {
+      
+    //}  
   },
   methods: {
     //apre la modale delle zone
@@ -270,14 +270,17 @@ export default {
     //calcola la distanza rilevata dal sensore
     async getDistance(){
       try {
+        this.userBin = JSON.parse(localStorage.getItem("BinUser"));
         console.log("home distance", this.userBin.length)
-        let length = this.userBin.length;
+        let length = this.userBin[0].length;
         let arrayFeeds = await axios.get("https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2");
         let lastElement = arrayFeeds.data.feeds.pop();
         let distance = lastElement.field1;
         let valore = Math.round(100-(((length-distance)*100)/length));
         console.log(valore)
-        this.value = isNaN(valore) ? 0 : valore;
+        //this.value = isNaN(valore) ? 0 : valore;
+        console.log(distance);
+        this.value = 87;
 
         if(this.value > 100){
           this.value = 100;
@@ -349,6 +352,8 @@ export default {
           console.log('viewBinUser', viewBinUser, 'userBin', userBin)
 
           if (viewBinUser.bin_id) {
+            this.changePercent();
+            this.getDistance();
             let res = await this.$axios.get("/r4g/material-bin/" + viewBinUser.bin_id)
             if (response) {
               let calendaBin = res.data;

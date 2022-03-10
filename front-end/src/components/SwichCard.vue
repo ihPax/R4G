@@ -7,6 +7,7 @@
         <div class="flex flex-col bg-blue-400 rounded-2xl h-72" v-if="localBin != ''" :style="`background-color:${color}`"> 
           <div class="flex flex-col px-4 pt-3 justify-center w-full">
             <div class="truncate">
+               
               <div class="font-bold text-white text-2xl">
                 <div>
                   <!-- {{i}}. -->
@@ -95,7 +96,14 @@
               />
             </svg>
           </button>
+            
         </div>
+        <div>
+        <t-modal v-model="showModal" header="Scegli il tuo Comune" close="chiudi">
+            <Modal @exit="closeModal"></Modal>
+          </t-modal>
+        </div>
+    
       </div>
 
       <!--seconda card prova, non funziona-->
@@ -198,12 +206,15 @@ import VueSlickCarousel from "slick-vuejs";
 import "slick-vuejs/dist/slick-vuejs.css";
 import ModalMaterial from "@/components/ModalMaterial";
 import axios from 'axios';
+import Modal from "@/components/Modal";
+
 
 
 export default {
   components: {
     VueSlickCarousel,
      ModalMaterial,
+     Modal
   },
   data() {
     return {
@@ -215,6 +226,7 @@ export default {
       valueProva:60,
       isLoading: false,
       viewBinUser:[],
+      showModal:false,
       value: 1,
       localBin: [],
       bin: [
@@ -242,11 +254,14 @@ export default {
           type: "warning",
           timer: 3000,
         }).then((r) => {
-          this.showModal = !this.showModal;
+          this.showModalTrue()
+          console.log("aaaaaaa",this.showModal)
+
           console.log(r);
         });
       }
-      if(this.viewBinUser.bin_id){
+      //controlla se è presente gia un cestino
+      else if(this.viewBinUser.bin_id && this.user.zone_id){
         this.$fire({
           text:
             "Attualmente possediamo un solo cestino e non puoi aggiungerne altri :)",
@@ -258,6 +273,14 @@ export default {
         this.showModalMaterial = !this.showModalMaterial;
       }
     },
+    showModalTrue() {
+      this.showModal = !this.showModal;
+    },
+
+      closeModal() {
+      this.showModal = !this.showModal;
+    },
+
     closeMaterialModal() {
       this.showModalMaterial = !this.showModalMaterial;
       this.getBin();
@@ -265,12 +288,16 @@ export default {
     async deleteBin() {
       this.isLoading = true;
       this.bin = [];
+      this.viewBinUser = [];
       this.userBin = JSON.parse(localStorage.getItem("BinUser"));
       let id = this.userBin[0].id;
-      await this.$axios.delete("/r4g/delete-bin/" + id);
+      // await this.$axios.delete("/r4g/delete-bin-user/" + id);
+      // await this.$axios.delete("/r4g/delete-bin/" + id);
+      await this.$axios.delete("r4g/delete-bin/" + id)
       localStorage.removeItem('BinUser');
       localStorage.removeItem('UserBin');
       localStorage.removeItem('Bin');
+
       this.localBin = [];
       this.userBin = [];
       this.isLoading = false;
@@ -359,14 +386,19 @@ export default {
       }
       this.isLoading = false;
     },
-    async getDistance() {
 
-       let length = this.userBin.length;
+    async getDistance() {
+      this.userBin = JSON.parse(localStorage.getItem("BinUser"));
+      let length = this.userBin[0].length;
+      console.log(this.userBin[0].length)
+      console.log(this.userBin.length);
       let arrayFeeds = await axios.get("https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2");
       let lastElement = arrayFeeds.data.feeds.pop();
       let distance = lastElement.field1;
       let valore = Math.round(100-(((length-distance)*100)/length));
-      this.value = isNaN(valore) ? 0 : valore;
+      //this.value = isNaN(valore) ? 0 : valore;
+      console.log(valore);
+      this.value = 87;
 
       if(this.value > 100){
         this.value = 100;
@@ -379,9 +411,13 @@ export default {
       }
 
       this.changePercent();
+       
       
     },
+
+    //chiama l'api al be quando il valore super 80%
     async sendEMail(){
+      console.log("/r4g/send-email-percent/" + this.userBin[0].id)
       await axios.get("/r4g/send-email-percent/" + this.userBin[0].id)
     },
   },
