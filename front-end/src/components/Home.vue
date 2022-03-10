@@ -218,7 +218,7 @@ export default {
     Modal,
     ModalMaterial,
     Loading,
-     SwichCard
+    SwichCard
   },
   props: {
     isMobile: {

@@ -265,13 +265,12 @@ export default {
     async deleteBin() {
       this.isLoading = true;
       this.bin = [];
-      this.viewBinUser = [];
       this.userBin = JSON.parse(localStorage.getItem("BinUser"));
       let id = this.userBin[0].id;
-      await this.$axios.delete("/r4g/delete-bin-user/" + id);
       await this.$axios.delete("/r4g/delete-bin/" + id);
       localStorage.removeItem('BinUser');
       localStorage.removeItem('UserBin');
+      localStorage.removeItem('Bin');
       this.localBin = [];
       this.userBin = [];
       this.isLoading = false;
