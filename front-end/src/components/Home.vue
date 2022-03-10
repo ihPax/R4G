@@ -277,6 +277,8 @@ export default {
       let valore = Math.floor(((lenght-distance)*100)/lenght);
       this.value = isNaN(valore) ? 0 : valore;
 
+      this.value = 60;
+
       if(this.value > 80){
         this.sendEMail()
       }

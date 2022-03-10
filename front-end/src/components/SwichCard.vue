@@ -3,6 +3,7 @@
     <VueSlickCarousel :arrows="false" :dots="false">
       <!--prima card -->
       <div  class="flex flex-col p-4" v-if="viewBinUser.bin_id" > 
+      
         <div class="flex flex-col bg-blue-400 rounded-2xl h-72" v-if="localBin != ''" :style="`background-color:${color}`"> 
           <div class="flex flex-col px-4 pt-3 justify-center w-full">
             <div class="truncate">
@@ -75,6 +76,7 @@
             <div class="font-normal mt-3 text-white">Prossimo ritiro:</div>
             <div class="flex flex-col font-bold text-white text-xl">
               {{ bin.day | date }}
+              
             </div>
           </div>
           <button class="flex justify-end mb-4 mr-4" @click="deleteBin()">
@@ -103,7 +105,7 @@
             <div class="flex flex-col px-4 pt-3 justify-center w-full">
               <div class="truncate">
                 <div class="font-bold text-white text-2xl">
-                  <div>CARTA</div>
+                  <div>CARTA - CARD PROVA</div>
                   <div class="flex justify-between">
                     <img src="../assets/carta.png" class="h-24 flex-shrink-0" />
 
@@ -210,7 +212,7 @@ export default {
       rctProva:235.26,
       valueProva:60,
       isLoading: false,
-      viewBinUser:"",
+      viewBinUser:[],
       value: 1,
       localBin: [],
       bin: [
@@ -241,7 +243,17 @@ export default {
           this.showModal = !this.showModal;
           console.log(r);
         });
-      } else {
+      }
+      console.log("viewBinUser",this.viewBinUser)
+      if(this.viewBinUser.bin_id){
+        this.$fire({
+          text:
+            "Attualmente possediamo un solo cestino e non puoi aggiungerne altri :)",
+          type: "warning",
+          timer: 3000,
+        })
+      }
+      else {
         this.showModalMaterial = !this.showModalMaterial;
       }
     },
@@ -250,17 +262,21 @@ export default {
       this.getBin();
     },
     async deleteBin() {
+      this.isLoading = true;
       this.bin = [];
+      this.viewBinUser = [];
       this.userBin = JSON.parse(localStorage.getItem("BinUser"));
-      let id = this.userBin.id;
+      console.log(this.userBin)
+      console.log("this.userBin",this.userBin[0].id)
+      console.log("viwe",this.viewBinUser)
+      let id = this.userBin[0].id;
       await this.$axios.delete("/r4g/delete-bin-user/" + id);
       await this.$axios.delete("/r4g/delete-bin/" + id);
-      localStorage.removeItem("BinUser");
-      localStorage.removeItem("UserBin");
+      localStorage.removeItem('BinUser');
+      localStorage.removeItem('UserBin');
       this.localBin = [];
       this.userBin = [];
-      let response = await this.$axios.get("/r4g/view-bin-user/" + this.user.id);
-      this.viewBinUser = response.data;
+      this.isLoading = false;
     },
     weekDay(day) {
       let days = new Date();
@@ -268,7 +284,6 @@ export default {
       if (Number(nDay) > Number(day)) {
         let ritiro = days.setDate(days.getDate() + (day - nDay) + 7);
         this.bin.day = new Date(ritiro);
-        console.log(this.bin.day);
       } else if (Number(nDay) <= Number(day)) {
         let ritiro = days.setDate(days.getDate() + (day - nDay));
         this.bin.day = new Date(ritiro);
@@ -307,12 +322,13 @@ export default {
           if (this.num < dist) {
             dist = this.num;
             this.bin.name = this.localBin[i].material;
+            console.log('bin name', this.bin.name)
             this.weekDay(this.localBin[i].nDay);
           }
         } else {
           this.bin.name = this.localBin[1].material;
           this.weekDay(this.localBin[1].nDay);
-          console.log("1", this.localBin[1].nDay);
+            console.log('bin name', this.bin.name)
         }
       }
 
@@ -331,16 +347,18 @@ export default {
       this.isLoading = true;
       let response = await this.$axios.get("/r4g/view-bin-user/" + this.user.id);
       this.viewBinUser = response.data;
+      console.log("viewBin",this.viewBinUser)
 
       let bin = await this.$axios.get("/r4g/bin/" + this.user.id);
       let userBin = bin.data;
 
       let BinUser = JSON.stringify(userBin);
       localStorage.setItem("BinUser", BinUser);
-
+      console.log("this.viewBinUser.bin_id",this.viewBinUser.bin_id)
       if (this.viewBinUser.bin_id) {
+        console.log("dentro")
         let res = await this.$axios.get("/r4g/material-bin/" + this.viewBinUser.bin_id);
-        if (response) {
+        if (res) {
           let calendaBin = res.data;
           this.localBin = JSON.stringify(calendaBin);
           localStorage.setItem("Bin", this.localBin);
@@ -360,6 +378,7 @@ export default {
   filters: {
     //ritorna il prossimo ritiro in modo corretto
     date: (value) => {
+      console.log(value)
       let day = value.getDay() - 1;
       let nameDay = "";
       if (day == 0) {
