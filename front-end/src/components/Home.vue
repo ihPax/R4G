@@ -274,7 +274,7 @@ export default {
       let lastElement = arrayFeeds.data.feeds.pop();
       let distance = lastElement.field1;
       let valore = Math.round(100-(((length-distance)*100)/length));
-      console.log(valore)
+      console.log("valore",valore)
       this.value = isNaN(valore) ? 0 : valore;
 
       if(this.value > 100){
@@ -419,11 +419,11 @@ export default {
       this.isLoading = true;
       this.bin = [];
       this.userBin = JSON.parse(localStorage.getItem("BinUser"));
-      let id = this.userBin.id;
-      await this.$axios.delete("/r4g/delete-bin-user/" + id);
+      let id = this.userBin[0].id;
       await this.$axios.delete("/r4g/delete-bin/" + id);
       localStorage.removeItem('BinUser');
       localStorage.removeItem('UserBin');
+      localStorage.removeItem('Bin');
       this.localBin = [];
       this.userBin = [];
       this.isLoading = false;
