@@ -18,7 +18,7 @@ class UserController extends Controller
             'name'     => 'bail|required|string|min:2',
             'surname'  => 'bail|required|string|min:2',
             'birthday' => 'bail|required|date',
-            'email'    => 'bail|required|email',
+            'email'    => 'bail|required|email|unique:users,email',
             'password' => 'bail|required|string|min:6'
         ]);
 
@@ -116,7 +116,7 @@ class UserController extends Controller
         $data = json_decode($request->getContent());
         $user = User::find($id);
 
-        //verifico se la email nella richiesta è quella ssociata all'id nel db
+        //verifico se la email nella richiesta è uguale a quella associata all'ID nel database
         if ($data->email === $user->email) {
             $user->name = $data->name;
             $user->surname = $data->surname;
@@ -131,8 +131,7 @@ class UserController extends Controller
             return $user;
         } else { 
             return response()->json([
-              'status' => 'error',
-              'user'   => 'Unauthorized Access'
+              'user'   => 'Unauthorized operation'
             ]
             , 401); 
         }

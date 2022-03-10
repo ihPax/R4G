@@ -72,21 +72,31 @@ class BinController extends Controller
         return Bin::destroy($id);
     }
 
-    //SEND EMAIL 80%
+    //SEND EMAIL 80% - sendEmail = 1 (true)
     public function sendEmailPercent($id){
-        $bins = DB::table("bins")->where('id',$id)->first();
+        $bins = Bin::where('id',$id)->first();
         $user_id = $bins->user_id;
         $material = $bins->name;
 
         $users = DB::table("users")->where('id',$user_id)->first();
         $email = $users->email;
 
-        Mail::send('emailPercent',['name' => $material],function($message) use($email){
-            $message->from('r4g.recycleteam@gmail.com');
-            $message->to($email);
-            $message->subject('R4G - Notifica Percentuale');
-        });
-
+        if($bins->sendEmail == 0){
+            Mail::send('emailPercent',['name' => $material],function($message) use($email){
+                $message->from('r4g.recycleteam@gmail.com');
+                $message->to($email);
+                $message->subject('R4G - Notifica Percentuale');
+            });
+        }
+        $bins->sendEmail = 1;
+        $bins->save();
         return array("status" => 200, "message" => "Email Inviata");
+    }
+
+    //SET sendEmail = 0 (false)
+    public function notSendEmailPercent($id){
+        $bins = Bin::where('id',$id)->first();
+        $bins->sendEmail = 0;
+        return $bins->save();
     }
 }

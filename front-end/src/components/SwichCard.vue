@@ -196,7 +196,9 @@
 <script>
 import VueSlickCarousel from "slick-vuejs";
 import "slick-vuejs/dist/slick-vuejs.css";
- import ModalMaterial from "@/components/ModalMaterial";
+import ModalMaterial from "@/components/ModalMaterial";
+import axios from 'axios';
+
 
 export default {
   components: {
@@ -244,7 +246,6 @@ export default {
           console.log(r);
         });
       }
-      console.log("viewBinUser",this.viewBinUser)
       if(this.viewBinUser.bin_id){
         this.$fire({
           text:
@@ -266,9 +267,6 @@ export default {
       this.bin = [];
       this.viewBinUser = [];
       this.userBin = JSON.parse(localStorage.getItem("BinUser"));
-      console.log(this.userBin)
-      console.log("this.userBin",this.userBin[0].id)
-      console.log("viwe",this.viewBinUser)
       let id = this.userBin[0].id;
       await this.$axios.delete("/r4g/delete-bin-user/" + id);
       await this.$axios.delete("/r4g/delete-bin/" + id);
@@ -322,13 +320,11 @@ export default {
           if (this.num < dist) {
             dist = this.num;
             this.bin.name = this.localBin[i].material;
-            console.log('bin name', this.bin.name)
             this.weekDay(this.localBin[i].nDay);
           }
         } else {
           this.bin.name = this.localBin[1].material;
           this.weekDay(this.localBin[1].nDay);
-            console.log('bin name', this.bin.name)
         }
       }
 
@@ -347,16 +343,13 @@ export default {
       this.isLoading = true;
       let response = await this.$axios.get("/r4g/view-bin-user/" + this.user.id);
       this.viewBinUser = response.data;
-      console.log("viewBin",this.viewBinUser)
 
       let bin = await this.$axios.get("/r4g/bin/" + this.user.id);
       let userBin = bin.data;
 
       let BinUser = JSON.stringify(userBin);
       localStorage.setItem("BinUser", BinUser);
-      console.log("this.viewBinUser.bin_id",this.viewBinUser.bin_id)
       if (this.viewBinUser.bin_id) {
-        console.log("dentro")
         let res = await this.$axios.get("/r4g/material-bin/" + this.viewBinUser.bin_id);
         if (res) {
           let calendaBin = res.data;
@@ -367,18 +360,35 @@ export default {
       }
       this.isLoading = false;
     },
-    getDistance() {
-      let lenght = this.userBin.length;
-      let distance = this.userBin.distance;
-      let valore = Math.floor(((lenght - distance) * 100) / lenght);
-      this.value = valore;
+    async getDistance() {
+
+       let length = this.userBin.length;
+      let arrayFeeds = await axios.get("https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2");
+      let lastElement = arrayFeeds.data.feeds.pop();
+      let distance = lastElement.field1;
+      let valore = Math.round(100-(((length-distance)*100)/length));
+      this.value = isNaN(valore) ? 0 : valore;
+
+      if(this.value > 100){
+        this.value = 100;
+      }
+
+      if(this.value > 80){
+        this.sendEMail()
+      }else if(this.value <= 80){
+        await axios.put("/r4g/not-send-email-percent/" + this.userBin[0].id);
+      }
+
       this.changePercent();
+      
+    },
+    async sendEMail(){
+      await axios.get("/r4g/send-email-percent/" + this.userBin[0].id)
     },
   },
   filters: {
     //ritorna il prossimo ritiro in modo corretto
     date: (value) => {
-      console.log(value)
       let day = value.getDay() - 1;
       let nameDay = "";
       if (day == 0) {

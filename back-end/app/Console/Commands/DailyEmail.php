@@ -39,6 +39,8 @@ class DailyEmail extends Command
      *
      * @return int
      */
+
+    //SEND EMAIL RIFIUTO DEL GIORNO DOPO
     public function handle()
     {
         $today = Carbon::now();
@@ -51,9 +53,8 @@ class DailyEmail extends Command
         foreach($calendars as $calendar){
             $material = $calendar->material;
             $zone_id = $calendar->zone_id;
-
-            $materialBin = DB::table("bins")->where("name",$material)->first();
             $allUser = DB::table("users")->where("zone_id", $zone_id)->get();
+            
             foreach($allUser as $user){
                 $email = $user->email;
                 Mail::send('emailCalendar',['name' => $material, 'tomorrow' => $tomorrow->isoFormat('dddd D MMMM')],function($message) use($email){

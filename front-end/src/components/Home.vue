@@ -258,7 +258,6 @@ export default {
     this.getBin();
     this.changePercent();
     this.getDistance();
-    console.log(this.userBin.id);
   },
   methods: {
     //apre la modale delle zone
@@ -268,28 +267,31 @@ export default {
 
     //calcola la distanza rilevata dal sensore
     async getDistance(){
-      let lenght = this.userBin.length + 100;
+      console.log("home distance", this.userBin.length)
+      let length = this.userBin.length;
       let arrayFeeds = await axios.get("https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2");
-      console.log("distanza",arrayFeeds.data.feeds)
       let lastElement = arrayFeeds.data.feeds.pop();
       let distance = lastElement.field1;
-      console.log("valore",distance)
-      let valore = Math.floor(((lenght-distance)*100)/lenght);
+      let valore = Math.round(100-(((length-distance)*100)/length));
+      console.log(valore)
       this.value = isNaN(valore) ? 0 : valore;
 
-      this.value = 60;
+      if(this.value > 100){
+        this.value = 100;
+      }
 
       if(this.value > 80){
         this.sendEMail()
+      }else if(this.value <= 80){
+        await axios.put("/r4g/not-send-email-percent/" + this.userBin[0].id);
       }
 
       this.changePercent();
     },
 
+    //invio email capienza oltre l'80%
     async sendEMail(){
-      await axios.get("/r4g/view-bin-user/" + this.userBin.id)
-            console.log("id cestino",this.userBin.id);
-
+      await axios.get("/r4g/send-email-percent/" + this.userBin[0].id)
     },
 
     //alert che ti avvisa di scegliere prima la zona e poi il cestino
@@ -372,7 +374,6 @@ export default {
         } else {
           this.bin.name = this.localBin[1].material;
           this.weekDay(this.localBin[1].nDay);
-          console.log("1",this.localBin[1].nDay)
 
         }
       }
