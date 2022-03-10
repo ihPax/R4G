@@ -258,7 +258,7 @@ export default {
     this.getBin();
     this.changePercent();
     this.getDistance();
-    console.log(this.userBin.id);
+    console.log(this.userBin[0].id);
   },
   methods: {
     //apre la modale delle zone
@@ -269,13 +269,11 @@ export default {
     //calcola la distanza rilevata dal sensore
     async getDistance(){
       let length = this.userBin[0].length;
-      console.log(this.userBin)
-      console.log("lunghezza",length)
       let arrayFeeds = await axios.get("https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2");
       let lastElement = arrayFeeds.data.feeds.pop();
       let distance = lastElement.field1;
       let valore = Math.round(100-(((length-distance)*100)/length));
-      console.log(valore)
+      console.log("valore",valore)
       this.value = isNaN(valore) ? 0 : valore;
 
       if(this.value > 100){
@@ -420,11 +418,11 @@ export default {
       this.isLoading = true;
       this.bin = [];
       this.userBin = JSON.parse(localStorage.getItem("BinUser"));
-      let id = this.userBin.id;
-      await this.$axios.delete("/r4g/delete-bin-user/" + id);
+      let id = this.userBin[0].id;
       await this.$axios.delete("/r4g/delete-bin/" + id);
       localStorage.removeItem('BinUser');
       localStorage.removeItem('UserBin');
+      localStorage.removeItem('Bin');
       this.localBin = [];
       this.userBin = [];
       this.isLoading = false;
