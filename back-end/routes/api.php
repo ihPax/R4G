@@ -46,6 +46,7 @@ Route::get('/bin/{id}', [BinController::class, 'getBin']);
 Route::delete('/delete-bin/{id}', [BinController::class, 'deleteBin']);
 Route::get('/get-bin/{user_id}', [BinController::class, 'getBinUserMaterial']);
 Route::get('/send-email-percent/{id}', [BinController::class, 'sendEmailPercent']);
+Route::put('/not-send-email-percent/{id}', [BinController::class, 'notSendEmailPercent']);
 
 Route::post('/save-bin-user', [BinUserController::class, 'save_bin_user']);
 Route::get('/view-bin-user/{user_id}', [BinUserController::class, 'view_bin_userId']);
