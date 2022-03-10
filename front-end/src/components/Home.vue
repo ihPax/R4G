@@ -249,7 +249,7 @@ export default {
       rct: 235.26,
       rctMobile: 235.26,
       value: 1,
-
+      binExist: false
     };
   },
   async mounted() {
@@ -257,8 +257,10 @@ export default {
     this.userBin = JSON.parse(localStorage.getItem("BinUser"));
     console.log(this.userBin )
     this.getBin();
-    this.changePercent();
-    this.getDistance();
+    if (this.binExist == true) {
+      this.changePercent();
+      this.getDistance();
+    }  
   },
   methods: {
     //apre la modale delle zone
@@ -268,32 +270,39 @@ export default {
 
     //calcola la distanza rilevata dal sensore
     async getDistance(){
-      console.log("home distance", this.userBin.length)
-      let length = this.userBin.length;
-      let arrayFeeds = await axios.get("https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2");
-      let lastElement = arrayFeeds.data.feeds.pop();
-      let distance = lastElement.field1;
-      let valore = Math.round(100-(((length-distance)*100)/length));
-      console.log("valore",valore)
-      this.value = isNaN(valore) ? 0 : valore;
+      try {
+        console.log("home distance", this.userBin.length)
+        let length = this.userBin.length;
+        let arrayFeeds = await axios.get("https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2");
+        let lastElement = arrayFeeds.data.feeds.pop();
+        let distance = lastElement.field1;
+        let valore = Math.round(100-(((length-distance)*100)/length));
+        console.log(valore)
+        this.value = isNaN(valore) ? 0 : valore;
 
-      if(this.value > 100){
-        this.value = 100;
+        if(this.value > 100){
+          this.value = 100;
+        }
+
+        if(this.value > 80){
+          this.sendEMail()
+        }else if(this.value <= 80){
+          await axios.put("/r4g/not-send-email-percent/" + this.userBin[0].id);
+        }
+
+        this.changePercent();
+      } catch(e) {
+        this.$emit('catch-error', e);
       }
-
-      if(this.value > 80){
-        this.sendEMail()
-      }else if(this.value <= 80){
-        await axios.put("/r4g/not-send-email-percent/" + this.userBin[0].id);
-      }
-
-      this.changePercent();
     },
 
     //invio email capienza oltre l'80%
     async sendEMail(){
-      console.log('sium',this.userBin)
-      //await axios.get("/r4g/send-email-percent/" + this.userBin.id)
+      try {
+        await axios.get("/r4g/send-email-percent/" + this.userBin[0].id)
+      } catch(e) {
+        this.$emit('catch-error', e);
+      }
     },
 
     //alert che ti avvisa di scegliere prima la zona e poi il cestino
@@ -327,26 +336,34 @@ export default {
     //prende il bin dal database e lo setta nel localStorage
     async getBin() {
       this.isLoading = true;
-      let response = await this.$axios.get("/r4g/view-bin-user/" + this.user.id);
-      let viewBinUser = response.data; //bin con userId e binId
+      try {
+        let response = await this.$axios.get("/r4g/view-bin-user/" + this.user.id);
+        let viewBinUser = response.data; //bin con userId e binId
 
-      let bin = await this.$axios.get("/r4g/bin/"+this.user.id);
-      let userBin = bin.data; //statistiche bin
+        if (viewBinUser != []) {
+          this.binExist = true;
+          let bin = await this.$axios.get("/r4g/bin/" + this.user.id);
+          let userBin = bin.data; //statistiche bin
 
-      let BinUser = JSON.stringify(userBin);
-      localStorage.setItem("BinUser", BinUser); 
-      console.log('viewBinUser', viewBinUser, 'userBin', userBin)
+          let BinUser = JSON.stringify(userBin);
+          localStorage.setItem("BinUser", BinUser); 
+          console.log('viewBinUser', viewBinUser, 'userBin', userBin)
 
-      if (viewBinUser.bin_id) {
-        let res = await this.$axios.get("/r4g/material-bin/" + viewBinUser.bin_id)
-        if (response) {
-          let calendaBin = res.data;
-          this.localBin = JSON.stringify(calendaBin);
-          localStorage.setItem("Bin", this.localBin);
-          this.populateBin();
+          if (viewBinUser.bin_id) {
+            let res = await this.$axios.get("/r4g/material-bin/" + viewBinUser.bin_id)
+            if (response) {
+              let calendaBin = res.data;
+              this.localBin = JSON.stringify(calendaBin);
+              localStorage.setItem("Bin", this.localBin);
+              this.populateBin();
+            }
+          } 
         }
+      } catch(e) {
+        this.$emit('catch-error', e);
+      } finally {
+        this.isLoading = false;
       }
-      this.isLoading = false;
     },
 
     //metodo che scorre localBin e prende giorno e materiale e prossimo ritiro
@@ -417,20 +434,25 @@ export default {
     //metodo per eliminare il cestino
     async deleteBin(){
       this.isLoading = true;
-      this.bin = [];
-      this.userBin = JSON.parse(localStorage.getItem("BinUser"));
-      let id = this.userBin[0].id;
-      await this.$axios.delete("/r4g/delete-bin/" + id);
-      localStorage.removeItem('BinUser');
-      localStorage.removeItem('UserBin');
-      localStorage.removeItem('Bin');
-      this.localBin = [];
-      this.userBin = [];
-      this.isLoading = false;
+      try {
+        this.bin = [];
+        this.userBin = JSON.parse(localStorage.getItem("BinUser"));
+        let id = this.userBin[0].id;
+        await this.$axios.delete("/r4g/delete-bin/" + id);
+        localStorage.removeItem('BinUser');
+        localStorage.removeItem('UserBin');
+        localStorage.removeItem('Bin');
+        this.localBin = [];
+        this.userBin = [];
+      } catch(e) {
+        this.$emit('catch-error', e);
+      } finally {
+        this.isLoading = false;
+      }
     }
   },
   computed: {
-    getValue : function(){
+    getValue() {
       return this.value;
     }
   },
