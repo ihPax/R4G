@@ -78,6 +78,14 @@ export default {
       } else {
         console.log('Error', e.message);
       }
+      // let dataErr = this.err.data; //oggetto che contiene una coppia chiave valore con valore un array contentente una stringa
+      // let customErr = dataErr[Object.keys(dataErr)[0]];
+      // console.log(customErr);
+      
+      if (this.err.status == 401) {
+        this.err.statusText = "Non sei autorizzato a svolgere questa operazione";
+      }
+
       console.log(this.err);
       if (this.err) {
         let message = (e == "Error: Network Error") ? "Impossibile raggiungere il server!" : this.err.statusText;
