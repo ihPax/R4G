@@ -2,12 +2,17 @@
   <div>
     <VueSlickCarousel :arrows="false" :dots="false">
       <!--prima card -->
-      <div  class="flex flex-col p-4" v-if="viewBinUser.bin_id" > 
-      
-        <div class="flex flex-col bg-blue-400 rounded-2xl h-72" v-if="localBin != ''" :style="`background-color:${color}`"> 
+      <div class="flex flex-col p-4" v-if="viewBinUser.bin_id">
+       <div v-if="isLoading" class="place-self-center">
+              <Loading></Loading>
+      </div>
+        <div
+          class="flex flex-col bg-blue-400 rounded-2xl h-72"
+          v-if="localBin != ''"
+          :style="`background-color:${color}`"
+        >
           <div class="flex flex-col px-4 pt-3 justify-center w-full">
             <div class="truncate">
-               
               <div class="font-bold text-white text-2xl">
                 <div>
                   <!-- {{i}}. -->
@@ -42,7 +47,7 @@
                       viewPort="0 0 60 60"
                       version="1.1"
                       xmlns="http://www.w3.org/2000/svg"
-                      stroke='#000'
+                      stroke="#000"
                       :style="`stroke:${color}`"
                     >
                       <circle
@@ -65,10 +70,9 @@
                       ></circle>
                     </svg>
                     <div
-                      class="h3 absolute font-bold text-xl z-10 text-black percentCenter "
-                      
+                      class="h3 absolute font-bold text-xl z-10 text-black percentCenter"
                     >
-                    {{ value }}%
+                      {{ value }}%
                     </div>
                   </div>
                 </div>
@@ -77,7 +81,6 @@
             <div class="font-normal mt-3 text-white">Prossimo ritiro:</div>
             <div class="flex flex-col font-bold text-white text-xl">
               {{ bin.day | date }}
-              
             </div>
           </div>
           <button class="flex justify-end mb-4 mr-4" @click="deleteBin()">
@@ -96,20 +99,21 @@
               />
             </svg>
           </button>
-            
         </div>
         <div>
-        <t-modal v-model="showModal" header="Scegli il tuo Comune" close="chiudi">
+          <t-modal v-model="showModal" header="Scegli il tuo Comune" close="chiudi">
             <Modal @exit="closeModal"></Modal>
           </t-modal>
         </div>
-    
       </div>
 
       <!--seconda card prova, non funziona-->
       <div class="flex flex-col p-4">
         <div>
-          <div class="flex flex-col bg-blue-400 rounded-2xl h-72" :style="`background-color:#166534`">
+          <div
+            class="flex flex-col bg-blue-400 rounded-2xl h-72"
+            :style="`background-color:#166534`"
+          >
             <div class="flex flex-col px-4 pt-3 justify-center w-full">
               <div class="truncate">
                 <div class="font-bold text-white text-2xl">
@@ -149,14 +153,16 @@
                       <div
                         class="h3 absolute font-bold text-xl z-10 text-black percentCenter"
                       >
-                        {{valueProva}}%
+                        {{ valueProva }}%
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="font-normal mt-3 text-white">Prossimo ritiro:</div>
-              <div class="flex flex-col font-bold text-white text-xl"> Mercoledì 16 Marzo 2022 </div>
+              <div class="flex flex-col font-bold text-white text-xl">
+                Mercoledì 16 Marzo 2022
+              </div>
             </div>
             <!--delete bin-->
             <button class="flex justify-end mb-4 mr-4">
@@ -193,7 +199,7 @@
             header="Scegli il materiale"
             close="chiudi"
           >
-            <ModalMaterial @exit="closeMaterialModal" ></ModalMaterial>
+            <ModalMaterial @exit="closeMaterialModal"></ModalMaterial>
           </t-modal>
         </div>
       </div>
@@ -205,29 +211,31 @@
 import VueSlickCarousel from "slick-vuejs";
 import "slick-vuejs/dist/slick-vuejs.css";
 import ModalMaterial from "@/components/ModalMaterial";
-import axios from 'axios';
+import axios from "axios";
 import Modal from "@/components/Modal";
-
-
+import Loading from "@/components/Loading";
 
 export default {
   components: {
     VueSlickCarousel,
-     ModalMaterial,
-     Modal
+    ModalMaterial,
+    Modal,
+    Loading
   },
+  props: ["changeBin"],
   data() {
     return {
       r: 37.5,
       rMobile: 25,
       rct: 235.26,
       rctMobile: 235.26,
-      rctProva:235.26,
-      valueProva:60,
+      rctProva: 235.26,
+      valueProva: 60,
       isLoading: false,
-      viewBinUser:[],
-      showModal:false,
+      viewBinUser: [],
+      showModal: false,
       value: 1,
+      binExist: false,
       localBin: [],
       bin: [
         {
@@ -240,13 +248,16 @@ export default {
   },
   async mounted() {
     this.user = JSON.parse(localStorage.getItem("AccessEmail"));
-    this.userBin = JSON.parse(localStorage.getItem("BinUser"));
+    //this.userBin = JSON.parse(localStorage.getItem("BinUser"));
     this.getBin();
-    this.changePercent();
-    this.getDistance();
+    /*if (this.binExist == true) {
+      this.changePercent();
+      this.getDistance();
+    }*/
   },
   methods: {
     changeBinStatus() {
+      this.user = JSON.parse(localStorage.getItem("AccessEmail"));
       if (!this.user.zone_id) {
         this.$fire({
           text:
@@ -254,22 +265,18 @@ export default {
           type: "warning",
           timer: 3000,
         }).then((r) => {
-          this.showModalTrue()
-          console.log("aaaaaaa",this.showModal)
-
+          this.showModalTrue();
           console.log(r);
         });
       }
       //controlla se è presente gia un cestino
-      else if(this.viewBinUser.bin_id && this.user.zone_id){
+      else if (this.viewBinUser.bin_id && this.user.zone_id) {
         this.$fire({
-          text:
-            "Attualmente possediamo un solo cestino e non puoi aggiungerne altri :)",
+          text: "Attualmente possediamo un solo cestino e non puoi aggiungerne altri :)",
           type: "warning",
           timer: 3000,
-        })
-      }
-      else {
+        });
+      } else {
         this.showModalMaterial = !this.showModalMaterial;
       }
     },
@@ -277,12 +284,14 @@ export default {
       this.showModal = !this.showModal;
     },
 
-      closeModal() {
+    closeModal() {
       this.showModal = !this.showModal;
     },
 
     closeMaterialModal() {
       this.showModalMaterial = !this.showModalMaterial;
+      //passa il valore add alla home quando il cestino viene rimosso, e verrà poi letto nel watch
+      this.$emit("changeBinMobile", "add");
       this.getBin();
     },
     async deleteBin() {
@@ -291,16 +300,18 @@ export default {
       this.viewBinUser = [];
       this.userBin = JSON.parse(localStorage.getItem("BinUser"));
       let id = this.userBin[0].id;
-      // await this.$axios.delete("/r4g/delete-bin-user/" + id);
-      // await this.$axios.delete("/r4g/delete-bin/" + id);
-      await this.$axios.delete("r4g/delete-bin/" + id)
-      localStorage.removeItem('BinUser');
-      localStorage.removeItem('UserBin');
-      localStorage.removeItem('Bin');
+
+      await this.$axios.delete("r4g/delete-bin/" + id);
+      localStorage.removeItem("BinUser");
+      localStorage.removeItem("UserBin");
+      localStorage.removeItem("Bin");
 
       this.localBin = [];
       this.userBin = [];
       this.isLoading = false;
+
+      //passa il valore remove alla home quando il cestino viene rimosso, e verrà poi letto nel watch
+      this.$emit("changeBinMobile", "remove");
     },
     weekDay(day) {
       let days = new Date();
@@ -324,7 +335,6 @@ export default {
 
       let c3 = Math.PI * (this.rctProva * 2);
       this.rctProva = ((100 - this.valueProva) / 100) * c3;
-
     },
     populateBin() {
       this.localBin = JSON.parse(localStorage.getItem("Bin"));
@@ -363,7 +373,6 @@ export default {
       } else if (this.bin.name == "PLASTICA/LATTINE") {
         this.color = "#1E3A8A";
       }
-
     },
     async getBin() {
       this.isLoading = true;
@@ -375,7 +384,11 @@ export default {
 
       let BinUser = JSON.stringify(userBin);
       localStorage.setItem("BinUser", BinUser);
+      this.userBin = JSON.parse(localStorage.getItem("BinUser"));
+
       if (this.viewBinUser.bin_id) {
+        this.changePercent();
+        this.getDistance();
         let res = await this.$axios.get("/r4g/material-bin/" + this.viewBinUser.bin_id);
         if (res) {
           let calendaBin = res.data;
@@ -388,32 +401,31 @@ export default {
     },
 
     async getDistance() {
-      let length = this.userBin.length;
-      let arrayFeeds = await axios.get("https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2");
+      let length = this.userBin[0].length;
+      let arrayFeeds = await axios.get(
+        "https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2"
+      );
       let lastElement = arrayFeeds.data.feeds.pop();
       let distance = lastElement.field1;
-      let valore = Math.round(100-(((length-distance)*100)/length));
+      let valore = Math.round(100 - ((length - distance) * 100) / length);
       this.value = isNaN(valore) ? 0 : valore;
 
-      if(this.value > 100){
+      if (this.value > 100) {
         this.value = 100;
       }
 
-      if(this.value > 80){
-        this.sendEMail()
-      }else if(this.value <= 80){
+      if (this.value > 80) {
+        this.sendEMail();
+      } else if (this.value <= 80) {
         await axios.put("/r4g/not-send-email-percent/" + this.userBin[0].id);
       }
 
       this.changePercent();
-       
-      
     },
 
     //chiama l'api al be quando il valore super 80%
-    async sendEMail(){
-      console.log("/r4g/send-email-percent/" + this.userBin[0].id)
-      await axios.get("/r4g/send-email-percent/" + this.userBin[0].id)
+    async sendEMail() {
+      await axios.get("/r4g/send-email-percent/" + this.userBin[0].id);
     },
   },
   filters: {
@@ -490,10 +502,9 @@ export default {
   transform: rotate(-90deg);
 }
 
-.percentCenter{
-  left: 50%; 
-  top: 50%; 
-  transform: translate(-50%, -50%)
+.percentCenter {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
-
 </style>
