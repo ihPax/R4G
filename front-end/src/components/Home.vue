@@ -436,11 +436,11 @@ export default {
       try {
         this.bin = [];
         this.userBin = JSON.parse(localStorage.getItem("BinUser"));
-        let id = this.userBin.id;
-        await this.$axios.delete("/r4g/delete-bin-user/" + id);
+        let id = this.userBin[0].id;
         await this.$axios.delete("/r4g/delete-bin/" + id);
         localStorage.removeItem('BinUser');
         localStorage.removeItem('UserBin');
+        localStorage.removeItem('Bin');
         this.localBin = [];
         this.userBin = [];
       } catch(e) {

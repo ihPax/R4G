@@ -21,12 +21,11 @@ class BinUserController extends Controller
 
     //GET BIN-USER
     public function view_bin_userId($user_id){
-        return BinUser::where("user_id",$user_id)->first();
-    }
 
-    //DELETE BIN-USER
-    public function delete_bin_user($id){
-        
-        return BinUser::destroy($id);
+        $binUser = BinUser::where("user_id",$user_id)->first();
+        if($binUser == null){
+            $binUser = [];
+        }
+        return $binUser;
     }
 }

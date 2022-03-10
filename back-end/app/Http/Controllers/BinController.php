@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bin;
+use App\Models\BinUser;
 use App\Models\Calendar;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -70,7 +71,11 @@ class BinController extends Controller
 
     //DELETE BIN
     public function deleteBin($id){
-        return Bin::destroy($id);
+        $binUser = BinUser::where("bin_id",$id)->first();
+        $id_binUser = $binUser->id;
+        BinUser::destroy($id_binUser);
+        Bin::destroy($id);
+        return array("status" => 200, "message" => "Cestino Eliminato");
     }
 
     //SEND EMAIL 80% - sendEmail = 1 (true)

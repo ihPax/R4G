@@ -49,4 +49,3 @@ Route::put('/not-send-email-percent/{id}', [BinController::class, 'notSendEmailP
 
 Route::post('/save-bin-user', [BinUserController::class, 'save_bin_user']);
 Route::get('/view-bin-user/{user_id}', [BinUserController::class, 'view_bin_userId']);
-Route::delete('/delete-bin-user/{id}', [BinUserController::class, 'delete_bin_user']);
