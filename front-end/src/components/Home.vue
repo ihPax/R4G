@@ -268,14 +268,15 @@ export default {
 
     //calcola la distanza rilevata dal sensore
     async getDistance(){
-      let lenght = this.userBin.length;
-      console.log("lunghezza",lenght)
+      let length = this.userBin[0].length;
+      console.log(this.userBin)
+      console.log("lunghezza",length)
       let arrayFeeds = await axios.get("https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2");
       let lastElement = arrayFeeds.data.feeds.pop();
       let distance = lastElement.field1;
-      let valore = Math.round(100-(((lenght-distance)*100)/lenght));
+      let valore = Math.round(100-(((length-distance)*100)/length));
+      console.log(valore)
       this.value = isNaN(valore) ? 0 : valore;
-      //this.value = 81;
 
       if(this.value > 100){
         this.value = 100;
@@ -283,6 +284,8 @@ export default {
 
       if(this.value > 80){
         this.sendEMail()
+      }else if(this.value <= 80){
+        await axios.put("/r4g/not-send-email-percent/" + this.userBin[0].id);
       }
 
       this.changePercent();
