@@ -516,7 +516,7 @@ export default {
         }
 
         this.changePercent();
-      }, [15000]);
+      },[15000]);
     },
 
     //alert che ti avvisa di scegliere prima la zona e poi il cestino
