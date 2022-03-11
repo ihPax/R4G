@@ -474,11 +474,15 @@ export default {
         );
         let lastElement = arrayFeeds.data.feeds.pop();
         let distance = lastElement.field1;
-        let valore = Math.round(100 - ((length - distance) * 100) / length);
+        let valore = Math.round(((length - distance) * 100) / length);
         this.value = isNaN(valore) ? 0 : valore;
 
         if (this.value > 100) {
           this.value = 100;
+        }
+
+        if (this.value < 0){
+          this.value = 0;
         }
 
         if (this.value > 80) {
@@ -488,7 +492,7 @@ export default {
         }
 
         this.changePercent();
-      }, [15000]);
+      },[15000]);
     },
 
     //alert che ti avvisa di scegliere prima la zona e poi il cestino
