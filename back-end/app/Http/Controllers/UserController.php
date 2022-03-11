@@ -112,7 +112,7 @@ class UserController extends Controller
         $user = User::find($id);
 
         //verifico se la email nella richiesta è uguale a quella associata all'ID nel database
-        if ($data->email === $user->email) {
+        if ($user !== null && $data->email === $user->email) {
             $user->name = $data->name;
             $user->surname = $data->surname;
             $user->birthday = $data->birthday;
