@@ -168,10 +168,217 @@
         </div>
 
         <div class="flex flex-col mx-4">
-          <SwichCard
+        <VueSlickCarousel :arrows="false" :dots="false">
+      <!--prima card -->
+      <div class="p-4" v-if="viewBinUser.bin_id">
+        <div v-if="isLoading" class="flex flex-col justify-center items-center">
+          <Loading></Loading>
+        </div>
+        <div
+          class="flex flex-col bg-blue-400 rounded-2xl h-72"
+          v-if="localBin != ''"
+          :style="`background-color:${color}`"
+        >
+          <div class="flex flex-col px-4 pt-3 justify-center w-full">
+            <div class="truncate">
+              <div class="font-bold text-white text-2xl">
+                <div>
+                  <!-- {{i}}. -->
+                  {{ bin.name }}
+                </div>
+                <div class="flex justify-between">
+                  <img
+                    v-if="bin.name == 'CARTA'"
+                    src="../assets/carta.png"
+                    class="h-24 flex-shrink-0"
+                  />
+                  <img
+                    v-if="bin.name == 'SECCO'"
+                    src="../assets/secco.png"
+                    class="h-24 flex-shrink-0"
+                  />
+                  <img
+                    v-if="bin.name == 'UMIDO'"
+                    src="../assets/umido.png"
+                    class="h-24 flex-shrink-0"
+                  />
+                  <img
+                    v-if="bin.name == 'PLASTICA/LATTINE'"
+                    src="../assets/plastica.png"
+                    class="h-24 flex-shrink-0"
+                  />
+                  <div class="relative">
+                    <svg
+                      id="svg"
+                      width="120"
+                      height="120"
+                      viewPort="0 0 60 60"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      stroke="#000"
+                      :style="`stroke:${color}`"
+                    >
+                      <circle
+                        :r="r"
+                        cx="60"
+                        cy="60"
+                        fill="white"
+                        stroke-dasharray="235.26"
+                        stroke-dashoffset="0"
+                      ></circle>
+                      <circle
+                        id="bar"
+                        :r="r"
+                        cx="60"
+                        cy="60"
+                        fill="transparent"
+                        stroke-dasharray="235.26"
+                        stroke-dashoffset="0"
+                        :style="`stroke-dashoffset: ${rct}px;stroke:#000`"
+                      ></circle>
+                    </svg>
+                    <div
+                      class="h3 absolute font-bold text-xl z-10 text-black percentCenter"
+                    >
+                      {{ value }}%
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="font-normal mt-3 text-white">Prossimo ritiro:</div>
+            <div class="flex flex-col font-bold text-white text-xl">
+              {{ bin.day | date }}
+            </div>
+          </div>
+          <button class="flex justify-end mb-4 mr-4" @click="deleteBin()">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-12 w-12 rounded-full bg-white p-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              />
+            </svg>
+          </button>
+        </div>
+        <div>
+          <t-modal v-model="showModal" header="Scegli il tuo Comune" close="chiudi">
+            <Modal @exit="closeModal"></Modal>
+          </t-modal>
+        </div>
+      </div>
+
+      <!--seconda card prova, non funziona-->
+      <div class="flex flex-col p-4">
+        <div>
+          <div
+            class="flex flex-col bg-blue-400 rounded-2xl h-72"
+            :style="`background-color:#166534`"
+          >
+            <div class="flex flex-col px-4 pt-3 justify-center w-full">
+              <div class="truncate">
+                <div class="font-bold text-white text-2xl">
+                  <div>CARTA - CARD PROVA</div>
+                  <div class="flex justify-between">
+                    <img src="../assets/carta.png" class="h-24 flex-shrink-0" />
+
+                    <div class="relative">
+                      <svg
+                        id="svg"
+                        width="120"
+                        height="120"
+                        viewPort="0 0 60 60"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        :style="`stroke:#000`"
+                      >
+                        <circle
+                          :r="r"
+                          cx="60"
+                          cy="60"
+                          fill="white"
+                          stroke-dasharray="235.26"
+                          stroke-dashoffset="0"
+                        ></circle>
+                        <circle
+                          id="bar"
+                          :r="r"
+                          cx="60"
+                          cy="60"
+                          fill="transparent"
+                          stroke-dasharray="235.26"
+                          stroke-dashoffset="0"
+                          :style="`stroke-dashoffset: ${rctProva}px;stroke:#000`"
+                        ></circle>
+                      </svg>
+                      <div
+                        class="h3 absolute font-bold text-xl z-10 text-black percentCenter"
+                      >
+                        {{ valueProva }}%
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="font-normal mt-3 text-white">Prossimo ritiro:</div>
+              <div class="flex flex-col font-bold text-white text-xl">
+                Mercoledì 16 Marzo 2022
+              </div>
+            </div>
+            <!--delete bin-->
+            <button class="flex justify-end mb-4 mr-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-12 w-12 rounded-full bg-white p-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- terza card per delete cestino -->
+      <div class="flex flex-col p-4">
+        <div class="w-full flex justify-center items-center h-72 bg-blue-400 rounded-2xl">
+          <button @click="changeBinStatus()" class="h-24 w-24">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-full h-full mx-auto rounded-full bg-gray-200 p-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+          </button>
+        </div>
+
+        <div>
+          <t-modal
+            v-model="showModalMaterial"
+            header="Scegli il materiale"
+            close="chiudi"
+          >
+            <ModalMaterial @exit="closeMaterialModal"></ModalMaterial>
+          </t-modal>
+        </div>
+      </div>
+    </VueSlickCarousel>
+
+          <!-- <SwichCard
             :changeBin="changeBin"
             @changeBinMobile="changeBin = $event"
-          ></SwichCard>
+          ></SwichCard> -->
 
           <div class="mt-4">
             <div v-if="!user.zone_id" class="flex flex-col items-center">
@@ -198,7 +405,10 @@ import Calendar from "@/components/Calendar";
 import ModalMaterial from "@/components/ModalMaterial";
 import Loading from "@/components/Loading";
 import axios from "axios";
-import SwichCard from "@/components/SwichCard";
+import VueSlickCarousel from "slick-vuejs";
+import "slick-vuejs/dist/slick-vuejs.css";
+
+//import SwichCard from "@/components/SwichCard";
 
 export default {
   name: "Home",
@@ -207,7 +417,8 @@ export default {
     Modal,
     ModalMaterial,
     Loading,
-    SwichCard,
+    VueSlickCarousel
+   // SwichCard,
   },
   props: {
     isMobile: {
@@ -221,8 +432,10 @@ export default {
       changeBin: "",
       access: "",
       user: {},
+      rctProva: 235.26,
       color: "grey",
       showModal: false,
+      valueProva:60,
       showModalMaterial: false,
       userBin: {},
       bin: [
@@ -240,6 +453,7 @@ export default {
       rctMobile: 235.26,
       value: 1,
       binExist: false,
+      viewBinUser:[]
     };
   },
   async mounted() {
@@ -249,7 +463,7 @@ export default {
 
   //metodo che controlla se la variabile changeBin cambia, se passa il valore add prenderva i valori dal localstorage,
   //se passa il valore remove toglie i valori del cestino dal localstorage
-  watch: {
+  /*watch: {
     changeBin(newQuestion) {
       if (newQuestion == "add") {
         this.user = JSON.parse(localStorage.getItem("AccessEmail"));
@@ -265,7 +479,7 @@ export default {
         this.changeBin = "";
       }
     },
-  },
+  },*/
   methods: {
     //apre la modale delle zone
     showModalTrue() {
@@ -275,7 +489,6 @@ export default {
     //calcola la distanza rilevata dal sensore
     getDistance() {
       setInterval(async () => {
-        this.userBin = JSON.parse(localStorage.getItem("BinUser"));
         let length = this.userBin[0].length;
         let arrayFeeds = await axios.get(
           "https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2"
@@ -312,7 +525,15 @@ export default {
           this.showModal = !this.showModal;
           console.log(r); //NON E' DA TOGLIERE
         });
-      } else {
+      } 
+      else if (this.viewBinUser.bin_id && this.user.zone_id) {
+        this.$fire({
+          text: "Attualmente possediamo un solo cestino e non puoi aggiungerne altri :)",
+          type: "warning",
+          timer: 3000,
+        });
+      }
+      else {
         this.showModalMaterial = !this.showModalMaterial;
       }
     },
@@ -334,9 +555,9 @@ export default {
       this.isLoading = true;
       try {
         let response = await this.$axios.get("/r4g/view-bin-user/" + this.user.id);
-        let viewBinUser = response.data; //bin con userId e binId
+        this.viewBinUser = response.data; //bin con userId e binId
 
-        if (viewBinUser != []) {
+        if (this.viewBinUser != []) {
          
           this.binExist = true;
           let bin = await this.$axios.get("/r4g/bin/" + this.user.id);
@@ -346,10 +567,11 @@ export default {
           localStorage.setItem("BinUser", BinUser);
           this.userBin = JSON.parse(localStorage.getItem("BinUser"));
 
-          if (viewBinUser.bin_id) {
+          if (this.viewBinUser.bin_id) {
+            console.log(this.viewBinUser.bin_id, 'this.viewBinUser.bin_i')
             this.changePercent();
             this.getDistance();
-            let res = await this.$axios.get("/r4g/material-bin/" + viewBinUser.bin_id);
+            let res = await this.$axios.get("/r4g/material-bin/" + this.viewBinUser.bin_id);
             if (response) {
               let calendaBin = res.data;
               this.localBin = JSON.stringify(calendaBin);
@@ -425,6 +647,9 @@ export default {
 
       let c2 = Math.PI * (this.rMobile * 2);
       this.rctMobile = ((100 - this.value) / 100) * c2;
+
+       let c3 = Math.PI * (this.rctProva * 2);
+      this.rctProva = ((100 - this.valueProva) / 100) * c3;
     },
 
     //metodo per eliminare il cestino
@@ -432,6 +657,7 @@ export default {
       this.isLoading = true;
       try {
         this.bin = [];
+        this.viewBinUser = [];
         this.userBin = JSON.parse(localStorage.getItem("BinUser"));
         let id = this.userBin[0].id;
         await this.$axios.delete("/r4g/delete-bin/" + id);
@@ -440,6 +666,8 @@ export default {
         localStorage.removeItem("Bin");
         this.localBin = [];
         this.userBin = [];
+        this.getBin();
+
       } catch (e) {
         this.$emit("catch-error", e);
       } finally {
@@ -525,5 +753,11 @@ export default {
 
 #svg {
   transform: rotate(-90deg);
+}
+
+.percentCenter {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>
