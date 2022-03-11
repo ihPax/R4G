@@ -69,12 +69,8 @@
                     <div class="flex flex-col text-white text-xl">
                         <button type="button"
                             :disabled="!isFormValid || isLoading"
-                            class="font-bold px-4 py-1 rounded-full"
-                            :class="{
-                                'cursor-pointer bg-black': isFormValid,
-                                'cursor-not-allowed bg-gray-500': !isFormValid
-                            }"
-                            @click="login()" 
+                            class="font-bold px-4 py-1 rounded-full cursor-pointer bg-black disabled:cursor-not-allowed disabled:bg-gray-500"
+                            @click.stop="login()" 
                         >
                             Accedi
                         </button>
@@ -159,13 +155,9 @@
         <!--BUTTON LOGIN-->
         <div class="flex flex-col text-white text-lg my-5">
             <button type="button"
-                class="font-bold px-4 py-2 mx-5 rounded text-white bg-yellow-600 hover:bg-yellow-700 active:bg-yellow-700 focus:ring-yellow-300"
-                :class="{
-                    'cursor-pointer': isFormValid,
-                    'cursor-not-allowed': !isFormValid
-                }"
-                @click="login()"
-                :disabled="!isFormValid"
+                class="font-bold px-4 py-2 mx-5 rounded text-white bg-yellow-600 hover:bg-yellow-700 active:bg-yellow-700 focus:ring-yellow-300 disabled:cursor-not-allowed"
+                @click.stop="login()"
+                :disabled="!isFormValid || isLoading"
             >
                 Accedi
             </button>

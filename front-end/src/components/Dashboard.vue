@@ -75,6 +75,8 @@ export default {
         this.err = e.response;
       } else if (e.request) {
         this.err = e.request;
+      } else {
+        this.err = {statusText: e.message};   
       }
       
       if (this.err.status == 401) {

@@ -17,7 +17,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(),[
             'name'     => 'bail|required|string|min:2',
             'surname'  => 'bail|required|string|min:2',
-            'birthday' => 'bail|required|date',
+            'birthday' => 'bail|required|date|before:today',
             'email'    => 'bail|required|email|unique:users,email',
             'password' => 'bail|required|string|min:6'
         ]);
@@ -57,21 +57,21 @@ class UserController extends Controller
 
         $this->validate($request,[
             'email'    => 'bail|required|email',
-            'password' => 'bail|required|min:6'
+            'password' => 'bail|required|string|min:6'
         ]);
 
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
             $user = Auth::user();
             return response()->json([
-              'status' => 'success',
-              'user'   => $user,
+                'user'   => $user,
+                'status' => 'Successo',
             ]
             ,200); 
         }else{ 
-            return response()->json([
-              'status' => 'error',
-              'user'   => 'Unauthorized Access'
-            ]
+            return response()->json([[
+                'user'   => 'Email e/o password non corretta',
+                'status' => 'Errore',
+            ]]
             ,401); 
         }
     }

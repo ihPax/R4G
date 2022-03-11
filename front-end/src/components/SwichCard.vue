@@ -260,9 +260,8 @@ export default {
             "Prima di collegare il cestino ti chiediamo di indicare il tuo quartiere di residenza",
           type: "warning",
           timer: 3000,
-        }).then((r) => {
+        }).then(() => {
           this.showModalTrue();
-          console.log(r);
         });
       }
       //controlla se è presente gia un cestino

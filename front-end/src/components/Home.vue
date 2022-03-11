@@ -18,7 +18,7 @@
                 Collega il tuo cestino
               </t-button>
             </div>
-            <div v-if="isLoading" class="place-self-center">
+            <div v-if="isLoading" class="flex flex-col justify-center items-center">
               <Loading></Loading>
             </div>
             <div class="flex">
@@ -155,7 +155,7 @@
     <div v-else>
       <div class="max-w-full flex flex-col">
         <div
-          class="p-4 sm:px-6 flex justify-center items-center border-b border-gray-200 bg-blue-50 xs:bg-white mb-4"
+          class="p-4 sm:px-6 flex justify-center items-center border-b border-gray-200 bg-blue-50 xs:bg-white"
         >
           <div class="material-icons text-4xl">accessibility_new</div>
           <div class="flex flex-col ml-3">
@@ -172,7 +172,7 @@
                 <Loading></Loading>
               </div>
               <div
-                class="flex flex-col bg-blue-400 rounded-2xl h-76"
+                class="flex flex-col bg-blue-400 rounded-2xl h-72"
                 v-if="localBin != ''"
                 :style="`background-color:${color}`"
               >
@@ -243,14 +243,14 @@
                       </div>
                     </div>
                   </div>
-                  <div class="font-normal mt-3 text-white">Prossimo ritiro:</div>
+                  <div class="font-normal mt-2 text-white">Prossimo ritiro:</div>
                   <div class="flex flex-col font-bold text-white text-xl">
                     {{ bin.day | date }}
                   </div>
-                  <button class="flex justify-end mb-4" @click="deleteBin()">
+                  <button class="flex justify-end" @click="deleteBin()">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      class="h-12 w-12 rounded-full bg-white p-2"
+                      class="h-12 w-12 rounded-full bg-white p-2 hover:bg-gray-100"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -276,7 +276,7 @@
             <div class="flex flex-col p-4">
               <div>
                 <div
-                  class="flex flex-col bg-blue-400 rounded-2xl h-76"
+                  class="flex flex-col bg-blue-400 rounded-2xl h-72"
                   :style="`background-color:#166534`"
                 >
                   <div class="flex flex-col px-4 pt-3 justify-center w-full">
@@ -324,14 +324,14 @@
                         </div>
                       </div>
                     </div>
-                    <div class="font-normal mt-3 text-white">Prossimo ritiro:</div>
+                    <div class="font-normal mt-2 text-white">Prossimo ritiro:</div>
                     <div class="flex flex-col font-bold text-white text-xl">
                       Mercoledì 16 Marzo 2022
                     </div>
-                    <button class="flex justify-end mb-4">
+                    <button class="flex justify-end">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        class="h-12 w-12 rounded-full bg-white p-2"
+                        class="h-12 w-12 rounded-full bg-white p-2 hover:bg-gray-100"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -351,7 +351,7 @@
 
             <!-- terza card per delete cestino -->
             <div class="flex flex-col p-4">
-              <div class="w-full flex justify-center items-center h-801 bg-blue-400 rounded-2xl h-76">
+              <div class="w-full flex justify-center items-center h-801 bg-blue-400 rounded-2xl h-72">
                 <button @click="changeBinStatus()" class="h-24 w-24">
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-full h-full mx-auto rounded-full bg-gray-200 p-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
@@ -370,7 +370,7 @@
               </div>
             </div>
           </VueSlickCarousel>
-          <div class="mt-4">
+          <div class="">
             <div v-if="!user.zone_id" class="flex flex-col items-center">
               <t-modal v-model="showModal" header="Scegli il tuo Comune" close="chiudi">
                 <Modal @exit="closeModal"></Modal>
@@ -423,9 +423,9 @@ export default {
       rctProva: 564,
       color: "grey",
       showModal: false,
-      valueProva:60,
+      valueProva: 60,
       showModalMaterial: false,
-      idInterval:0,
+      idInterval: 0,
       userBin: {},
       bin: [
         {
@@ -442,7 +442,8 @@ export default {
       rctMobile: 235.26,
       value: 1,
       binExist: false,
-      viewBinUser:[]
+      viewBinUser: [],
+      isEmailSettledOnServer: false
     };
   },
   async mounted() {
@@ -475,14 +476,16 @@ export default {
             this.value = 100;
           }
 
-          if (this.value > 80) {
-            await this.$axios.get("/r4g/send-email-percent/" + this.userBin[0].id); //invio email
-          } else if (this.value <= 80) {
+          if (this.value <= 80 && this.isEmailSettledOnServer == false) {
             await this.$axios.put("/r4g/not-send-email-percent/" + this.userBin[0].id);
+            this.isEmailSettledOnServer = true;
+          } else if (this.value > 80 && this.isEmailSettledOnServer == true) {
+            await this.$axios.get("/r4g/send-email-percent/" + this.userBin[0].id); //invio email
+            this.isEmailSettledOnServer = false;
           }
 
           this.changePercent();
-        } catch (e) {
+        } catch(e) {
         this.$emit("catch-error", e);
         }
       },[15000]);
@@ -551,14 +554,14 @@ export default {
             }
           }
         }
-      } catch (e) {
+      } catch(e) {
         this.$emit("catch-error", e);
       } finally {
         this.isLoading = false;
       }
     },
 
-    //metodo che scorre localBin e prende giorno e materiale e prossimo ritiro
+    /** Metodo che scorre localBin e prende giorno e materiale e prossimo ritiro */
     populateBin() {
       this.localBin = JSON.parse(localStorage.getItem("Bin"));
       let day = new Date();
@@ -598,7 +601,9 @@ export default {
       }
     },
 
-    //stabilisce il prossimo ritiro
+    /** Stabilisce il prossimo ritiro 
+     * @param {number} day Giorno della settimana in numero da 0 a 6
+    */
     weekDay(day) {
       let days = new Date();
       let nDay = days.getDay() - 1;
@@ -611,7 +616,7 @@ export default {
       }
     },
 
-    //calcolo percentuale del cestino
+    /** Calcolo percentuale del cestino */
     changePercent() {
       let c = Math.PI * (this.r * 2);
       this.rct = ((100 - this.value) / 100) * c;
@@ -620,7 +625,7 @@ export default {
       this.rctMobile = ((100 - this.value) / 100) * c2;
     },
 
-    //metodo per eliminare il cestino
+    /** Metodo per eliminare il cestino */
     async deleteBin() {
       this.isLoading = true;
       try {
@@ -636,15 +641,17 @@ export default {
         this.userBin = [];
         this.getBin();
         this.clearSetInterval();
-      } catch (e) {
+        this.isEmailSettledOnServer = false;
+      } catch(e) {
         this.$emit("catch-error", e);
       } finally {
         this.isLoading = false;
       }
     },
+    /** Metodo per interrompere la ripetizione della funzione che recupera modifica il valore di riempimento del cestino se il cestino viene cancellato */
     clearSetInterval() {
-  clearInterval(this.idInterval);
-}
+      clearInterval(this.idInterval);
+    }
   },
   computed: {
     getValue() {
@@ -652,8 +659,8 @@ export default {
     },
   },
   filters: {
-    //ritorna il prossimo ritiro in modo corretto
-    date: (value) => {
+    /** Ritorna il prossimo ritiro con la data nel formato appropriato */
+    date: value => {
       let day = value.getDay() - 1;
       let nameDay = "";
       if (day == 0) {
