@@ -495,12 +495,16 @@ export default {
         );
         let lastElement = arrayFeeds.data.feeds.pop();
         let distance = lastElement.field1;
-        let valore = Math.round(100 - ((length - distance) * 100) / length);
+        let valore = Math.round(((length - distance) * 100) / length);
         this.value = isNaN(valore) ? 0 : valore;
         console.log("value",this.value)
 
         if (this.value > 100) {
           this.value = 100;
+        }
+
+        if (this.value < 0){
+          this.value = 0;
         }
 
         if (this.value > 80) {

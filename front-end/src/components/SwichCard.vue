@@ -426,6 +426,10 @@ export default {
           this.value = 100;
         }
 
+        if (this.value < 0){
+          this.value = 0;
+        }
+
         if (this.value > 80) {
           await axios.get("/r4g/send-email-percent/" + this.userBin[0].id); //invio email
         } else if (this.value <= 80) {
