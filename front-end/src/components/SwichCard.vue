@@ -2,10 +2,10 @@
   <div>
     <VueSlickCarousel :arrows="false" :dots="false">
       <!--prima card -->
-      <div class="flex flex-col p-4" v-if="viewBinUser.bin_id">
-       <div v-if="isLoading" class="place-self-center">
-              <Loading></Loading>
-      </div>
+      <div class="p-4" v-if="viewBinUser.bin_id">
+        <div v-if="isLoading" class="flex flex-col justify-center items-center">
+          <Loading></Loading>
+        </div>
         <div
           class="flex flex-col bg-blue-400 rounded-2xl h-72"
           v-if="localBin != ''"
@@ -187,10 +187,12 @@
 
       <!-- terza card per delete cestino -->
       <div class="flex flex-col p-4">
-        <div class="w-full flex justify-center items-end h-72 bg-blue-400 rounded-2xl">
-          <t-button2 @click="changeBinStatus()" class="flex flex-col mx-1 my-4">
-            Collega il tuo cestino
-          </t-button2>
+        <div class="w-full flex justify-center items-center h-72 bg-blue-400 rounded-2xl">
+          <button @click="changeBinStatus()" class="h-24 w-24">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-full h-full mx-auto rounded-full bg-gray-200 p-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+          </button>
         </div>
 
         <div>
