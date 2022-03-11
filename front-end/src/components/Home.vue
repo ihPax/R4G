@@ -432,11 +432,12 @@ export default {
       changeBin: "",
       access: "",
       user: {},
-      rctProva: 235.26,
+      rctProva: 550.27,
       color: "grey",
       showModal: false,
       valueProva:60,
       showModalMaterial: false,
+      idInterval:0,
       userBin: {},
       bin: [
         {
@@ -488,8 +489,9 @@ export default {
 
     //calcola la distanza rilevata dal sensore
     getDistance() {
-      setInterval(async () => {
-        let length = this.userBin[0].length;
+      this.idInterval = setInterval(async () => {
+        this.user = JSON.parse(localStorage.getItem("AccessEmail"));
+        let length = this.userBin[0].length ;
         let arrayFeeds = await axios.get(
           "https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2"
         );
@@ -648,8 +650,9 @@ export default {
       let c2 = Math.PI * (this.rMobile * 2);
       this.rctMobile = ((100 - this.value) / 100) * c2;
 
-       let c3 = Math.PI * (this.rctProva * 2);
-      this.rctProva = ((100 - this.valueProva) / 100) * c3;
+       //let c3 = Math.PI * (this.rctProva * 2);
+      //this.rctProva = ((100 - this.valueProva) / 100) * c3;
+      console.log(this.rctProva)
     },
 
     //metodo per eliminare il cestino
@@ -667,13 +670,16 @@ export default {
         this.localBin = [];
         this.userBin = [];
         this.getBin();
-
+        this.clearSetInterval();
       } catch (e) {
         this.$emit("catch-error", e);
       } finally {
         this.isLoading = false;
       }
     },
+    clearSetInterval() {
+  clearInterval(this.idInterval);
+}
   },
   computed: {
     getValue() {
