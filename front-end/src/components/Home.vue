@@ -273,9 +273,10 @@ export default {
     },
 
     //calcola la distanza rilevata dal sensore
-    async getDistance() {
-      try {
-        let length = this.userBin.length;
+    getDistance() {
+      setInterval(async () => {
+        this.userBin = JSON.parse(localStorage.getItem("BinUser"));
+        let length = this.userBin[0].length;
         let arrayFeeds = await axios.get(
           "https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2"
         );
@@ -283,21 +284,20 @@ export default {
         let distance = lastElement.field1;
         let valore = Math.round(100 - ((length - distance) * 100) / length);
         this.value = isNaN(valore) ? 0 : valore;
+        console.log("value",this.value)
 
         if (this.value > 100) {
           this.value = 100;
         }
 
         if (this.value > 80) {
-          this.sendEMail();
+          await axios.get("/r4g/send-email-percent/" + this.userBin[0].id); //invio email
         } else if (this.value <= 80) {
           await axios.put("/r4g/not-send-email-percent/" + this.userBin[0].id);
         }
 
         this.changePercent();
-      } catch (e) {
-        this.$emit("catch-error", e);
-      }
+      }, [15000]);
     },
 
     //invio email capienza oltre l'80%

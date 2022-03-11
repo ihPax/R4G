@@ -234,7 +234,7 @@ export default {
       isLoading: false,
       viewBinUser: [],
       showModal: false,
-      value: 1,
+      value: 0,
       binExist: false,
       localBin: [],
       bin: [
@@ -248,12 +248,7 @@ export default {
   },
   async mounted() {
     this.user = JSON.parse(localStorage.getItem("AccessEmail"));
-    //this.userBin = JSON.parse(localStorage.getItem("BinUser"));
     this.getBin();
-    /*if (this.binExist == true) {
-      this.changePercent();
-      this.getDistance();
-    }*/
   },
   methods: {
     //alert che ti avvisa di scegliere prima la zona e poi il cestino
@@ -286,7 +281,8 @@ export default {
     showModalTrue() {
       this.showModal = !this.showModal;
     },
-//dovrebbe chiudere la modale dei comuni ma non avviene
+    
+    //dovrebbe chiudere la modale dei comuni ma non avviene
     closeModal() {
       this.showModal = !this.showModal;
     },
@@ -412,34 +408,38 @@ export default {
       this.isLoading = false;
     },
 
-    
     //calcola la distanza rilevata dal sensore
-    async getDistance() {
-      let length = this.userBin[0].length;
-      let arrayFeeds = await axios.get(
-        "https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2"
-      );
-      let lastElement = arrayFeeds.data.feeds.pop();
-      let distance = lastElement.field1;
-      let valore = Math.round(100 - ((length - distance) * 100) / length);
-      this.value = isNaN(valore) ? 0 : valore;
+    getDistance() {
+      setInterval(async () => {
+        this.userBin = JSON.parse(localStorage.getItem("BinUser"));
+        let length = this.userBin[0].length;
+        let arrayFeeds = await axios.get(
+          "https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2"
+        );
+        let lastElement = arrayFeeds.data.feeds.pop();
+        let distance = lastElement.field1;
+        let valore = Math.round(100 - ((length - distance) * 100) / length);
+        this.value = isNaN(valore) ? 0 : valore;
+        console.log("value",this.value)
 
-      if (this.value > 100) {
-        this.value = 100;
-      }
+        if (this.value > 100) {
+          this.value = 100;
+        }
 
-      if (this.value > 80) {
-        this.sendEMail();
-      } else if (this.value <= 80) {
-        await axios.put("/r4g/not-send-email-percent/" + this.userBin[0].id);
-      }
+        if (this.value > 80) {
+          await axios.get("/r4g/send-email-percent/" + this.userBin[0].id); //invio email
+        } else if (this.value <= 80) {
+          await axios.put("/r4g/not-send-email-percent/" + this.userBin[0].id);
+        }
 
-      this.changePercent();
+        this.changePercent();
+      }, [15000]);
     },
 
-    //chiama l'api al be quando il valore super 80%
-    async sendEMail() {
-      await axios.get("/r4g/send-email-percent/" + this.userBin[0].id);
+  },
+  computed: {
+    getValue() {
+      return this.value;
     },
   },
   filters: {
