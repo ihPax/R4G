@@ -20,9 +20,7 @@ export default {
       bin: []
     }
   },
-  mounted() {
-    console.log(materiali)
-  },
+  mounted() {},
   methods: {
     async chooseMaterial(materiale) {
       try {

@@ -35,14 +35,9 @@ export default {
         this.err = e.response;
       } else if (e.request) {
         this.err = e.request;
-      } else {
-        console.log('Error', e.message);
       }
-      // let dataErr = this.err.data; //oggetto che contiene una coppia chiave valore con valore un array contentente una stringa
-      // let customErr = dataErr[Object.keys(dataErr)[0]];
-      // console.log(customErr);
       
-      console.log(this.err);
+      console.log("Error",this.err);
       if (isLogin) {
         if (this.err.status == 401) {
           this.err.statusText = "Email e/o password non corretta";

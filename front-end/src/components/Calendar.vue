@@ -101,7 +101,6 @@ export default {
       this.showModal = !this.showModal;
       this.attributes = [];
       this.getZone();
-      console.log(this.calendars.calendars.length)
     },
     showModalTrue() {
       this.showModal = !this.showModal;

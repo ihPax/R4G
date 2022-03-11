@@ -195,7 +195,6 @@ export default {
         for (let property in this.form) {
           this.form[property] = this.fields[i].code;
           i++;
-          // console.log(`${property}: ${form[property]}`);
         }
         for (let i = 0; i < this.comuni.length; i++) {
           if (this.comuni[i].name == this.form.zone_id) {
@@ -207,9 +206,7 @@ export default {
             text: "La password dev'essere lunga almeno 6 caratteri!",
             type: "warning",
             timer: 3000,
-            }).then(() => {
-              console.log("La password viene resettata nel form, infatti:" + this.form.password)
-            });    
+            }) 
         } else {
           try {
             let response = await this.$axios.put(
