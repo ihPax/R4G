@@ -300,15 +300,6 @@ export default {
       }, [15000]);
     },
 
-    //invio email capienza oltre l'80%
-    async sendEMail() {
-      try {
-        await axios.get("/r4g/send-email-percent/" + this.userBin[0].id);
-      } catch (e) {
-        this.$emit("catch-error", e);
-      }
-    },
-
     //alert che ti avvisa di scegliere prima la zona e poi il cestino
     changeBinStatus() {
       if (!this.user.zone_id) {
