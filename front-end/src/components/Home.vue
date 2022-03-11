@@ -375,11 +375,7 @@
       </div>
     </VueSlickCarousel>
 
-          <!-- <SwichCard
-            :changeBin="changeBin"
-            @changeBinMobile="changeBin = $event"
-          ></SwichCard> -->
-
+         
           <div class="mt-4">
             <div v-if="!user.zone_id" class="flex flex-col items-center">
               <t-modal v-model="showModal" header="Scegli il tuo Comune" close="chiudi">
@@ -462,25 +458,6 @@ export default {
     this.getBin();
   },
 
-  //metodo che controlla se la variabile changeBin cambia, se passa il valore add prenderva i valori dal localstorage,
-  //se passa il valore remove toglie i valori del cestino dal localstorage
-  /*watch: {
-    changeBin(newQuestion) {
-      if (newQuestion == "add") {
-        this.user = JSON.parse(localStorage.getItem("AccessEmail"));
-        this.userBin = JSON.parse(localStorage.getItem("BinUser"));
-        this.getBin();
-        this.changeBin = "";
-      } else if (newQuestion == "remove") {
-        this.bin = [];
-        this.viewBinUser = [];
-        this.userBin = JSON.parse(localStorage.getItem("BinUser"));
-        this.localBin = [];
-        this.userBin = [];
-        this.changeBin = "";
-      }
-    },
-  },*/
   methods: {
     //apre la modale delle zone
     showModalTrue() {
@@ -499,7 +476,6 @@ export default {
         let distance = lastElement.field1;
         let valore = Math.round(100 - ((length - distance) * 100) / length);
         this.value = isNaN(valore) ? 0 : valore;
-        console.log("value",this.value)
 
         if (this.value > 100) {
           this.value = 100;
@@ -570,7 +546,6 @@ export default {
           this.userBin = JSON.parse(localStorage.getItem("BinUser"));
 
           if (this.viewBinUser.bin_id) {
-            console.log(this.viewBinUser.bin_id, 'this.viewBinUser.bin_i')
             this.changePercent();
             this.getDistance();
             let res = await this.$axios.get("/r4g/material-bin/" + this.viewBinUser.bin_id);
@@ -650,9 +625,7 @@ export default {
       let c2 = Math.PI * (this.rMobile * 2);
       this.rctMobile = ((100 - this.value) / 100) * c2;
 
-       //let c3 = Math.PI * (this.rctProva * 2);
-      //this.rctProva = ((100 - this.valueProva) / 100) * c3;
-      console.log(this.rctProva)
+      
     },
 
     //metodo per eliminare il cestino
