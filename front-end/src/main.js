@@ -20,26 +20,9 @@ import ToS from "@/components/ToS.vue";
 import Feedback from "@/components/Feedback.vue";
 import VueTailwind from 'vue-tailwind'
 import {
-  //TInput,
-  // TTextarea,
-  // TSelect,
-  // TRadio,
-  // TCheckbox,
   TButton,
-  // TInputGroup,
-  // TCard,
-  // TAlert,
   TModal,
-  // TDropdown,
-  // TRichSelect,
-  // TPagination,
-  // TTag,
-  // TRadioGroup,
-  // TCheckboxGroup,
-  // TTable,
-  // TDatepicker,
-  // TToggle,
-  // TDialog,
+
 } from 'vue-tailwind/dist/components';
 
 Vue.prototype.$axios = axios;
@@ -49,17 +32,9 @@ axios.defaults.baseURL = "http://localhost:8000/"
 Vue.use(VueRouter);
 Vue.use(VCalendar, {
   componentPrefix: 'v',  // Use <vc-calendar /> instead of <v-calendar />
-  // ...other defaults
 });
 
 const settings = {
-  // Use the following syntax
-  // {component-name}: {
-  //   component: {importedComponentObject},
-  //   props: {
-  //     {propToOverride}: {newDefaultValue}
-  //     {propToOverride2}: {newDefaultValue2}
-  //   }
   't-button': {
     component: TButton,
     props: {
@@ -110,7 +85,6 @@ const settings = {
       danger: {
         overlay: 'bg-red-100',
           header: 'border-red-50 text-red-700',
-            // close: 'bg-red-50 text-red-700 hover:bg-red-200 border-red-100 border',
             modal: 'bg-white border border-red-100 shadow-lg',
               footer: 'bg-red-50'
       }

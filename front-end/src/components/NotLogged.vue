@@ -45,9 +45,9 @@ export default {
     },
     methods: {
         goToLogin() {
-            this.$router.push({
-                name: "login"
-            });
+          this.$router.push({
+            name: "login"
+          });
         }
     }
 }

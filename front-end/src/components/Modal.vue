@@ -23,8 +23,6 @@ export default {
   },
   async mounted() {
     this.comuni = JSON.parse(localStorage.getItem("Zones"));
-    // let response = await this.$axios.get("/r4g/zones");
-    // this.comuni = response.data;
   },
   methods: {
     async saveZone(comune) {

@@ -339,8 +339,8 @@ export default {
                 try {
                     let response = await this.$axios.post("/r4g/register",this.newUser)
                     this.newUser = response.data;
-                    let email = localStorage.setItem("EmailFromRegistration", this.newUser.email);
-                    console.log(email);
+                    localStorage.setItem("EmailFromRegistration", this.newUser.email);
+                    
                     this.$router.push({
                         name: "login"
                     });

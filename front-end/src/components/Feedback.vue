@@ -104,8 +104,6 @@
 </template>
 
 <script>
-// import{ init } from '@emailjs/browser';
-// init("user_fLpGOT5sbHA3nWKUqwHXr");
 import emailjs from 'emailjs-com';
 export default {
     name: 'Feedback',
@@ -197,20 +195,18 @@ export default {
                     //Reset form fields
                     for (let property in this.newFeedback) {
                         this.newFeedback[property] = "";
-                        //console.log(`${property}: ${this.newFeedback[property]}`);
                     }
                 }, error => {
-                    console.log('FAILED...', error);
                     this.$fire({
                         text: "Si è verificato un errore. Controlla la connessione e riprova!",
                         type: "warning",
                         timer: 3000,
                         }).then(() => {
-                        console.log(error);
+                        console.log("Error",error);
                     }); 
                 });
             } catch(error) {
-                //console.log({error})
+                console.log({error})
             }
         },
         goToLink() {
