@@ -155,7 +155,11 @@
         <div
           class="p-4 sm:px-6 flex justify-center items-center border-b border-gray-200 bg-blue-50 xs:bg-white"
         >
-          <div class="material-icons text-4xl">accessibility_new</div>
+          <div>
+            <svg class="w-10 h-10" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/>
+              <path d="M20.5 6c-2.61.7-5.67 1-8.5 1s-5.89-.3-8.5-1L3 8c1.86.5 4 .83 6 1v13h2v-6h2v6h2V9c2-.17 4.14-.5 6-1l-.5-2zM12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+            </svg>
+          </div>
           <div class="flex flex-col ml-3">
             <div class="text-xs">{{ user.name }} {{ user.surname }}</div>
             <div class="font-semibold">Benvenuto su R4G!</div>
@@ -165,7 +169,7 @@
         <div class="flex flex-col mx-4">
           <VueSlickCarousel :arrows="false" :dots="false">
             <!-- prima card -->
-            <div class="p-4" v-if="viewBinUser.bin_id">
+            <div class="p-2" v-if="viewBinUser.bin_id">
               <div v-if="isLoading" class="flex flex-col justify-center items-center">
                 <Loading></Loading>
               </div>
@@ -273,7 +277,7 @@
             </div>
 
             <!-- seconda card esempio -->
-            <div class="flex flex-col p-4">
+            <div class="flex flex-col p-2">
               <div>
                 <div
                   class="flex flex-col rounded-2xl h-72"
@@ -352,7 +356,7 @@
             </div>
 
             <!-- terza card per aggiunta cestino -->
-            <div class="flex flex-col p-4">
+            <div class="flex flex-col p-2">
               <div class="w-full flex justify-center items-center h-801 bg-blue-400 rounded-2xl h-72">
                 <button @click="changeBinStatus()" class="h-24 w-24">
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-full h-full mx-auto rounded-full bg-gray-200 p-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -489,9 +493,13 @@ export default {
 
           this.changePercent();
         } catch(e) {
-        this.$emit("catch-error", e);
+          if (e != "Error: Network Error") {
+            this.$emit("catch-error", e);
+          } else {
+            this.clearSetInterval();
+          }
         }
-      },[15000]);
+      }, [15000]);
     },
 
     //alert che ti avvisa di scegliere prima la zona e poi il cestino
@@ -538,20 +546,16 @@ export default {
 
         if (this.viewBinUser != []) {
           this.binExist = true;
-          let bin = await this.$axios.get("/r4g/bin/" + this.user.id);
-          let userBin = bin.data; //statistiche bin
-
-          let BinUser = JSON.stringify(userBin);
-          localStorage.setItem("BinUser", BinUser);
-          this.userBin = JSON.parse(localStorage.getItem("BinUser"));
+          this.userBin = (await this.$axios.get("/r4g/bin/" + this.user.id)).data; //statistiche bin
+          localStorage.setItem("BinUser", JSON.stringify(this.userBin));
 
           if (this.viewBinUser.bin_id) {
             this.changePercent();
             this.getDistance();
             let res = await this.$axios.get("/r4g/material-bin/" + this.viewBinUser.bin_id);
             if (res) {
-              let calendaBin = res.data;
-              this.localBin = JSON.stringify(calendaBin);
+              let calendarBin = res.data;
+              this.localBin = JSON.stringify(calendarBin);
               localStorage.setItem("Bin", this.localBin);
               this.populateBin();
             }

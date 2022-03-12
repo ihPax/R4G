@@ -30,15 +30,14 @@
         v-for="link in links" :key="link.id" 
         @click="goToLink(link)"
         :disabled="link.code == currentRouteName"
-        class="flex-grow"
-        :class="{
-          'cursor-pointer bg-blue-50': link.code != currentRouteName,
-          'cursor-auto bg-blue-200': link.code == currentRouteName
-        }"
+        class="flex-grow bg-blue-50 disabled:bg-blue-200 disabled:cursor-auto"
       >
-        <span class="material-icons">
-          {{ link.googleCode }}
-        </span>
+        <div>
+          <svg class="mx-auto" :class="link.classes" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24px" width="24px" fill="#000">
+            <path d="M0 0h24v24H0V0z" fill="none"/>
+            <path :d="link.d"/>
+          </svg>
+        </div>
       </button>
     </div>
   </div>
@@ -64,15 +63,18 @@ export default {
       isLoading: false,
       links: [
         {
-          googleCode: 'home',
+          d: 'M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z',
+          classes: 'w-8 h-8',
           code: 'home'
         },
         {
-          googleCode: 'calendar_today',
+          d: 'M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V10h16v11zm0-13H4V5h16v3z',
+          classes: 'w-7 h-7',
           code: 'calendar'
         },
         {
-          googleCode: 'person',
+          d: 'M12 6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2m0 10c2.7 0 5.8 1.29 6 2H6c.23-.72 3.31-2 6-2m0-12C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 10c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z',
+          classes: 'w-8 h-8',
           code: 'dashboard-account'
         },
       ]
