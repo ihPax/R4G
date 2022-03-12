@@ -10,12 +10,13 @@ Laravel => composer update <br/>
 
 ### RUNNING
 VueJS => npm run serve / yarn serve <br/> 
-http://localhost/phpmyadmin to create database with name: r4g
+http://localhost/phpmyadmin to create database with name: r4g <br/>
 Laravel => php artisan migrate <br/>
-           php artisan serve <br/>
+Laravel => php artisan serve <br/>
+Laravel => php artisan scheduler:work <br/>
 
 ### EMAILJS NEI FEEDBACK
-collegarsi al sito https://dashboard.emailjs.com/admin/templates
-**credenziali**
+collegarsi al sito https://dashboard.emailjs.com/admin/templates <br/>
+**credenziali** <br/>
 Email => r4g.recycleteam@gmail.com
 Password => Adminr4g1234
