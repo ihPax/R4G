@@ -148,9 +148,12 @@ return [
         'name'     => 'nome',
         'surname'  => 'cognome',
         'birthday' => 'data di nascita',
-        'today'    => 'oggi'
     ],
-    'date' => [
-        'today' => 'oggi'
-    ]
+    'values' => [
+        'birthday' => [
+            'yesterday' => 'ieri',
+            'today' => 'oggi',
+            'tomorrow' => 'domani'
+        ]
+    ],
 ];
