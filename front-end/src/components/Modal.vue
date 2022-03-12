@@ -39,7 +39,14 @@ export default {
 
         this.$emit("exit", true);
       } catch(e) {
-        this.$emit('catch-error', e);
+        console.log(e.response);
+        this.$fire({
+          text: "Oops, qualcosa è andato storto!",
+          type: "warning",
+          timer: 3000,
+        }).then(() => {
+          this.$emit("exit", true);
+        });
       }
     },
   },

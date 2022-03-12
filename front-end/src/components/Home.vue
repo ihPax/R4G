@@ -276,8 +276,8 @@
             <div class="flex flex-col p-4">
               <div>
                 <div
-                  class="flex flex-col bg-blue-400 rounded-2xl h-72"
-                  :style="`background-color:#166534`"
+                  class="flex flex-col rounded-2xl h-72"
+                  :style="'background-color: #166534'"
                 >
                   <div class="flex flex-col px-4 pt-3 justify-center w-full">
                     <div class="truncate">
@@ -351,12 +351,12 @@
               </div>
             </div>
 
-            <!-- terza card per delete cestino -->
+            <!-- terza card per aggiunta cestino -->
             <div class="flex flex-col p-4">
               <div class="w-full flex justify-center items-center h-801 bg-blue-400 rounded-2xl h-72">
                 <button @click="changeBinStatus()" class="h-24 w-24">
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-full h-full mx-auto rounded-full bg-gray-200 p-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                    <path class="animate-pulse" stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                   </svg>
                 </button>
               </div>
@@ -464,6 +464,7 @@ export default {
       this.idInterval = setInterval(async () => {
         try {
           this.user = JSON.parse(localStorage.getItem("AccessEmail"));
+          this.userBin = JSON.parse(localStorage.getItem("BinUser"));
           let length = this.userBin[0].length;
           let arrayFeeds = await this.$axios.get(
             "https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2"

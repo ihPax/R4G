@@ -64,8 +64,8 @@ class UserController extends Controller
             , 200); 
         } else { 
             return response()->json([
-                'user'   => 'Email e/o password non corretta',
-                'status' => 'Errore',
+                'user'   => ['Email e/o password non corretta'],
+                'status' => ['Errore'],
             ]
             , 401); 
         }

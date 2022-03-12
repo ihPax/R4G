@@ -38,19 +38,12 @@ export default {
       } else {
         this.err = {statusText: e.message};   
       }
-      console.log("Errore iniziale: ", this.err)
-      if (isLogin) {
-        if (this.err.status == 401) {
-          this.err.statusText = "Email e/o password non corretta";
-        } else if (this.err.status == 422) {
-          this.err.statusText = "Email non valida e/o password con meno di 6 caratteri";
-        }
-      } else {
+      if (!isLogin) {
         if (this.err.status == 401) {
           this.err.statusText = "Non sei autorizzato a svolgere questa operazione";
         }
       }
-      if (this.err.status == 400) {
+      if (this.err.status >= 400 && this.err.status < 500) {
         let dataErr = this.err.data; //oggetto che contiene una coppia chiave valore con valore un array contentente una stringa
         let customErr = (dataErr[Object.keys(dataErr)[0]])[0]; //prendo il valore della prima chiave
         this.err.statusText = customErr;

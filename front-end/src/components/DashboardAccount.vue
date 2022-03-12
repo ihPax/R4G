@@ -172,9 +172,8 @@ export default {
             this.isLoading = true;
             try {
                 await this.$axios.get("/r4g/logout");
-                localStorage.removeItem("AccessEmail");
-                localStorage.removeItem("Zone");
-                localStorage.removeItem("Zones");
+                let keysToRemove = ["AccessEmail", "Zone", "Zones", "Bin", "BinUser"];
+                keysToRemove.forEach(key => localStorage.removeItem(key));
                 this.$router.push({
                     name: "login",
                 });
