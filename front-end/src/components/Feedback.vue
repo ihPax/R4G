@@ -9,7 +9,7 @@
       h-full
       flex flex-col
     ">
-        <button @click="$router.go(-1)" :disabled="!isMobile" :class="{'cursor-auto': !isMobile}" class="w-full p-4 sm:px-6 flex justify-center items-center text-center border-b border-gray-200 bg-blue-50 xs:bg-white">
+        <button @click="$router.go(-1)" :disabled="!isMobile" class="w-full p-4 sm:px-6 flex justify-center items-center text-center border-b border-gray-200 bg-blue-50 xs:bg-white disabled:cursor-auto">
             <div class="block xs:hidden">
                 <svg class="transform rotate-90 h-8 w-8 mx-2 hover:cursor-pointer"
                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -146,7 +146,7 @@ export default {
             error: {},
             textAreaFeedback: {
                 messageLength: 0,
-                maxCharacters: 200,
+                maxCharacters: 500,
                 isFirstAlert: true
             }
         }
