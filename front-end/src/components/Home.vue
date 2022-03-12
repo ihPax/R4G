@@ -94,27 +94,25 @@
                   <img src="../assets/plastica.png" class="w-24 lg:w-32 xl:w-40" />
                 </div>
               </div>
-              <button
-                v-if="localBin != '' && !isLoading"
-                class="flex justify-end m-4"
-                @click="deleteBin()"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-12 w-12 rounded-full bg-white p-2 border-2 text-orangelogo transition duration-150 ease-out hover:bg-gray-100"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  :stroke="color"
-                  :style="`border-color: ${color};`"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                  />
-                </svg>
-              </button>
+              <div class="flex justify-end m-4">
+                <button v-if="localBin != '' && !isLoading" @click="deleteBin()">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-12 w-12 rounded-full bg-white p-2 border-2 text-orangelogo transition duration-150 ease-out hover:bg-gray-100"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    :stroke="color"
+                    :style="`border-color: ${color};`"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -166,7 +164,7 @@
 
         <div class="flex flex-col mx-4">
           <VueSlickCarousel :arrows="false" :dots="false">
-            <!--prima card -->
+            <!-- prima card -->
             <div class="p-4" v-if="viewBinUser.bin_id">
               <div v-if="isLoading" class="flex flex-col justify-center items-center">
                 <Loading></Loading>
@@ -244,25 +242,27 @@
                     </div>
                   </div>
                   <div class="font-normal mt-2 text-white">Prossimo ritiro:</div>
-                  <div class="flex flex-col font-bold text-white text-xl">
+                  <div class="flex flex-col font-bold text-white text-xl truncate">
                     {{ bin.day | date }}
                   </div>
-                  <button class="flex justify-end" @click="deleteBin()">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-12 w-12 rounded-full bg-white p-2 hover:bg-gray-100"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                      />
-                    </svg>
-                  </button>
+                  <div class="flex justify-end">
+                    <button @click="deleteBin()" class="border border-black rounded-full z-10">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-12 w-12 rounded-full bg-white p-2 hover:bg-gray-100"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
               </div>
               <div>
@@ -272,7 +272,7 @@
               </div>
             </div>
 
-            <!--seconda card esempio -->
+            <!-- seconda card esempio -->
             <div class="flex flex-col p-4">
               <div>
                 <div
@@ -325,25 +325,27 @@
                       </div>
                     </div>
                     <div class="font-normal mt-2 text-white">Prossimo ritiro:</div>
-                    <div class="flex flex-col font-bold text-white text-xl">
+                    <div class="flex flex-col font-bold text-white text-xl truncate">
                       Mercoledì 16 Marzo 2022
                     </div>
-                    <button class="flex justify-end">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-12 w-12 rounded-full bg-white p-2 hover:bg-gray-100"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                        />
-                      </svg>
-                    </button>
+                    <div class="flex justify-end">
+                      <button class="border border-black rounded-full z-10">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="h-12 w-12 rounded-full bg-white p-2 hover:bg-gray-100"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                          />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

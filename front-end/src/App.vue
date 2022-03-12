@@ -53,8 +53,8 @@ export default {
         let dataErr = this.err.data; //oggetto che contiene una coppia chiave valore con valore un array contentente una stringa
         let customErr = (dataErr[Object.keys(dataErr)[0]])[0]; //prendo il valore della prima chiave
         this.err.statusText = customErr;
+        this.err = customErr;
       }
-      console.log("Error", this.err);
       if (this.err) {
         let message = (e == "Error: Network Error") ? "Impossibile raggiungere il server!" : this.err.statusText;
         this.$fire({
@@ -63,6 +63,7 @@ export default {
           timer: 3000,
         });
       }
+      console.log("Error", this.err);
     },
   },
 };

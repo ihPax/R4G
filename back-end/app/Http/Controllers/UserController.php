@@ -55,24 +55,19 @@ class UserController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $this->validate($request,[
-            'email'    => 'bail|required|email',
-            'password' => 'bail|required|string|min:6'
-        ]);
-
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) { 
             $user = Auth::user();
             return response()->json([
                 'user'   => $user,
                 'status' => 'Successo',
             ]
-            ,200); 
-        }else{ 
-            return response()->json([[
+            , 200); 
+        } else { 
+            return response()->json([
                 'user'   => 'Email e/o password non corretta',
                 'status' => 'Errore',
-            ]]
-            ,401); 
+            ]
+            , 401); 
         }
     }
 
