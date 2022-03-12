@@ -325,7 +325,7 @@ export default {
             this.isLoading = true;
             if (this.newUser.password.length < 6) {
                 this.showAlert("La password dev'essere lunga almeno 6 caratteri!");
-            } else if (new Date(this.newUser.birthday) > new Date()) {
+            } else if (new Date(this.newUser.birthday) >= new Date()) {
                 this.showAlert("La tua data di nascita non può essere successiva ad oggi!");
             } else {
                 try {
