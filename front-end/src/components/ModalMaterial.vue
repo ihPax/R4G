@@ -25,25 +25,17 @@ export default {
     async chooseMaterial(materiale) {
       try {
         this.user = JSON.parse(localStorage.getItem("AccessEmail"));
-        let id = this.user.id;
-        let response = await this.$axios.post("/r4g/new-bin/"+id,{name:materiale.name});
+        let userId = this.user.id;
+        this.bin = (await this.$axios.post("/r4g/new-bin/" + userId, {name: materiale.name})).data;
+        let binId = this.bin.bin.id;
 
-        this.bin = response.data;
-        let idBin = this.bin.bin.id;
+        await this.$axios.post("/r4g/save-bin-user", {user_id: userId, bin_id: binId});
 
-        await this.$axios.post("/r4g/save-bin-user",{user_id:id,bin_id:idBin});
+        let calendarBin = (await this.$axios.get("/r4g/material-bin/" + binId)).data;
+        localStorage.setItem("Bin", JSON.stringify(calendarBin));
 
-        let res = await this.$axios.get("/r4g/material-bin/"+idBin);
-        let calendaBin = res.data;
-
-        let localBin = JSON.stringify(calendaBin);
-        localStorage.setItem("Bin", localBin);
-
-        let bin = await this.$axios.get("/r4g/bin/"+id);
-        let userBin = bin.data;
-
-        let BinUser = JSON.stringify(userBin);
-        localStorage.setItem("BinUser", BinUser);
+        let userBin = (await this.$axios.get("/r4g/bin/" + userId)).data;
+        localStorage.setItem("BinUser", JSON.stringify(userBin));
 
         this.$emit("exit", true);
       } catch(e) {

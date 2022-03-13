@@ -35,7 +35,7 @@
         v-for="link in links" :key="link.id" 
         @click="goToLink(link)"
         :disabled="link.code == currentRouteName"
-        class="flex-grow bg-blue-50 disabled:bg-blue-200 disabled:cursor-auto"
+        class="flex-grow bg-blue-50 disabled:bg-blue-300 disabled:cursor-auto border-r border-l disabled:border-blue-400 border-blue-50"
       >
         <div class="flex justify-center items-center">
           <svg class="mx-auto w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24px" width="24px" fill="#000">
@@ -102,7 +102,7 @@ export default {
       this.isLoading = true;
       try {
         await this.$axios.get("/r4g/logout");
-        let keysToRemove = ["AccessEmail", "Zone", "Zones", "Bin", "BinUser"];
+        let keysToRemove = ["AccessEmail", "Zone", "Zones", "Bin", "BinUser", "WithdrawalDate"];
         keysToRemove.forEach(key => localStorage.removeItem(key));
         this.$router.push({
           name: "login",

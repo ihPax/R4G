@@ -25,7 +25,7 @@
         <!--CONTENUTO-->
         <div class="px-4">
             <div class="py-4">
-                <h1 class="font-semibold text-lg">Che cos'è?</h1>
+                <h1 class="font-medium text-lg">Che cos'è?</h1>
                 <p>
                     R4G ha lo scopo di incentivare i cittadini a fare la raccolta differenziata. 
                     Il cestino rileva la capienza mediante un sensore di prossimità 
@@ -38,7 +38,7 @@
                 </p>
             </div>
             <div>
-                <h1 class="font-semibold text-lg">Punti di forza</h1>
+                <h1 class="font-medium text-lg">Punti di forza</h1>
                 <p v-for="(point, index) in points" :key="index">
                     <span class="font-medium">{{index+1}}.</span> {{point}}<span v-if="index < points.length-1">;</span><span v-else>.</span>
                 </p>

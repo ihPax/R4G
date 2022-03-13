@@ -181,7 +181,7 @@
                 <Loading></Loading>
               </div>
               <div
-                class="flex flex-col bg-blue-400 rounded-2xl h-72"
+                class="flex flex-col rounded-2xl h-72"
                 v-if="localBin != ''"
                 :style="`background-color:${color}`"
               >
@@ -388,9 +388,9 @@
               <t-modal v-model="showModal" header="Scegli il tuo Comune" close="chiudi">
                 <Modal @exit="closeModal"></Modal>
               </t-modal>
-              <t-button @click="showModalTrue()" type="button"
-                >Scegli il tuo comune</t-button
-              >
+              <t-button @click="showModalTrue()" type="button">
+                Scegli il tuo comune
+              </t-button>
             </div>
             <div v-if="user.zone_id">
               <Calendar :is-expanded="false"></Calendar>
