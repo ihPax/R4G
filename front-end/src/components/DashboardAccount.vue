@@ -49,9 +49,14 @@
                     @click="!field.isHeader ? goToLink(field) : null"
                     :disabled="field.isHeader || !field.isHeader ? field.code == currentRouteName : null"
                 >
-                    <div class="flex">
-                        <div v-if="!field.isHeader" class="material-icons mr-2">
-                            <span v-if="field.googleCode !== undefined">{{ field.googleCode }}</span>
+                    <div class="flex items-center">
+                        <div v-if="!field.isHeader" class="mr-2">
+                            <span v-if="field.d !== undefined">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
+                                    <path d="M0 0h24v24H0V0z" fill="none"/>
+                                    <path :d="field.d"/>
+                                </svg>
+                            </span>
                             <div v-else>
                                 <img
                                     src="../assets/logor4gmin.png"
@@ -117,13 +122,15 @@ export default {
                     label: 'Informazioni personali',
                     code: 'account',
                     isHeader: false,
-                    googleCode: 'perm_identity'
+                    googleCode: 'perm_identity',
+                    d: 'M12 6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2m0 9c2.7 0 5.8 1.29 6 2v1H6v-.99c.2-.72 3.3-2.01 6-2.01m0-11C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z'
                 },
                 {
                     label: 'Notifiche',
                     code: 'notifications',
                     isHeader: false,
-                    googleCode: 'notifications_none'
+                    googleCode: 'notifications_none',
+                    d: 'M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z'
                 },
                 {
                     label: 'Assistenza',
@@ -138,7 +145,8 @@ export default {
                     label: 'Domande frequenti',
                     code: 'faqs',
                     isHeader: false,
-                    googleCode: 'help_outline'
+                    googleCode: 'help_outline',
+                    d: 'M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z'
                 },
                 {
                     label: 'Area legale',
@@ -148,13 +156,15 @@ export default {
                     label: 'Termini di servizio',
                     code: 'ToS',
                     isHeader: false,
-                    googleCode: 'event_note'
+                    googleCode: 'event_note',
+                    d: 'M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V9h14v10zM5 7V5h14v2H5zm2 4h10v2H7zm0 4h7v2H7z'
                 },
                 {
                     label: 'Impostazioni della privacy',
                     code: 'privacy-policy',
                     isHeader: false,
-                    googleCode: 'lock_outline'
+                    googleCode: 'lock_outline',
+                    d: 'M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z'
                 },
             ]
         }
