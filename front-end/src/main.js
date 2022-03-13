@@ -3,206 +3,36 @@ import Vue from 'vue';
 import App from './App.vue';
 import VCalendar from 'v-calendar';
 import axios from 'axios';
-import VueRouter from 'vue-router';
-import Home from "@/components/Home.vue";
-import Calendar from "@/components/Calendar.vue";
-import Landing from "@/components/Landing.vue";
-import Registration from "@/components/Registration.vue";
-import Account from "@/components/Account.vue";
-import Login from "@/components/Login.vue";
-import Dashboard from "@/components/Dashboard.vue";
-import PrivacyPolicy from "@/components/PrivacyPolicy.vue";
-import Faqs from "@/components/Faqs.vue"
-import DashboardAccount from "@/components/DashboardAccount.vue";
-import Notifications from "@/components/Notifications.vue";
-import ProjectR4G from "@/components/ProjectR4G.vue";
-import ToS from "@/components/ToS.vue";
-import Feedback from "@/components/Feedback.vue";
-import VueTailwind from 'vue-tailwind'
-import {
-  TButton,
-  TModal,
-
-} from 'vue-tailwind/dist/components';
+import router from './router.js'; //importa la classe con le routes dal file router.js
+import VueSimpleAlert from "vue-simple-alert";
+import VueTailwind from 'vue-tailwind';
+import vueTailwindSetting from './vueTailwindSettings.js'; //importo i settings da un altro file perché qui occupavano troppo spazio
 
 Vue.prototype.$axios = axios;
 axios.defaults.baseURL = "http://localhost:8000/"
 //axios.defaults.baseURL = "http://172.16.21.36:8000/"  // <-- mettere URL su rete locale per testare progetto per es. su smartphone
 // php artisan serve --host=172.16.21.36 --port=8000   <-- per far partire il server su host e porta personalizzati
-Vue.use(VueRouter);
+
 Vue.use(VCalendar, {
   componentPrefix: 'v',  // Use <vc-calendar /> instead of <v-calendar />
 });
-
-const settings = {
-  't-button': {
-    component: TButton,
-    props: {
-      classes: 'button button--moema px-3 py-2 hover:bg-yellow-600 hover:text-white text-yellow-600 relative border-yellow-500 block focus:outline-none border-2 border-solid rounded-lg text-sm text-center font-semibold tracking-widest disabled:border-gray-400 disabled:cursor-not-allowed disabled:text-gray-400 disabled:bg-white',
-    }
-  },
-  't-button2': {
-    component: TButton,
-    props: {
-      classes: 'button button--moema px-3 py-2 bg-yellow-600 text-white relative border-yellow-100 hover:border-yellow-500 block focus:outline-none border-2 border-solid rounded-lg text-sm text-center font-semibold tracking-widest disabled:bg-gray-400 disabled:border-gray-100 disabled:cursor-not-allowed',
-    }
-  },
-'t-modal': {
-  component: TModal,
-    props: {
-    fixedClasses: {
-      overlay: 'z-40 left-0 top-0 bottom-0 right-0 w-full h-full fixed bg-opacity-50',
-        wrapper: 'relative mx-auto z-50 max-w-lg px-3 py-6 xs:py-12 justify-center items-center flex',
-          modal: 'overflow-visible relative rounded',
-            body: 'p-3',
-              header: 'border-b border-black p-3 rounded-t font-bold',
-                footer: ' p-3 rounded-b',
-                  close: 'flex items-center justify-center rounded-full absolute right-0 top-0 -m-3 h-8 w-8 transition duration-100 ease-in-out focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50'
-    },
-    classes: {
-      overlay: 'bg-black',
-        wrapper: 'w-screen h-full',
-          modal: 'bg-white w-9/10',
-            body: 'p-3',
-              header: 'border-gray-100',
-                footer: 'bg-gray-100',
-                  close: 'bg-gray-100 text-gray-600 hover:bg-gray-200',
-                    closeIcon: 'fill-current h-4 w-4',
-                      overlayEnterClass: 'opacity-0',
-                        overlayEnterActiveClass: 'transition ease-out duration-100',
-                          overlayEnterToClass: 'opacity-100',
-                            overlayLeaveClass: 'opacity-100',
-                              overlayLeaveActiveClass: 'transition ease-in duration-75',
-                                overlayLeaveToClass: 'opacity-0',
-                                  enterClass: '',
-                                    enterActiveClass: '',
-                                      enterToClass: '',
-                                        leaveClass: '',
-                                          leaveActiveClass: '',
-                                            leaveToClass: ''
-    },
-    variants: {
-      danger: {
-        overlay: 'bg-red-100',
-          header: 'border-red-50 text-red-700',
-            modal: 'bg-white border border-red-100 shadow-lg',
-              footer: 'bg-red-50'
-      }
-    }
-  }
-}
-  
-}
-
-const routes = [
-  {
-    path: '/landing',
-    name: "Landing",
-    component: Landing,
-  },
-  {
-    path: '/privacy-policy',
-    name: "privacy-policy",
-    component: PrivacyPolicy,
-  },
-  {
-    path: '/tos',
-    name: 'ToS',
-    component: ToS,
-  },
-  {
-    path: '/registration',
-    name: "registration",
-    component: Registration,
-  },
-  {
-    path: '/login',
-    name: "login",
-    component: Login,
-  },
-  {
-    path: '/dashboard',
-    component: Dashboard,
-    children: [
-      {
-        path: 'home', //  è come se ci fosse scritto '/dashboard/home'
-        name: "home",
-        component: Home,
-      },
-      {
-        path: 'mybins',
-        name: 'myBins',
-        component: Home,
-      },
-      {
-        path: 'calendar',
-        name: 'calendar',
-        component: Calendar,
-      },
-      {
-        path: 'presentation',
-        name: 'presentation',
-        component: Home,
-      },
-      {
-        path: 'account',
-        name: 'account',
-        component: Account,
-      },
-      {
-        path: 'faqs',
-        name: 'faqs',
-        component: Faqs,
-      },
-      {
-        path: 'dashboard-account',
-        name: 'dashboard-account',
-        component: DashboardAccount,
-      },
-      {
-        path: 'notifications',
-        name: 'notifications',
-        component: Notifications,
-      },
-      {
-        path: 'project-r4g',
-        name: 'project-r4g',
-        component: ProjectR4G,
-      },
-      {
-        path: 'feedback',
-        name: 'feedback',
-        component: Feedback,
-      },
-      {
-        path: '*',  // qualsiasi cosa scritta dopo '/dashboard/' reindirizza alla dashboard
-        name: "default_dashboard",
-        redirect: '/dashboard/home',
-      }
-    ]
-  },
-  {
-    path: '*',  // qualsiasi percorso in cui non sia scritto '/dashboard/' porta alla landing
-    name: "default_route",
-    redirect: '/landing',
-  }
-];
-
-const router = new VueRouter({
-  mode: "history",
-  routes,
-  scrollBehavior() {
-    return {x: 0, y: 0}
-  }
-});
-
-Vue.config.productionTip = false
-Vue.use(VueTailwind, settings)
-
-import VueSimpleAlert from "vue-simple-alert";
 Vue.use(VueSimpleAlert);
+Vue.use(VueTailwind, vueTailwindSetting);
+
+Vue.config.productionTip = false;
 
 new Vue({
   render: h => h(App),
   router,
-}).$mount('#app')
+}).$mount('#app');
+
+axios.interceptors.response.use(
+  response => {
+    return response;
+  }, 
+  error => {
+    if (error.response.status === 401) {
+      router.push({ name: "login" })
+    }
+    return error;
+});

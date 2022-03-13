@@ -261,32 +261,27 @@ export default {
                 localStorage.removeItem("Email");
             }
         },
-        goToRegistration(){
+        goToRegistration() {
             this.$router.push({
                 name: "registration"
             });
         },
-        async login(){
+        async login() {
             this.isLoading = true;
             localStorage.removeItem("EmailFromRegistration");
             this.rememberEmail();
             try {
-                let res = await this.$axios.post("/r4g/login", this.user);
-                this.Alluser = res.data.user;
+                let response = await this.$axios.create().post("/r4g/login", this.user);
+                this.Alluser = response.data.user;
                 //archivazione dell'email nel local storage per la sessione
-                let parsed = JSON.stringify(this.Alluser);
-                localStorage.setItem("AccessEmail", parsed);
-                if(this.Alluser.zone_id != null){
-                    let res = await this.$axios.get("/r4g/zone-calendar/" + this.Alluser.zone_id)
-                    let zone = res.data;
+                localStorage.setItem("AccessEmail", JSON.stringify(this.Alluser));
+                if (this.Alluser.zone_id != null) {
+                    let zone = (await this.$axios.get("/r4g/zone-calendar/" + this.Alluser.zone_id)).data;
                     let calendar = JSON.stringify(zone);
-                    localStorage.setItem(
-                        "Zone",
-                        calendar
-                    );
+                    localStorage.setItem("Zone", calendar);
                 }
                 //controllo sullo stato della richiesta proveniente dal back-end
-                if(res.status === 200){
+                if (response.status === 200) {
                     this.$router.push({
                         name: "home"
                     });
