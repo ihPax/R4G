@@ -79,8 +79,13 @@
               </div>
             </div>
             <div class="flex lg:flex-col justify-between">
-              <div class="material-icons text-7xl xs:text-9xl lg:text-11xl">
-                <div v-if="localBin == '' && !isLoading">delete_forever</div>
+              <div>
+                <div v-if="localBin == '' && !isLoading">
+                  <svg class="w-32 h-32 lg:w-48 lg:h-48" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
+                    <path d="M0 0h24v24H0V0z" fill="none"/>
+                    <path d="M14.12 10.47L12 12.59l-2.13-2.12-1.41 1.41L10.59 14l-2.12 2.12 1.41 1.41L12 15.41l2.12 2.12 1.41-1.41L13.41 14l2.12-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"/>
+                  </svg>
+                </div>
                 <div v-if="bin.name == 'CARTA'">
                   <img src="../assets/carta.png" class="w-24 lg:w-32 xl:w-40" />
                 </div>
@@ -94,7 +99,7 @@
                   <img src="../assets/plastica.png" class="w-24 lg:w-32 xl:w-40" />
                 </div>
               </div>
-              <div class="flex justify-end m-4">
+              <div class="flex justify-end">
                 <button v-if="localBin != '' && !isLoading" @click="deleteBin()">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -125,9 +130,10 @@
             <t-button class="flex flex-col mx-1 my-4"> Collega il tuo cestino </t-button>
             <div></div>
             <div class="flex flex-col mx-1 flex-shrink-0 flex-grow">
-              <span class="material-icons text-7xl xs:text-9xl lg:text-11xl">
-                <span>delete_forever</span>
-              </span>
+              <svg class="w-32 h-32 lg:w-48 lg:h-48" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
+                <path d="M0 0h24v24H0V0z" fill="none"/>
+                <path d="M14.12 10.47L12 12.59l-2.13-2.12-1.41 1.41L10.59 14l-2.12 2.12 1.41 1.41L12 15.41l2.12 2.12 1.41-1.41L13.41 14l2.12-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"/>
+              </svg>
             </div>
           </div>
         </div>
@@ -156,7 +162,8 @@
           class="p-4 sm:px-6 flex justify-center items-center border-b border-gray-200 bg-blue-50 xs:bg-white"
         >
           <div>
-            <svg class="w-10 h-10" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/>
+            <svg class="w-10 h-10" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
+              <path d="M0 0h24v24H0V0z" fill="none"/>
               <path d="M20.5 6c-2.61.7-5.67 1-8.5 1s-5.89-.3-8.5-1L3 8c1.86.5 4 .83 6 1v13h2v-6h2v6h2V9c2-.17 4.14-.5 6-1l-.5-2zM12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
             </svg>
           </div>

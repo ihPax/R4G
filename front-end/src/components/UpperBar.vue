@@ -18,7 +18,12 @@
     >
       <div class="flex items-center">
         <div class="mr-2">Esci</div>
-        <div class="material-icons">logout</div>
+        <div>
+          <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px">
+            <g><path d="M0,0h24v24H0V0z" fill="none"/></g>
+            <g><path d="M17,8l-1.41,1.41L17.17,11H9v2h8.17l-1.58,1.58L17,16l4-4L17,8z M5,5h7V3H5C3.9,3,3,3.9,3,5v14c0,1.1,0.9,2,2,2h7v-2H5V5z"/></g>
+          </svg>
+        </div>
       </div>
     </button>
   </div>
@@ -32,7 +37,7 @@
         :disabled="link.code == currentRouteName"
         class="flex-grow bg-blue-50 disabled:bg-blue-200 disabled:cursor-auto"
       >
-        <div>
+        <div class="flex justify-center items-center">
           <svg class="mx-auto" :class="link.classes" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24px" width="24px" fill="#000">
             <path d="M0 0h24v24H0V0z" fill="none"/>
             <path :d="link.d"/>
