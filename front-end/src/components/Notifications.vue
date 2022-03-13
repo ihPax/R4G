@@ -21,6 +21,15 @@
                 Notifiche
             </h3>
         </button> 
+        <div class="px-4">
+            <div class="py-4">
+                <div v-if="withdrawalDate" >
+                    <p>Il prossimo ritiro è il giorno: <span class="font-medium">{{withdrawalDate}}</span>.</p>
+                    <p>Il materiale ritirato è: <span class="font-medium">{{binName}}</span>.</p>
+                </div>
+                <div v-else>Non è collegato alcun cestino oppure non è in programma alcun ritiro.</div>
+            </div>
+        </div>
         <GoBack :isMobile="isMobile"></GoBack>
     </div> 
 </template>
@@ -37,5 +46,16 @@ export default {
             default: true
         },
     },
+    data() {
+        return {
+            withdrawalDate: "",
+            binName: ""
+        }
+    },
+    mounted() {
+        this.withdrawalDate = localStorage.getItem("WithdrawalDate");
+        let userBin = JSON.parse(localStorage.getItem("BinUser")) || "";
+        userBin != "" ? this.binName = userBin[0].name : null;
+    }
 }
 </script>

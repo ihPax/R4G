@@ -337,7 +337,7 @@
                     </div>
                     <div class="font-normal mt-2 text-white">Prossimo ritiro:</div>
                     <div class="flex flex-col font-bold text-white text-xl truncate">
-                      Mercoledì 16 Marzo 2022
+                      Lunedì 21 Marzo 2022
                     </div>
                     <div class="flex justify-end">
                       <button class="border border-black rounded-full z-10">
@@ -439,7 +439,7 @@ export default {
       valueProva: 60,
       showModalMaterial: false,
       idInterval: 0,
-      userBin: {},
+      userBin: [],
       bin: [
         {
           name: "",
@@ -648,9 +648,8 @@ export default {
         this.userBin = JSON.parse(localStorage.getItem("BinUser"));
         let id = this.userBin[0].id;
         await this.$axios.delete("/r4g/delete-bin/" + id);
-        localStorage.removeItem("BinUser");
-        localStorage.removeItem("UserBin");
-        localStorage.removeItem("Bin");
+        let keysToRemove = ["BinUser", "Bin", "WithdrawalDate"];
+        keysToRemove.forEach(key => localStorage.removeItem(key));
         this.localBin = [];
         this.userBin = [];
         this.getBin();
@@ -724,7 +723,10 @@ export default {
 
       let year = value.getFullYear();
 
-      return nameDay + " " + numDay + " " + nameMonth + " " + year;
+      let formattedDate = nameDay + " " + numDay + " " + nameMonth + " " + year;
+      localStorage.setItem("WithdrawalDate", formattedDate);
+
+      return formattedDate;
     },
   },
 };
