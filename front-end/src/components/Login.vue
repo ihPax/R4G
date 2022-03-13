@@ -168,6 +168,12 @@
             </div>
         </div>
 
+        <!-- RICORDAMI -->
+        <div class="flex flex-row justify-center items-baseline my-2">
+            <input type="checkbox" id="rememberMe" v-model="isRemembered" class="w-6 h-6 ml-5 cursor-pointer">
+            <label for="rememberMe" class="pl-5 my-auto"> Ricordami </label>
+        </div>
+
         <!--BUTTON LOGIN-->
         <div class="flex flex-col text-white text-lg my-5">
             <button type="button"
@@ -222,19 +228,19 @@ export default {
             default: false
         },
     },
-    data(){
-        return{
-            user:{
+    data() {
+        return {
+            user: {
                 email: "",
                 password: ""
             },
-            Alluser:[],
+            Alluser: [],
             isLoading: false,
             isRemembered: false,
             isPasswordHidden: true
         }
     },
-    mounted(){
+    mounted() {
         let emailFromRegistration = localStorage.getItem("EmailFromRegistration");
         if (emailFromRegistration) {
             this.user.email = emailFromRegistration;
@@ -246,13 +252,13 @@ export default {
             }
         }
     },
-    computed:{
-        isFormValid(){
+    computed: {
+        isFormValid() {
             let formValid = !!this.user.email && !!this.user.password ? true : false;
             return formValid;
         }
     },
-    methods:{
+    methods: {
         rememberEmail() {
             if (this.isRemembered === true) {
                 let emailSaved = JSON.stringify(this.user.email);
