@@ -93,7 +93,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(),[
             'name'     => 'bail|required|string|min:2',
             'surname'  => 'bail|required|string|min:2',
-            'birthday' => 'bail|required|date',
+            'birthday' => 'bail|required|date|before:today',
             'email'    => 'bail|required|email',
             'password' => 'bail|nullable|string|min:6',
             'zone_id'  => 'bail|nullable|numeric'

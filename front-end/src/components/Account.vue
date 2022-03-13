@@ -212,7 +212,7 @@ export default {
             text: "La password dev'essere lunga almeno 6 caratteri!",
             type: "warning",
             timer: 3000,
-            }) 
+          }) 
         } else {
           try {
             let response = await this.$axios.put(

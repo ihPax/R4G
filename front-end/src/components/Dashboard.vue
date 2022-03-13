@@ -82,7 +82,11 @@ export default {
       if (this.err.status == 401) {
         this.err.statusText = "Non sei autorizzato a svolgere questa operazione";
       }
-
+      if (this.err.status >= 400 && this.err.status < 500) {
+        let dataErr = this.err.data; //oggetto che contiene una coppia chiave valore con valore un array contentente una stringa
+        let customErr = (dataErr[Object.keys(dataErr)[0]])[0]; //prendo il valore della prima chiave
+        this.err.statusText = customErr;
+      }
       if (this.err) {
         let message = (e == "Error: Network Error") ? "Impossibile raggiungere il server!" : this.err.statusText;
         this.$fire({
