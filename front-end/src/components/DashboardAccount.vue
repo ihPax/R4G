@@ -78,7 +78,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="isMobile" class="flex justify-center pt-8">
+        <div v-if="isMobile" class="flex justify-center pt-8 mb-20 xs:mb-0">
             <button 
                 class="font-bold px-4 py-2 mx-5 rounded text-white bg-gray-800 hover:bg-gray-900 active:bg-gray-900 focus:ring-gray-900"
                 @click="logout()"

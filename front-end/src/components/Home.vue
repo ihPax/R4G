@@ -181,7 +181,7 @@
                 <Loading></Loading>
               </div>
               <div
-                class="flex flex-col rounded-2xl h-72"
+                class="w-full rounded-2xl h-72"
                 v-if="localBin != ''"
                 :style="`background-color:${color}`"
               >
@@ -213,7 +213,7 @@
                           src="../assets/plastica.png"
                           class="h-24 flex-shrink-0"
                         />
-                        <div class="relative">
+                        <div class="relative -mt-2">
                           <svg
                             id="svg"
                             width="120"
@@ -252,7 +252,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="font-normal mt-2 text-white">Prossimo ritiro:</div>
+                  <div class="font-normal text-white">Prossimo ritiro:</div>
                   <div class="flex flex-col font-bold text-white text-xl truncate">
                     {{ bin.day | date }}
                   </div>
@@ -287,7 +287,7 @@
             <div class="flex flex-col p-2">
               <div>
                 <div
-                  class="flex flex-col rounded-2xl h-72"
+                  class="w-full rounded-2xl h-72"
                   :style="'background-color: #166534'"
                 >
                   <div class="flex flex-col px-4 pt-3 justify-center w-full">
@@ -297,7 +297,7 @@
                         <div class="flex justify-between">
                           <img src="../assets/carta.png" class="h-24 flex-shrink-0" />
 
-                          <div class="relative">
+                          <div class="relative -mt-2 w-120">
                             <svg
                               id="svg"
                               width="120"
@@ -335,7 +335,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="font-normal mt-2 text-white">Prossimo ritiro:</div>
+                    <div class="font-normal text-white">Prossimo ritiro:</div>
                     <div class="flex flex-col font-bold text-white text-xl truncate">
                       Lunedì 21 Marzo 2022
                     </div>
@@ -364,7 +364,7 @@
 
             <!-- terza card per aggiunta cestino -->
             <div class="flex flex-col p-2">
-              <div class="w-full flex justify-center items-center h-801 bg-blue-400 rounded-2xl h-72">
+              <div class="w-full flex justify-center items-center bg-blue-400 rounded-2xl h-72">
                 <button @click="changeBinStatus()" class="h-24 w-24">
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-full h-full mx-auto rounded-full bg-gray-200 p-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path class="animate-pulse" stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
@@ -383,13 +383,13 @@
               </div>
             </div>
           </VueSlickCarousel>
-          <div class="">
+          <div class="mb-6">
             <div v-if="!user.zone_id" class="flex flex-col items-center">
-              <t-modal v-model="showModal" header="Scegli il tuo Comune" close="chiudi">
+              <t-modal v-model="showModal" header="Scegli la tua zona" close="chiudi">
                 <Modal @exit="closeModal"></Modal>
               </t-modal>
               <t-button @click="showModalTrue()" type="button">
-                Scegli il tuo comune
+                Scegli la tua zona
               </t-button>
             </div>
             <div v-if="user.zone_id">

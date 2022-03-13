@@ -21,7 +21,7 @@
                     @click="showAnswer(faq)"
                     class=""
                 >
-                    <div class="p-2 sm:p-4 cursor-pointer border-b border-yellow-100" :class="index % 2 == 0 ? 'bg-white' : 'bg-yellow-50'">
+                    <div class="p-2 sm:p-4 cursor-pointer border-b border-yellow-200" :class="index % 2 == 0 ? 'bg-white' : 'bg-yellow-50'">
                         <div class="flex items-center">
                             <div class="flex">
                                 <div class="font-medium">{{index + 1}}.&nbsp;</div>

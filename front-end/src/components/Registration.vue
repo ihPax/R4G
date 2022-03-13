@@ -178,7 +178,7 @@
         <!--NOME-->
         <div class="flex flex-col mt-5 justify-between">
             <input type='text' placeholder="Nome" name="name" autocomplete="name" v-model="newUser.name" 
-                class="border-2 border-orangelogo mx-5 px-5 rounded-lg h-12"
+                class="border-2 border-orangelogo mx-5 px-5 rounded-lg h-12 outline-none"
                 :class="{
                     'border border-red-600 text-black': !isFormValid && !newUser.name,
                     'bg-white': isFormValid
@@ -189,7 +189,7 @@
         <!--COGNOME-->
         <div class="flex flex-col mt-5 justify-between">
             <input type='text' placeholder="Cognome" name="surname" autocomplete="surname" v-model="newUser.surname" 
-                class="border-2 border-orangelogo mx-5 px-5 rounded-lg h-12"
+                class="border-2 border-orangelogo mx-5 px-5 rounded-lg h-12 outline-none"
                 :class="{
                     'border border-red-600 text-black': !isFormValid && !newUser.surname,
                     'bg-white': isFormValid
@@ -200,7 +200,7 @@
          <!--DATA-->
         <div class="flex flex-row mt-5 justify-between">
             <input :type="isInputDate == true ? 'date' : 'text'" @click="isInputDate = true" placeholder="Data di nascita" name="birthday" autocomplete="birthday" v-model="newUser.birthday" 
-                class="border-2 border-orangelogo mx-5 px-5 rounded-lg h-12 w-full bg-white"
+                class="border-2 border-orangelogo mx-5 px-5 rounded-lg h-12 w-full bg-white outline-none"
                 :class="{
                     'border border-red-600 text-black': !isFormValid && !newUser.birthday
                 }"
@@ -211,7 +211,7 @@
         <!--EMAIL-->
         <div class="flex flex-row mt-5 justify-between">
             <input type='text' placeholder="Email" name="email" autocomplete="email" v-model="newUser.email" 
-                class="border-2 border-orangelogo mx-5 px-5 rounded-lg h-12 w-full"
+                class="border-2 border-orangelogo mx-5 px-5 rounded-lg h-12 w-full outline-none"
                 :class="{
                     'border border-red-600 text-black': !isFormValid && !newUser.email,
                     'bg-white': isFormValid
@@ -222,7 +222,7 @@
         <!--PASSWORD-->
         <div class="flex flex-row mt-5 justify-between relative">
             <input :type="isPasswordHidden ? 'password' : 'text'" placeholder="Password" name="password" autocomplete="password" v-model="newUser.password" 
-                class="border-2 border-orangelogo mx-5 px-5 rounded-lg h-12 w-full"
+                class="border-2 border-orangelogo mx-5 px-5 rounded-lg h-12 w-full outline-none"
                 :class="{
                     'border border-red-600 text-black': !isFormValid && !newUser.password,
                     'bg-white': isFormValid

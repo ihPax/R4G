@@ -132,7 +132,7 @@
         <!--EMAIL-->
         <div class="flex flex-row mt-5 justify-between">
             <input type='text' placeholder="Email" name="email" autocomplete="email" v-model="user.email" 
-                class="border-2 border-orangelogo mx-5 px-5 rounded-lg w-full h-12"
+                class="border-2 border-orangelogo mx-5 px-5 rounded-lg w-full h-12 outline-none"
                 :class="{
                     'border border-red-600 text-black': !isFormValid && !user.email,
                     'bg-white': isFormValid
@@ -144,7 +144,7 @@
         <div class="flex flex-row my-5 justify-between relative">
             <input :type="isPasswordHidden ? 'password' : 'text'"
                 placeholder="Password" name="password" autocomplete="password" v-model="user.password" 
-                class="border-2 border-orangelogo mx-5 px-5 rounded-lg w-full h-12"
+                class="border-2 border-orangelogo mx-5 px-5 rounded-lg w-full h-12 outline-none"
                 :class="{
                     'border border-red-600 text-black': !isFormValid && !user.password,
                     'bg-white': isFormValid

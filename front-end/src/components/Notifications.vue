@@ -23,7 +23,7 @@
         </button> 
         <div class="px-4">
             <div class="py-4">
-                <div v-if="withdrawalDate" >
+                <div v-if="withdrawalDate">
                     <p>Il prossimo ritiro è il giorno: <span class="font-medium">{{withdrawalDate}}</span>.</p>
                     <p>Il materiale ritirato è: <span class="font-medium">{{binName}}</span>.</p>
                 </div>

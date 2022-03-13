@@ -31,7 +31,7 @@
         </div>
       </template>
     </v-calendar>
-    <div v-if="isExpanded" class="flex flex-col items-center mt-4 xs:mb-4">
+    <div v-if="isExpanded" class="flex flex-col items-center xs:mt-4 mb-20 xs:mb-4">
       <t-modal v-model="showModal" header="Scegli la tua zona" close="chiudi">
         <Modal @exit="closeModal" @catch-error="catchErr"></Modal>
       </t-modal>
