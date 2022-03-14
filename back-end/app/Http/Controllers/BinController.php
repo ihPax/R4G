@@ -107,3 +107,5 @@ class BinController extends Controller
         return $bins->save();
     }
 }
+
+//a
