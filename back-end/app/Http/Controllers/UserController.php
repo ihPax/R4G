@@ -121,7 +121,7 @@ class UserController extends Controller
             return $user;
         } else { 
             return response()->json([
-              'user'   => 'Unauthorized operation'
+              'user'   => ['Non sei autorizzato ad effettuare questa operazione']
             ]
             , 401); 
         }
