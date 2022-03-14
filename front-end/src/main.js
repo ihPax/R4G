@@ -26,13 +26,18 @@ new Vue({
   router,
 }).$mount('#app');
 
-axios.interceptors.response.use(
-  response => {
-    return response;
-  }, 
-  error => {
-    if (error.response.status === 401) {
-      router.push({ name: "login" })
-    }
-    return error;
-});
+
+/*
+  Non funziona perché non si riesce a registrarsi. In teoria dovrebbe intercettare le richieste Axios e,
+  nel caso in cui l'errore sia "Non autorizzato" (tranne che nella route "login"), riporta l'utente al login.
+*/
+// axios.interceptors.response.use(
+//   response => {
+//     return response;
+//   }, 
+//   error => {
+//     if (error.response.status === 401) {
+//       router.push({ name: "login" })
+//     }
+//     return error;
+// });
