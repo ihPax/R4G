@@ -17,6 +17,3 @@ Laravel => php artisan scheduler:work <br/>
 
 ### EMAILJS NEI FEEDBACK
 collegarsi al sito https://dashboard.emailjs.com/admin/templates <br/>
-**credenziali** <br/>
-Email => r4g.recycleteam@gmail.com <br/>
-Password => Adminr4g1234 <br/>
