@@ -388,7 +388,7 @@
               <t-modal v-model="showModal" header="Scegli la tua zona" close="chiudi">
                 <Modal @exit="closeModal"></Modal>
               </t-modal>
-              <t-button @click="showModalTrue()" type="button">
+              <t-button @click="showModalTrue()" type="button" class="mt-6">
                 Scegli la tua zona
               </t-button>
             </div>
