@@ -9,7 +9,7 @@ import VueTailwind from 'vue-tailwind';
 import vueTailwindSetting from './vueTailwindSettings.js'; //importo i settings da un altro file perché qui occupavano troppo spazio
 
 Vue.prototype.$axios = axios;
-axios.defaults.baseURL = "http://localhost:8000/"
+axios.defaults.baseURL = "https://r4g.herokuapp.com"
 //axios.defaults.baseURL = "http://172.16.21.36:8000/"  // <-- mettere URL su rete locale per testare progetto per es. su smartphone
 // php artisan serve --host=172.16.21.36 --port=8000   <-- per far partire il server su host e porta personalizzati
 
