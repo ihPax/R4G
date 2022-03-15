@@ -456,7 +456,8 @@ export default {
       value: 1,
       binExist: false,
       viewBinUser: [],
-      isEmailSettledOnServer: false
+      isEmailSettledOnServer: false,
+      firstExecute: true
     };
   },
   async mounted() {
@@ -469,79 +470,51 @@ export default {
     showModalTrue() {
       this.showModal = !this.showModal;
     },
-
-    async getDistanceMounted(){
+    async getValue() {
       try {
-          this.user = JSON.parse(localStorage.getItem("AccessEmail"));
-          this.userBin = JSON.parse(localStorage.getItem("BinUser"));
-          let length = this.userBin[0].length;
-          let arrayFeeds = await this.$axios.get(
-            "https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2"
-          );
-          let lastElement = arrayFeeds.data.feeds.pop();
-          let distance = lastElement.field1;
-          this.value = Math.round(((length - distance) * 100) / length);
+        this.user = JSON.parse(localStorage.getItem("AccessEmail"));
+        this.userBin = JSON.parse(localStorage.getItem("BinUser"));
+        let length = this.userBin[0].length;
+        let arrayFeeds = await this.$axios.get(
+          "https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2"
+        );
+        let lastElement = arrayFeeds.data.feeds.pop();
+        let distance = lastElement.field1;
+        this.value = Math.round(((length - distance) * 100) / length);
 
-          if (this.value < 0 || isNaN(this.value)) {
-            this.value = 0;
-          } else if (this.value > 100) {
-            this.value = 100;
-          }
-
-          if (this.value <= 80 && this.isEmailSettledOnServer == false) {
-            await this.$axios.put("/r4g/not-send-email-percent/" + this.userBin[0].id);
-            this.isEmailSettledOnServer = true;
-          } else if (this.value > 80 && this.isEmailSettledOnServer == true) {
-            await this.$axios.get("/r4g/send-email-percent/" + this.userBin[0].id); //invio email
-            this.isEmailSettledOnServer = false;
-          }
-
-          this.changePercent();
-        } catch(e) {
-          if (e != "Error: Network Error") {
-            this.$emit("catch-error", e);
-          } else {
-            this.clearSetInterval();
-          }
+        if (this.value < 0 || isNaN(this.value)) {
+          this.value = 0;
+        } else if (this.value > 100) {
+          this.value = 100;
         }
-    },
 
+        if (this.value <= 80 && this.isEmailSettledOnServer == false) {
+          await this.$axios.put("/r4g/not-send-email-percent/" + this.userBin[0].id);
+          this.isEmailSettledOnServer = true;
+        } else if (this.value > 80 && this.isEmailSettledOnServer == true) {
+          await this.$axios.get("/r4g/send-email-percent/" + this.userBin[0].id); //invio email
+          this.isEmailSettledOnServer = false;
+        }
+
+        this.changePercent();
+      } catch(e) {
+        if (e != "Error: Network Error") {
+          this.$emit("catch-error", e);
+        } else {
+          this.clearSetInterval();
+        }
+      }
+    },
+    
     //calcola la distanza rilevata dal sensore
     getDistance() {
+      if (this.firstExecute == true) {
+        this.getValue();
+        this.firstExecute = false;
+      }
+      
       this.idInterval = setInterval(async () => {
-        try {
-          this.user = JSON.parse(localStorage.getItem("AccessEmail"));
-          this.userBin = JSON.parse(localStorage.getItem("BinUser"));
-          let length = this.userBin[0].length;
-          let arrayFeeds = await this.$axios.get(
-            "https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2"
-          );
-          let lastElement = arrayFeeds.data.feeds.pop();
-          let distance = lastElement.field1;
-          this.value = Math.round(((length - distance) * 100) / length);
-
-          if (this.value < 0 || isNaN(this.value)) {
-            this.value = 0;
-          } else if (this.value > 100) {
-            this.value = 100;
-          }
-
-          if (this.value <= 80 && this.isEmailSettledOnServer == false) {
-            await this.$axios.put("/r4g/not-send-email-percent/" + this.userBin[0].id);
-            this.isEmailSettledOnServer = true;
-          } else if (this.value > 80 && this.isEmailSettledOnServer == true) {
-            await this.$axios.get("/r4g/send-email-percent/" + this.userBin[0].id); //invio email
-            this.isEmailSettledOnServer = false;
-          }
-
-          this.changePercent();
-        } catch(e) {
-          if (e != "Error: Network Error") {
-            this.$emit("catch-error", e);
-          } else {
-            this.clearSetInterval();
-          }
-        }
+        this.getValue();
       }, [15000]);
     },
 
@@ -701,11 +674,6 @@ export default {
     clearSetInterval() {
       clearInterval(this.idInterval);
     }
-  },
-  computed: {
-    getValue() {
-      return this.value;
-    },
   },
   filters: {
     /** Ritorna il prossimo ritiro con la data nel formato appropriato */
