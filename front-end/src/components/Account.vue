@@ -29,8 +29,8 @@
         Informazioni account
       </h3>
     </button>
-    <div v-if="comuni != ''">
-      <form
+    <div v-if="comuni != ''" @keyup.enter="saveForm(); switchEditMode()">
+      <div
         v-for="(field, index) in fields" :key="index"
         class="px-4 py-1 sm:py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 border-b border-yellow-100"
         :class="index % 2 == 0 ? 'bg-white' : 'bg-yellow-50'"
@@ -82,7 +82,7 @@
             </div>
           </li>
         </dd>
-      </form>
+      </div>
       <div class="bg-white p-4 sm:gap-4 sm:px-6">
         <dd class="text-sm text-gray-900 sm:mt-0">
           <li class="py-2 flex items-center justify-center text-sm">
