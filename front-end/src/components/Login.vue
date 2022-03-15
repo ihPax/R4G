@@ -27,7 +27,7 @@
                         <span v-else>&nbsp;&nbsp;</span>
                     </div>
                     <div class="flex flex-col">
-                        <input type='text' placeholder="Email" name="email" autocomplete="email" v-model="user.email" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
+                        <input type='email' placeholder="Email" name="email" autocomplete="email" v-model="user.email" class="ml-5 border-2 border-gray-200 px-2 rounded-lg w-full"/>
                     </div>
                 </div>
 
@@ -87,7 +87,7 @@
 
                 <div class="flex flex-row m-auto mt-3">
                     <div class="flex flex-col">
-                        <span class="cursor-pointer"> Hai dimenticato la password? </span>
+                        <span class="cursor-pointer" @click="goToLink('recover-account')"> Hai dimenticato la password? </span>
                     </div>
                 </div>
                 <div class="flex flex-row m-auto mt-5 text-sm">
@@ -131,7 +131,7 @@
 
         <!--EMAIL-->
         <div class="flex flex-row mt-5 justify-between">
-            <input type='text' placeholder="Email" name="email" autocomplete="email" v-model="user.email" 
+            <input type='email' placeholder="Email" name="email" autocomplete="email" v-model="user.email" 
                 class="border-2 border-orangelogo mx-5 px-5 rounded-lg w-full h-12 outline-none"
                 :class="{
                     'border border-red-600 text-black': !isFormValid && !user.email,
@@ -193,9 +193,19 @@
         <div class="flex flex-col text-white text-lg my-5">
             <button type="button"
                 class="font-bold px-4 py-2 mx-5 rounded text-white bg-gray-800 hover:bg-gray-900 active:bg-gray-900 focus:ring-gray-900"
-                @click="goToRegistration()"
+                @click="goToLink('registration')"
             >
                 Registrati
+            </button>
+        </div>
+
+        <div class="flex text-sm mx-auto my-5 justify-center">
+            <span class="mr-2"> Password dimenticata? </span>
+            <button
+                @click="goToLink('recover-account')"
+                class="text-sm font-medium focus:outline-none"
+            >
+                Clicca qui
             </button>
         </div>
 
@@ -267,9 +277,9 @@ export default {
                 localStorage.removeItem("Email");
             }
         },
-        goToRegistration() {
+        goToLink(link) {
             this.$router.push({
-                name: "registration"
+                name: link
             });
         },
         async login() {

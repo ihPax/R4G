@@ -14,6 +14,7 @@ import Notifications from "@/components/Notifications.vue";
 import ProjectR4G from "@/components/ProjectR4G.vue";
 import ToS from "@/components/ToS.vue";
 import Feedback from "@/components/Feedback.vue";
+import RecoverAccount from "@/components/RecoverAccount.vue";
 
 Vue.use(VueRouter);
 
@@ -42,6 +43,11 @@ const routes = [
       path: '/login',
       name: "login",
       component: Login,
+    },
+    {
+      path: '/recover-account',
+      name: "recover-account",
+      component: RecoverAccount,
     },
     {
       path: '/dashboard',

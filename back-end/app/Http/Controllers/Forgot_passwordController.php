@@ -21,7 +21,8 @@ class Forgot_passwordController extends Controller
             'email' => 'required|email|exists:users'
         ]);
         if ($validator->fails()) {
-            return array("status" => 500, "message" => "Inserisci correttamente l'email");
+            return response()->json($validator->errors(), 422);
+            // return array("status" => 400, "message" => "Inserisci correttamente l'email");
         }
 
         $data = json_decode($request->getContent());
@@ -51,7 +52,8 @@ class Forgot_passwordController extends Controller
             'password' => 'required|string|min:6'
         ]);
         if ($validator->fails()) {
-            return array("status" => 500, "message" => "Inserisci correttamente tutti i campi");
+            return response()->json($validator->errors(), 422);
+            // return array("status" => 400, "message" => "Inserisci correttamente tutti i campi");
         }
 
         $data = json_decode($request->getContent());
@@ -62,7 +64,7 @@ class Forgot_passwordController extends Controller
         ])->first();
 
         if(!$codePassword){
-            return array("status" => 500, "message" => "Token non valido");
+            return array("status" => 400, "message" => "Token non valido");
         }
 
         User::where('email', $data->email)->update(['password' => Hash::make($data->password)]);

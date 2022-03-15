@@ -3,7 +3,7 @@
     <h2 class="flex justify-center font-bold text-lg">
       <div v-if="isExpanded" class="flex-grow py-4 border-b border-gray-200 xs:border-b-0 bg-blue-50 xs:bg-white font-medium xs:font-bold text-xl"> Calendario <span v-if="isZoneSettled">zona di {{calendars.name}}</span> </div>
     </h2>
-    <div class="text-xxs">Clicca sul calendario per vedere la legenda colori</div>
+    <div v-if="isMobile && isExpanded" class="text-xxs mt-2">Clicca sul calendario per vedere la legenda colori</div>
     <v-calendar
       class="custom-calendar max-w-full"
       :masks="masks"

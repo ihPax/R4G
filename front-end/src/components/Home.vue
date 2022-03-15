@@ -174,12 +174,12 @@
         </div>
 
         <div class="flex flex-col mx-4">
-          <VueSlickCarousel :arrows="false" :dots="false">
+          <div v-if="isLoading" class="flex flex-col justify-center items-center h-72 my-2">
+            <Loading></Loading>
+          </div>
+          <VueSlickCarousel :arrows="false" :dots="false" v-else>
             <!-- prima card -->
             <div class="p-2" v-if="viewBinUser.bin_id">
-              <div v-if="isLoading" class="flex flex-col justify-center items-center">
-                <Loading></Loading>
-              </div>
               <div
                 class="w-full rounded-2xl h-72"
                 v-if="localBin != ''"
@@ -453,7 +453,7 @@ export default {
       rMobile: 25,
       rct: 235.26,
       rctMobile: 235.26,
-      value: 1,
+      value: 0,
       binExist: false,
       viewBinUser: [],
       isEmailSettledOnServer: false,
