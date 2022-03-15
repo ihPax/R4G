@@ -33,13 +33,13 @@
                         name="recover"
                         autocomplete="email"
                         v-model="recoverEmail"
-                        class="border-2 mx-5 px-5 rounded-lg w-full bg-white outline-none h-12"
+                        class="border-2 mx-5 px-5 rounded-lg bg-white outline-none h-12"
                         :class="{
                             'border-red-600': !recoverEmail,
                             'border-yellow-500': recoverEmail
                         }"
                     />
-                    <div v-if="!recoverEmail" class="text-sm text-red-400 text-center px-2 font-medium">Inserisci una mail valida!</div>
+                    <div v-if="!recoverEmail" class="text-sm text-red-400 text-center font-medium px-2 py-1">Inserisci una mail valida!</div>
                 </div>
                 <div class="flex justify-center my-4">
                     <t-button2
@@ -59,7 +59,7 @@
                     name="newPassword"
                     autocomplete="newPassword"
                     v-model="newPassword"
-                    class="border-2 mx-5 px-5 rounded-lg w-full bg-white outline-none h-12"
+                    class="border-2 mx-5 my-5 px-5 rounded-lg bg-white outline-none h-12"
                     :class="{
                         'border-red-600': !isFormValid,
                         'border-yellow-500': isFormValid
@@ -71,13 +71,13 @@
                     name="repeatPassword"
                     autocomplete="repeatPassword"
                     v-model="repeatPassword"
-                    class="border-2 mx-5 px-5 rounded-lg w-full bg-white outline-none h-12"
+                    class="border-2 mx-5 mt-5 px-5 rounded-lg bg-white outline-none h-12"
                     :class="{
                         'border-red-600': !isFormValid,
                         'border-yellow-500': isFormValid
                     }"
                 />
-                <div class="text-sm text-red-400 text-center py-2 font-medium">Le due password devono corrispondere!</div>
+                <div v-if="!isFormValid && (newPassword.length <= repeatPassword.length)" class="text-sm text-red-400 text-center font-medium py-1">Le due password devono corrispondere!</div>
                 <div class="flex justify-center my-4">
                     <t-button2
                         @click="sendEmail()"
