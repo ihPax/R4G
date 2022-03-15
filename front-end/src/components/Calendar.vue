@@ -3,6 +3,7 @@
     <h2 class="flex justify-center font-bold text-lg">
       <div v-if="isExpanded" class="flex-grow py-4 border-b border-gray-200 xs:border-b-0 bg-blue-50 xs:bg-white font-medium xs:font-bold text-xl"> Calendario <span v-if="isZoneSettled">zona di {{calendars.name}}</span> </div>
     </h2>
+    <div class="text-xxs">Clicca sul calendario per vedere la legenda colori</div>
     <v-calendar
       class="custom-calendar max-w-full"
       :masks="masks"
@@ -10,12 +11,12 @@
       disable-page-swipe
       :min-date="new Date()"
     >
-    <template v-slot:day-content="{ day, attributes }">
-        <div class="flex flex-col h-full z-10 overflow-hidden">
+      <template v-slot:day-content="{ day, attributes }">
+        <div class="flex flex-col h-full z-10 overflow-hidden cursor-pointer" @click="switchColorLegend('true')">
           <span 
             class="day-label text-gray-900 sm:my-1"
             :class="isExpanded ? 'text-base' : 'text-sm'"
-          >{{ day.day }}</span>
+          > {{ day.day }} </span>
           <div class="flex-grow overflow-y-auto overflow-x-auto">
             <div
               v-for="attr in attributes"
@@ -33,25 +34,25 @@
     </v-calendar>
     <div v-if="isExpanded" class="flex flex-col items-center xs:mt-4 mb-20 xs:mb-4">
       <t-modal v-model="showModal" header="Scegli la tua zona" close="chiudi">
-        <Modal @exit="closeModal" @catch-error="catchErr"></Modal>
+        <Modal @exit="switchModal('false')" @catch-error="catchErr"></Modal>
       </t-modal>
-      <t-button v-if="!isMobile" @click="showModalTrue()" type="button">Cambia la zona</t-button>
-      <t-button v-else 
-        class=""
-        @click="showModalTrue()"
-      >
-        <div class="">Cambia la zona</div>
-      </t-button>
+      <t-button @click="switchModal('true')" type="button">Cambia la zona</t-button>
     </div>
+    <t-modal v-model="showColorLegend" header="Legenda colori" close="chiudi">
+      <ColorLegend @exit="switchColorLegend('false')" @catch-error="catchErr"></ColorLegend>
+    </t-modal>
   </div>
 </template>
 
 <script>
 import Modal from "@/components/Modal";
+import ColorLegend from "@/components/ColorLegend";
+
 export default {
   name: "Calendar",
   components: {
-    Modal
+    Modal,
+    ColorLegend
   },
   props: {
     isExpanded: {
@@ -71,7 +72,8 @@ export default {
       calendars: {},
       attributes: [],
       showModal: false,
-      isZoneSettled: false
+      isZoneSettled: false,
+      showColorLegend: false
     };
   },
   mounted() {
@@ -97,17 +99,23 @@ export default {
         });
       }
     },
-    closeModal() {
+    /**
+     * Determina se la finestra di dialogo è aperta e va chiusa viceversa. Alla chiusura esegue altre operazioni.
+     * @param isOpening {boolean} Vero se il click è per aprire la finestra, falso altrimenti.
+     */
+    switchModal(isOpening) {
       this.showModal = !this.showModal;
-      this.attributes = [];
-      this.getZone();
+      if (isOpening === false) {
+        this.attributes = [];
+        this.getZone();
+      }
     },
-    showModalTrue() {
-      this.showModal = !this.showModal;
+    switchColorLegend() {
+      this.showColorLegend = !this.showColorLegend;
     },
     catchErr(e) {
       this.$emit('catch-error', e);
-      this.closeModal();
+      this.switchModal('false');
     }
   },
 };
