@@ -12,7 +12,7 @@
       :min-date="new Date()"
     >
       <template v-slot:day-content="{ day, attributes }">
-        <div class="flex flex-col h-full z-10 overflow-hidden cursor-pointer" @click="switchColorLegend('true')">
+        <div class="flex flex-col h-full z-10 overflow-hidden" @click="isMobile ? switchColorLegend('true') : null" :class="isMobile ? 'cursor-pointer' : null">
           <span 
             class="day-label text-gray-900 sm:my-1"
             :class="isExpanded ? 'text-base' : 'text-sm'"

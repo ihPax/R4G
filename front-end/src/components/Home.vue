@@ -148,7 +148,7 @@
             <t-button @click="showModalTrue()" type="button">Scegli la tua zona</t-button>
           </div>
           <div v-if="user.zone_id">
-            <Calendar :is-expanded="false"></Calendar>
+            <Calendar :is-expanded="false" :isMobile="isMobile"></Calendar>
           </div>
         </div>
       </div>
