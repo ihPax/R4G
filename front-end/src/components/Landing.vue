@@ -20,7 +20,7 @@
     </div>
 
     <!--CONTENT CON IMMAGINE + SLOGAN-->
-    <div class="relative min-h-1/2 md:h-192 bg-no-repeat bg-cover mx-4 lg:mx-10 rounded lg:rounded-xl overflow-hidden" style="background-image: url(https://t4.ftcdn.net/jpg/03/11/97/47/360_F_311974779_RwKYnMTawMHG33Dz7NLBFqsToNZRZCdq.jpg);">
+    <div class="relative min-h-1/2 md:h-192 bg-no-repeat bg-cover mx-4 lg:mx-10 rounded lg:rounded-xl overflow-hidden" style="background-image: url(https://i.ibb.co/S6G2ZCV/landing-R4-G.jpg);">
       <div class="h-full w-full absolute bg-blue-500 opacity-30"></div>
       <div class="hidden lg:block absolute inset-0 w-1/2 ml-auto bg-blueGray-50 z-0" style="z-index: -1"></div>
       <div class="container px-4 mx-auto relative h-full">
