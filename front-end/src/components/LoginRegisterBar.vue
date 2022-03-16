@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="flex flex-row">
+    <div class="flex flex-row xs:mt-4">
       <div class="flex flex-col">
         <button class="flex cursor-pointer disabled:cursor-auto" @click="goToLink({code: 'Landing'})" :disabled="currentRouteName == 'Landing'">
           <img
-            src="../assets/logor4gblack.png"
-            class="w-3/4"
+            src="../assets/Logo_R4G_Black.svg"
+            class="h-8 xs:h-10 ml-4 my-5 w-full block"
             alt="logo R4G"
           />
         </button>
@@ -50,7 +50,7 @@ export default {
         {
           code: "registration",
           label: "Registrati",
-          classes: "text-yellow-600 hover:text-white hover:bg-yellow-600"
+          classes: "text-yellow-600 hover:text-white bg-white hover:bg-yellow-600"
         },
         {
           code: "login",

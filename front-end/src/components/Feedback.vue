@@ -90,11 +90,11 @@
                 <div class="border border-red-600 rounded px-2 py-1">* Campo obbligatorio</div>
             </div>
         </div>
-        <div v-else class="flex flex-col justify-end items-center pt-24">
-            <div @click="goToLink()" class="flex justify-center items-center">
+        <div v-else class="flex flex-col justify-end items-center mt-24">
+            <div @click="goToLink()" class="flex justify-center items-center cursor-pointer mb-8">
                 <img
-                    src="../assets/logor4gblack.png"
-                    class="cursor-pointer"
+                    src="../assets/Logo_R4G_Black.svg"
+                    class="h-16"
                     alt="logo R4G"
                 />
             </div>

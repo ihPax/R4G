@@ -164,8 +164,8 @@
         <div class="flex flex-col justify-center">
             <router-link to="/landing" class="flex justify-center items-center">
                 <img
-                    src="../assets/logor4gblack.png"
-                    class="w-1/2 cursor-pointer"
+                    src="../assets/Logo_R4G_Black.svg"
+                    class="h-10 my-5"
                     alt="logo R4G"
                 />
             </router-link>
