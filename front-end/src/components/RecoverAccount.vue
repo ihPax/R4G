@@ -77,7 +77,7 @@
                         'border-yellow-500': isFormValid
                     }"
                 />
-                <div v-if="!isFormValid && (newPassword.length <= repeatPassword.length)" class="text-sm text-red-400 text-center font-medium py-1">Le due password devono corrispondere!</div>
+                <div v-if="!isFormValid && (newPassword.length <= repeatPassword.length) && newPassword.length != 0" class="text-sm text-red-400 text-center font-medium py-1">Le due password devono corrispondere!</div>
                 <div class="flex justify-center my-4">
                     <t-button2
                         @click="sendEmail()"
