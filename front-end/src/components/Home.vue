@@ -490,12 +490,12 @@ export default {
           this.value = 100;
         }
 
-        if (this.value <= 80 && this.isEmailSettledOnServer == false) {
+        if (this.value <= 80) {
           await this.$axios.put("/r4g/not-send-email-percent/" + this.userBin[0].id);
-          this.isEmailSettledOnServer = true;
-        } else if (this.value > 80 && (this.isEmailSettledOnServer == true || this.firstExecute == true)) {
+          //this.isEmailSettledOnServer = true;
+        } else if (this.value > 80) {
           await this.$axios.get("/r4g/send-email-percent/" + this.userBin[0].id); //invio email
-          this.isEmailSettledOnServer = false;
+          //this.isEmailSettledOnServer = false;
         }
 
         this.changePercent();
