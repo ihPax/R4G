@@ -9,7 +9,11 @@
   <div v-if="!isMobile" id="upperbar" class="flex justify-between items-center mx-4">
     <div class="">
       <router-link to='/dashboard/home'>
-        <img src="../assets/logor4gblack.png" class="cursor-pointer w-1/2" alt="logo R4G" />
+        <img
+            src="../assets/Logo_R4G_Black.svg"
+            class="h-8 xs:h-10 my-5 w-full block"
+            alt="logo R4G"
+          />
       </router-link>
     </div>
     <button 
