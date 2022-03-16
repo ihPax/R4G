@@ -480,6 +480,7 @@ export default {
         );
         let lastElement = arrayFeeds.data.feeds.pop();
         let distance = lastElement.field1;
+        console.log(length, distance)
         //this.value = Math.round(((length - distance) * 100) / length);
         this.value = 90;
 
