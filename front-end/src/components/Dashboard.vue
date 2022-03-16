@@ -95,6 +95,7 @@ export default {
           timer: 3000,
         });
       }
+      console.log(e, e.response);
     },
   }
 }
