@@ -480,7 +480,8 @@ export default {
         );
         let lastElement = arrayFeeds.data.feeds.pop();
         let distance = lastElement.field1;
-        this.value = Math.round(((length - distance) * 100) / length);
+        //this.value = Math.round(((length - distance) * 100) / length);
+        this.value = 90;
 
         if (this.value < 0 || isNaN(this.value)) {
           this.value = 0;
