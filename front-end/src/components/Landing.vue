@@ -21,7 +21,7 @@
 
     <!--CONTENT CON IMMAGINE + SLOGAN-->
     <div class="relative min-h-1/2 md:h-192 bg-no-repeat bg-cover mx-4 lg:mx-10 rounded lg:rounded-xl overflow-hidden" style="background-image: url(https://i.ibb.co/S6G2ZCV/landing-R4-G.jpg);">
-      <div class="h-full w-full absolute bg-blue-500 opacity-30"></div>
+      <div class="h-full w-full absolute bg-blue-600 opacity-30"></div>
       <div class="hidden lg:block absolute inset-0 w-1/2 ml-auto bg-blueGray-50 z-0" style="z-index: -1"></div>
       <div class="container px-4 mx-auto relative h-full">
         <div class="flex flex-wrap items-center -mx-3 h-full">
@@ -31,7 +31,7 @@
                 <h2 class="text-3xl md:text-5xl mb-4 font-bold font-heading text-white">
                   Noi aiutiamo te, <div class="xs:inline">tu aiuta il pianeta.</div>
                 </h2>
-                <p class="text-blueGray-200 leading-relaxed text-lg md:text-2xl">
+                <p class="text-white leading-relaxed text-lg md:text-2xl font-medium">
                   Collega il tuo cestino e scopri come la tecnologia può
                   aiutarti a fare del bene per te e per il pianeta.
                 </p>
