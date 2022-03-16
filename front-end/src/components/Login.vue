@@ -78,7 +78,7 @@
                         <button type="button"
                             :disabled="!isFormValid || isLoading"
                             class="font-bold px-4 py-1 rounded-full cursor-pointer bg-black disabled:cursor-not-allowed disabled:bg-gray-500"
-                            @click.stop="login()" 
+                            @click="login()" 
                         >
                             Accedi
                         </button>
@@ -87,7 +87,7 @@
 
                 <div class="flex flex-row m-auto mt-3">
                     <div class="flex flex-col">
-                        <span class="cursor-pointer" @click="goToLink('recover-account')"> Hai dimenticato la password? </span>
+                        <span class="cursor-pointer" @click="goToLink('recover-account')"> Password dimenticata? Clicca qui. </span>
                     </div>
                 </div>
                 <div class="flex flex-row m-auto mt-5 text-sm">
@@ -178,7 +178,7 @@
         <div class="flex flex-col text-white text-lg my-5">
             <button type="button"
                 class="font-bold px-4 py-2 mx-5 rounded text-white bg-yellow-600 hover:bg-yellow-700 active:bg-yellow-700 focus:ring-yellow-300 disabled:cursor-not-allowed"
-                @click.stop="login()"
+                @click="login()"
                 :disabled="!isFormValid || isLoading"
             >
                 Accedi
@@ -201,12 +201,12 @@
 
         <div class="flex text-sm mx-auto my-5 justify-center">
             <span class="mr-2"> Password dimenticata? </span>
-            <button
+            <span
                 @click="goToLink('recover-account')"
                 class="text-sm font-medium focus:outline-none"
             >
                 Clicca qui
-            </button>
+            </span>
         </div>
 
         <div v-if="!isFormValid" class="flex justify-center items-center text-center mx-5">
