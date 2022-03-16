@@ -480,9 +480,7 @@ export default {
         );
         let lastElement = arrayFeeds.data.feeds.pop();
         let distance = lastElement.field1;
-        console.log(length, distance)
-        //this.value = Math.round(((length - distance) * 100) / length);
-        this.value = 90;
+        this.value = Math.round(((length - distance) * 100) / length);
 
         if (this.value < 0 || isNaN(this.value)) {
           this.value = 0;
@@ -490,13 +488,14 @@ export default {
           this.value = 100;
         }
 
-        if (this.value <= 80) {
-          await this.$axios.put("/r4g/not-send-email-percent/" + this.userBin[0].id);
-          //this.isEmailSettledOnServer = true;
-        } else if (this.value > 80) {
-          await this.$axios.get("/r4g/send-email-percent/" + this.userBin[0].id); //invio email
-          //this.isEmailSettledOnServer = false;
-        }
+        //PROBLEMI CON ONLINE
+        // if (this.value <= 80 && this.isEmailSettledOnServer == false) {
+        //   await this.$axios.put("/r4g/not-send-email-percent/" + this.userBin[0].id);
+        //   this.isEmailSettledOnServer = true;
+        // } else if (this.value > 80 && (this.isEmailSettledOnServer == true || this.firstExecute == true)) {
+        //   await this.$axios.get("/r4g/send-email-percent/" + this.userBin[0].id); //invio email
+        //   this.isEmailSettledOnServer = false;
+        // }
 
         this.changePercent();
       } catch(e) {
