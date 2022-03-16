@@ -482,7 +482,7 @@ export default {
         let distance = lastElement.field1;
         console.log(length, distance)
         //this.value = Math.round(((length - distance) * 100) / length);
-        this.value = 90;
+        this.value = 70;
 
         if (this.value < 0 || isNaN(this.value)) {
           this.value = 0;
