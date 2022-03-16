@@ -479,7 +479,7 @@ export default {
           "https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2"
         );
         let lastElement = arrayFeeds.data.feeds.pop();
-        let distance = lastElement.field1;
+        let distance = parseInt(lastElement.field1); //Trasforma il valore ricevuto come string in intero.
         console.log(length, distance)
         //this.value = Math.round(((length - distance) * 100) / length);
         this.value = 90;
