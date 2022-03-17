@@ -10,38 +10,21 @@
       :attributes="attributes"
       disable-page-swipe
       :min-date="new Date()"
-      :isExpanded="isExpanded && !isMobile"
     >
       <template v-slot:day-content="{ day, attributes }">
         <div class="flex flex-col h-full z-10 overflow-hidden" @click="isMobile ? switchColorLegend(true) : null" :class="isMobile ? 'cursor-pointer' : null">
-          <div 
+          <span 
             class="day-label text-gray-900 sm:my-1"
             :class="isExpanded ? 'text-base' : 'text-sm'"
-          >
-          <div v-for="(attr, index) in attributes"
-            :key="index" 
-            class="font-semibold"
-            :class="isMobile ? 
-              attr.customData.class + ' px-2 py-1 m-2 rounded-full text-white' : 
-              'text-black'
-            "
-          >
-            <!-- ORIGINARIAMENTE ERA COME DI SEGUITO, MA POI HO DOVUTO DIVERSIFICARE PER MOBILE E NON! MI SPIACE!
-              :class="isExpanded ? 
-              attr.customData.class + ' px-2 py-1 m-2 rounded-full' : 
-              attr.customData.class + ' px-1 mx-2 rounded-full'"
-            -->
-          {{ day.day }}
-          </div>
-          </div>
+          > {{ day.day }} </span>
           <div class="flex-grow overflow-y-auto overflow-x-auto">
             <div
-              v-for="(attr, index) in attributes"
-              :key="index"
-              class="sm:mb-1 font-bold "
-              :class="isExpanded && !isMobile ? 
-                attr.customData.class + ' mt-1 mb-3 w-4 h-4 mx-auto rounded-full sm:text-xs sm:leading-tight sm:rounded sm:p-2 sm:mx-1 sm:text-white sm:w-auto sm:h-auto' : 
-                !isExpanded && !isMobile ? attr.customData.class + ' mt-0 w-2 h-2 mx-auto rounded-full': 'hidden'"
+              v-for="attr in attributes"
+              :key="attr.id"
+              class="sm:mb-1 font-bold"
+              :class="isExpanded ? 
+              attr.customData.class + ' mt-1 mb-3 w-4 h-4 mx-auto rounded-full sm:text-xs sm:leading-tight sm:rounded sm:p-2 sm:mx-1 sm:text-white sm:w-auto sm:h-auto' : 
+              attr.customData.class + ' mt-0 w-2 h-2 mx-auto rounded-full'"
             >
               <div class="hidden sm:block">{{ isExpanded ? attr.customData.title : "" }}</div> 
             </div>
