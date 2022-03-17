@@ -84,13 +84,12 @@
                         </button>
                     </div>
                 </div>
-                
-                <!-- RECUPERO PASSWORD TRAMITE MAIL DA FINIRE -->
-                <!-- <div class="flex flex-row m-auto mt-3">
+
+                <div class="flex flex-row m-auto mt-3">
                     <div class="flex flex-col">
                         <span class="cursor-pointer" @click="goToLink('recover-account')"> Password dimenticata? Clicca qui. </span>
                     </div>
-                </div> -->
+                </div>
                 <div class="flex flex-row m-auto mt-5 text-sm">
                     <div class="flex flex-col">
                         <router-link to="/privacy-policy">
@@ -200,8 +199,7 @@
             </button>
         </div>
 
-        <!-- RECUPERO PASSWORD TRAMITE MAIL DA FINIRE -->
-        <!-- <div class="flex text-sm mx-auto my-5 justify-center">
+        <div class="flex text-sm mx-auto my-5 justify-center">
             <span class="mr-2"> Password dimenticata? </span>
             <span
                 @click="goToLink('recover-account')"
@@ -209,7 +207,7 @@
             >
                 Clicca qui
             </span>
-        </div> -->
+        </div>
 
         <div v-if="!isFormValid" class="flex justify-center items-center text-center mx-5">
             <div class="border border-red-600 rounded px-2 py-1">* Campo obbligatorio</div>
