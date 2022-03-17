@@ -85,6 +85,7 @@
                     </div>
                 </div>
 
+                <!-- RECUPERO PASSWORD TRAMITE MAIL DA FINIRE -->
                 <!-- <div class="flex flex-row m-auto mt-3">
                     <div class="flex flex-col">
                         <span class="cursor-pointer" @click="goToLink('recover-account')"> Password dimenticata? Clicca qui. </span>
@@ -199,6 +200,7 @@
             </button>
         </div>
 
+        <!-- RECUPERO PASSWORD TRAMITE MAIL DA FINIRE -->
         <!-- <div class="flex text-sm mx-auto my-5 justify-center">
             <span class="mr-2"> Password dimenticata? </span>
             <span
