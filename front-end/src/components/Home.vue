@@ -461,8 +461,11 @@ export default {
     };
   },
   async mounted() {
-    this.user = JSON.parse(localStorage.getItem("AccessEmail"));
-    this.getBin();
+    let user = JSON.parse(localStorage.getItem("AccessEmail"));
+    if (user) {
+      this.user = user;
+      this.getBin()
+    }
   },
 
   methods: {
@@ -656,8 +659,8 @@ export default {
         this.bin = [];
         this.viewBinUser = [];
         this.userBin = JSON.parse(localStorage.getItem("BinUser"));
-        let id = this.userBin[0].id;
-        await this.$axios.delete("/r4g/delete-bin/" + id);
+        let binId = this.userBin[0].id;
+        await this.$axios.delete("/r4g/delete-bin/" + binId);
         let keysToRemove = ["BinUser", "Bin", "WithdrawalDate"];
         keysToRemove.forEach(key => localStorage.removeItem(key));
         this.localBin = [];
