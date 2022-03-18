@@ -12,7 +12,7 @@
       :min-date="new Date()"
     >
       <template v-slot:day-content="{ day, attributes }">
-        <div class="flex flex-col h-full z-10 overflow-hidden" @click="isMobile ? switchColorLegend(true) : null" :class="isMobile ? 'cursor-pointer' : null">
+        <div class="flex flex-col h-full z-10 overflow-hidden cursor-pointer" @click="switchColorLegend(true)">
           <span 
             class="day-label text-gray-900 sm:my-1"
             :class="isExpanded ? 'text-base' : 'text-sm'"
@@ -34,12 +34,12 @@
     </v-calendar>
     <div v-if="isExpanded" class="flex flex-col items-center xs:mt-4 mb-20 xs:mb-4">
       <t-modal v-model="showModal" header="Scegli la tua zona" close="chiudi">
-        <Modal @exit="switchModal(false)" @catch-error="catchErr"></Modal>
+        <Modal @exit="switchModal(false)" @catch-error="catchErr" :isMobile="isMobile"></Modal>
       </t-modal>
       <t-button @click="switchModal(true)" type="button">Cambia la zona</t-button>
     </div>
     <t-modal v-model="showColorLegend" header="Legenda colori" close="chiudi">
-      <ColorLegend @exit="switchColorLegend(false)" @catch-error="catchErr"></ColorLegend>
+      <ColorLegend @exit="switchColorLegend(false)" @catch-error="catchErr" :isMobile="isMobile"></ColorLegend>
     </t-modal>
   </div>
 </template>

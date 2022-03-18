@@ -15,6 +15,7 @@ import ProjectR4G from "@/components/ProjectR4G.vue";
 import ToS from "@/components/ToS.vue";
 import Feedback from "@/components/Feedback.vue";
 import RecoverAccount from "@/components/RecoverAccount.vue";
+import MaterialDescription from '@/components/MaterialDescription';
 
 Vue.use(VueRouter);
 
@@ -102,6 +103,11 @@ const routes = [
           path: 'feedback',
           name: 'feedback',
           component: Feedback,
+        },
+        {
+          path: 'material-description',
+          name: 'material-description',
+          component: MaterialDescription,
         },
         {
           path: '*',  // qualsiasi cosa scritta dopo '/dashboard/' reindirizza alla dashboard

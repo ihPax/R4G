@@ -1,0 +1,202 @@
+[
+    {
+      "name": "CARTA",
+      "color": "#166534",
+      "descriptions": [
+        {
+          "descr": "giornali, riviste",
+          "isYes": true
+        },
+        {
+          "descr": "libri, quaderni",
+          "isYes": true
+        },
+        {
+          "descr": "sacchetti di carta",
+          "isYes": true
+        },
+        {
+          "descr": "carta da pacchi pulita",
+          "isYes": true
+        },
+        {
+          "descr": "scatole in cartone (spezzate e piegate)",
+          "isYes": true
+        },
+        {
+          "descr": "tetrapak (senza il tappo di plastica)",
+          "isYes": true
+        },
+        {
+          "descr": "carta oleata",
+          "isYes": false
+        },
+        {
+          "descr": "carta o cartone accoppiato con altri materiali",
+          "isYes": false
+        },
+        {
+          "descr": "carta plastificata",
+          "isYes": false
+        }
+      ]
+    },
+    {
+      "name": "PLASTICA/LATTINE",
+      "color": "#1E3A8A",
+      "descriptions": [ 
+        {
+          "descr": "bottiglie in plastica per liquidi",
+          "isYes": true
+        },
+        {
+          "descr": "barattoli in plastica",
+          "isYes": true
+        },
+        {
+          "descr": "flaconi in plastica di prodotti per l’igiene personale e per la pulizia della casa",
+          "isYes": true
+        },
+        {
+          "descr": "contenitori per yogurt o gelato preconfezionato",
+          "isYes": true
+        },
+        {
+          "descr": "sacchetti in plastica (borse per la spesa)",
+          "isYes": true
+        },
+        {
+          "descr": "pellicole da imballaggio",
+          "isYes": true
+        },
+        {
+          "descr": "posate in plastica",
+          "isYes": false
+        },
+        {
+          "descr": "sacchetti usati per l’acquisto di ortaggi sfusi",
+          "isYes": false
+        },
+        {
+          "descr": "giocattoli",
+          "isYes": false
+        },
+        {
+          "descr": "accessori per la casa",
+          "isYes": false
+        },
+        {
+          "descr": "oggettistica varia (soprammobili, tapparelle)",
+          "isYes": false
+        }
+      ]
+    },
+    {
+      "name": "UMIDO",
+      "color": "#854D0E",
+      "descriptions": [ 
+        {
+          "descr": "scarti di cucina",
+          "isYes": true
+        },
+        {
+          "descr": "gusci d’uovo",
+          "isYes": true
+        },
+        {
+          "descr": "filtri di tè",
+          "isYes": true
+        },
+        {
+          "descr": "scarti di frutta e verdura",
+          "isYes": true
+        },
+        {
+          "descr": "fondi di caffè",
+          "isYes": true
+        },
+        {
+          "descr": "piccole ossa e lische",
+          "isYes": true
+        },
+        {
+          "descr": "avanzi di cibo",
+          "isYes": true
+        },
+        {
+          "descr": "alimenti scaduti senza imballaggio",
+          "isYes": true
+        },
+        {
+          "descr": "stracci",
+          "isYes": false
+        },
+        {
+          "descr": "materiali secchi, riciclabili, pericolosi",
+          "isYes": false
+        },
+        {
+          "descr": "pannolini ed assorbenti",
+          "isYes": false
+        },
+        {
+          "descr": "lettiere di animali domestici",
+          "isYes": false
+        }
+      ]
+    },
+    {
+      "name": "SECCO",
+      "color": "#9CA3AF",
+      "descriptions": [ 
+        {
+          "descr": "pannolini, assorbenti",
+          "isYes": true
+        },
+        {
+          "descr": "giocattoli, palloni",
+          "isYes": true
+        },
+        {
+          "descr": "cassette audio e video, cd",
+          "isYes": true
+        },
+        {
+          "descr": "attrezzatura da cucina in plastica",
+          "isYes": true
+        },
+        {
+          "descr": "lamette usa e getta",
+          "isYes": true
+        },
+        {
+          "descr": "oggetti formati da più materiali",
+          "isYes": true
+        },
+        {
+          "descr": "posate in plastica",
+          "isYes": true
+        },
+        {
+          "descr": "sacchetti per aspirapolvere",
+          "isYes": true
+        },
+        {
+          "descr": "scarpe",
+          "isYes": true
+        },
+        {
+          "descr": "spazzole e spazzolini",
+          "isYes": true
+        },
+        {
+          "descr": "computer e sue periferiche (tastiera, mouse, monitor, ecc.)",
+          "isYes": false
+        },
+        {
+          "descr": "tubi al neon, lampadine ad incandescenza e a basso consumo (da consegnare all’isola ecologica)",
+          "isYes": false
+        }
+      ]
+    }
+  ]
