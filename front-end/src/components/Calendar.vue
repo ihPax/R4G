@@ -15,9 +15,13 @@
       <template v-slot:day-content="{ day, attributes }">
         <div class="flex flex-col h-full z-10 overflow-hidden" :class="isMobile || !isExpanded ? 'cursor-pointer' : null" @click="isMobile || !isExpanded ? switchColorLegend(true) : null">
           <span 
-            class="day-label text-gray-900 sm:my-1"
-            :class="isExpanded ? 'text-base' : 'text-sm'"
-          > {{ day.day }} </span>
+            class="day-label my-1 mx-auto px-1 rounded-full"
+            :class="{
+              'text-sm': !isExpanded,
+              'text-black': day.day != today,
+              'font-extrabold': day.day == today
+            }"
+          > {{ day.day }}</span>
           <div class="flex-grow overflow-y-auto overflow-x-auto">
             <div
               v-for="attr in attributes"
@@ -75,7 +79,8 @@ export default {
       attributes: [],
       showModal: false,
       isZoneSettled: false,
-      showColorLegend: false
+      showColorLegend: false,
+      today: new Date().getDate()
     };
   },
   mounted() {
