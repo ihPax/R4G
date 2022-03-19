@@ -105,7 +105,7 @@ const routes = [
           component: Feedback,
         },
         {
-          path: 'material-description',
+          path: 'material-description/:material',
           name: 'material-description',
           component: MaterialDescription,
         },

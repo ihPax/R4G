@@ -6,7 +6,7 @@
       :key="index"
       class="flex flex-row my-1 rounded font-black text-white"
       :style="`background-color: ${item.color}`"
-      @click="showDescription(item)"
+      @click="isMobile || !isMobile && !isExpanded ? showDescription(item.name) : null"
     >
       <p class="w-full h-full p-3 font-medium">{{ item.name }}</p>
     </button>
@@ -21,6 +21,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    isExpanded: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -32,9 +36,8 @@ export default {
     onClose() {
       this.$emit("exit", true);
     },
-    showDescription(item) {
-      localStorage.setItem("MaterialDescription", JSON.stringify(item));
-      this.$router.push("material-description");
+    showDescription(material) {
+      this.$router.push({name: "material-description", params: {material}});
     },
   },
 };

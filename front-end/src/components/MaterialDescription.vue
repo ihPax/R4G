@@ -32,16 +32,16 @@
         {{ item.name }}
       </div>
     </div>
-    <div v-for="(d, index) in item.descriptions" :key="index">
-      <div class="m-1 flex items-center">
+    <div v-for="(line, index) in item.descriptions" :key="index">
+      <div class="p-1 flex items-center border-blue-100 border-t" :class="{'border-b' : item.descriptions.length == index + 1}">
         <div
-          class="font-semibold rounded-full px-2"
-          :class="d.isYes ? 'text-green-600' : 'text-red-600'"
+          class="font-semibold"
+          :class="line.isYes ? 'text-green-600 px-2' : 'text-red-600 px-1'"
         >
-          {{ d.isYes ? "SÌ" : "NO" }}
+          {{ line.isYes ? "SÌ" : "NO" }}
         </div>
-        <div class="mx-2 p-1">
-          {{ d.descr }}
+        <div class="mx-2 p-1 flex-grow">
+          {{ line.descr }}
         </div>
       </div>
     </div>
@@ -63,11 +63,16 @@ export default {
   },
   data() {
     return {
+      items: [],
       item: {},
     };
   },
   mounted() {
-    this.item = JSON.parse(localStorage.getItem("MaterialDescription"));
+    let material = this.$route.params.material;
+    this.items = JSON.parse(localStorage.getItem("MaterialDescriptions"));
+    this.item = this.items.find(obj => {
+      return obj.name == material
+    });  
     this.item.descriptions.sort((x, y) => y.isYes - x.isYes); //Ordino la lista in modo che ci siano sempre prima i "Sì"
   },
 };

@@ -26,9 +26,9 @@ import Navigation from "@/components/Navigation.vue";
 import UpperBar from "@/components/UpperBar.vue";
 import ButtonToTop from "@/components/ButtonToTop.vue";
 import Loading from '@/components/Loading';
+import materialDescriptions from "../materialDescriptions.json";
 
 export default {
-  name: "App",
   components: {
     Navigation,
     UpperBar,
@@ -47,11 +47,13 @@ export default {
       comuni: [],
       err: {},
       isLoading: false,
+      materialDescriptions //tratti da: https://www.amiavr.it/Raccolta-differenziata/Ogni-cosa-al-suo-posto
     }
   },
   async mounted() {
     this.isLoading = true;
     try {
+      localStorage.setItem("MaterialDescriptions", JSON.stringify(materialDescriptions));
       let user = JSON.parse(localStorage.getItem("AccessEmail"));
       if (user) {
         this.user = user;

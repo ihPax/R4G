@@ -3,7 +3,8 @@
     <h2 class="flex justify-center font-bold text-lg">
       <div v-if="isExpanded" class="flex-grow py-4 border-b border-gray-200 xs:border-b-0 bg-blue-50 xs:bg-white font-medium xs:font-bold text-xl"> Calendario <span v-if="isZoneSettled">zona di {{calendars.name}}</span> </div>
     </h2>
-    <div v-if="isMobile && isExpanded" class="text-xxs mt-2">Clicca sul calendario per vedere la legenda colori</div>
+    <div v-if="isMobile && isExpanded || !isMobile && !isExpanded" class="text-xxs mt-2">Clicca sul calendario per vedere la legenda colori</div>
+    <div v-if="!isMobile && isExpanded" class="text-xs">Clicca sul bottone colorato per vedere che tipo di rifiuto va gettato in quel cestino</div>
     <v-calendar
       class="custom-calendar max-w-full"
       :masks="masks"
@@ -12,7 +13,7 @@
       :min-date="new Date()"
     >
       <template v-slot:day-content="{ day, attributes }">
-        <div class="flex flex-col h-full z-10 overflow-hidden cursor-pointer" @click="switchColorLegend(true)">
+        <div class="flex flex-col h-full z-10 overflow-hidden" :class="isMobile || !isExpanded ? 'cursor-pointer' : null" @click="isMobile || !isExpanded ? switchColorLegend(true) : null">
           <span 
             class="day-label text-gray-900 sm:my-1"
             :class="isExpanded ? 'text-base' : 'text-sm'"
@@ -23,8 +24,9 @@
               :key="attr.id"
               class="sm:mb-1 font-bold"
               :class="isExpanded ? 
-              attr.customData.class + ' mt-1 mb-3 w-4 h-4 mx-auto rounded-full sm:text-xs sm:leading-tight sm:rounded sm:p-2 sm:mx-1 sm:text-white sm:w-auto sm:h-auto' : 
-              attr.customData.class + ' mt-0 w-2 h-2 mx-auto rounded-full'"
+              attr.customData.class + ' mt-1 mb-3 w-4 h-4 mx-auto rounded-full sm:text-xs sm:leading-tight sm:rounded sm:p-2 sm:mx-1 sm:text-white sm:w-auto sm:h-auto cursor-pointer' : 
+              attr.customData.class + ' mt-0 w-2 h-2 mx-auto rounded-full cursor-pointer'"
+              @click="!isMobile && isExpanded ? showMaterial(attr.customData.title) : null"
             >
               <div class="hidden sm:block">{{ isExpanded ? attr.customData.title : "" }}</div> 
             </div>
@@ -39,7 +41,7 @@
       <t-button @click="switchModal(true)" type="button">Cambia la zona</t-button>
     </div>
     <t-modal v-model="showColorLegend" header="Legenda colori" close="chiudi">
-      <ColorLegend @exit="switchColorLegend(false)" @catch-error="catchErr" :isMobile="isMobile"></ColorLegend>
+      <ColorLegend @exit="switchColorLegend(false)" @catch-error="catchErr" :isMobile="isMobile" :isExpanded="isExpanded"></ColorLegend>
     </t-modal>
   </div>
 </template>
@@ -77,6 +79,7 @@ export default {
     };
   },
   mounted() {
+    JSON.parse(localStorage.getItem("MaterialDescriptions"));
     this.getZone();
   },
   methods: {
@@ -87,6 +90,9 @@ export default {
         this.calendars = zone;
         this.calendar();
       }
+    },
+    showMaterial(material) {
+      this.$router.push({name: "material-description", params: {material}});
     },
     calendar() {
       for (let i = 0; i < this.calendars.calendars.length; i++) {
