@@ -16,7 +16,7 @@
           <router-view :isMobile="isMobile" @catch-error="catchErr"></router-view>
         </div>
       </div>
-      <ButtonToTop></ButtonToTop>
+      <ButtonToTop :isDashboard="true"></ButtonToTop>
     </div>
   </div>
 </template>

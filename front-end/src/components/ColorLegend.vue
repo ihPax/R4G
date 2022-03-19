@@ -1,6 +1,6 @@
 <template>
    <div class="flex flex-col overflow-auto">
-    <div class="mb-2 font-medium">Clicca per sapere dove gettare un rifiuto</div>
+    <div class="mb-2 font-medium">Clicca per sapere cosa gettare in:</div>
     <button
       v-for="(item, index) in items"
       :key="index"

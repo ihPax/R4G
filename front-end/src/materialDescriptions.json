@@ -70,6 +70,38 @@
           "isYes": true
         },
         {
+          "descr": "vasi in plastica per fiori",
+          "isYes": true
+        },
+        {
+          "descr": "cassette per frutta e verdura",
+          "isYes": true
+        },
+        {
+          "descr": "lattine in alluminio per bevande",
+          "isYes": true
+        },
+        {
+          "descr": "lattine per pelati, tonno, olio,ecc.",
+          "isYes": true
+        },
+        {
+          "descr": "sacchetti per patatine e caramelle",
+          "isYes": true
+        },
+        {
+          "descr": "contenitori in plastica per le uova",
+          "isYes": true
+        },
+        {
+          "descr": "imballaggi in polistirolo",
+          "isYes": true
+        },
+        {
+          "descr": "piatti, bicchieri in plastica",
+          "isYes": true
+        },
+        {
           "descr": "posate in plastica",
           "isYes": false
         },
@@ -87,6 +119,26 @@
         },
         {
           "descr": "oggettistica varia (soprammobili, tapparelle)",
+          "isYes": false
+        },
+        {
+          "descr": "flaconi con i marchi: “infiammabile”, “tossico-nocivo”, “prodotto chimico”",
+          "isYes": false
+        },
+        {
+          "descr": "barattoli con resti di vernici",
+          "isYes": false
+        },
+        {
+          "descr": "bombolette a gas",
+          "isYes": false
+        },
+        {
+          "descr": "tubi per l’edilizia e l’idraulica",
+          "isYes": false
+        },
+        {
+          "descr": "cavi elettrici",
           "isYes": false
         }
       ]
@@ -125,6 +177,18 @@
         },
         {
           "descr": "alimenti scaduti senza imballaggio",
+          "isYes": true
+        },
+        {
+          "descr": "salviette di carta sporche",
+          "isYes": true
+        },
+        {
+          "descr": "fiori recisi, piante da appartamento tagliate",
+          "isYes": true
+        },
+        {
+          "descr": "cenere spenta",
           "isYes": true
         },
         {
@@ -187,6 +251,22 @@
         },
         {
           "descr": "spazzole e spazzolini",
+          "isYes": true
+        },
+        {
+          "descr": "tubetto del dentifricio",
+          "isYes": true
+        },
+        {
+          "descr": "sacchetti usati per l’acquisto di ortaggi sfusi",
+          "isYes": true
+        },
+        {
+          "descr": "carta accoppiata con altri materiali",
+          "isYes": true
+        },
+        {
+          "descr": "carta da formaggio, salumi",
           "isYes": true
         },
         {

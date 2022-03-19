@@ -21,17 +21,15 @@
         </svg>
       </div>
       <h3 class="text-xl leading-6 font-medium text-gray-900">
-        Dove getto il rifiuto?
+        Cosa getto?
+        <span
+          :style="`background-color: ${item.color}`"
+          class="inline-block py-1 px-2 font-semibold text-white rounded"
+        >
+          {{ item.name }}
+        </span>
       </h3>
     </button>
-    <div class="flex justify-center items-center">
-      <div
-        :style="`background-color: ${item.color}`"
-        class="my-4 py-2 px-4 font-semibold text-white rounded"
-      >
-        {{ item.name }}
-      </div>
-    </div>
     <div v-for="(line, index) in item.descriptions" :key="index">
       <div class="p-1 flex items-center border-blue-100 border-t" :class="{'border-b' : item.descriptions.length == index + 1}">
         <div
