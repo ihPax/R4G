@@ -15,7 +15,7 @@ import ProjectR4G from "@/components/ProjectR4G.vue";
 import ToS from "@/components/ToS.vue";
 import Feedback from "@/components/Feedback.vue";
 import RecoverAccount from "@/components/RecoverAccount.vue";
-import MaterialDescription from '@/components/MaterialDescription';
+import MaterialDescription from "@/components/MaterialDescription.vue";
 
 Vue.use(VueRouter);
 

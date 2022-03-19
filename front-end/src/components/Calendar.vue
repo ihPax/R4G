@@ -18,10 +18,10 @@
             class="day-label my-1 mx-auto px-1 rounded-full"
             :class="{
               'text-sm': !isExpanded,
-              'text-black': day.day != today,
-              'font-extrabold': day.day == today
+              'text-black': day.date.setHours(0,0,0,0) != today,
+              'font-extrabold': day.date.setHours(0,0,0,0) == today
             }"
-          > {{ day.day }}</span>
+          > {{ day.day }} </span>
           <div class="flex-grow overflow-y-auto overflow-x-auto">
             <div
               v-for="attr in attributes"
@@ -80,11 +80,13 @@ export default {
       showModal: false,
       isZoneSettled: false,
       showColorLegend: false,
-      today: new Date().getDate()
+      today: ""
     };
   },
   mounted() {
     JSON.parse(localStorage.getItem("MaterialDescriptions"));
+    const currentDate = new Date();
+    this.today = currentDate.setHours(0,0,0,0);
     this.getZone();
   },
   methods: {
