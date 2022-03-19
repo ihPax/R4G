@@ -231,9 +231,9 @@
 </template>
 
 <script>
-import LoginRegisterBar from "@/components/LoginRegisterBar.vue";
-import ButtonToTop from "@/components/ButtonToTop.vue";
-import Footer from "@/components/Footer.vue";
+import LoginRegisterBar from "@/components/LoginRegisterBar";
+import ButtonToTop from "@/components/ButtonToTop";
+import Footer from "@/components/Footer";
 
 export default {
   components: {

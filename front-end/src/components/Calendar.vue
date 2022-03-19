@@ -1,10 +1,12 @@
 <template>
   <div class="text-center section">
     <h2 class="flex justify-center font-bold text-lg">
-      <div v-if="isExpanded" class="flex-grow py-4 border-b border-gray-200 xs:border-b-0 bg-blue-50 xs:bg-white font-medium xs:font-bold text-xl"> Calendario <span v-if="isZoneSettled">zona di {{calendars.name}}</span> </div>
+      <div v-if="isExpanded" class="flex-grow pt-4 border-b border-gray-200 xs:border-b-0 bg-blue-50 xs:bg-white font-medium xs:font-bold text-xl"> 
+        Calendario <span v-if="isZoneSettled">zona di {{calendars.name}}</span> 
+      </div>
     </h2>
     <div v-if="isMobile && isExpanded || !isMobile && !isExpanded" class="text-xxs mt-2">Clicca sul calendario per vedere la legenda colori</div>
-    <div v-if="!isMobile && isExpanded" class="text-xs">Clicca sul bottone colorato per vedere che tipo di rifiuto va gettato in quel cestino</div>
+    <div v-if="!isMobile && isExpanded" class="text-xs">Clicca sui bottoni colorati per vedere che tipo di rifiuti vanno gettati in quel cestino</div>
     <v-calendar
       class="custom-calendar max-w-full"
       :masks="masks"
@@ -18,21 +20,24 @@
             class="day-label my-1 mx-auto px-1 rounded-full"
             :class="{
               'text-sm': !isExpanded,
-              'text-black': day.date.setHours(0,0,0,0) != today,
-              'font-extrabold': day.date.setHours(0,0,0,0) == today
+              'text-gray-900': day.date.setHours(0,0,0,0) != new Date().setHours(0,0,0,0),
+              'text-black font-extrabold': day.date.setHours(0,0,0,0) == new Date().setHours(0,0,0,0)
             }"
           > {{ day.day }} </span>
           <div class="flex-grow overflow-y-auto overflow-x-auto">
             <div
-              v-for="attr in attributes"
-              :key="attr.id"
+              v-for="(attr, index) in attributes"
+              :key="index"
               class="sm:mb-1 font-bold"
-              :class="isExpanded ? 
-              attr.customData.class + ' mt-1 mb-3 w-4 h-4 mx-auto rounded-full sm:text-xs sm:leading-tight sm:rounded sm:p-2 sm:mx-1 sm:text-white sm:w-auto sm:h-auto cursor-pointer' : 
-              attr.customData.class + ' mt-0 w-2 h-2 mx-auto rounded-full cursor-pointer'"
-              @click="!isMobile && isExpanded ? showMaterial(attr.customData.title) : null"
             >
-              <div class="hidden sm:block">{{ isExpanded ? attr.customData.title : "" }}</div> 
+              <div v-if="attr.customData.isOnlySummer == false || attr.customData.isOnlySummer == true && (day.month == 6 || day.month == 7 || day.month == 8 || day.month == 9)"
+                :class="isExpanded ? 
+                attr.customData.class + ' mt-1 mb-3 w-4 h-4 mx-auto rounded-full sm:text-xs sm:leading-tight sm:rounded sm:p-2 sm:mx-1 sm:text-white sm:w-auto sm:h-auto cursor-pointer' : 
+                attr.customData.class + ' mt-0 w-2 h-2 mx-auto rounded-full cursor-pointer'"
+                @click="!isMobile && isExpanded ? showMaterial(attr.customData.title) : null"
+              >
+                <div class="hidden sm:block">{{ isExpanded ? attr.customData.title : "" }}</div> 
+              </div>
             </div>
           </div>
         </div>
@@ -80,13 +85,10 @@ export default {
       showModal: false,
       isZoneSettled: false,
       showColorLegend: false,
-      today: ""
     };
   },
   mounted() {
     JSON.parse(localStorage.getItem("MaterialDescriptions"));
-    const currentDate = new Date();
-    this.today = currentDate.setHours(0,0,0,0);
     this.getZone();
   },
   methods: {
@@ -107,10 +109,20 @@ export default {
           customData: {
             title: this.calendars.calendars[i].material,
             class: this.calendars.calendars[i].class,
+            isOnlySummer: false,
           },
-          dates: { months: [1,2,3,4,5,6], weekdays: this.calendars.calendars[i].nDay + 2 },
+          dates: { months: [1,2,3,4,5,6,7,8,9,10,11,12], weekdays: this.calendars.calendars[i].nDay + 2 },
         });
       }
+      //DI SEGUITO LA SIMULAZIONE di quello che otterrò dal DB per ogni zona (in totale 4 righe, una per zona)
+      // this.attributes.push({
+      //   customData: {
+      //     title: "UMIDO",
+      //     class: "bg-yellow-800",
+      //     isOnlySummer: true,
+      //   },
+      //   dates: { months: [3,4,5,6,7,8,9], weekdays: 2 + 2 }
+      // });
     },
     /**
      * Determina se la finestra di dialogo è aperta e va chiusa viceversa. Alla chiusura esegue altre operazioni.
@@ -156,7 +168,7 @@ export default {
   width: 100%;
   & .vc-header {
     background-color: #f1f5f8;
-    padding: 10px 0;
+    padding: 4px 0;
   }
   & .vc-weeks {
     padding: 0;

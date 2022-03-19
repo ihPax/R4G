@@ -457,7 +457,8 @@ export default {
       binExist: false,
       viewBinUser: [],
       isEmailSettledOnServer: false,
-      firstExecute: true
+      firstExecute: true,
+      repeatiotionIntervalInSeconds: 1800 //La funzione si ripete ogni mezzora, ma per le dimostrazioni si impostino 15 secondi
     };
   },
   async mounted() {
@@ -519,7 +520,7 @@ export default {
       
       this.idInterval = setInterval(async () => {
         this.getValue();
-      }, [15000]);
+      }, [this.repeatiotionIntervalInSeconds*1000]);
     },
 
     //alert che ti avvisa di scegliere prima la zona e poi il cestino

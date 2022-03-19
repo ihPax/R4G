@@ -211,7 +211,6 @@
 import VueSlickCarousel from "slick-vuejs";
 import "slick-vuejs/dist/slick-vuejs.css";
 import ModalMaterial from "@/components/ModalMaterial";
-import axios from "axios";
 import Modal from "@/components/Modal";
 import Loading from "@/components/Loading";
 
@@ -411,7 +410,7 @@ export default {
       setInterval(async () => {
         this.userBin = JSON.parse(localStorage.getItem("BinUser"));
         let length = this.userBin[0].length;
-        let arrayFeeds = await axios.get(
+        let arrayFeeds = await this.$axios.get(
           "https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2"
         );
         let lastElement = arrayFeeds.data.feeds.pop();
@@ -428,9 +427,9 @@ export default {
         }
 
         if (this.value > 80) {
-          await axios.get("/r4g/send-email-percent/" + this.userBin[0].id); //invio email
+          await this.$axios.get("/r4g/send-email-percent/" + this.userBin[0].id); //invio email
         } else if (this.value <= 80) {
-          await axios.put("/r4g/not-send-email-percent/" + this.userBin[0].id);
+          await this.$axios.put("/r4g/not-send-email-percent/" + this.userBin[0].id);
         }
 
         this.changePercent();

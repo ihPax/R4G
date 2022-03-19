@@ -286,7 +286,7 @@
 </template>
 
 <script>
-import LoginRegisterBar from '@/components/LoginRegisterBar.vue';
+import LoginRegisterBar from '@/components/LoginRegisterBar';
 import Loading from "@/components/Loading";
 
 export default {

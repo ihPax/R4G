@@ -67,8 +67,8 @@
 </template>
 
 <script>
-import ButtonToTop from "@/components/ButtonToTop.vue";
-import GoBack from "@/components/GoBack.vue";
+import ButtonToTop from "@/components/ButtonToTop";
+import GoBack from "@/components/GoBack";
 
 export default {
     components: {

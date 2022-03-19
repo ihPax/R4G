@@ -22,9 +22,9 @@
 </template>
 
 <script>
-import Navigation from "@/components/Navigation.vue";
-import UpperBar from "@/components/UpperBar.vue";
-import ButtonToTop from "@/components/ButtonToTop.vue";
+import Navigation from "@/components/Navigation";
+import UpperBar from "@/components/UpperBar";
+import ButtonToTop from "@/components/ButtonToTop";
 import Loading from '@/components/Loading';
 import materialDescriptions from "../materialDescriptions.json";
 

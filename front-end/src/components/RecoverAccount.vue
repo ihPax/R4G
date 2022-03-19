@@ -100,7 +100,7 @@
 
 <script>
 import Loading from "@/components/Loading";
-import GoBack from "@/components/GoBack.vue";
+import GoBack from "@/components/GoBack";
 
 export default {
     components: {
