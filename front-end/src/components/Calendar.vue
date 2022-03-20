@@ -5,7 +5,7 @@
         Calendario <span v-if="isZoneSettled">zona di {{calendars.name}}</span> 
       </div>
     </h2>
-    <div v-if="isMobile && isExpanded || !isMobile && !isExpanded" class="text-xxs mt-2">Clicca sul calendario per vedere la legenda colori</div>
+    <div v-if="isMobile && isExpanded || !isMobile && !isExpanded" class="text-xxs mt-2">Clicca sul calendario per vedere la legenda colori, poi clicca sul tipo di rifiuto</div>
     <div v-if="!isMobile && isExpanded" class="text-xs">Clicca sui bottoni colorati per vedere che tipo di rifiuti vanno gettati in quel cestino</div>
     <v-calendar
       class="custom-calendar max-w-full"
@@ -16,14 +16,14 @@
     >
       <template v-slot:day-content="{ day, attributes }">
         <div class="flex flex-col h-full z-10 overflow-hidden" :class="isMobile || !isExpanded ? 'cursor-pointer' : null" @click="isMobile || !isExpanded ? switchColorLegend(true) : null">
-          <span 
-            class="day-label my-1 mx-auto px-1 rounded-full"
+          <span
+            class="day-label my-1 mx-auto px-1"
             :class="{
               'text-sm': !isExpanded,
               'text-gray-900': day.date.setHours(0,0,0,0) != new Date().setHours(0,0,0,0),
-              'text-black font-extrabold': day.date.setHours(0,0,0,0) == new Date().setHours(0,0,0,0)
+              'text-black font-extrabold border-b-2 border-black': day.date.setHours(0,0,0,0) == new Date().setHours(0,0,0,0)
             }"
-          > {{ day.day }} </span>
+          > {{ day.day }} </span> <!-- DA METTERE NELLO SPAN SOPRA UNA VOLTA MODIFICATO IL DB: v-for="(attr, index) in attributes" :key="index" -->
           <div class="flex-grow overflow-y-auto overflow-x-auto">
             <div
               v-for="(attr, index) in attributes"
@@ -33,7 +33,7 @@
               <div v-if="attr.customData.isOnlySummer == false || attr.customData.isOnlySummer == true && (day.month == 6 || day.month == 7 || day.month == 8 || day.month == 9)"
                 :class="isExpanded ? 
                 attr.customData.class + ' mt-1 mb-3 w-4 h-4 mx-auto rounded-full sm:text-xs sm:leading-tight sm:rounded sm:p-2 sm:mx-1 sm:text-white sm:w-auto sm:h-auto cursor-pointer' : 
-                attr.customData.class + ' mt-0 w-2 h-2 mx-auto rounded-full cursor-pointer'"
+                attr.customData.class + ' mt-0 w-3 h-3 mx-auto rounded-full cursor-pointer'"
                 @click="!isMobile && isExpanded ? showMaterial(attr.customData.title) : null"
               >
                 <div class="hidden sm:block">{{ isExpanded ? attr.customData.title : "" }}</div> 
@@ -114,14 +114,22 @@ export default {
           dates: { months: [1,2,3,4,5,6,7,8,9,10,11,12], weekdays: this.calendars.calendars[i].nDay + 2 },
         });
       }
-      //DI SEGUITO LA SIMULAZIONE di quello che otterrò dal DB per ogni zona (in totale 4 righe, una per zona)
+      //DI SEGUITO LA SIMULAZIONE (per la sola zona 3) di quello che otterrò dal DB per ogni zona (in totale 4 righe, una per zona)
       // this.attributes.push({
       //   customData: {
       //     title: "UMIDO",
       //     class: "bg-yellow-800",
       //     isOnlySummer: true,
       //   },
-      //   dates: { months: [3,4,5,6,7,8,9], weekdays: 2 + 2 }
+      //   dates: { months: [1,2,3,4,5,6,7,8,9,10,11,12], weekdays: 2 + 2 }
+      // });
+      // this.attributes.push({
+      //   customData: {
+      //     title: null,
+      //     class: null,
+      //     isOnlySummer: null,
+      //   },
+      //   dates: { months: [1,2,3,4,5,6,7,8,9,10,11,12], weekdays: 1 }
       // });
     },
     /**
