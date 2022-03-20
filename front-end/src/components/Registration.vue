@@ -105,7 +105,7 @@
                         </svg>     
                     </div>
                     <div v-if="isPasswordHidden == false" @click="isPasswordHidden = true"
-                        class="absolute top-0 right-0 p-2 mt-1 mr-6 cursor-pointer"
+                        class="absolute top-0 right-0 mt-1 -mr-4 cursor-pointer"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
                             <path d="M0 0h24v24H0V0z" fill="none"/>

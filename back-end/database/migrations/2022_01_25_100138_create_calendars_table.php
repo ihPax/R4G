@@ -18,7 +18,6 @@ class CreateCalendarsTable extends Migration
             $table->integer("nDay")->nullable();
             $table->string("material")->nullable();
             $table->string("class")->nullable();
-            // $table->boolean('isOnlySummer')->default(0); PREDISPOSTO PER IL CALENDARIO ESTIVO
             $table->bigInteger("zone_id")->unsigned()->nullable();
             $table->foreign("zone_id")->references("id")->on("zones");
             $table->timestamps();
