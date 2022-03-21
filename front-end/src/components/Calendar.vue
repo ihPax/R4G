@@ -15,7 +15,7 @@
       :min-date="new Date()"
     >
       <template v-slot:day-content="{ day, attributes }">
-        <div class="flex flex-col h-full z-10 overflow-hidden" :class="isMobile || !isExpanded ? 'cursor-pointer' : null" @click="isMobile || !isExpanded ? switchColorLegend(true) : null">
+        <div class="flex flex-col h-full z-10 overflow-hidden" v-if="isZoneSettled" :class="isMobile || !isExpanded ? 'cursor-pointer' : null" @click="isMobile || !isExpanded ? switchColorLegend(true) : null">
           <div v-for="(attr, index) in attributes" :key="index"
             class="day-label my-1 mx-auto px-1"
             :class="{
@@ -41,6 +41,9 @@
               </div>
             </div>
           </div>
+        </div>
+        <div v-else>
+          <div> {{ day.day }} </div>
         </div>
       </template>
     </v-calendar>
@@ -115,26 +118,6 @@ export default {
           dates: { months: [1,2,3,4,5,6,7,8,9,10,11,12], weekdays: this.calendars.calendars[i].nDay},
         });
       }
-      localStorage.setItem("Attrs", JSON.stringify(this.attributes));
-      //DI SEGUITO LA SIMULAZIONE (per la sola zona 3) di quello che otterrò dal DB per ogni zona (in totale 4 righe, una per zona)
-      // this.attributes.push({
-      //   customData: {
-      //     title: "UMIDO",
-      //     class: "bg-yellow-800",
-      //     isOnlySummer: true,
-      //   },
-      //   dates: { months: [1,2,3,4,5,6,7,8,9,10,11,12], weekdays: 2 }
-      // });
-
-      //DI SEGUITO SETTO LA DOMENICA CHE NON È GIORNO DI RITIRO IN OGNI ZONA
-      // this.attributes.push({
-      //   customData: {
-      //     title: null,
-      //     class: null,
-      //     isOnlySummer: false,
-      //   },
-      //   dates: { months: [1,2,3,4,5,6,7,8,9,10,11,12], weekdays: 1 }
-      // });
     },
     /**
      * Determina se la finestra di dialogo è aperta e va chiusa viceversa. Alla chiusura esegue altre operazioni.
