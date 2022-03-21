@@ -121,7 +121,7 @@ export default {
             class: this.calendars.calendars[i].class,
             isOnlySummer: this.calendars.calendars[i].isOnlySummer,
           },
-          dates: { months: [1,2,3,4,5,6,7,8,9,10,11,12], weekdays: this.calendars.calendars[i].nDay},
+          dates: { months: [1,2,3,4,5,6,7,8,9,10,11,12], weekdays: this.calendars.calendars[i].nDay} //NOTA: In realtà il rifiuto va portato fuori la sera prima!
         });
       }
     },

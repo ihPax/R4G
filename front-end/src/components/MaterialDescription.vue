@@ -30,7 +30,7 @@
         </span>
       </h3>
     </button>
-    <div class="flex px-4 py-3 justify-center items-center">
+    <div class="flex px-4 py-3 justify-center items-center relative">
       <input
         placeholder="Cerca un tipo di rifiuto..."
         type="text"
@@ -38,7 +38,7 @@
         class="flex-grow px-3 py-2 border-2 rounded outline-none focus:bg-blueGray-50"
         :style="`border-color: ${item.color}`"
       />
-      <svg v-if="query != ''" @click="query = ''" class="h-8 w-8 absolute right-0 mr-6" :style="`color: ${item.color}`" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <svg v-if="query != ''" @click="query = ''" class="h-8 w-8 absolute right-0 mr-6 cursor-pointer" :style="`color: ${item.color}`" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
       </svg>
     </div>
@@ -100,7 +100,7 @@ export default {
     filteredDescriptions() {
       return this.descriptions.filter((obj) => {
         return (
-          obj.descr.toLowerCase().includes(this.query.toLowerCase())
+          obj.descr.toLowerCase().includes(this.query.toLowerCase().trim())
         );
       });
     },
