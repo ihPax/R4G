@@ -15,7 +15,7 @@
       :min-date="new Date()"
     >
       <template v-slot:day-content="{ day, attributes }">
-        <div class="flex flex-col h-full z-10 overflow-hidden" v-if="isZoneSettled" :class="isMobile || !isExpanded ? 'cursor-pointer' : null" @click="isMobile || !isExpanded ? switchColorLegend(true) : null">
+        <div v-if="isZoneSettled" class="flex flex-col h-full z-10 overflow-hidden" :class="isMobile || !isExpanded ? 'cursor-pointer' : null" @click="isMobile || !isExpanded ? switchColorLegend(true) : null">
           <div v-for="(attr, index) in attributes" :key="index"
             class="day-label my-1 mx-auto px-1"
             :class="{
@@ -43,7 +43,12 @@
           </div>
         </div>
         <div v-else>
-          <div> {{ day.day }} </div>
+          <div class="flex justify-center mx-auto py-2 sm:py-4">
+            <div class="" :class="{
+              'text-gray-900': day.date.setHours(0,0,0,0) != new Date().setHours(0,0,0,0),
+              'text-black font-extrabold border-b-2 border-black': day.date.setHours(0,0,0,0) == new Date().setHours(0,0,0,0)
+            }"> {{ day.day }} </div>
+          </div>
         </div>
       </template>
     </v-calendar>
