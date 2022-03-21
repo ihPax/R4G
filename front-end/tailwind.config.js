@@ -213,7 +213,9 @@ module.exports = {
       DEFAULT: "1px",
       "0": "0",
       "2": "2px",
+      "3": "3px",
       "4": "4px",
+      "6": "6px",
       "8": "8px"
     },
     boxShadow: {
@@ -526,14 +528,14 @@ module.exports = {
       "focus",
       "disabled"
     ],
-    borderRadius: ["responsive"],
-    borderStyle: ["responsive", "disabled"],
-    borderWidth: ["responsive", "disabled"],
+    borderRadius: ["responsive", "hover", "focus", "disabled"],
+    borderStyle: ["responsive", "hover", "focus", "disabled"],
+    borderWidth: ["responsive", "hover", "focus", "disabled"],
     boxShadow: ["responsive", "group-hover", "focus-within", "hover", "focus"],
     boxSizing: ["responsive"],
     clear: ["responsive"],
     container: ["responsive"],
-    cursor: ["responsive", "disabled"],
+    cursor: ["responsive", "hover", "disabled"],
     display: ["responsive"],
     divideColor: ["responsive", "dark"],
     divideOpacity: ["responsive"],

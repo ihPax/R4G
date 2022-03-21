@@ -30,8 +30,19 @@
         </span>
       </h3>
     </button>
-    <div v-for="(line, index) in item.descriptions" :key="index">
-      <div class="p-1 flex items-center border-blue-100 border-t" :class="{'border-b' : item.descriptions.length == index + 1}">
+    <div class="flex px-3 py-2">
+      <input
+        placeholder="Cerca un tipo di rifiuto..."
+        type="text"
+        v-model="query"
+        class="flex-grow px-3 py-2 border-2 rounded outline-none border-blueGray-300 focus:border-blueGray-600"
+      />
+    </div>
+    <div v-for="(line, index) in filteredDescriptions" :key="index">
+      <div 
+        class="p-1 flex items-center border-blue-100 border-t" 
+        :class="{'border-b': filteredDescriptions.length == index + 1}"
+      >
         <div
           class="font-semibold"
           :class="line.isYes ? 'text-green-600 px-2' : 'text-red-600 px-1'"
@@ -43,6 +54,12 @@
         </div>
       </div>
     </div>
+    <div
+        v-if="!filteredDescriptions.length"
+        class="text-center font-medium mx-auto px-3 py-6 text-gray-700"
+      >
+        Nessun tipo di rifiuto corrisponde alla tua ricerca ☹
+      </div>
     <GoBack :isMobile="isMobile"></GoBack>
   </div>
 </template>
@@ -63,6 +80,8 @@ export default {
     return {
       items: [],
       item: {},
+      descriptions: [],
+      query: "",
     };
   },
   mounted() {
@@ -71,7 +90,16 @@ export default {
     this.item = this.items.find(obj => {
       return obj.name == material
     });  
-    this.item.descriptions.sort((x, y) => y.isYes - x.isYes); //Ordino la lista in modo che ci siano sempre prima i "Sì"
+    this.descriptions = this.item.descriptions.sort((x, y) => y.isYes - x.isYes); //Ordino la lista in modo che ci siano sempre prima i "Sì"
+  },
+  computed: {
+    filteredDescriptions() {
+      return this.descriptions.filter((obj) => {
+        return (
+          obj.descr.toLowerCase().includes(this.query.toLowerCase())
+        );
+      });
+    },
   },
 };
 </script>
