@@ -1,11 +1,10 @@
 <?php
 
-use Database\Seeders\populate_calendar_v2;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class MigratePopulateCalendarV2 extends Migration
+class AddIsOnlySummerToCalendarsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +13,9 @@ class MigratePopulateCalendarV2 extends Migration
      */
     public function up()
     {
-        $seeder = new populate_calendar_v2();
-        $seeder->run();
+        Schema::table('calendars', function (Blueprint $table) {
+            $table->boolean("isOnlySummer")->default(0); //PREDISPOSTO PER IL CALENDARIO ESTIVO
+        });
     }
 
     /**

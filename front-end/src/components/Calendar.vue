@@ -16,25 +16,26 @@
     >
       <template v-slot:day-content="{ day, attributes }">
         <div class="flex flex-col h-full z-10 overflow-hidden" :class="isMobile || !isExpanded ? 'cursor-pointer' : null" @click="isMobile || !isExpanded ? switchColorLegend(true) : null">
-          <span
+          <div v-for="(attr, index) in attributes" :key="index"
             class="day-label my-1 mx-auto px-1"
             :class="{
               'text-sm': !isExpanded,
               'text-gray-900': day.date.setHours(0,0,0,0) != new Date().setHours(0,0,0,0),
               'text-black font-extrabold border-b-2 border-black': day.date.setHours(0,0,0,0) == new Date().setHours(0,0,0,0)
             }"
-          > {{ day.day }} </span> <!-- DA METTERE NELLO SPAN SOPRA UNA VOLTA MODIFICATO IL DB: v-for="(attr, index) in attributes" :key="index" -->
+          > {{ day.day }} </div>
+          <!-- <div class="h-8 w-8 rounded-full pt-1" :class="attr.customData.isOnlySummer == false && attr.customData.class != null || attr.customData.isOnlySummer == true && (day.month == 6 || day.month == 7 || day.month == 8 || day.month == 9) ? attr.customData.class + ' text-white pt-1' : ' text-black'"> {{ day.day }} </div> -->
           <div class="flex-grow overflow-y-auto overflow-x-auto">
             <div
               v-for="(attr, index) in attributes"
               :key="index"
               class="sm:mb-1 font-bold"
             >
-              <div v-if="attr.customData.isOnlySummer == false || attr.customData.isOnlySummer == true && (day.month == 6 || day.month == 7 || day.month == 8 || day.month == 9)"
+              <div v-if="attr.customData.isOnlySummer == false && attr.customData.class != null || attr.customData.isOnlySummer == true && (day.month == 6 || day.month == 7 || day.month == 8 || day.month == 9)"
                 :class="isExpanded ? 
                 attr.customData.class + ' mt-1 mb-3 w-4 h-4 mx-auto rounded-full sm:text-xs sm:leading-tight sm:rounded sm:p-2 sm:mx-1 sm:text-white sm:w-auto sm:h-auto cursor-pointer' : 
                 attr.customData.class + ' mt-0 w-3 h-3 mx-auto rounded-full cursor-pointer'"
-                @click="!isMobile && isExpanded ? showMaterial(attr.customData.title) : null"
+                @click="!isMobile && isExpanded && attr.customData.class != null ? showMaterial(attr.customData.title) : null"
               >
                 <div class="hidden sm:block">{{ isExpanded ? attr.customData.title : "" }}</div> 
               </div>
@@ -109,11 +110,12 @@ export default {
           customData: {
             title: this.calendars.calendars[i].material,
             class: this.calendars.calendars[i].class,
-            isOnlySummer: false,
+            isOnlySummer: this.calendars.calendars[i].isOnlySummer,
           },
-          dates: { months: [1,2,3,4,5,6,7,8,9,10,11,12], weekdays: this.calendars.calendars[i].nDay + 2 },
+          dates: { months: [1,2,3,4,5,6,7,8,9,10,11,12], weekdays: this.calendars.calendars[i].nDay},
         });
       }
+      localStorage.setItem("Attrs", JSON.stringify(this.attributes));
       //DI SEGUITO LA SIMULAZIONE (per la sola zona 3) di quello che otterrò dal DB per ogni zona (in totale 4 righe, una per zona)
       // this.attributes.push({
       //   customData: {
@@ -121,8 +123,10 @@ export default {
       //     class: "bg-yellow-800",
       //     isOnlySummer: true,
       //   },
-      //   dates: { months: [1,2,3,4,5,6,7,8,9,10,11,12], weekdays: 2 + 2 }
+      //   dates: { months: [1,2,3,4,5,6,7,8,9,10,11,12], weekdays: 2 }
       // });
+
+      //DI SEGUITO SETTO LA DOMENICA CHE NON È GIORNO DI RITIRO IN OGNI ZONA
       // this.attributes.push({
       //   customData: {
       //     title: null,

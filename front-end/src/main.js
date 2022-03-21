@@ -6,10 +6,10 @@ import axios from 'axios';
 import router from './router.js'; //importa la classe con le routes dal file router.js
 import VueSimpleAlert from "vue-simple-alert";
 import VueTailwind from 'vue-tailwind';
-import vueTailwindSetting from './vueTailwindSettings.js'; //importo i settings da un altro file perché qui occupavano troppo spazio
+import vueTailwindSettings from './vueTailwindSettings.js'; //importo i settings da un altro file perché qui occupavano troppo spazio
 
 Vue.prototype.$axios = axios;
-axios.defaults.baseURL = "https://r4g.herokuapp.com"
+axios.defaults.baseURL = "https://r4g.herokuapp.com" //IN LOCALE: "http://localhost:8000/"   //ONLINE: "https://r4g.herokuapp.com"
 //axios.defaults.baseURL = "http://172.16.21.36:8000/"  // <-- mettere URL su rete locale per testare progetto per es. su smartphone
 // php artisan serve --host=172.16.21.36 --port=8000   <-- per far partire il server su host e porta personalizzati
 
@@ -17,7 +17,7 @@ Vue.use(VCalendar, {
   componentPrefix: 'v',  // Use <vc-calendar /> instead of <v-calendar />
 });
 Vue.use(VueSimpleAlert);
-Vue.use(VueTailwind, vueTailwindSetting);
+Vue.use(VueTailwind, vueTailwindSettings);
 
 Vue.config.productionTip = false;
 
