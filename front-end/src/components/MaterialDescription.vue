@@ -30,13 +30,17 @@
         </span>
       </h3>
     </button>
-    <div class="flex px-3 py-2">
+    <div class="flex px-4 py-3 justify-center items-center">
       <input
         placeholder="Cerca un tipo di rifiuto..."
         type="text"
         v-model="query"
-        class="flex-grow px-3 py-2 border-2 rounded outline-none border-blueGray-300 focus:border-blueGray-600"
+        class="flex-grow px-3 py-2 border-2 rounded outline-none focus:bg-blueGray-50"
+        :style="`border-color: ${item.color}`"
       />
+      <svg v-if="query != ''" @click="query = ''" class="h-8 w-8 absolute right-0 mr-6" :style="`color: ${item.color}`" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
     </div>
     <div v-for="(line, index) in filteredDescriptions" :key="index">
       <div 
@@ -58,7 +62,7 @@
         v-if="!filteredDescriptions.length"
         class="text-center font-medium mx-auto px-3 py-6 text-gray-700"
       >
-        Nessun tipo di rifiuto corrisponde alla tua ricerca ☹
+        Nessun tipo di rifiuto corrisponde alla tua ricerca 😟
       </div>
     <GoBack :isMobile="isMobile"></GoBack>
   </div>
@@ -88,7 +92,7 @@ export default {
     let material = this.$route.params.material;
     this.items = JSON.parse(localStorage.getItem("MaterialDescriptions"));
     this.item = this.items.find(obj => {
-      return obj.name == material
+      return obj.name == material.toUpperCase()
     });  
     this.descriptions = this.item.descriptions.sort((x, y) => y.isYes - x.isYes); //Ordino la lista in modo che ci siano sempre prima i "Sì"
   },

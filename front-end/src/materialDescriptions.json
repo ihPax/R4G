@@ -38,6 +38,14 @@
         {
           "descr": "carta plastificata",
           "isYes": false
+        },
+        {
+          "descr": "scontrini (vanno nell'indifferenziato)",
+          "isYes": false
+        },
+        {
+          "descr": "fazzoletti di carta",
+          "isYes": false
         }
       ]
     },

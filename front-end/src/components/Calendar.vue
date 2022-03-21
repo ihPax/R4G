@@ -109,7 +109,8 @@ export default {
         this.calendar();
       }
     },
-    showMaterial(material) {
+    showMaterial(materialUpper) {
+      let material = materialUpper.toLowerCase();
       this.$router.push({name: "material-description", params: {material}});
     },
     calendar() {

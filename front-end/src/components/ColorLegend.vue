@@ -36,7 +36,8 @@ export default {
     onClose() {
       this.$emit("exit", true);
     },
-    showDescription(material) {
+    showDescription(materialUpper) {
+      let material = materialUpper.toLowerCase();
       this.$router.push({name: "material-description", params: {material}});
     },
   },
