@@ -5,15 +5,15 @@
         Calendario <span v-if="isZoneSettled">zona di {{calendars.name}}</span> 
       </div>
     </h2>
-    <div v-if="isMobile && isExpanded || !isMobile && !isExpanded" class="text-xxs mt-2 mb-1 px-2"> Clicca sul calendario e trovi la legenda colori, poi scegli il tipo di rifiuto </div>
-    <div v-if="!isMobile && isExpanded" class="text-xs sm:text-base sm:py-2"> Clicca sui bottoni colorati per vedere che tipo di rifiuti vanno gettati in quel cestino </div>
-    <div v-if="isExpanded" class="text-xxs sm:text-sm mx-auto max-w-4xl sm:my-2" :class="read == true ? 'border-blueGray-300 border-b border-t' : null"> 
-      <button @click="read = !read" class="flex flex-col px-2 py-2 bg-blueGray-50 mx-auto" :class="read == false ? 'rounded' : null">
-        <div v-if="read == false" class="inline-block text-yellow-500 mx-auto"> Clicca qui per leggere informazioni sul ritiro </div>
-        <div v-if="read == true" class="text-left flex-grow"> I rifiuti vanno esposti la <span class="font-semibold">sera antecedente</span> il giorno di raccolta <span class="font-semibold">dalle ore 19.00 alle ore 21.00</span>, quindi nel calendario viene evidenziato il giorno corrente fino alle 12, poi quello successivo! </div>
+    <div v-if="isExpanded" class="text-xxs sm:text-sm mx-auto max-w-4xl my-2" :class="read == true ? 'bg-blueGray-50 border-b border-t' : null"> 
+      <button @click="read = !read" class="flex flex-col px-3 py-2 mx-auto bg-blueGray-50" :class="read == false ? 'rounded' : null">
+        <div v-if="read == false" class="inline-block text-yellow-500 mx-auto"> Clicca qui per leggere informazioni sugli orari di ritiro </div>
+        <div v-if="read == true" class="text-left flex-grow"> I rifiuti vanno esposti la <span class="font-semibold">sera precedente</span> il giorno di raccolta <span class="font-semibold">dalle ore 19.00 alle ore 21.00</span>. Nel calendario viene evidenziato il giorno corrente fino alle 12, poi quello successivo, visto che a quell'ora è già stato effettuato il ritiro. </div>
         <div v-if="read == true" class="inline-block text-yellow-500 mx-auto"> Nascondi testo</div>
       </button>      
     </div>
+    <div v-if="isMobile && isExpanded || !isMobile && !isExpanded" class="text-xxs my-1 px-2"> Clicca sul calendario e trovi la legenda colori </div>
+    <div v-if="!isMobile && isExpanded" class="text-xs sm:text-sm sm:py-2"> Clicca sui bottoni colorati per vedere che tipo di rifiuti vanno gettati in quel cestino </div>
     <v-calendar
       class="custom-calendar max-w-full"
       :masks="masks"
@@ -51,9 +51,9 @@
         </div>
         <div v-else>
           <div class="flex justify-center mx-auto py-2 sm:py-4">
-            <div class="" :class="{
+            <div :class="{
               'text-gray-900': day.date.setHours(0,0,0,0) != new Date().setHours(0,0,0,0),
-              'text-black font-extrabold border-b-2 border-black': day.date.setHours(0,0,0,0) == new Date().setHours(0,0,0,0)
+              'text-black font-extrabold border-b-3 border-black': day.date.setHours(0,0,0,0) == new Date().setHours(0,0,0,0)
             }"> {{ day.day }} </div>
           </div>
         </div>

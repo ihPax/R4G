@@ -1,6 +1,6 @@
 <template>
    <div class="flex flex-col overflow-auto">
-    <div class="mb-2 font-medium">Clicca per sapere cosa gettare in:</div>
+    <div class="mb-2 font-semibold text-sm">Clicca per sapere cosa gettare in:</div>
     <button
       v-for="(item, index) in items"
       :key="index"
@@ -8,7 +8,7 @@
       :style="`background-color: ${item.color}`"
       @click="isMobile || !isMobile && !isExpanded ? showDescription(item.name) : null"
     >
-      <p class="w-full h-full p-3 font-medium">{{ item.name }}</p>
+      <div class="w-full h-full p-3 font-medium">{{ item.name }}</div>
     </button>
   </div>
 </template>

@@ -25,7 +25,6 @@ class MigratePopulateCalendarV3 extends Migration
      */
     public function down()
     {
-        $seeder = new populate_calendar_v3();
-        $seeder->run();
+        //
     }
 }
