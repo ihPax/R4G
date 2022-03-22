@@ -5,8 +5,15 @@
         Calendario <span v-if="isZoneSettled">zona di {{calendars.name}}</span> 
       </div>
     </h2>
-    <div v-if="isMobile && isExpanded || !isMobile && !isExpanded" class="text-xxs mt-2">Clicca sul calendario per vedere la legenda colori, poi clicca sul tipo di rifiuto</div>
-    <div v-if="!isMobile && isExpanded" class="text-xs">Clicca sui bottoni colorati per vedere che tipo di rifiuti vanno gettati in quel cestino</div>
+    <div v-if="isMobile && isExpanded || !isMobile && !isExpanded" class="text-xxs mt-2 mb-1"> Clicca sul calendario e trovi la legenda colori, poi scegli il tipo di rifiuto </div>
+    <div v-if="!isMobile && isExpanded" class="text-xs"> Clicca sui bottoni colorati per vedere che tipo di rifiuti vanno gettati in quel cestino </div>
+    <div v-if="isExpanded" class="text-xxs max-w-xl mx-auto" :class="read == true ? 'border-blueGray-400 border-b border-t py-1' : null"> 
+      <button @click="read = !read" class="flex flex-col px-2 py-1 bg-blueGray-50 mx-auto">
+        <div v-if="read == false" class="inline-block text-yellow-500 mx-auto"> Clicca qui per leggere informazioni sul ritiro </div>
+        <div v-if="read == true" class="text-left"> I rifiuti vanno esposti la <span class="font-semibold">sera antecedente</span> il giorno di raccolta <span class="font-semibold">dalle ore 19.00 alle ore 21.00</span>, quindi nel calendario viene evidenziato il giorno corrente fino alle 12, poi quello successivo! </div>
+        <div v-if="read == true" class="inline-block text-yellow-500 mx-auto"> Nascondi testo</div>
+      </button>      
+    </div>
     <v-calendar
       class="custom-calendar max-w-full"
       :masks="masks"
@@ -20,8 +27,8 @@
             class="day-label my-1 mx-auto px-1"
             :class="{
               'text-sm': !isExpanded,
-              'text-gray-900': day.date.setHours(0,0,0,0) != new Date().setHours(0,0,0,0),
-              'text-black font-extrabold border-b-2 border-black': day.date.setHours(0,0,0,0) == new Date().setHours(0,0,0,0)
+              'text-gray-900': day.date.setHours(0,0,0,0) != pickUpDay.setHours(0,0,0,0),
+              'text-black font-extrabold border-b-2 border-black': day.date.setHours(0,0,0,0) == pickUpDay.setHours(0,0,0,0)
             }"
           > {{ day.day }} </div>
           <!-- <div class="h-8 w-8 rounded-full pt-1" :class="attr.customData.isOnlySummer == false && attr.customData.class != null || attr.customData.isOnlySummer == true && (day.month == 6 || day.month == 7 || day.month == 8 || day.month == 9) ? attr.customData.class + ' text-white pt-1' : ' text-black'"> {{ day.day }} </div> -->
@@ -94,13 +101,33 @@ export default {
       showModal: false,
       isZoneSettled: false,
       showColorLegend: false,
+      pickUpDay: 0,
+      read: false,
     };
   },
   mounted() {
+    this.getPickUpDate();
     JSON.parse(localStorage.getItem("MaterialDescriptions"));
     this.getZone();
   },
   methods: {
+    /** Determina se mostrare evidenziato all'utente il giorno corrente oppure il successivo
+     * (dalle 12 in poi per essere previdenti), visto che A.M.I.A. dice: 
+     * <<I rifiuti vanno esposti (a bordo strada) la sera antecedente il giorno di raccolta 
+     *   dalle ore 19.00 alle ore 21.00>>
+     */
+    getPickUpDate() {
+    const today = new Date();
+      if (today.getHours() >= 12 && today.getHours() < 24) {
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1); //metto il giorno seguente
+        tomorrow.setHours(0,0,0,0); //mezzanotte esatta
+        this.pickUpDay = tomorrow;
+      } else {
+        today.setHours(0,0,0,0);
+        this.pickUpDay = today;
+      }
+    },
     getZone() {
       let zone = JSON.parse(localStorage.getItem("Zone"));
       if (zone) {

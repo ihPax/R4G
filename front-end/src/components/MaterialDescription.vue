@@ -92,15 +92,19 @@ export default {
     let material = this.$route.params.material;
     this.items = JSON.parse(localStorage.getItem("MaterialDescriptions"));
     this.item = this.items.find(obj => {
-      return obj.name == material.toUpperCase()
+      return obj.name.includes(material.toUpperCase())
     });  
     this.descriptions = this.item.descriptions.sort((x, y) => y.isYes - x.isYes); //Ordino la lista in modo che ci siano sempre prima i "Sì"
   },
   computed: {
     filteredDescriptions() {
       return this.descriptions.filter((obj) => {
+        let descr = obj.descr.toLowerCase();
+        let query = this.query.toLowerCase();
         return (
-          obj.descr.toLowerCase().includes(this.query.toLowerCase().trim())
+          descr.includes(query.trim()) ||
+          query.length > 3 ? descr.includes(query.trim().slice(0, -1)) : null 
+          // ↑ rimuove l'ultimo carattere dalla ricerca, così se uno cerca un nome singolare e nella descrizione c'è al plurale, lo trova
         );
       });
     },

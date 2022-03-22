@@ -14,7 +14,7 @@ axios.defaults.baseURL = "https://r4g.herokuapp.com" //IN LOCALE: "http://localh
 // php artisan serve --host=172.16.21.36 --port=8000   <-- per far partire il server su host e porta personalizzati
 
 Vue.use(VCalendar, {
-  componentPrefix: 'v',  // Use <vc-calendar /> instead of <v-calendar />
+  componentPrefix: 'v',  // For example, write 'vc' if you want to use <vc-calendar /> instead of <v-calendar />
 });
 Vue.use(VueSimpleAlert);
 Vue.use(VueTailwind, vueTailwindSettings);
