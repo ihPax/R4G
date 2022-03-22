@@ -1,16 +1,16 @@
 <template>
   <div class="text-center section">
     <h2 class="flex justify-center font-bold text-lg">
-      <div v-if="isExpanded" class="flex-grow pt-4 border-b border-gray-200 xs:border-b-0 bg-blue-50 xs:bg-white font-medium xs:font-bold text-xl"> 
+      <div v-if="isExpanded" class="flex-grow py-4 border-b border-gray-200 xs:border-b-0 bg-blue-50 xs:bg-white font-medium xs:font-bold text-xl"> 
         Calendario <span v-if="isZoneSettled">zona di {{calendars.name}}</span> 
       </div>
     </h2>
-    <div v-if="isMobile && isExpanded || !isMobile && !isExpanded" class="text-xxs mt-2 mb-1"> Clicca sul calendario e trovi la legenda colori, poi scegli il tipo di rifiuto </div>
-    <div v-if="!isMobile && isExpanded" class="text-xs"> Clicca sui bottoni colorati per vedere che tipo di rifiuti vanno gettati in quel cestino </div>
-    <div v-if="isExpanded" class="text-xxs max-w-xl mx-auto" :class="read == true ? 'border-blueGray-400 border-b border-t py-1' : null"> 
-      <button @click="read = !read" class="flex flex-col px-2 py-1 bg-blueGray-50 mx-auto">
+    <div v-if="isMobile && isExpanded || !isMobile && !isExpanded" class="text-xxs mt-2 mb-1 px-2"> Clicca sul calendario e trovi la legenda colori, poi scegli il tipo di rifiuto </div>
+    <div v-if="!isMobile && isExpanded" class="text-xs sm:text-base sm:py-2"> Clicca sui bottoni colorati per vedere che tipo di rifiuti vanno gettati in quel cestino </div>
+    <div v-if="isExpanded" class="text-xxs sm:text-sm mx-auto max-w-4xl sm:my-2" :class="read == true ? 'border-blueGray-300 border-b border-t' : null"> 
+      <button @click="read = !read" class="flex flex-col px-2 py-2 bg-blueGray-50 mx-auto" :class="read == false ? 'rounded' : null">
         <div v-if="read == false" class="inline-block text-yellow-500 mx-auto"> Clicca qui per leggere informazioni sul ritiro </div>
-        <div v-if="read == true" class="text-left"> I rifiuti vanno esposti la <span class="font-semibold">sera antecedente</span> il giorno di raccolta <span class="font-semibold">dalle ore 19.00 alle ore 21.00</span>, quindi nel calendario viene evidenziato il giorno corrente fino alle 12, poi quello successivo! </div>
+        <div v-if="read == true" class="text-left flex-grow"> I rifiuti vanno esposti la <span class="font-semibold">sera antecedente</span> il giorno di raccolta <span class="font-semibold">dalle ore 19.00 alle ore 21.00</span>, quindi nel calendario viene evidenziato il giorno corrente fino alle 12, poi quello successivo! </div>
         <div v-if="read == true" class="inline-block text-yellow-500 mx-auto"> Nascondi testo</div>
       </button>      
     </div>
@@ -28,7 +28,7 @@
             :class="{
               'text-sm': !isExpanded,
               'text-gray-900': day.date.setHours(0,0,0,0) != pickUpDay.setHours(0,0,0,0),
-              'text-black font-extrabold border-b-2 border-black': day.date.setHours(0,0,0,0) == pickUpDay.setHours(0,0,0,0)
+              'text-black font-extrabold border-b-3 border-black': day.date.setHours(0,0,0,0) == pickUpDay.setHours(0,0,0,0)
             }"
           > {{ day.day }} </div>
           <!-- <div class="h-8 w-8 rounded-full pt-1" :class="attr.customData.isOnlySummer == false && attr.customData.class != null || attr.customData.isOnlySummer == true && (day.month == 6 || day.month == 7 || day.month == 8 || day.month == 9) ? attr.customData.class + ' text-white pt-1' : ' text-black'"> {{ day.day }} </div> -->
@@ -36,7 +36,7 @@
             <div
               v-for="(attr, index) in attributes"
               :key="index"
-              class="sm:mb-1 font-bold"
+              class="font-bold"
             >
               <div v-if="attr.customData.isOnlySummer == false && attr.customData.class != null || attr.customData.isOnlySummer == true && (day.month == 6 || day.month == 7 || day.month == 8 || day.month == 9)"
                 :class="isExpanded ? 

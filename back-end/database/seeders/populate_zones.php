@@ -27,7 +27,7 @@ class populate_zones extends Seeder
         ]);
 
         DB::table('zones')->insert([
-            'name' => "TORRICELLE - BASSON - LA SORTE - MADONNA DI DOSSOB - CADIDAVID - SACRA FIMIGLIA - LA RIZZA"
+            'name' => "TORRICELLE - BASSON - LA SORTE - MADONNA DI DOSSOB - CADIDAVID - SACRA FAMIGLIA - LA RIZZA"
         ]);
     }
 }
