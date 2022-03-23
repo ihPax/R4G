@@ -591,21 +591,18 @@ export default {
     populateBin() {
       this.localBin = JSON.parse(localStorage.getItem("Bin"));
       let dist = 100;
-      
+      //Incomprensibile quello che va a fare il seguente cliclo FOR e non cambia cambia nulla del giorno di ritiro
       for (let i = 1; i < this.localBin.length; i++) {
         if (this.localBin.length > 2) {
-          let counter = 0;
           let nDay = new Date().getDay();
-
-          let stopError = true;
-          if (!stopError) {
-            while (this.localBin[i].nDay + 1 != nDay) {
-              nDay = nDay + 1;
-              counter = counter + 1;
-              if (nDay == 7) {
-                nDay = 0;
-              }
+          let counter = 0;
+          while (this.localBin[i].nDay + 1 != nDay) {
+            nDay = nDay + 1;
+            counter = counter + 1;
+            if (nDay == 7) {
+              nDay = 0;
             }
+            if (counter > 7*4) {break;} //pezza messa perché altrimenti il ciclo era infinito
           }
           if (counter < dist) {
             dist = counter;
