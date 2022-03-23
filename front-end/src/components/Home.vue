@@ -634,7 +634,7 @@ export default {
     */
     weekDay(day) {
       let days = new Date();
-      let nDay = days.getDay() - 1;
+      let nDay = days.getDay() + 1;
       if (Number(nDay) > Number(day)) {
         let ritiro = days.setDate(days.getDate() + (day - nDay) + 7);
         this.bin.day = new Date(ritiro);
