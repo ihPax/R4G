@@ -21,7 +21,7 @@
                     @click="showAnswer(faq)"
                     class=""
                 >
-                    <div class="p-2 sm:p-4 cursor-pointer border-b border-yellow-200" :class="index % 2 == 0 ? 'bg-white' : 'bg-yellow-50'">
+                    <div class="p-2 sm:p-4 cursor-pointer border-b border-yellow-200" :class="index % 2 == 0 && faq.show == false ? 'bg-white' : index % 2 != 0 && faq.show == false ? 'bg-yellow-50' : 'bg-yellow-100'">
                         <div class="flex items-center">
                             <div class="flex">
                                 <div class="font-medium">{{index + 1}}.&nbsp;</div>
@@ -33,7 +33,7 @@
                                 </svg>
                             </div>
                         </div>
-                        <div class="mt-3" v-if="faq.show == true">
+                        <div class="mt-3 mx-1 font-medium text-sm tracking-wide" v-if="faq.show == true">
                             <span>{{ faq.answer }}</span>
                         </div>
                     </div>
