@@ -448,7 +448,6 @@ export default {
       ],
       binLinked: [],
       localBin: [],
-      num: 0,
       r: 37.5,
       rMobile: 25,
       rct: 235.26,
@@ -458,7 +457,7 @@ export default {
       viewBinUser: [],
       isEmailSettledOnServer: false,
       firstExecute: true,
-      repeatiotionIntervalInSeconds: 1800 //La funzione si ripete ogni mezzora, ma per le dimostrazioni si impostino 15 secondi
+      repeatiotionIntervalInSeconds: 1800, //La funzione si ripete ogni mezzora, ma per le dimostrazioni si impostino 15 secondi
     };
   },
   async mounted() {
@@ -575,9 +574,8 @@ export default {
             this.getDistance();
             let res = await this.$axios.get("/r4g/material-bin/" + this.viewBinUser.bin_id);
             if (res) {
-              let calendarBin = res.data;
-              this.localBin = JSON.stringify(calendarBin);
-              localStorage.setItem("Bin", this.localBin);
+              this.localBin = res.data;
+              localStorage.setItem("Bin", JSON.stringify(this.localBin));
               this.populateBin();
             }
           }
@@ -592,23 +590,25 @@ export default {
     /** Metodo che scorre localBin e prende giorno e materiale e prossimo ritiro */
     populateBin() {
       this.localBin = JSON.parse(localStorage.getItem("Bin"));
-      let day = new Date();
-      let nDay = day.getDay();
       let dist = 100;
+      
       for (let i = 1; i < this.localBin.length; i++) {
         if (this.localBin.length > 2) {
-          this.num = 0;
-          nDay = day.getDay();
+          let counter = 0;
+          let nDay = new Date().getDay();
 
-          while (this.localBin[i].nDay + 1 != nDay) {
-            nDay = nDay + 1;
-            this.num = this.num + 1;
-            if (nDay == 7) {
-              nDay = 0;
+          let stopError = true;
+          if (!stopError) {
+            while (this.localBin[i].nDay + 1 != nDay) {
+              nDay = nDay + 1;
+              counter = counter + 1;
+              if (nDay == 7) {
+                nDay = 0;
+              }
             }
           }
-          if (this.num < dist) {
-            dist = this.num;
+          if (counter < dist) {
+            dist = counter;
             this.bin.name = this.localBin[i].material;
             this.weekDay(this.localBin[i].nDay);
           }
@@ -617,6 +617,7 @@ export default {
           this.weekDay(this.localBin[1].nDay);
         }
       }
+
 
       if (this.bin.name == "SECCO") {
         this.color = "#9CA3AF";
@@ -633,13 +634,13 @@ export default {
      * @param {number} day Giorno della settimana in numero da 0 a 6
     */
     weekDay(day) {
-      let days = new Date();
-      let nDay = days.getDay() + 1;
+      let today = new Date();
+      let nDay = today.getDay() + 1;
       if (Number(nDay) > Number(day)) {
-        let ritiro = days.setDate(days.getDate() + (day - nDay) + 7);
+        let ritiro = today.setDate(today.getDate() + (day - nDay) + 7);
         this.bin.day = new Date(ritiro);
       } else if (Number(nDay) <= Number(day)) {
-        let ritiro = days.setDate(days.getDate() + (day - nDay));
+        let ritiro = today.setDate(today.getDate() + (day - nDay));
         this.bin.day = new Date(ritiro);
       }
     },
