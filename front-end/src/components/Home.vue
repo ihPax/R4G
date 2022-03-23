@@ -367,7 +367,7 @@
               <div class="w-full flex justify-center items-center bg-blue-400 rounded-2xl h-72">
                 <button @click="changeBinStatus()" class="h-24 w-24">
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-full h-full mx-auto rounded-full bg-gray-200 p-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path class="animate-pulse" stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                   </svg>
                 </button>
               </div>
@@ -458,6 +458,7 @@ export default {
       isEmailSettledOnServer: false,
       firstExecute: true,
       repeatiotionIntervalInSeconds: 1800, //La funzione si ripete ogni mezzora, ma per le dimostrazioni si impostino 15 secondi
+      dateToShow: new Date()
     };
   },
   async mounted() {
@@ -591,23 +592,37 @@ export default {
     populateBin() {
       this.localBin = JSON.parse(localStorage.getItem("Bin"));
       let dist = 100;
-      //Incomprensibile quello che va a fare il seguente cliclo FOR e non cambia cambia nulla del giorno di ritiro
+      const today = new Date();
+      if (today.getHours() >= 12 && today.getHours() < 24) {
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1); //metto il giorno seguente
+        tomorrow.setHours(0,0,0,0); //mezzanotte esatta
+        this.dateToShow = tomorrow;
+      } else {
+        today.setHours(0,0,0,0);
+        this.dateToShow = today;
+      }
       for (let i = 1; i < this.localBin.length; i++) {
+        //Si entra nel ciclo sotto solo per l'UMIDO, in quanto viene ritirato più d'una volta a settimana
         if (this.localBin.length > 2) {
-          let nDay = new Date().getDay();
           let counter = 0;
-          while (this.localBin[i].nDay + 1 != nDay) {
+          let nDay = Number(this.dateToShow.getDay()) + 1; //oggi in versione inglese con inizio settimana a domenica
+          let nMonth = Number(this.dateToShow.getMonth()) + 1; //Gennaio sarebbe 0, quindi aggiungo 1
+          // In futuro, per verificare se il giorno di ritiro è solo estivo, aggiungere una condizione con bin.isOnlySummer ed i mesi
+          let bin = this.localBin[i];
+          bin.isOnlySummer == true && (nMonth != 6 && nMonth != 7 && nMonth != 8 && nMonth != 9) ? bin = {} : null;
+          while (bin != {} && bin.nDay != nDay) {
             nDay = nDay + 1;
-            counter = counter + 1;
-            if (nDay == 7) {
+            if (nDay == 8) {
               nDay = 0;
             }
-            if (counter > 7*4) {break;} //pezza messa perché altrimenti il ciclo era infinito
+            counter = counter + 1;
+            if (counter > 100) {break;} //per evitare freeze nel caso il ciclo, per un errore, fosse infinito
           }
-          if (counter < dist) {
+          if (counter < dist && bin != {}) {
             dist = counter;
-            this.bin.name = this.localBin[i].material;
-            this.weekDay(this.localBin[i].nDay);
+            this.bin.name = bin.material;
+            this.weekDay(bin.nDay);
           }
         } else {
           this.bin.name = this.localBin[1].material;
