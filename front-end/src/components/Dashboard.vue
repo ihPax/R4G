@@ -58,8 +58,7 @@ export default {
       if (user) {
         this.user = user;
       } else {
-        await this.$router.push({name: "login"});
-        throw new Error("Per favore effettua l'accesso!");
+        this.backToLogin(false);
       }
       this.comuni = (await this.$axios.get("/r4g/zones")).data;
       localStorage.setItem("Zones", JSON.stringify(this.comuni));
@@ -81,14 +80,13 @@ export default {
       } else {
         this.err = {statusText: e.message};   
       }
-      
-      if (this.err.status == 401) {
-        this.err.statusText = "Non sei autorizzato a svolgere questa operazione";
-      }
       if (this.err.status >= 400 && this.err.status < 500) {
         let dataErr = this.err.data; //oggetto che contiene una coppia chiave valore con valore un array contentente una stringa
         let customErr = (dataErr[Object.keys(dataErr)[0]])[0]; //prendo il valore della prima chiave
         this.err.statusText = customErr;
+        if (this.err.status == 401) {
+          this.backToLogin(true);
+        }
       }
       if (this.err) {
         let message = (e == "Error: Network Error") ? "Impossibile raggiungere il server!" : this.err.statusText;
@@ -100,6 +98,12 @@ export default {
       }
       console.log(e, e.response);
     },
+    backToLogin(serverResponse) {
+      let keysToRemove = ["AccessEmail", "Zone", "Zones", "Bin", "BinUser", "WithdrawalDate", "MaterialDescriptions"];
+      keysToRemove.forEach(key => localStorage.removeItem(key));
+      this.$router.push({name: "login"});
+      if (!serverResponse) {throw new Error("Per favore effettua l'accesso!")}
+    }
   }
 }
 </script>

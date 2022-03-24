@@ -40,7 +40,10 @@ export default {
       }
       if (!isLogin) {
         if (this.err.status == 401) {
-          this.err.statusText = "Non sei autorizzato a svolgere questa operazione";
+          let keysToRemove = ["AccessEmail", "Zone", "Zones", "Bin", "BinUser", "WithdrawalDate", "MaterialDescriptions"];
+          keysToRemove.forEach(key => localStorage.removeItem(key));
+          this.$router.push({name: "login"});
+          throw new Error("Per favore effettua l'accesso!");
         }
       }
       if (this.err.status >= 400 && this.err.status < 500) {
