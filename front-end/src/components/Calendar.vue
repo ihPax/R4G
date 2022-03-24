@@ -24,11 +24,12 @@
       <template v-slot:day-content="{ day, attributes }">
         <div v-if="isZoneSettled" class="flex flex-col h-full z-10 overflow-hidden" :class="isMobile || !isExpanded ? 'cursor-pointer' : null" @click="isMobile || !isExpanded ? switchColorLegend(true) : null">
           <div v-for="(attr, index) in attributes" :key="index"
-            class="day-label my-1 mx-auto px-1"
+            class="day-label mx-auto px-1"
             :class="{
               'text-sm': !isExpanded,
-              'text-gray-900': day.date.setHours(0,0,0,0) != pickUpDay.setHours(0,0,0,0),
-              'text-black font-extrabold border-b-3 border-black': day.date.setHours(0,0,0,0) == pickUpDay.setHours(0,0,0,0)
+              'text-gray-900 my-1': day.date.setHours(0,0,0,0) != pickUpDay.setHours(0,0,0,0),
+              'text-black font-extrabold border-b-4 border-black mt-1': isExpanded && day.date.setHours(0,0,0,0) == pickUpDay.setHours(0,0,0,0),
+              'text-black font-extrabold border-black my-1':           !isExpanded && day.date.setHours(0,0,0,0) == pickUpDay.setHours(0,0,0,0),
             }"
           > {{ day.day }} </div>
           <!-- <div class="h-8 w-8 rounded-full pt-1" :class="attr.customData.isOnlySummer == false && attr.customData.class != null || attr.customData.isOnlySummer == true && (day.month == 6 || day.month == 7 || day.month == 8 || day.month == 9) ? attr.customData.class + ' text-white pt-1' : ' text-black'"> {{ day.day }} </div> -->

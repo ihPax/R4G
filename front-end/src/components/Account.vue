@@ -215,16 +215,12 @@ export default {
           }) 
         } else {
           try {
-            let response = await this.$axios.put(
-              "/r4g/update-user/" + this.user.id,
-              this.form
-            )
-            localStorage.setItem("AccessEmail", JSON.stringify(response.data));
+            let updatedUser = (await this.$axios.put("/r4g/update-user/" + this.user.id, this.form)).data;
+            localStorage.setItem("AccessEmail", JSON.stringify(updatedUser));
             let zone_id = this.form.zone_id;
             if (zone_id) {
-              let zone = ( await this.$axios.get("/r4g/zone-calendar/" + zone_id) ).data;
-              let calendar = JSON.stringify(zone);
-              localStorage.setItem("Zone", calendar);
+              let zone = (await this.$axios.get("/r4g/zone-calendar/" + zone_id)).data;
+              localStorage.setItem("Zone", JSON.stringify(zone));
             }
           } catch(e) {
             this.$emit('catch-error', e);
