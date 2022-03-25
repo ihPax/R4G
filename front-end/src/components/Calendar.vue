@@ -6,13 +6,18 @@
       </div>
     </h2>
     <div v-if="isExpanded" class="text-xs sm:text-sm mx-auto max-w-4xl my-2"> 
-      <button @click="read = !read" class="flex flex-col px-3 py-2 mx-auto bg-blue-50 border border-blue-400" :class="read == false ? 'rounded' : null">
-        <div v-if="read == false" class="inline-block mx-auto font-medium"> Clicca qui per informazioni sugli orari di ritiro </div>
+      <button v-if="read != null" @click="read = !read" class="flex flex-col p-2 mx-auto bg-blue-50 border border-blue-300" :class="read == false ? 'rounded' : null">
+        <div v-if="read == false" class="flex items-center">
+          <svg class="h-5 w-5 sm:h-6 sm:w-6 cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <div class="font-medium ml-0.5"> Clicca qui per info sugli orari di ritiro </div>
+        </div>
         <div v-if="read == true" class="text-left flex-grow"> I rifiuti vanno esposti la <span class="font-semibold">sera precedente</span> il giorno di raccolta <span class="font-semibold">dalle ore 19.00 alle ore 21.00</span>. Nel calendario viene evidenziato il giorno corrente fino alle 12, poi quello successivo, visto che a quell'ora è già stato effettuato il ritiro. </div>
-        <div v-if="read == true" class="inline-block font-medium italic mx-auto"> Nascondi testo</div>
-      </button>      
+        <div v-if="read == true" class="text-xxs inline-block font-medium italic mx-auto"> Nascondi testo </div> 
+      </button>
     </div>
-    <div v-if="isMobile && isExpanded || !isMobile && !isExpanded" class="text-xs my-1 px-2 font-medium"> Clicca sul calendario per la legenda colori </div>
+    <div v-if="read == false && (isMobile && isExpanded || !isMobile && !isExpanded)" class="text-xs my-1 px-2 font-medium"> Clicca sul calendario per la legenda colori </div>
     <div v-if="!isMobile && isExpanded" class="text-xs sm:text-sm sm:py-2 font-medium"> Clicca sui bottoni colorati per vedere che tipo di rifiuti vanno gettati in quel cestino </div>
     <v-calendar
       class="custom-calendar max-w-full"
@@ -29,7 +34,7 @@
               'text-sm': !isExpanded,
               'text-gray-900 my-1': day.date.setHours(0,0,0,0) != pickUpDay.setHours(0,0,0,0),
               'text-black font-extrabold border-b-4 border-black mt-1': isExpanded && day.date.setHours(0,0,0,0) == pickUpDay.setHours(0,0,0,0),
-              'text-black font-extrabold border-black my-1':           !isExpanded && day.date.setHours(0,0,0,0) == pickUpDay.setHours(0,0,0,0),
+              'text-black font-extrabold underline border-black my-1': !isExpanded && day.date.setHours(0,0,0,0) == pickUpDay.setHours(0,0,0,0),
             }"
           > {{ day.day }} </div>
           <!-- <div class="h-8 w-8 rounded-full pt-1" :class="attr.customData.isOnlySummer == false && attr.customData.class != null || attr.customData.isOnlySummer == true && (day.month == 6 || day.month == 7 || day.month == 8 || day.month == 9) ? attr.customData.class + ' text-white pt-1' : ' text-black'"> {{ day.day }} </div> -->
@@ -64,7 +69,7 @@
       <t-modal v-model="showModal" header="Scegli la tua zona" close="chiudi">
         <Modal @exit="switchModal(false)" @catch-error="catchErr" :isMobile="isMobile"></Modal>
       </t-modal>
-      <t-button @click="switchModal(true)" type="button">Cambia la zona</t-button>
+      <t-button @click="switchModal(true)" type="button"> Cambia la zona </t-button>
     </div>
     <t-modal v-model="showColorLegend" header="Legenda colori" close="chiudi">
       <ColorLegend @exit="switchColorLegend(false)" @catch-error="catchErr" :isMobile="isMobile" :isExpanded="isExpanded"></ColorLegend>

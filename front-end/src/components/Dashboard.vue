@@ -53,7 +53,8 @@ export default {
   async mounted() {
     this.isLoading = true;
     try {
-      localStorage.setItem("MaterialDescriptions", JSON.stringify(materialDescriptions));
+      let exist = localStorage.getItem("MaterialDescriptions");
+      !exist ? localStorage.setItem("MaterialDescriptions", JSON.stringify(materialDescriptions)) : null;
       let user = JSON.parse(localStorage.getItem("AccessEmail"));
       if (user) {
         this.user = user;

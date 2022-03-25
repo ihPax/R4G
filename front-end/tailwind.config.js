@@ -24,6 +24,10 @@ module.exports = {
       greenscritte: "#4B9B45",
       greenlogo: "#73F440",
       orangelogo: "#F17F3A",
+      secco: "#9CA3AF",
+      carta: "#166534",
+      umido: '#854D0E',
+      'plastica/lattine': '#1E3A8A',
       white: "#fff",
       blueGray: {
         50: "#f8fafc",
@@ -149,6 +153,7 @@ module.exports = {
     spacing: {
       px: "1px",
       "0": "0",
+      "0.5": "0.125rem",
       "1": "0.25rem",
       "2": "0.5rem",
       "3": "0.75rem",

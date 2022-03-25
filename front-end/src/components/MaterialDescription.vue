@@ -36,7 +36,7 @@
         type="text"
         v-model="query"
         class="flex-grow px-3 py-2 border-2 rounded outline-none focus:bg-blueGray-50"
-        :style="`border-color: ${item.color}`"
+        :class="`placeholder-${material} border-${material}`"
       />
       <svg v-if="query != ''" @click="query = ''" class="h-8 w-8 absolute right-0 mr-6 cursor-pointer" :style="`color: ${item.color}`" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -86,13 +86,14 @@ export default {
       item: {},
       descriptions: [],
       query: "",
+      material: ""
     };
   },
   mounted() {
-    let material = this.$route.params.material;
+    this.material = this.$route.params.material;
     this.items = JSON.parse(localStorage.getItem("MaterialDescriptions"));
     this.item = this.items.find(obj => {
-      return obj.name.includes(material.toUpperCase())
+      return obj.name.includes(this.material.toUpperCase())
     });  
     this.descriptions = this.item.descriptions.sort((x, y) => y.isYes - x.isYes); //Ordino la lista in modo che ci siano sempre prima i "Sì"
   },
