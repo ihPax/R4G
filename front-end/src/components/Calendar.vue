@@ -32,7 +32,8 @@
             class="day-label mx-auto px-1"
             :class="{
               'text-sm': !isExpanded,
-              'text-gray-900 my-1': day.date.setHours(0,0,0,0) != pickUpDay.setHours(0,0,0,0),
+              'text-gray-400': day.date.setHours(0,0,0,0) < new Date().setHours(0,0,0,0),
+              'my-1': day.date.setHours(0,0,0,0) != pickUpDay.setHours(0,0,0,0),
               'text-black font-extrabold border-b-4 border-black mt-1': isExpanded && day.date.setHours(0,0,0,0) == pickUpDay.setHours(0,0,0,0),
               'text-black font-extrabold underline border-black my-1': !isExpanded && day.date.setHours(0,0,0,0) == pickUpDay.setHours(0,0,0,0),
             }"
@@ -58,8 +59,9 @@
         <div v-else>
           <div class="flex justify-center mx-auto py-2 sm:py-4">
             <div :class="{
-              'text-gray-900': day.date.setHours(0,0,0,0) != new Date().setHours(0,0,0,0),
-              'text-black font-extrabold border-b-3 border-black': day.date.setHours(0,0,0,0) == new Date().setHours(0,0,0,0)
+              'text-sm': !isExpanded,
+              'text-gray-400': day.date.setHours(0,0,0,0) < new Date().setHours(0,0,0,0),
+              'text-black font-extrabold': day.date.setHours(0,0,0,0) == new Date().setHours(0,0,0,0) //viene evidenziato oggi, visto che non è settata una zona e relativi ritiri
             }"> {{ day.day }} </div>
           </div>
         </div>
@@ -118,7 +120,7 @@ export default {
   },
   methods: {
     /** Determina se mostrare evidenziato all'utente il giorno corrente oppure il successivo
-     * (dalle 12 in poi per essere previdenti), visto che A.M.I.A. dice: 
+     * (dalle 12 in poi, per essere previdenti), visto che A.M.I.A. dice: 
      * <<I rifiuti vanno esposti (a bordo strada) la sera antecedente il giorno di raccolta 
      *   dalle ore 19.00 alle ore 21.00>>
      */

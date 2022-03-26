@@ -20,7 +20,7 @@
           />
         </svg>
       </div>
-      <h3 class="text-xl leading-6 font-medium text-gray-900">
+      <h3 :class="`text-xl leading-6 font-medium text-${material}`">
         Cosa getto?
         <span
           :style="`background-color: ${item.color}`"
@@ -36,7 +36,7 @@
         type="text"
         v-model="query"
         class="flex-grow px-3 py-2 border-2 rounded outline-none focus:bg-blueGray-50"
-        :class="`placeholder-${material} border-${material}`"
+        :class="`border-${material} placeholder-${material} placeholder-opacity-70 font-medium`"
       />
       <svg v-if="query != ''" @click="query = ''" class="h-8 w-8 absolute right-0 mr-6 cursor-pointer" :style="`color: ${item.color}`" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -53,8 +53,8 @@
         >
           {{ line.isYes ? "SÌ" : "NO" }}
         </div>
-        <div class="mx-2 p-1 flex-grow">
-          {{ line.descr }}
+        <div class="flex-grow"> <!-- TAG A e href="https://www.google.com/search?q=amia+dizionario+rifiuti+pdf" target="_blank" OPPURE :href="`https://www.google.com/search?q=dove+buttare+${line.descr}`" -->
+          <button @click="openLink(line.descr)" class="text-left w-full h-full px-3 py-1">{{ line.descr }}</button>
         </div>
       </div>
     </div>
@@ -110,5 +110,21 @@ export default {
       });
     },
   },
+  methods: {
+    openLink(descr) {
+      this.$fire({
+        html: `Vuoi cercare più informazioni su '<span class="italic font-medium">${descr}</span>'?`,
+        type: "question",
+        confirmButtonText: 'Sì',
+        showCancelButton: true,
+        cancelButtonText: 'Annulla',
+        reverseButtons: true,
+        timer: 4000,
+      }).then(r => {
+        console.log(r.dismiss);
+        r.value == true ? window.open(`https://www.google.com/search?q=dove+buttare+${descr}`, '_blank') : null;
+      });
+    }
+  }
 };
 </script>
