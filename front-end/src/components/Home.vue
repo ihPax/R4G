@@ -591,7 +591,6 @@ export default {
     /** Metodo che scorre localBin e prende giorno e materiale e prossimo ritiro */
     populateBin() {
       this.localBin = JSON.parse(localStorage.getItem("Bin"));
-      let dist = 100;
       const today = new Date();
       if (today.getHours() >= 12 && today.getHours() < 24) {
         const tomorrow = new Date(today);
@@ -602,34 +601,38 @@ export default {
         today.setHours(0,0,0,0);
         this.dateToShow = today;
       }
+      let max = 6; //di seguito ripeterò il ciclo "while" al massimo 7 volte (come i giorni della settimana), da 0 (del contatore) a 6 
+      let nDay = Number(this.dateToShow.getDay()) + 1; //oggi in versione inglese con inizio settimana a domenica, quindi nDay di domenica è 1
+      console.log(`%c nDay iniziale (oggi): ${nDay} `,`background-color: #259400`);
+      let nMonth = Number(this.dateToShow.getMonth()) + 1; //Gennaio sarebbe 0, quindi aggiungo 1
       for (let i = 1; i < this.localBin.length; i++) {
         //Si entra nel ciclo sotto solo per l'UMIDO, in quanto viene ritirato più d'una volta a settimana
         if (this.localBin.length > 2) {
           let counter = 0;
-          let nDay = Number(this.dateToShow.getDay()) + 1; //oggi in versione inglese con inizio settimana a domenica
-          let nMonth = Number(this.dateToShow.getMonth()) + 1; //Gennaio sarebbe 0, quindi aggiungo 1
-          // In futuro, per verificare se il giorno di ritiro è solo estivo, aggiungere una condizione con bin.isOnlySummer ed i mesi
           let bin = this.localBin[i];
-          bin.isOnlySummer == true && (nMonth != 6 && nMonth != 7 && nMonth != 8 && nMonth != 9) ? bin = {} : null;
-          while (bin != {} && bin.nDay != nDay) {
-            nDay = nDay + 1;
-            if (nDay == 8) {
-              nDay = 0;
-            }
+          //↓ Fa in modo che il ritiro non sia preso in considerazione se è solo estivo ed il mese corrente non è uno di quelli estivi
+          bin.isOnlySummer == true && (nMonth != 6 && nMonth != 7 && nMonth != 8 && nMonth != 9) ? bin = {} : null; 
+
+          while (bin.nDay != nDay && counter < max) {
+            nDay = (nDay + 1) % 8; //equivalente (nel risultato) a scrivere: if (nDay == 8) {nDay = 0;}
             counter = counter + 1;
-            if (counter > 100) {break;} //per evitare freeze nel caso il ciclo, per un errore, fosse infinito
+            console.log(` Contatore: ${counter} ••• Bin nDay: ${bin.nDay} ••• nDay: ${nDay} `);
+            if (counter > 10) {break;} //per evitare freeze nel caso il ciclo, per un errore, fosse infinito
           }
-          if (counter < dist && bin != {}) {
-            dist = counter;
+
+          console.log(`%c Max: ${max} ••• C: ${counter} `, `background-color: #d12e2e`);
+          if (counter < max) {
+            max = counter;
             this.bin.name = bin.material;
+            console.log(`%c nDay finale (ritiro): ${nDay} `,`background-color: #259400`);
             this.weekDay(bin.nDay);
+            break;
           }
         } else {
           this.bin.name = this.localBin[1].material;
           this.weekDay(this.localBin[1].nDay);
         }
       }
-
 
       if (this.bin.name == "SECCO") {
         this.color = "#9CA3AF";
@@ -642,19 +645,14 @@ export default {
       }
     },
 
-    /** Stabilisce il prossimo ritiro 
-     * @param {number} day Giorno della settimana in numero da 0 a 6
+    /** Stabilisce la data del prossimo ritiro
+     * @param {number} day Giorno della settimana in numero da 1 a 7 (1 domenica, 7 sabato)
     */
     weekDay(day) {
       let today = new Date();
-      let nDay = today.getDay() + 1;
-      if (Number(nDay) > Number(day)) {
-        let ritiro = today.setDate(today.getDate() + (day - nDay) + 7);
-        this.bin.day = new Date(ritiro);
-      } else if (Number(nDay) <= Number(day)) {
-        let ritiro = today.setDate(today.getDate() + (day - nDay));
-        this.bin.day = new Date(ritiro);
-      }
+      let nDay = today.getDay() + 1; //1 lunedì, 7 domenica perché in tempo locale in Italia il lunedì è il giorno 1
+      let ritiro = today.setDate(today.getDate() + 7 + (day - nDay) % 7);
+      this.bin.day = new Date(ritiro);
     },
 
     /** Calcolo percentuale del cestino */

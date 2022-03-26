@@ -7,14 +7,14 @@
     <Loading></Loading>
   </div>
   <div v-if="!isMobile" id="upperbar" class="flex justify-between items-center mx-4">
-    <div class="">
-      <router-link to='/dashboard/home'>
+    <div class="flex flex-col">
+      <button class="flex cursor-pointer disabled:cursor-auto" @click="goToLink({code: 'home'})" :disabled="currentRouteName == 'home'">
         <img
-            src="../assets/Logo_R4G_Black.svg"
-            class="h-8 xs:h-10 my-5 w-full block"
-            alt="logo R4G"
-          />
-      </router-link>
+          src="../assets/Logo_R4G_Black.svg"
+          class="h-10 ml-1 my-5 w-full block"
+          alt="logo R4G"
+        />
+      </button>
     </div>
     <button 
       class="p-2 text-lg sm:text-xl rounded sm:rounded-xl font-bold border-gray-300 border-2 hover:bg-black hover:text-white hover:border-black"
@@ -36,7 +36,7 @@
   <div v-else>
     <div class="h-16 border-t border-black fixed bottom-0 w-full z-10 flex justify-around">
       <button 
-        v-for="link in links" :key="link.id" 
+        v-for="(link, index) in links" :key="index" 
         @click="goToLink(link)"
         :disabled="link.code == currentRouteName"
         class="flex-grow bg-blue-50 disabled:bg-blue-300 disabled:cursor-auto border-r border-l disabled:border-blue-400 border-blue-50"
