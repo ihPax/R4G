@@ -635,7 +635,7 @@ export default {
       }
 
       if (this.bin.name == "SECCO") {
-        this.color = "#9CA3AF";
+        this.color = "#6b7280";
       } else if (this.bin.name == "CARTA") {
         this.color = "#166534";
       } else if (this.bin.name == "UMIDO") {

@@ -24,7 +24,7 @@ module.exports = {
       greenscritte: "#4B9B45",
       greenlogo: "#73F440",
       orangelogo: "#F17F3A",
-      secco: "#9CA3AF",
+      secco: "#6b7280",
       carta: "#166534",
       umido: '#854D0E',
       'plastica/lattine': '#1E3A8A',

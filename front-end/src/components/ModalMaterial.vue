@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import materiali from "../../materiali.json";
+import materiali from "../materiali.json";
 export default {
   data() {
     return {

@@ -64,14 +64,14 @@
     </div>
     <div
         v-if="!filteredDescriptions.length"
-        class="font-medium mx-auto text-gray-700 flex flex-col flex-grow"
+        class="flex flex-col flex-grow mx-auto"
       >
-        <div class="m-4"> Nessun tipo di rifiuto corrisponde alla tua ricerca 😟 </div>
+        <div class="m-4 font-medium text-gray-700"> Nessun tipo di rifiuto corrisponde alla tua ricerca 😟 </div>
         <div class="flex-grow flex flex-col justify-center">
-          <a class="block p-4 hover:bg-blue-50" href="https://www.amiavr.it/Portals/0/Documenti/DIZIONARIO.pdf" target="_blank"> 
-            Consulta il dizionario rifiuti di A.M.I.A. 
+          <a class="block p-4 hover:bg-yellow-50 xs:rounded" href="https://www.amiavr.it/Raccolta-differenziata/Il-nuovo-dizionario-dei-rifiuti" target="_blank"> 
+            Clicca qui per consultare il dizionario rifiuti di A.M.I.A. 
           </a> 
-          <div @click="openLink(query, requireConfirm = false)" class="p-4 hover:bg-blue-50 cursor-pointer"> 
+          <div @click="openLink(query, requireConfirm = false)" class="p-4 hover:bg-yellow-50 cursor-pointer  xs:rounded"> 
             Vuoi cercare più informazioni su '<span class="italic font-medium">{{query}}</span>'?
           </div>
         </div>
@@ -134,7 +134,6 @@ export default {
           reverseButtons: true,
           timer: 4000,
         }).then(r => {
-          console.log(r.dismiss);
           r.value == true ? window.open(`https://www.google.com/search?q=dove+buttare+${descr}`, '_blank') : null;
         });
       } else {
