@@ -1,6 +1,10 @@
 <template>
   <div
-    class="bg-white xs:shadow-orangexl overflow-hidden sm:rounded-lg max-w-xl mx-auto h-full flex flex-col mb-16 xs:mb-2"
+    class="bg-white xs:shadow-orangexl overflow-hidden sm:rounded-lg max-w-xl mx-auto flex flex-col xs:mb-2"
+    :class="{
+      'h-full mb-16': filteredDescriptions.length || !isMobile,
+      'h-screen': !filteredDescriptions.length && isMobile
+    }"
   >
     <button
       @click="$router.go(-1)" :disabled="!isMobile"
@@ -54,15 +58,23 @@
           {{ line.isYes ? "SÌ" : "NO" }}
         </div>
         <div class="flex-grow"> <!-- TAG A e href="https://www.google.com/search?q=amia+dizionario+rifiuti+pdf" target="_blank" OPPURE :href="`https://www.google.com/search?q=dove+buttare+${line.descr}`" -->
-          <button @click="openLink(line.descr)" class="text-left w-full h-full px-3 py-1">{{ line.descr }}</button>
+          <button @click="openLink(line.descr, requireConfirm = true)" class="text-left w-full h-full px-3 py-1">{{ line.descr }}</button>
         </div>
       </div>
     </div>
     <div
         v-if="!filteredDescriptions.length"
-        class="text-center font-medium mx-auto px-3 py-6 text-gray-700"
+        class="font-medium mx-auto text-gray-700 flex flex-col flex-grow"
       >
-        Nessun tipo di rifiuto corrisponde alla tua ricerca 😟
+        <div class="m-4"> Nessun tipo di rifiuto corrisponde alla tua ricerca 😟 </div>
+        <div class="flex-grow flex flex-col justify-center">
+          <a class="block p-4 hover:bg-blue-50" href="https://www.amiavr.it/Portals/0/Documenti/DIZIONARIO.pdf" target="_blank"> 
+            Consulta il dizionario rifiuti di A.M.I.A. 
+          </a> 
+          <div @click="openLink(query, requireConfirm = false)" class="p-4 hover:bg-blue-50 cursor-pointer"> 
+            Vuoi cercare più informazioni su '<span class="italic font-medium">{{query}}</span>'?
+          </div>
+        </div>
       </div>
     <GoBack :isMobile="isMobile"></GoBack>
   </div>
@@ -111,19 +123,23 @@ export default {
     },
   },
   methods: {
-    openLink(descr) {
-      this.$fire({
-        html: `Vuoi cercare più informazioni su '<span class="italic font-medium">${descr}</span>'?`,
-        type: "question",
-        confirmButtonText: 'Sì',
-        showCancelButton: true,
-        cancelButtonText: 'Annulla',
-        reverseButtons: true,
-        timer: 4000,
-      }).then(r => {
-        console.log(r.dismiss);
-        r.value == true ? window.open(`https://www.google.com/search?q=dove+buttare+${descr}`, '_blank') : null;
-      });
+    openLink(descr, requireConfirm) {
+      if (requireConfirm) {
+        this.$fire({
+          html: `Vuoi cercare più informazioni su '<span class="italic font-medium">${descr}</span>'?`,
+          type: "question",
+          confirmButtonText: 'Sì',
+          showCancelButton: true,
+          cancelButtonText: 'Annulla',
+          reverseButtons: true,
+          timer: 4000,
+        }).then(r => {
+          console.log(r.dismiss);
+          r.value == true ? window.open(`https://www.google.com/search?q=dove+buttare+${descr}`, '_blank') : null;
+        });
+      } else {
+        window.open(`https://www.google.com/search?q=dove+buttare+${descr}`, '_blank')
+      }
     }
   }
 };

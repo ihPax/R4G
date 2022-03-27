@@ -455,9 +455,9 @@ export default {
       value: 0,
       binExist: false,
       viewBinUser: [],
-      isEmailSettledOnServer: false,
+      isEmailSettled: false, //indica se l'impostazione di invio dell'email relativa al riempimento del cestino è stata salvata nel DB
       firstExecute: true,
-      repeatiotionIntervalInSeconds: 1800, //La funzione si ripete ogni mezzora, ma per le dimostrazioni si impostino 15 secondi
+      refreshTime: 1800, //La funzione si ripete ogni mezzora, ma per le dimostrazioni si impostino 15 secondi
       dateToShow: new Date()
     };
   },
@@ -493,12 +493,12 @@ export default {
         }
 
         //PROBLEMI CON ONLINE
-        // if (this.value <= 80 && this.isEmailSettledOnServer == false) {
+        // if (this.value <= 80 && this.isEmailSettled == false) {
         //   await this.$axios.put("/r4g/not-send-email-percent/" + this.userBin[0].id);
-        //   this.isEmailSettledOnServer = true;
-        // } else if (this.value > 80 && (this.isEmailSettledOnServer == true || this.firstExecute == true)) {
+        //   this.isEmailSettled = true;
+        // } else if (this.value > 80 && (this.isEmailSettled == true || this.firstExecute == true)) {
         //   await this.$axios.get("/r4g/send-email-percent/" + this.userBin[0].id); //invio email
-        //   this.isEmailSettledOnServer = false;
+        //   this.isEmailSettled = false;
         // }
 
         this.changePercent();
@@ -520,7 +520,7 @@ export default {
       
       this.idInterval = setInterval(async () => {
         this.getValue();
-      }, [this.repeatiotionIntervalInSeconds*1000]);
+      }, [this.refreshTime*1000]);
     },
 
     //alert che ti avvisa di scegliere prima la zona e poi il cestino
@@ -614,7 +614,7 @@ export default {
           bin.isOnlySummer == true && (nMonth != 6 && nMonth != 7 && nMonth != 8 && nMonth != 9) ? bin = {} : null; 
 
           while (bin.nDay != nDay && counter < max) {
-            nDay = (nDay + 1) % 8; //equivalente (nel risultato) a scrivere: if (nDay == 8) {nDay = 0;}
+            nDay = nDay % 7 + 1; //all'ultimo giorno della settimana, riparte da 1, ovvero dal primo giorno della settimana
             counter = counter + 1;
             console.log(` Contatore: ${counter} ••• Bin nDay: ${bin.nDay} ••• nDay: ${nDay} `);
             if (counter > 10) {break;} //per evitare freeze nel caso il ciclo, per un errore, fosse infinito
@@ -679,7 +679,7 @@ export default {
         this.userBin = [];
         this.getBin();
         this.clearSetInterval();
-        this.isEmailSettledOnServer = false;
+        this.isEmailSettled = false;
       } catch(e) {
         this.$emit("catch-error", e);
       } finally {
