@@ -9,9 +9,9 @@ import VueTailwind from 'vue-tailwind';
 import vueTailwindSettings from './vueTailwindSettings.js'; //importo i settings da un altro file perché qui occupavano troppo spazio
 
 Vue.prototype.$axios = axios;
-axios.defaults.baseURL = "http://192.168.0.5:8000" //IN LOCALE: "http://localhost:8000/"   //ONLINE: "https://r4g.herokuapp.com"
+axios.defaults.baseURL = "https://r4g.herokuapp.com" //IN LOCALE: "http://localhost:8000/"   //ONLINE: "https://r4g.herokuapp.com"
 //axios.defaults.baseURL = "http://172.16.21.36:8000/"  // <-- mettere URL su rete locale per testare progetto per es. su smartphone
-// php artisan serve --host=192.168.0.5 --port=8000   <-- per far partire il server su host e porta personalizzati
+// php artisan serve --host=172.16.21.36 --port=8000   <-- per far partire il server su host e porta personalizzati
 
 Vue.use(VCalendar, {
   componentPrefix: 'v',  // For example, write 'vc' if you want to use <vc-calendar /> instead of <v-calendar />
