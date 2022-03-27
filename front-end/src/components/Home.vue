@@ -651,7 +651,7 @@ export default {
     weekDay(day) {
       let today = new Date();
       let nDay = today.getDay() + 1; //1 lunedì, 7 domenica perché in tempo locale in Italia il lunedì è il giorno 1
-      let ritiro = today.setDate(today.getDate() + 7 + (day - nDay) % 7);
+      let ritiro = today.setDate(today.getDate() + (day - nDay) % 7);
       this.bin.day = new Date(ritiro);
     },
 
