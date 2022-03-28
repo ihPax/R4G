@@ -8,7 +8,7 @@
         <div class="text-4xl font-bold mb-3 sm:mb-6 lg:mb-12">Ciao {{ user.name }}!</div>
         <div class="grid sm:grid-cols-2 gap-6">
           <div
-            class="flex flex-col-reverse lg:flex-row items-center justify-between shadow-inner rounded-lg border-2 border-gray-300"
+            class="flex flex-col-reverse lg:flex-row items-center justify-between shadow-inner rounded-lg border-2" :style="`border-color: ${color}`"
           >
             <div
               v-if="localBin == '' && !isLoading"
@@ -31,7 +31,7 @@
               </t-modal>
               <div class="flex flex-col" v-if="localBin != '' && !isLoading">
                 <div class="flex flex-col py-4 justify-center">
-                  <div class="font-bold pl-4 text-lg">
+                  <div class="font-bold pl-4 text-lg" :style="`color: ${color}`">
                     {{ bin.name }}
                   </div>
                   <div class="relative w-120">
@@ -99,7 +99,7 @@
                   <img src="../assets/plastica.png" class="w-24 lg:w-32 xl:w-40" />
                 </div>
               </div>
-              <div class="flex justify-end">
+              <div class="flex justify-end m-2">
                 <button v-if="localBin != '' && !isLoading" @click="deleteBin()">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -256,7 +256,7 @@
                   <div class="flex flex-col font-bold text-white text-xl truncate">
                     {{ bin.day | date }}
                   </div>
-                  <div class="flex justify-end">
+                  <div class="flex justify-end m-2">
                     <button @click="deleteBin()" class="border border-black rounded-full z-10">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -339,7 +339,7 @@
                     <div class="flex flex-col font-bold text-white text-xl truncate">
                       Lunedì 21 Marzo 2022
                     </div>
-                    <div class="flex justify-end">
+                    <div class="flex justify-end m-2">
                       <button class="border border-black rounded-full z-10">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -434,7 +434,7 @@ export default {
       access: "",
       user: {},
       rctProva: 564,
-      color: "grey",
+      color: "#ddd",
       showModal: false,
       valueProva: 60,
       showModalMaterial: false,
@@ -613,18 +613,22 @@ export default {
           //↓ Fa in modo che il ritiro non sia preso in considerazione se è solo estivo ed il mese corrente non è uno di quelli estivi
           bin.isOnlySummer == true && (nMonth != 6 && nMonth != 7 && nMonth != 8 && nMonth != 9) ? bin = {} : null; 
 
+          let isBinEmpty = Object.keys(bin).length === 0;
           while (bin.nDay != nDay && counter < max) {
-            nDay = nDay % 7 + 1; //all'ultimo giorno della settimana, riparte da 1, ovvero dal primo giorno della settimana
-            counter = counter + 1;
-            console.log(` Contatore: ${counter} ••• Bin nDay: ${bin.nDay} ••• nDay: ${nDay} `);
-            if (counter > 10) {break;} //per evitare freeze nel caso il ciclo, per un errore, fosse infinito
+            if (isBinEmpty) { //se l'oggetto è vuoto, esci dal ciclo
+              counter = max;
+            } else {
+              nDay = nDay % 7 + 1; //all'ultimo giorno della settimana, riparte da 1, ovvero dal primo giorno della settimana
+              counter = counter + 1;
+              console.log(` Contatore: ${counter} ••• Bin nDay: ${bin.nDay} ••• nDay: ${nDay} `);
+              if (counter > 10) {break;} //per evitare freeze nel caso il ciclo, per un errore, fosse infinito
+            }
           }
 
-          console.log(`%c Max: ${max} ••• C: ${counter} `, `background-color: #d12e2e`);
+          !isBinEmpty ? console.log(`%c Max: ${max}` + ` %c ` + `%c Cont: ${counter} `, `background-color: #d12e2e`,``, `background-color: #b57226`) : null;
           if (counter < max) {
             max = counter;
             this.bin.name = bin.material;
-            console.log(`%c nDay finale (ritiro): ${nDay} `,`background-color: #259400`);
             this.weekDay(bin.nDay);
             break;
           }
@@ -635,7 +639,7 @@ export default {
       }
 
       if (this.bin.name == "SECCO") {
-        this.color = "#6b7280";
+        this.color = "#4b5563";
       } else if (this.bin.name == "CARTA") {
         this.color = "#166534";
       } else if (this.bin.name == "UMIDO") {
@@ -649,6 +653,7 @@ export default {
      * @param {number} day Giorno della settimana in numero da 1 a 7 (1 domenica, 7 sabato)
     */
     weekDay(day) {
+      console.log(`%c nDay finale (ritiro): ${day} `,`background-color: #259400`);
       let today = new Date();
       let nDay = today.getDay() + 1; //1 lunedì, 7 domenica perché in tempo locale in Italia il lunedì è il giorno 1
       let ritiro = today.setDate(today.getDate() + (day - nDay) % 7);
@@ -668,6 +673,7 @@ export default {
     async deleteBin() {
       this.isLoading = true;
       try {
+        this.color = "#ddd";
         this.bin = [];
         this.viewBinUser = [];
         this.userBin = JSON.parse(localStorage.getItem("BinUser"));
