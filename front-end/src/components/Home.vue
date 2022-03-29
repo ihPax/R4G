@@ -605,6 +605,14 @@ export default {
       let numDay = Number(this.dateToShow.getDay()) + 1; //oggi (o domani se fra le 12 e le 23) in versione inglese con inizio settimana a domenica, quindi nDay di domenica è 1
       console.log(`%c nDay iniziale (oggi): ${numDay} `,`background-color: #259400`);
       let nMonth = Number(this.dateToShow.getMonth()) + 1; //Gennaio sarebbe 0, quindi aggiungo 1
+      if (this.localBin.length == 2) {
+        this.bin.name = this.localBin[1].material;
+        this.weekDay(this.localBin[1].nDay);
+      } else {
+      let binToWithdraw = {
+        material: "",
+        nDay: "",
+      }
       for (let i = 1; i < this.localBin.length; i++) {
         //Si entra nel ciclo sotto solo per l'UMIDO, in quanto viene ritirato più d'una volta a settimana
         if (this.localBin.length > 2) {
@@ -629,14 +637,14 @@ export default {
           !isBinEmpty ? console.log(`%c Max: ${max}` + ` %c ` + `%c Cont: ${counter} `, `background-color: #d12e2e`,``, `background-color: #b57226`) : null;
           if (counter < max) {
             max = counter;
-            this.bin.name = bin.material;
-            this.weekDay(bin.nDay);
+            binToWithdraw.material = bin.material;
+            binToWithdraw.nDay = bin.nDay;
           }
           if (max == 0) {break;}
-        } else {
-          this.bin.name = this.localBin[1].material;
-          this.weekDay(this.localBin[1].nDay);
         }
+      }
+      this.bin.name = binToWithdraw.material;
+      this.weekDay(binToWithdraw.nDay);
       }
 
       if (this.bin.name == "SECCO") {
