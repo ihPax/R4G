@@ -8,7 +8,7 @@
   >
     <button
       @click="$router.go(-1)" :disabled="!isMobile"
-      class="disabled:cursor-auto w-full p-4 sm:px-6 flex justify-center items-center text-center border-b border-gray-200 bg-blue-50 xs:bg-white"
+      class="disabled:cursor-auto w-full px-4 py-3 sm:px-6 flex justify-center items-center text-center border-b border-gray-200 bg-blue-50 xs:bg-white"
     >
       <div class="block xs:hidden">
         <svg
@@ -66,13 +66,16 @@
         v-if="!filteredDescriptions.length"
         class="flex flex-col flex-grow mx-auto"
       >
-        <div class="m-4 font-medium text-gray-700"> Nessun tipo di rifiuto corrisponde alla tua ricerca 😟 </div>
-        <div class="flex-grow flex flex-col justify-center">
-          <a class="block p-4 hover:bg-yellow-50 xs:rounded" href="https://www.amiavr.it/Raccolta-differenziata/Il-nuovo-dizionario-dei-rifiuti" target="_blank"> 
-            Clicca qui per consultare il dizionario rifiuti di A.M.I.A. 
+        <div class="px-4 pt-0 pb-3 font-medium text-gray-700"> Nessun tipo di rifiuto trovato in base ai criteri di ricerca 😟 </div>
+        <div class="flex flex-col justify-center">
+          <a class="block px-4 sm:my-2 sm:rounded bg-blueGray-50 border border-blueGray-200" href="https://www.amiavr.it/Raccolta-differenziata/Il-nuovo-dizionario-dei-rifiuti" target="_blank"> 
+            <div class="py-3"> Clicca qui per consultare il dizionario rifiuti </div>
+            <div class="mx-auto w-56 sm:w-64 h-auto mb-3">
+              <img class="block w-full h-full" src="@/assets/dizionario_rifiuti_amia.jpg" alt="dizionario rifiuti A.M.I.A.">
+            </div>
           </a> 
-          <div @click="openLink(query, requireConfirm = false)" class="p-4 hover:bg-yellow-50 cursor-pointer  xs:rounded"> 
-            Vuoi cercare più informazioni su '<span class="italic font-medium">{{query}}</span>'?
+          <div @click="openLink(query, requireConfirm = false)" class="px-4 py-3 cursor-pointer sm:rounded"> 
+            Vuoi cercare più informazioni su '<span class="italic font-medium">{{truncatedQuery(query)}}</span>'?
           </div>
         </div>
       </div>
@@ -121,6 +124,11 @@ export default {
         );
       });
     },
+    truncatedQuery() {
+      return (query) => {
+        return query.length <= 20 ? query : query.substr(0, 20) + '...'
+        }
+      }
   },
   methods: {
     openLink(descr, requireConfirm) {

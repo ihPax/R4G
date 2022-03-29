@@ -602,12 +602,13 @@ export default {
         this.dateToShow = today;
       }
       let max = 6; //di seguito ripeterò il ciclo "while" al massimo 7 volte (come i giorni della settimana), da 0 (del contatore) a 6 
-      let nDay = Number(this.dateToShow.getDay()) + 1; //oggi in versione inglese con inizio settimana a domenica, quindi nDay di domenica è 1
-      console.log(`%c nDay iniziale (oggi): ${nDay} `,`background-color: #259400`);
+      let numDay = Number(this.dateToShow.getDay()) + 1; //oggi (o domani se fra le 12 e le 23) in versione inglese con inizio settimana a domenica, quindi nDay di domenica è 1
+      console.log(`%c nDay iniziale (oggi): ${numDay} `,`background-color: #259400`);
       let nMonth = Number(this.dateToShow.getMonth()) + 1; //Gennaio sarebbe 0, quindi aggiungo 1
       for (let i = 1; i < this.localBin.length; i++) {
         //Si entra nel ciclo sotto solo per l'UMIDO, in quanto viene ritirato più d'una volta a settimana
         if (this.localBin.length > 2) {
+          let nDay = numDay;
           let counter = 0;
           let bin = this.localBin[i];
           //↓ Fa in modo che il ritiro non sia preso in considerazione se è solo estivo ed il mese corrente non è uno di quelli estivi
@@ -630,8 +631,8 @@ export default {
             max = counter;
             this.bin.name = bin.material;
             this.weekDay(bin.nDay);
-            break;
           }
+          if (max == 0) {break;}
         } else {
           this.bin.name = this.localBin[1].material;
           this.weekDay(this.localBin[1].nDay);
@@ -755,6 +756,9 @@ export default {
       return formattedDate;
     },
   },
+  beforeUnmount() {
+    this.clearSetInterval();
+  }
 };
 </script>
 
