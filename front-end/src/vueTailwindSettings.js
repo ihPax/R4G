@@ -32,7 +32,7 @@ const vueTailwindSettings = {
                 body: 'p-3',
                 header: 'border-gray-100',
                 footer: 'bg-gray-100',
-                close: 'bg-gray-200 text-gray-700 hover:bg-gray-300 border border-gray-700',
+                close: 'bg-gray-100 text-gray-600 hover:bg-gray-200',
                 closeIcon: 'fill-current h-6 w-6',
                 overlayEnterClass: 'opacity-0',
                 overlayEnterActiveClass: 'transition ease-out duration-100',

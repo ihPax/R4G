@@ -606,8 +606,9 @@ export default {
       console.log(`%c nDay iniziale (oggi): ${numDay} `,`background-color: #259400`);
       let nMonth = Number(this.dateToShow.getMonth()) + 1; //Gennaio sarebbe 0, quindi aggiungo 1
       if (this.localBin.length == 2) {
-        this.bin.name = this.localBin[1].material;
-        this.weekDay(this.localBin[1].nDay);
+        let bin = this.localBin[1];
+        this.bin.name = bin.material;
+        this.weekDay(bin.nDay);
       } else {
       let binToWithdraw = {
         material: "",
@@ -663,9 +664,9 @@ export default {
     */
     weekDay(day) {
       console.log(`%c nDay finale (ritiro): ${day} `,`background-color: #259400`);
-      let today = new Date();
-      let nDay = today.getDay() + 1; //1 lunedì, 7 domenica perché in tempo locale in Italia il lunedì è il giorno 1
-      let ritiro = today.setDate(today.getDate() + (day - nDay) % 7);
+      let nDay = this.dateToShow.getDay() + 1; //1 lunedì, 7 domenica perché in tempo locale in Italia il lunedì è il giorno 1
+      let add7Or0 = Number(day) < Number(nDay) ? 7 : 0; //se il giorno di ritiro calcolato (day) è prima nella settimana del giorno di ritiro di quel tipo di rifiuto (ovvero è già passato), aggiunge 7 giorni; con l'umido non aggiunge mai 7 giorni perché viene calcolato meglio nel ciclo while.
+      let ritiro = this.dateToShow.setDate(this.dateToShow.getDate() + (day - nDay) % 7 + add7Or0);
       this.bin.day = new Date(ritiro);
     },
 
