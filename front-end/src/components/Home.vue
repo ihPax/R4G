@@ -8,7 +8,7 @@
         <div class="text-4xl font-bold mb-3 sm:mb-6 lg:mb-12">Ciao {{ user.name }}!</div>
         <div class="grid sm:grid-cols-2 gap-6">
           <div
-            class="flex flex-col-reverse lg:flex-row items-center justify-between shadow-inner rounded-lg border-2" :style="`border-color: ${color}`"
+            class="flex flex-col-reverse lg:flex-row items-center justify-between shadow-inner rounded-lg border-2" :style="`border-color: ${color}; background-color: ${color}`"
           >
             <div
               v-if="localBin == '' && !isLoading"
@@ -30,8 +30,8 @@
                 <ModalMaterial @exit="closeMaterialModal"></ModalMaterial>
               </t-modal>
               <div class="flex flex-col" v-if="localBin != '' && !isLoading">
-                <div class="flex flex-col py-4 justify-center">
-                  <div class="font-bold pl-4 text-lg" :style="`color: ${color}`">
+                <div class="flex flex-col py-4 justify-center text-white">
+                  <div class="font-bold pl-4 text-lg">
                     {{ bin.name }}
                   </div>
                   <div class="relative w-120">
@@ -43,7 +43,7 @@
                       viewPort="0 0 60 60"
                       version="1.1"
                       xmlns="http://www.w3.org/2000/svg"
-                      :style="`stroke:${color}`"
+                      stroke="black"
                     >
                       <circle
                         :r="r"
@@ -61,11 +61,11 @@
                         fill="transparent"
                         stroke-dasharray="235.26"
                         stroke-dashoffset="0"
-                        :style="`stroke-dashoffset: ${rct}px;stroke:${color}`"
+                        :style="`stroke-dashoffset: ${rct}px; stroke:black`"
                       ></circle>
                     </svg>
                     <div
-                      class="h3 absolute font-bold text-xl"
+                      class="h3 absolute font-bold text-xl text-black"
                       style="left: 50%; top: 50%; transform: translate(-50%, -50%)"
                     >
                       {{ value }}%
@@ -103,11 +103,10 @@
                 <button v-if="localBin != '' && !isLoading" @click="deleteBin()">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-12 w-12 rounded-full bg-white p-2 border-2 text-orangelogo transition duration-150 ease-out hover:bg-gray-100"
+                    class="h-12 w-12 rounded-full bg-white p-2 border-2 border-black text-orangelogo transition duration-150 ease-out hover:bg-gray-100"
                     fill="none"
                     viewBox="0 0 24 24"
-                    :stroke="color"
-                    :style="`border-color: ${color};`"
+                    stroke="black"
                   >
                     <path
                       stroke-linecap="round"
@@ -124,6 +123,7 @@
           <div
             v-for="index in 3"
             :key="index"
+            @click="changeBinStatus()"
             class="xs:hidden sm:flex flex-col-reverse lg:flex-row items-center justify-between shadow-inner rounded-lg text-center border-2"
           >
             <!-- Sopra tolgo momentaneamente la visualizzazione degli altri 3 cestini nel breakpoint sm -->
@@ -434,7 +434,7 @@ export default {
       access: "",
       user: {},
       rctProva: 564,
-      color: "#ddd",
+      color: "#fff",
       showModal: false,
       valueProva: 60,
       showModalMaterial: false,
@@ -537,7 +537,7 @@ export default {
       } 
       else if (this.viewBinUser.bin_id && this.user.zone_id) {
         this.$fire({
-          text: "Attualmente possediamo un solo cestino e non puoi aggiungerne altri :)",
+          text: "Attualmente possediamo un solo cestino e non puoi aggiungerne altri! 🙂",
           type: "warning",
           timer: 3000,
         });
@@ -649,13 +649,13 @@ export default {
       }
 
       if (this.bin.name == "SECCO") {
-        this.color = "#4b5563";
+        this.color = "rgba(75, 85, 99, 1)";
       } else if (this.bin.name == "CARTA") {
-        this.color = "#166534";
+        this.color = "rgba(22, 101, 52, 1)";
       } else if (this.bin.name == "UMIDO") {
-        this.color = "#854D0E";
+        this.color = "rgba(133, 77, 14, 1)";
       } else if (this.bin.name == "PLASTICA/LATTINE") {
-        this.color = "#1E3A8A";
+        this.color = "rgba(30, 58, 138, 1)";
       }
     },
 
@@ -683,7 +683,7 @@ export default {
     async deleteBin() {
       this.isLoading = true;
       try {
-        this.color = "#ddd";
+        this.color = "#fff";
         this.bin = [];
         this.viewBinUser = [];
         this.userBin = JSON.parse(localStorage.getItem("BinUser"));
