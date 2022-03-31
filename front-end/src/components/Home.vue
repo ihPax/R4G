@@ -665,8 +665,8 @@ export default {
     weekDay(day) {
       console.log(`%c nDay finale (ritiro): ${day} `,`background-color: #259400`);
       let nDay = this.dateToShow.getDay() + 1; //1 lunedì, 7 domenica perché in tempo locale in Italia il lunedì è il giorno 1
-      let add7Or0 = Number(day) < Number(nDay) ? 7 : 0; //se il giorno di ritiro calcolato (day) è prima nella settimana del giorno di ritiro di quel tipo di rifiuto (ovvero è già passato), aggiunge 7 giorni; con l'umido non aggiunge mai 7 giorni perché viene calcolato meglio nel ciclo while.
-      let ritiro = this.dateToShow.setDate(this.dateToShow.getDate() + (day - nDay) % 7 + add7Or0);
+      let add7Or0 = Number(day) < Number(nDay) ? 7 : 0; //se il giorno di ritiro calcolato (day) è prima nella settimana del giorno di ritiro di quel tipo di rifiuto (ovvero è già passato), aggiunge 7 giorni
+      let ritiro = this.dateToShow.setDate(this.dateToShow.getDate() + (day - nDay + add7Or0) % 7);
       this.bin.day = new Date(ritiro);
     },
 
