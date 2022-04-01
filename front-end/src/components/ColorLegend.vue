@@ -1,5 +1,5 @@
 <template>
-   <div class="flex flex-col overflow-auto">
+  <div class="flex flex-col overflow-auto">
     <div class="mb-2 font-semibold text-sm">Clicca per sapere cosa gettare in:</div>
     <button
       v-for="(item, index) in items"

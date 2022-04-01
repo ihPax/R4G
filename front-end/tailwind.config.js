@@ -314,7 +314,19 @@ module.exports = {
       full: "100%",
       screen: "100vh",
       "1/3": "33.333333%",
+      "1/2": "50%",
       "2/3": "66.666667%"
+    }),
+    translate: (theme, { negative }) => ({
+      ...theme("spacing"),
+      ...negative(theme("spacing")),
+      '1/4': '25%',
+      '1/2': '50%',
+    }),
+    position: theme => ({
+      ...theme("spacing"),
+      '1/4': '25%',
+      '1/2': '50%',
     }),
     inset: {
       "0": "0",

@@ -1,6 +1,22 @@
 [
-    {"name": "CARTA", "code": "CA"},
-    {"name": "PLASTICA/LATTINE", "code": "UM"},
-    {"name": "UMIDO", "code": "PL"},
-    {"name": "SECCO", "code": "SC"}
+    {
+        "name": "CARTA", 
+        "code": "CA",
+        "color": "#166534"
+    },
+    {
+        "name": "PLASTICA/LATTINE", 
+        "code": "UM",
+        "color": "#1E3A8A"
+    },
+    {
+        "name": "UMIDO", 
+        "code": "PL",
+        "color": "#854D0E"
+    },
+    {
+        "name": "SECCO", 
+        "code": "SC",
+        "color": "#4b5563"
+    }
 ]

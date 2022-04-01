@@ -1,12 +1,14 @@
 <template>
- <div class="flex flex-col overflow-auto">
-    <div
+  <div class="flex flex-col overflow-auto">
+    <button
       v-for="(materiale,index) in materiali"
       :key="index"
-      class="flex flex-row cursor-pointer bg-blue-50 hover:bg-blue-100 my-1 rounded"
+      class="flex flex-row my-1 rounded font-black text-white"
+      :style="`background-color: ${materiale.color}`"
+      @click="chooseMaterial(materiale)"
     >
-      <p class="w-full h-full p-3 font-medium" @click="chooseMaterial(materiale)">{{ materiale.name }}</p>
-    </div>
+      <div class="w-full h-full p-3 font-medium">{{ materiale.name }}</div>
+    </button>
   </div>
 </template>
 
@@ -15,7 +17,7 @@ import materiali from "../materiali.json";
 export default {
   data() {
     return {
-      materiali: materiali,
+      materiali,
       user: [],
       bin: []
     }

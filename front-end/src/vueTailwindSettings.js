@@ -18,7 +18,7 @@ const vueTailwindSettings = {
         props: {
             fixedClasses: {
                 overlay: 'z-40 left-0 top-0 bottom-0 right-0 w-full h-full fixed bg-opacity-60',
-                wrapper: 'relative mx-auto z-50 max-w-lg px-3 py-6 xs:py-12 justify-center items-center flex',
+                wrapper: 'relative max-w-lg mx-auto -z-50 justify-center items-center flex p-3',
                 modal: 'overflow-visible relative rounded',
                 body: 'p-3',
                 header: 'border-b border-black p-3 rounded-t font-bold',
@@ -27,7 +27,7 @@ const vueTailwindSettings = {
             },
             classes: {
                 overlay: 'bg-black',
-                wrapper: 'w-screen h-full',
+                wrapper: 'w-screen xs:w-auto h-full',
                 modal: 'bg-white w-9/10',
                 body: 'p-3',
                 header: 'border-gray-100',
