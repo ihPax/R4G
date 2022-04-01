@@ -72,7 +72,7 @@
                     </div>
                   </div>
                   <div class="font-semibold pl-4 text-lg">Prossimo ritiro:</div>
-                  <div class="font-normal pl-4">
+                  <div class="font-normal pl-4 capitalize">
                     {{ bin.day | date }}
                   </div>
                 </div>
@@ -189,7 +189,6 @@
                   <div class="truncate">
                     <div class="font-bold text-white text-2xl">
                       <div>
-                        <!-- {{i}}. -->
                         {{ bin.name }}
                       </div>
                       <div class="flex justify-between">
@@ -253,7 +252,7 @@
                     </div>
                   </div>
                   <div class="font-normal text-white">Prossimo ritiro:</div>
-                  <div class="flex flex-col font-bold text-white text-xl truncate">
+                  <div class="flex flex-col font-bold text-white text-xl truncate capitalize">
                     {{ bin.day | date }}
                   </div>
                   <div class="flex justify-end m-2">
@@ -710,58 +709,17 @@ export default {
   filters: {
     /** Ritorna il prossimo ritiro con la data nel formato appropriato */
     date: value => {
-      let day = value.getDay() - 1;
-      let nameDay = "";
-      if (day == 0) {
-        nameDay = "Lunedi";
-      } else if (day == 1) {
-        nameDay = "Martedì";
-      } else if (day == 2) {
-        nameDay = "Mercoledì";
-      } else if (day == 3) {
-        nameDay = "Giovedì";
-      } else if (day == 4) {
-        nameDay = "Venerdì";
-      } else if (day == 5) {
-        nameDay = "Sabato";
-      } else if (day == 6) {
-        nameDay = "Domenica";
-      }
-
-      let numDay = value.getDate();
-      let month = value.getMonth();
-      let nameMonth = "";
-      if (month == 0) {
-        nameMonth = "Gennaio";
-      } else if (month == 1) {
-        nameMonth = "Febbraio";
-      } else if (month == 2) {
-        nameMonth = "Marzo";
-      } else if (month == 3) {
-        nameMonth = "Aprile";
-      } else if (month == 4) {
-        nameMonth = "Maggio";
-      } else if (month == 5) {
-        nameMonth = "Giugno";
-      } else if (month == 6) {
-        nameMonth = "Luglio";
-      } else if (month == 7) {
-        nameMonth = "Agosto";
-      } else if (month == 8) {
-        nameMonth = "Settembre";
-      } else if (month == 9) {
-        nameMonth = "Ottobre";
-      } else if (month == 10) {
-        nameMonth = "Novembre";
-      } else if (month == 11) {
-        nameMonth = "Dicembre";
-      }
-
-      let year = value.getFullYear();
-
-      let formattedDate = nameDay + " " + numDay + " " + nameMonth + " " + year;
-      localStorage.setItem("WithdrawalDate", formattedDate);
-
+      const wDate = new Date(value);
+      wDate.setDate(wDate.getDate()+1); //+1 del giorno per poi formattare la data correttamente, ma la data in entrata (value) è uguale a quella in uscita (formattedDate)
+      const options = { 
+        weekday: 'long',
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+        timeZone: 'GMT' 
+      };
+      let formattedDate = wDate.toLocaleString("it-IT", options);
+      localStorage.getItem("WithdrawalDate") != formattedDate ? localStorage.setItem("WithdrawalDate", formattedDate) : null;
       return formattedDate;
     },
   },
