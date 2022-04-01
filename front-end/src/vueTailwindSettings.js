@@ -17,21 +17,21 @@ const vueTailwindSettings = {
       component: TModal,
         props: {
             fixedClasses: {
-                overlay: 'z-40 left-0 top-0 bottom-0 right-0 w-full h-full fixed bg-opacity-60',
-                wrapper: 'relative max-w-lg mx-auto -z-50 justify-center items-center flex p-3',
-                modal: 'overflow-visible relative rounded',
-                body: 'p-3',
-                header: 'border-b border-black p-3 rounded-t font-bold',
-                footer: 'p-3 rounded-b',
+                overlay: 'z-40 left-0 top-0 bottom-0 right-0 w-full h-full fixed bg-opacity-60 bg-black',
+                wrapper: 'relative max-w-sm mx-auto -z-50',
+                modal: 'bg-white overflow-visible relative rounded',
+                body: '',
+                header: 'border-b border-black rounded-t font-bold',
+                footer: 'rounded-b',
                 close: 'flex items-center justify-center rounded-full absolute right-0 top-0 -m-3 w-10 h-10 transition duration-100 ease-in-out focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50'
             },
             classes: {
-                overlay: 'bg-black',
-                wrapper: 'w-screen xs:w-auto h-full',
-                modal: 'bg-white w-9/10',
+                overlay: '',
+                wrapper: 'absolute top-1/4 left-0 translate-x-1/2 translate-y-1/2',
+                modal: 'mx-3',
                 body: 'p-3',
-                header: 'border-gray-100',
-                footer: 'bg-gray-100',
+                header: 'p-3 border-gray-100',
+                footer: 'p-3 bg-gray-100',
                 close: 'bg-gray-100 text-gray-600 hover:bg-gray-200',
                 closeIcon: 'fill-current h-6 w-6',
                 overlayEnterClass: 'opacity-0',
@@ -48,11 +48,20 @@ const vueTailwindSettings = {
                 leaveToClass: ''
             },
             variants: {
-                danger: {
-                    overlay: 'bg-red-100',
-                    header: 'border-red-50 text-red-700',
-                    modal: 'bg-white border border-red-100 shadow-lg',
-                    footer: 'bg-red-50'
+                card: {
+                    wrapper: 'flex justify-center items-center mt-3', 
+                    modal: 'w-9/10',
+                    body: 'p-2',
+                    header: 'p-2 border-gray-100',
+                    footer: 'p-2 bg-gray-100',
+                    close: 'bg-gray-100 text-gray-600 hover:bg-gray-200',
+                    closeIcon: 'fill-current h-6 w-6',
+                    overlayEnterClass: 'opacity-0',
+                    overlayEnterActiveClass: 'transition ease-out duration-100',
+                    overlayEnterToClass: 'opacity-100',
+                    overlayLeaveClass: 'opacity-100',
+                    overlayLeaveActiveClass: 'transition ease-in duration-75',
+                    overlayLeaveToClass: 'opacity-0',
                 }
             }
         }

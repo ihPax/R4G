@@ -376,6 +376,7 @@
                   v-model="showModalMaterial"
                   header="Scegli il materiale"
                   close="chiudi"
+                  variant="card"
                 >
                   <ModalMaterial @exit="closeMaterialModal"></ModalMaterial>
                 </t-modal>
