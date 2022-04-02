@@ -10,7 +10,7 @@ export default {
   created() {
     window.addEventListener("resize", this.currentWidth);
   },
-  destroyed() {
+  unmounted() {
     window.removeEventListener("resize", this.currentWidth);
   },
   data() {

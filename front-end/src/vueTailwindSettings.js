@@ -17,16 +17,16 @@ const vueTailwindSettings = {
       component: TModal,
         props: {
             fixedClasses: {
-                overlay: 'z-40 left-0 top-0 bottom-0 right-0 w-full h-full fixed bg-opacity-60 bg-black',
+                overlay: 'z-40 left-0 top-0 bottom-0 right-0 w-full h-full fixed bg-opacity-60',
                 wrapper: 'relative max-w-sm mx-auto -z-50',
                 modal: 'bg-white overflow-visible relative rounded',
                 body: '',
-                header: 'border-b border-black rounded-t font-bold',
+                header: 'border-b border-black rounded-t font-bold text-center',
                 footer: 'rounded-b',
                 close: 'flex items-center justify-center rounded-full absolute right-0 top-0 -m-3 w-10 h-10 transition duration-100 ease-in-out focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50'
             },
             classes: {
-                overlay: '',
+                overlay: 'bg-black',
                 wrapper: 'absolute top-1/4 left-0 translate-x-1/2 translate-y-1/2',
                 modal: 'mx-3',
                 body: 'p-3',
@@ -49,9 +49,9 @@ const vueTailwindSettings = {
             },
             variants: {
                 card: {
-                    wrapper: 'flex justify-center items-center mt-3', 
-                    modal: 'w-9/10',
-                    body: 'p-2',
+                    wrapper: 'flex justify-center items-center mt-4', 
+                    modal: 'w-2/3',
+                    body: 'px-2 py-1 space-x-2',
                     header: 'p-2 border-gray-100',
                     footer: 'p-2 bg-gray-100',
                     close: 'bg-gray-100 text-gray-600 hover:bg-gray-200',
