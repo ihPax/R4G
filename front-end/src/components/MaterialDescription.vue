@@ -107,14 +107,17 @@ export default {
   mounted() {
     this.material = this.$route.params.material;
     this.items = JSON.parse(localStorage.getItem("MaterialDescriptions"));
-    this.item = this.items.find(obj => {
+    let item = this.items.find(obj => {
       return obj.name.includes(this.material.toUpperCase())
-    });  
+    });
+    this.item = item ? item : this.items[3]; //se non trova nessun materiale con almeno una lettera del parametro, mostra il terzo della lista
+    let materialName = this.item.name.toLowerCase();
+    materialName != this.material ? this.material = materialName : null;
     this.descriptions = this.item.descriptions.sort((x, y) => y.isYes - x.isYes); //Ordino la lista in modo che ci siano sempre prima i "Sì"
   },
   computed: {
     filteredDescriptions() {
-      return this.descriptions.filter((obj) => {
+      return this.descriptions.filter(obj => {
         let descr = obj.descr.toLowerCase();
         let query = this.query.toLowerCase();
         return (
@@ -125,13 +128,14 @@ export default {
       });
     },
     truncatedQuery() {
-      return (query) => {
+      return query => {
         return query.length <= 20 ? query : query.substr(0, 20) + '...'
         }
       }
   },
   methods: {
     openLink(descr, requireConfirm) {
+      const url = `https://www.google.com/search?q=dove+buttare+${descr}`;
       if (requireConfirm) {
         this.$fire({
           html: `Vuoi cercare più informazioni su '<span class="italic font-medium">${descr}</span>'?`,
@@ -142,10 +146,10 @@ export default {
           reverseButtons: true,
           timer: 4000,
         }).then(r => {
-          r.value == true ? window.open(`https://www.google.com/search?q=dove+buttare+${descr}`, '_blank') : null;
+          r.value == true ? window.open(url, '_blank') : null;
         });
       } else {
-        window.open(`https://www.google.com/search?q=dove+buttare+${descr}`, '_blank')
+        window.open(url, '_blank');
       }
     }
   }

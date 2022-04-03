@@ -73,7 +73,7 @@
                   </div>
                   <div class="font-semibold pl-4 text-lg">Prossimo ritiro:</div>
                   <div class="font-normal pl-4 capitalize">
-                    {{ bin.day | date }}
+                    {{ withdrawalDate }}
                   </div>
                 </div>
               </div>
@@ -253,7 +253,7 @@
                   </div>
                   <div class="font-normal text-white">Prossimo ritiro:</div>
                   <div class="flex flex-col font-bold text-white text-xl truncate capitalize">
-                    {{ bin.day | date }}
+                    {{ withdrawalDate }}
                   </div>
                   <div class="flex justify-end m-2">
                     <button @click="deleteBin()" class="border border-black rounded-full z-10">
@@ -603,7 +603,7 @@ export default {
       }
       let max = 6; //di seguito ripeterò il ciclo "while" al massimo 7 volte (come i giorni della settimana), da 0 (del contatore) a 6 
       let numDay = Number(this.dateToShow.getDay()) + 1; //oggi (o domani se fra le 12 e le 23) in versione inglese con inizio settimana a domenica, quindi nDay di domenica è 1
-      console.log(`%c nDay iniziale (oggi): ${numDay} `,`background-color: #259400`);
+      console.log(`%c Giorno iniziale (oggi o domani): ${numDay} `,`background-color: #259400`);
       let nMonth = Number(this.dateToShow.getMonth()) + 1; //Gennaio sarebbe 0, quindi aggiungo 1
       if (this.localBin.length == 2) {
         let bin = this.localBin[1];
@@ -630,7 +630,7 @@ export default {
             } else {
               nDay = nDay % 7 + 1; //all'ultimo giorno della settimana, riparte da 1, ovvero dal primo giorno della settimana
               counter = counter + 1;
-              console.log(` Contatore: ${counter} ••• Bin nDay: ${bin.nDay} ••• nDay: ${nDay} `);
+              console.log(` Contatore: ${counter} ••• Giorno ritiro: ${bin.nDay} ••• Giorno: ${nDay} `);
               if (counter > 10) {break;} //per evitare freeze nel caso il ciclo, per un errore, fosse infinito
             }
           }
@@ -663,7 +663,7 @@ export default {
      * @param {number} day Giorno della settimana in numero da 1 a 7 (1 domenica, 7 sabato)
     */
     weekDay(day) {
-      console.log(`%c nDay finale (ritiro): ${day} `,`background-color: #259400`);
+      console.log(`%c Giorno finale (di ritiro): ${day} `,`background-color: #259400`);
       let nDay = this.dateToShow.getDay() + 1; //1 lunedì, 7 domenica perché in tempo locale in Italia il lunedì è il giorno 1
       let add7Or0 = Number(day) < Number(nDay) ? 7 : 0; //se il giorno di ritiro calcolato (day) è prima nella settimana del giorno di ritiro di quel tipo di rifiuto (ovvero è già passato), aggiunge 7 giorni
       let ritiro = this.dateToShow.setDate(this.dateToShow.getDate() + (day - nDay + add7Or0) % 7);
@@ -707,10 +707,10 @@ export default {
       clearInterval(this.idInterval);
     }
   },
-  filters: {
+  computed: {
     /** Ritorna il prossimo ritiro con la data nel formato appropriato */
-    date: value => {
-      const wDate = new Date(value);
+    withdrawalDate() {
+      const wDate = new Date(this.bin.day);
       wDate.setDate(wDate.getDate()+1); //+1 del giorno per poi formattare la data correttamente, ma la data in entrata (value) è uguale a quella in uscita (formattedDate)
       const options = { 
         weekday: 'long',

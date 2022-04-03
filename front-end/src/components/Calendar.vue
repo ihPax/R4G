@@ -2,7 +2,7 @@
   <div class="text-center section">
     <h2 class="flex justify-center font-bold text-lg">
       <div v-if="isExpanded" class="flex-grow py-4 border-b border-gray-200 xs:border-b-0 bg-blue-50 xs:bg-white font-medium xs:font-bold text-xl"> 
-        Calendario <span v-if="isZoneSettled">zona di {{calendars.name}}</span> 
+        Calendario <span v-if="isZoneSettled">zona di {{zone.name}}</span> 
       </div>
     </h2>
     <div v-if="isExpanded" class="text-xs sm:text-sm mx-auto max-w-4xl my-2"> 
@@ -28,7 +28,7 @@
       :min-date="new Date()"
     >
       <template v-slot:day-content="{ day, attributes }">
-        <div v-if="isZoneSettled" class="flex flex-col h-full z-10 overflow-hidden" :class="isMobile || !isExpanded ? 'cursor-pointer' : null" @click="isMobile || !isExpanded ? switchColorLegend(true) : null">
+        <div v-if="isZoneSettled" class="flex flex-col h-full z-10 overflow-hidden" :class="isMobile || !isExpanded ? 'cursor-pointer' : null" @click="isMobile || !isExpanded ? switchColorLegend() : null">
           <div v-for="(attr, index) in attributes" :key="index"
             class="day-label mx-auto px-1"
             :class="{
@@ -50,9 +50,9 @@
                 :class="isExpanded ? 
                 attr.customData.class + ' mt-1 mb-3 w-4 h-4 mx-auto rounded-full sm:text-xs sm:leading-tight sm:rounded sm:p-2 sm:mx-1 sm:text-white sm:w-auto sm:h-auto cursor-pointer' : 
                 attr.customData.class + ' mt-0 w-3 h-3 mx-auto rounded-full cursor-pointer'"
-                @click="!isMobile && isExpanded && attr.customData.class != null ? showMaterial(attr.customData.title) : null"
+                @click="!isMobile && isExpanded && attr.customData.material != null ? showMaterial(attr.customData.material) : null"
               >
-                <div class="hidden sm:block">{{ isExpanded ? attr.customData.title : "" }}</div> 
+                <div class="hidden sm:block">{{ isExpanded ? attr.customData.material : "" }}</div> 
               </div>
             </div>
           </div>
@@ -70,12 +70,12 @@
     </v-calendar>
     <div v-if="isExpanded" class="flex flex-col items-center xs:mt-4 mb-20 xs:mb-4">
       <t-modal v-model="showModal" header="Scegli la tua zona" close="chiudi">
-        <Modal @exit="switchModal(false)" @catch-error="catchErr" :isMobile="isMobile"></Modal>
+        <Modal @exit="switchModal(true)" @catch-error="catchErr" :isMobile="isMobile"></Modal>
       </t-modal>
-      <t-button @click="switchModal(true)" type="button"> Cambia la zona </t-button>
+      <t-button @click="switchModal(false)" type="button"> Cambia la zona </t-button>
     </div>
     <t-modal v-model="showColorLegend" header="Legenda colori" close="chiudi">
-      <ColorLegend @exit="switchColorLegend(false)" @catch-error="catchErr" :isMobile="isMobile" :isExpanded="isExpanded"></ColorLegend>
+      <ColorLegend @exit="switchColorLegend()" @catch-error="catchErr" :isMobile="isMobile" :isExpanded="isExpanded"></ColorLegend>
     </t-modal>
   </div>
 </template>
@@ -105,7 +105,7 @@ export default {
       masks: {
         weekdays: "WWW",
       },
-      calendars: {},
+      zone: {},
       attributes: [],
       showModal: false,
       isZoneSettled: false,
@@ -143,33 +143,36 @@ export default {
       let zone = JSON.parse(localStorage.getItem("Zone"));
       if (zone) {
         this.isZoneSettled = true;
-        this.calendars = zone;
+        this.zone = zone;
         this.calendar();
       }
     },
     showMaterial(materialUpper) {
       let material = materialUpper.toLowerCase();
-      this.$router.push({name: "material-description", params: {material}});
+      this.$router.push({
+        name: "material-description",
+        params: { material }
+      });
     },
     calendar() {
-      for (let i = 0; i < this.calendars.calendars.length; i++) {
+      this.zone.calendars.forEach(calendar => {
         this.attributes.push({
           customData: {
-            title: this.calendars.calendars[i].material,
-            class: this.calendars.calendars[i].class,
-            isOnlySummer: this.calendars.calendars[i].isOnlySummer,
+            material: calendar.material,
+            class: calendar.class,
+            isOnlySummer: calendar.isOnlySummer,
           },
-          dates: { monthlyInterval: 1, weekdays: this.calendars.calendars[i].nDay } //'monthlyInterval: 1' significa 'ogni mese'
+          dates: { monthlyInterval: 1, weekdays: calendar.nDay } //'monthlyInterval: 1' significa 'ogni mese'
         });
-      }
+      });
     },
     /**
-     * Determina se la finestra di dialogo è aperta e va chiusa viceversa. Alla chiusura esegue altre operazioni.
-     * @param isOpening {boolean} Vero se il click è per aprire la finestra, falso altrimenti.
+     * Determina se la finestra di dialogo è aperta e va chiusa o viceversa. Alla chiusura esegue altre operazioni.
+     * @param needReset {boolean} Se vero perché cambia la zona (di solito alla chiusura della finestra modale), resetta gli attributi e li ricalcola.
      */
-    switchModal(isOpening) {
+    switchModal(needReset) {
       this.showModal = !this.showModal;
-      if (isOpening == false) {
+      if (needReset == true) {
         this.attributes = [];
         this.getZone();
       }
@@ -179,7 +182,7 @@ export default {
     },
     catchErr(e) {
       this.$emit('catch-error', e);
-      this.switchModal('false');
+      this.switchModal(true);
     }
   },
 };

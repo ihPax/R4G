@@ -38,7 +38,10 @@ export default {
     },
     showDescription(materialUpper) {
       let material = materialUpper.toLowerCase();
-      this.$router.push({name: "material-description", params: {material}});
+      this.$router.push({
+        name: "material-description",
+        params: { material }
+      });
     },
   },
 };
