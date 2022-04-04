@@ -21,15 +21,15 @@
                 Condividi il tuo feedback
             </h3>
         </button>
-        <div v-if="!isFeedbackSent" class="max-w-lg mx-auto">
-            <div class="flex flex-col justify-center py-4 mx-2 max-w-screen-md" v-for="field in fields" :key="field.code">
+        <div v-if="!isFeedbackSent" class="max-w-lg mx-auto space-y-4 mt-4 sm:space-y-6 sm:mt-6">
+            <div class="flex flex-col justify-center items-center mx-2 max-w-screen-md" v-for="field in fields" :key="field.code">
                 <input v-if="field.type == 'text' || field.type == 'password' || field.type == 'date'"
                   :type="field.type"
                   :placeholder="field.label"
                   :name="field.code"
                   :autocomplete="field.code"
                   v-model="newFeedback[field.code]"
-                  class="border-2 px-2 rounded-lg w-full bg-white outline-none"
+                  class="border-2 px-2 py-1 rounded-lg w-full bg-white outline-none"
                   :class="{
                     'border-red-600': !isFormValid && !newFeedback[field.code],
                     'border-yellow-500': newFeedback[field.code]
@@ -37,7 +37,7 @@
                 />
                 <select
                   v-if="field.type == 'select'"
-                  class="border-2 px-2 rounded-lg w-full bg-white outline-none"
+                  class="border-2 px-2 py-1 rounded-lg w-full bg-white outline-none"
                   :class="{
                     'border-red-600': !isFormValid && !newFeedback[field.code],
                     'border-yellow-500': newFeedback[field.code]
@@ -59,14 +59,14 @@
                 <textarea v-if="field.type == 'textarea'"
                     v-model="newFeedback[field.code]"
                     :placeholder="field.label"
-                    class="border-2 px-2 rounded-lg w-full bg-white outline-none"
+                    class="border-2 px-2 py-1 rounded-lg w-full bg-white outline-none"
                     :class="{
                         'border-red-600': !isFormValid && !newFeedback[field.code],
                         'border-yellow-500': newFeedback[field.code]
                     }"
                     :id="field.code"
                     cols="30"
-                    rows="8"
+                    :rows="isMobile? '8' : '10'"
                     :keydown="liveCountDown(newFeedback[field.code])"
                     :maxlength="textAreaFeedback.maxCharacters"
                 >
@@ -78,7 +78,7 @@
                     Caratteri rimasti: {{textAreaFeedback.maxCharacters - textAreaFeedback.messageLength}}
                 </div>
             </div>
-            <div class="flex justify-center my-8">
+            <div class="flex justify-center pb-4">
                 <t-button2
                     @click="sendEmail()"
                     :disabled="!isFormValid"

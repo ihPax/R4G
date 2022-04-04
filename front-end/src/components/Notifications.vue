@@ -24,8 +24,7 @@
         <div class="px-4">
             <div class="py-4">
                 <div v-if="withdrawalDate">
-                    <p>Il prossimo ritiro è il giorno: <span class="font-medium capitalize">{{withdrawalDate}}</span>.</p>
-                    <p>Il materiale ritirato è: <span class="font-medium">{{binName}}</span>.</p>
+                    <p>Il prossimo ritiro di <span class="font-medium">{{binName}}</span> è il giorno <span class="font-medium capitalize">{{withdrawalDate}}</span>.</p>
                 </div>
                 <div v-else>Non è collegato alcun cestino oppure non è in programma alcun ritiro.</div>
             </div>
