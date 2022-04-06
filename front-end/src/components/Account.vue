@@ -12,8 +12,7 @@
     "
   >
     <div v-if="isLoading"
-      class="fixed text-red-400 font-bold text-2xl z-10"
-      style="top: 50%; left: 50%; transform: translate(-50%, -50%)"
+      class="fixed text-red-400 font-bold text-2xl z-10 bottom-1/2 right-1/2 transform translate-x-1/2 translate-y-1/2"
     >
       <Loading></Loading>
     </div>
@@ -47,7 +46,7 @@
                   :name="field.autocomplete"
                   :autocomplete="field.autocomplete"
                   v-model="field.code"
-                  class="border-2 border-yellow-500 px-2 rounded-lg w-full bg-white outline-none py-1"
+                  class="border-2 border-yellow-500 px-2 rounded-lg w-full bg-white outline-none py-1 h-8"
                   :class="field.type == 'password' ? 'relative' : null"
                 />
                 <span v-if="field.isPasswordHidden == true" @click="toggleVisibility(field, 'text')" class="absolute -ml-8 cursor-pointer inline-block p-1">
@@ -64,7 +63,7 @@
                 </span>
                 <select
                   v-if="field.type == 'select'"
-                  class="border-2 border-yellow-500 px-2 rounded-lg w-full bg-white outline-none py-1"
+                  class="border-2 border-yellow-500 px-2 rounded-lg w-full bg-white outline-none py-1 h-8"
                   :name="field.autocomplete"
                   :id="field.type"
                   v-model="field.code"

@@ -34,12 +34,10 @@
                   <div class="font-bold pl-4 text-lg">
                     {{ bin.name }}
                   </div>
-                  <div class="relative w-120">
+                  <div class="relative w-30">
                     <!-- svg desktop -->
                     <svg
-                      id="svg"
-                      width="120"
-                      height="120"
+                      class="transform -rotate-90 h-30 w-30 svgBin"
                       viewPort="0 0 60 60"
                       version="1.1"
                       xmlns="http://www.w3.org/2000/svg"
@@ -61,12 +59,11 @@
                         fill="transparent"
                         stroke-dasharray="235.26"
                         stroke-dashoffset="0"
-                        :style="`stroke-dashoffset: ${rct}px; stroke:black`"
+                        :style="`stroke-dashoffset: ${rct}px; stroke:#000`"
                       ></circle>
                     </svg>
                     <div
-                      class="h3 absolute font-bold text-xl text-black"
-                      style="left: 50%; top: 50%; transform: translate(-50%, -50%)"
+                      class="h3 absolute font-bold text-xl text-black bottom-1/2 right-1/2 transform translate-x-1/2 translate-y-1/2"
                     >
                       {{ value }}%
                     </div>
@@ -214,9 +211,7 @@
                         />
                         <div class="relative -mt-2">
                           <svg
-                            id="svg"
-                            width="120"
-                            height="120"
+                            class="transform -rotate-90 h-30 w-30 svgBin"
                             viewPort="0 0 60 60"
                             version="1.1"
                             xmlns="http://www.w3.org/2000/svg"
@@ -239,11 +234,11 @@
                               fill="transparent"
                               stroke-dasharray="235.26"
                               stroke-dashoffset="0"
-                              :style="`stroke-dashoffset: ${rct}px;stroke:#000`"
+                              :style="`stroke-dashoffset: ${rct}px; stroke:#000`"
                             ></circle>
                           </svg>
                           <div
-                            class="h3 absolute font-bold text-xl z-10 text-black percentCenter"
+                            class="h3 absolute font-bold text-xl z-10 text-black bottom-1/2 right-1/2 transform translate-x-1/2 translate-y-1/2"
                           >
                             {{ value }}%
                           </div>
@@ -296,15 +291,13 @@
                         <div class="flex justify-between">
                           <img src="../assets/carta.png" class="h-24 flex-shrink-0" />
 
-                          <div class="relative -mt-2 w-120">
+                          <div class="relative -mt-2 w-30">
                             <svg
-                              id="svg"
-                              width="120"
-                              height="120"
+                              class="transform -rotate-90 h-30 w-30 svgBin"
                               viewPort="0 0 60 60"
                               version="1.1"
                               xmlns="http://www.w3.org/2000/svg"
-                              :style="`stroke:#000`"
+                              stroke="#000"
                             >
                               <circle
                                 :r="r"
@@ -322,11 +315,11 @@
                                 fill="transparent"
                                 stroke-dasharray="235.26"
                                 stroke-dashoffset="0"
-                                :style="`stroke-dashoffset: ${rctProva}px;stroke:#000`"
+                                :style="`stroke-dashoffset: ${rctProva}px; stroke:#000`"
                               ></circle>
                             </svg>
                             <div
-                              class="h3 absolute font-bold text-xl z-10 text-black percentCenter"
+                              class="h3 absolute font-bold text-xl z-10 text-black bottom-1/2 right-1/2 transform translate-x-1/2 translate-y-1/2"
                             >
                               {{ valueProva }}%
                             </div>
@@ -339,10 +332,10 @@
                       Lunedì 21 Marzo 2022
                     </div>
                     <div class="flex justify-end m-2">
-                      <button class="border border-black rounded-full z-10">
+                      <div class="border border-black rounded-full z-10">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          class="h-12 w-12 rounded-full bg-white p-2 hover:bg-gray-100"
+                          class="h-12 w-12 rounded-full bg-white p-2"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
@@ -354,7 +347,7 @@
                             d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                           />
                         </svg>
-                      </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -731,25 +724,10 @@ export default {
 </script>
 
 <style>
-#svg circle {
+.svgBin circle {
   transition: stroke-dashoffset 1.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   stroke: #cfcfcf;
   border: 20px solid black;
   stroke-width: 8;
-}
-
-.w-120 {
-  width: 120px;
-  height: 120px;
-}
-
-#svg {
-  transform: rotate(-90deg);
-}
-
-.percentCenter {
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
 }
 </style>

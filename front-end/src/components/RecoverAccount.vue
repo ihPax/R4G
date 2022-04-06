@@ -89,8 +89,7 @@
             </form>
         </div>
         <div v-if="isLoading"
-            class="fixed text-red-400 font-bold text-2xl z-10"
-            style="top: 50%; left: 50%; transform: translate(-50%, -50%)"
+            class="fixed text-red-400 font-bold text-2xl z-10 bottom-1/2 right-1/2 transform translate-x-1/2 translate-y-1/2"
         >
             <Loading></Loading>
         </div>

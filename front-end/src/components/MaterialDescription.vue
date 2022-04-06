@@ -27,8 +27,7 @@
       <h3 :class="`text-xl leading-6 font-medium text-${material}`">
         Cosa getto?
         <span
-          :style="`background-color: ${item.color}`"
-          class="inline-block py-1 px-2 font-semibold text-white rounded"
+          :class="`inline-block py-1 px-2 font-semibold text-white rounded bg-${material}`"
         >
           {{ item.name }}
         </span>
@@ -42,7 +41,7 @@
         class="flex-grow px-3 py-2 border-2 rounded outline-none focus:bg-blueGray-50"
         :class="`text-${material} border-${material} placeholder-${material} placeholder-opacity-70 font-medium`"
       />
-      <svg v-if="query != ''" @click="query = ''" class="h-8 w-8 absolute right-0 mr-6 cursor-pointer" :style="`color: ${item.color}`" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <svg v-if="query != ''" @click="query = ''" :class="`h-8 w-8 absolute right-0 mr-6 cursor-pointer text-${material} bg-blueGray-50 rounded-full`" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
       </svg>
     </div>

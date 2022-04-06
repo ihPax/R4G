@@ -167,6 +167,7 @@ module.exports = {
       "16": "4rem",
       "20": "5rem",
       "24": "6rem",
+      "30": "7.5rem",
       "32": "8rem",
       "40": "10rem",
       "48": "12rem",
@@ -179,6 +180,12 @@ module.exports = {
       "128": "32rem",
       "160": "40rem",
       "192": "48rem"
+    },
+    angles: {
+      "0": "0",
+      "45": "45deg",
+      "90": "90deg",
+      "180": "180deg",
     },
     backgroundColor: theme => ({
       ...theme("colors"),
@@ -322,6 +329,11 @@ module.exports = {
       ...negative(theme("spacing")),
       '1/4': '25%',
       '1/2': '50%',
+      full: "100%",
+    }),
+    rotate: (theme, { negative }) => ({
+      ...theme("angles"),
+      ...negative(theme("angles")),
     }),
     inset: theme => ({
       ...theme("spacing"),

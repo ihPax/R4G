@@ -29,7 +29,7 @@
                   :name="field.code"
                   :autocomplete="field.code"
                   v-model="newFeedback[field.code]"
-                  class="border-2 px-2 py-1 rounded-lg w-full bg-white outline-none"
+                  class="border-2 px-2 h-8 rounded-lg w-full bg-white outline-none"
                   :class="{
                     'border-red-600': !isFormValid && !newFeedback[field.code],
                     'border-yellow-500': newFeedback[field.code]
@@ -37,7 +37,7 @@
                 />
                 <select
                   v-if="field.type == 'select'"
-                  class="border-2 px-2 py-1 rounded-lg w-full bg-white outline-none"
+                  class="border-2 px-2 h-8 rounded-lg w-full bg-white outline-none"
                   :class="{
                     'border-red-600': !isFormValid && !newFeedback[field.code],
                     'border-yellow-500': newFeedback[field.code]
@@ -134,7 +134,7 @@ export default {
                 }
             ],
             newFeedback: {
-                to_name: "",
+                from_name: "",
                 zone: "",
                 message: "",
                 email:"",
