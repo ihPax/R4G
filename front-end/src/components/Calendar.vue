@@ -14,7 +14,7 @@
       </div>
     </h2>
     <div v-if="isExpanded" class="text-sm mx-auto max-w-4xl my-2"> 
-      <button v-if="read != null || !isMobile" @click="switchRead()" class="flex flex-col p-2 mx-auto bg-blue-50 border border-blue-300 sm:rounded" :class="read == false ? 'rounded' : 'pb-0'">
+      <button v-if="read != null || !isMobile" @click="read = read == null ? true : !read" class="flex flex-col p-2 mx-auto bg-blue-50 border border-blue-300 sm:rounded" :class="read == false || !isMobile ? 'rounded' : 'pb-0'">
         <div v-if="read == false || read == null && !isMobile" class="flex items-center">
           <div class="font-medium ml-0.5 sm:text-base"> Clicca qui per info<span v-if="!isMobile">rmazioni</span> sugli orari di ritiro </div>
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -124,7 +124,6 @@ export default {
       showColorLegend: false,
       pickUpDay: 0,
       read: null,
-      user: {}
     };
   },
   mounted() {
@@ -196,9 +195,6 @@ export default {
     catchErr(e) {
       this.$emit('catch-error', e);
       this.switchModal(true);
-    },
-    switchRead() {
-      this.read = this.read == null ? true : !this.read;
     }
   },
 };
