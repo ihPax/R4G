@@ -1,10 +1,10 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
-    content: [
-      './src/components/**/*.{js,jsx}',
-      './public/index.html'
-    ],
+  content: [
+    './src/components/**/*.{js,jsx}',
+    './public/index.html'
+  ],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     screens: {
@@ -508,6 +508,16 @@ module.exports = {
       "30": "30",
       "40": "40",
       "50": "50"
+    },
+    extend: {
+      animation: {
+        'pulse-short': 'pulse 2s ease-in-out 5',
+        'bounce-short': 'bounce 2s ease-in-out 5',
+        'ping-short': 'ping 2s ease-in-out 5',
+        'pulse-fast': 'pulse 1s ease-in-out 10',
+        'bounce-fast': 'bounce 1s ease-in-out 10',
+        'ping-fast': 'ping 1s ease-in-out 10',
+      }
     }
   },
   variants: {

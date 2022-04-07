@@ -1,7 +1,7 @@
 <template>
     <transition name="fade">
-      <button id="pagetop" 
-        class="animate-bounce xs:animate-none z-20 fixed right-0 bottom-0 w-12 h-12 rounded-full bg-orangelogo opacity-80 hover:opacity-95 flex justify-center items-center mr-4 shadow-md transition duration-300 ease-in-out" v-show="scY > 300" @click="toTop()"
+      <button v-show="scY > 300" @click="toTop()" id="pagetop" 
+        class="animate-bounce-fast xs:animate-none z-20 fixed right-0 bottom-0 w-12 h-12 rounded-full bg-orangelogo opacity-80 hover:opacity-95 flex justify-center items-center mr-4 shadow-md transition duration-300 ease-in-out"
         :class="isDashboard ? 'mb-16' : 'mb-4'"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#fff">
@@ -21,6 +21,7 @@ export default {
   },
   data() {
     return {
+      scTimer: 0,
       scY: 0,
     };
   },
@@ -32,9 +33,11 @@ export default {
   },
   methods: {
     handleScroll() {
-      let scTimer = setTimeout(() => {
+      if (this.scTimer) return;
+      this.scTimer = setTimeout(() => {
         this.scY = window.scrollY;
-        clearTimeout(scTimer);
+        clearTimeout(this.scTimer);
+        this.scTimer = 0;
       }, 100);
     },
     toTop() {
