@@ -138,14 +138,14 @@
 
       <div class="flex flex-col flex-grow lg:border-l-2 border-black">
         <div class="flex flex-row border-black border-b-2 pb-12 justify-center">
-          <div v-if="!user.zone_id">
+          <div v-if="!user.zone_id" class="pt-12 px-4">
             <t-modal v-model="showModal" header="Scegli la tua zona" close="chiudi">
               <Modal @exit="closeModal"></Modal>
             </t-modal>
             <t-button @click="showModalTrue()" type="button">Scegli la tua zona</t-button>
           </div>
-          <div v-if="user.zone_id">
-            <Calendar :is-expanded="false" :isMobile="isMobile"></Calendar>
+          <div v-if="user.zone_id" class="max-w-xs">
+            <Calendar :isExpanded="false" :isMobile="isMobile"></Calendar>
           </div>
         </div>
       </div>

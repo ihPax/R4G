@@ -1,21 +1,21 @@
 <template>
   <div class="text-center section">
     <h2 class="flex justify-center font-bold text-lg">
-      <div v-if="isExpanded" @click="read = read == null ? false : null" class="flex-grow pt-4 border-b border-gray-200 xs:border-b-0 bg-blue-50 xs:bg-white font-medium xs:font-bold text-xl cursor-pointer"> 
-        Calendario <span v-if="isZoneSettled">zona di {{zone.name}}</span> 
+      <div v-if="isExpanded || !isExpanded && !isMobile" @click="read = read == null ? false : null" class="flex-grow pt-4 border-b border-gray-200 xs:border-b-0 bg-blue-50 xs:bg-white font-medium xs:font-bold text-xl cursor-pointer"> 
+        Calendario <span v-if="isZoneSettled && isExpanded">zona di {{zone.name}}</span> 
         <button type="button" class="block mx-auto">
-          <svg v-if="read == null && isMobile" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" :class="!isZoneSettled ? 'animate-bounce-short' : 'animate-pulse-short'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+          <svg v-if="read == null" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" :class="!isZoneSettled ? 'animate-bounce-short' : 'animate-pulse-short'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
             <path stroke-linecap="round" stroke-linejoin="round" d="M19 13l-7 7-7-7m14-8l-7 7-7-7" />
           </svg>
-          <svg v-if="read != null && isMobile" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" :class="!isZoneSettled ? 'animate-bounce-short' : 'animate-pulse-short'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+          <svg v-if="read != null" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" :class="!isZoneSettled ? 'animate-bounce-short' : 'animate-pulse-short'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 11l7-7 7 7M5 19l7-7 7 7" />
           </svg>
         </button>
       </div>
     </h2>
-    <div v-if="isExpanded" class="text-sm mx-auto max-w-4xl my-2"> 
-      <button v-if="read != null || !isMobile" @click="read = read == null ? true : !read" class="flex flex-col p-2 mx-auto bg-blue-50 border border-blue-300 sm:rounded" :class="read == false || !isMobile ? 'rounded' : 'pb-0'">
-        <div v-if="read == false || read == null && !isMobile" class="flex items-center">
+    <div v-if="isExpanded || !isExpanded && !isMobile" class="text-sm mx-auto max-w-4xl my-2"> 
+      <button v-if="read != null" @click="read = read == null ? true : !read" class="flex flex-col p-2 mx-auto bg-blue-50 border border-blue-300 sm:rounded" :class="read == false || !isMobile ? 'rounded' : 'pb-0'">
+        <div v-if="read == false" class="flex items-center">
           <div class="font-medium ml-0.5 sm:text-base"> Clicca qui per info<span v-if="!isMobile">rmazioni</span> sugli orari di ritiro </div>
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
@@ -29,8 +29,8 @@
         </div> 
       </button>
     </div>
-    <div v-if="read == false && (isMobile && isExpanded || !isMobile && !isExpanded) && isZoneSettled" class="my-1 px-2 font-medium text-sm"> Clicca sul calendario per la legenda colori </div>
-    <div v-if="!isMobile && isExpanded && isZoneSettled" class="sm:py-2 text-sm sm:text-base font-medium"> Clicca sui bottoni colorati per vedere che tipo di rifiuti vanno gettati in quel cestino </div>
+    <div v-if="(read == false && (isMobile && isExpanded || !isMobile && !isExpanded)) && isZoneSettled" class="my-1 px-2 font-medium text-sm sm:text-base"> Clicca sul calendario per la legenda colori </div>
+    <div v-if="(read == false && (!isMobile && isExpanded || !isMobile && isExpanded)) && isZoneSettled" class="sm:py-2 text-sm sm:text-base font-medium"> Clicca sui bottoni colorati per vedere che tipo di rifiuti vanno gettati in quel cestino </div>
     <v-calendar
       ref="calendar"
       class="custom-calendar max-w-full"
