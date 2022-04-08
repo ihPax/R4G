@@ -8,7 +8,7 @@
         <div class="text-4xl font-bold mb-3 sm:mb-6 lg:mb-12">Ciao {{ user.name }}!</div>
         <div class="grid sm:grid-cols-2 gap-6">
           <div
-            class="flex flex-col-reverse lg:flex-row items-center justify-between shadow-inner rounded-lg border-2" :style="`border-color: ${color}; background-color: ${color}`"
+            class="flex flex-col-reverse lg:flex-row items-center shadow-inner rounded-lg border-2" :class="localBin == '' && !isLoading ? null : 'justify-between'" :style="`border-color: ${color}; background-color: ${color}`"
           >
             <div
               v-if="localBin == '' && !isLoading"

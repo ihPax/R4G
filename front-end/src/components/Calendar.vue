@@ -4,10 +4,10 @@
       <div v-if="isExpanded || !isExpanded && !isMobile" @click="read = read == null ? false : null" class="flex-grow pt-4 border-b border-gray-200 xs:border-b-0 bg-blue-50 xs:bg-white font-medium xs:font-bold text-xl cursor-pointer"> 
         Calendario <span v-if="isZoneSettled && isExpanded">zona di {{zone.name}}</span> 
         <button type="button" class="block mx-auto">
-          <svg v-if="read == null" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" :class="!isZoneSettled ? 'animate-bounce-short' : 'animate-pulse-short'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+          <svg v-if="read == null" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" :class="!isZoneSettled ? 'animate-bounce-short' : 'animate-pulse-down'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M19 13l-7 7-7-7m14-8l-7 7-7-7" />
           </svg>
-          <svg v-if="read != null" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" :class="!isZoneSettled ? 'animate-bounce-short' : 'animate-pulse-short'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+          <svg v-if="read != null" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" :class="!isZoneSettled ? 'animate-bounce-short' : 'animate-pulse-up'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 11l7-7 7 7M5 19l7-7 7 7" />
           </svg>
         </button>

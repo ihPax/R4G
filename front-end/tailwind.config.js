@@ -518,6 +518,14 @@ module.exports = {
         'pulse-fast': 'pulse 1s ease-in-out 10',
         'bounce-fast': 'bounce 1s ease-in-out 10',
         'ping-fast': 'ping 1s ease-in-out 10',
+        'ping2-small': 'ping2 1.5s ease-in-out 7',
+        'pulse-down': 'pulse2 1.5s ease-in-out 7',
+        'pulse-up': 'pulse3 1.5s ease-in-out 7',
+      },
+      keyframes: {
+        ping2: {'85%, 100%': {transform: 'scale(1.2)', opacity: 0}},
+        pulse2: {'0%, 100%': {opacity: 0.25}, '50%': {transform: 'translateY(10%)', opacity: 1}},
+        pulse3: {'0%, 100%': {opacity: 0.25}, '50%': {transform: 'translateY(-10%)', opacity: 1}},
       }
     }
   },
