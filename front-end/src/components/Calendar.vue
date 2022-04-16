@@ -21,7 +21,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
           </svg>
         </div>
-        <div v-if="read == true" class="text-left flex-grow"> I rifiuti vanno esposti la <span class="font-semibold">sera precedente</span> il giorno di raccolta <span class="font-semibold">dalle ore 19.00 alle ore 21.00</span>. Nel calendario viene evidenziato il giorno corrente fino alle 12, poi quello successivo, visto che a quell'ora è già stato effettuato il ritiro. </div>
+        <div v-if="read == true" class="text-left flex-grow"> I rifiuti vanno esposti la <span class="font-semibold">sera precedente</span> il giorno di raccolta <span class="font-semibold">dalle ore 19.00 alle ore 21.00</span>. Nel calendario viene evidenziato il giorno corrente fino alle 10, poi quello successivo, visto che a quell'ora è già stato effettuato il ritiro. </div>
         <div v-if="read == true" class="inline-block mx-auto"> 
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
@@ -46,9 +46,10 @@
             :class="{
               'text-sm': !isExpanded,
               'text-gray-400': day.date.setHours(0,0,0,0) < new Date().setHours(0,0,0,0),
-              'my-1': day.date.setHours(0,0,0,0) != pickUpDay.setHours(0,0,0,0),
-              'text-black font-extrabold border-b-4 border-black mt-1': isExpanded && day.date.setHours(0,0,0,0) == pickUpDay.setHours(0,0,0,0),
-              'text-black font-extrabold underline border-black my-1': !isExpanded && day.date.setHours(0,0,0,0) == pickUpDay.setHours(0,0,0,0),
+              'my-1': isExpanded && day.date.setHours(0,0,0,0) != pickUpDay.setHours(0,0,0,0) || pickUpDay.getDay() == 0,
+              'mt-1 mb-0.5': !isExpanded && day.date.setHours(0,0,0,0) != pickUpDay.setHours(0,0,0,0) || pickUpDay.getDay() == 0,
+              'text-black font-extrabold border-b-4 border-black mt-1': isExpanded && day.date.setHours(0,0,0,0) == pickUpDay.setHours(0,0,0,0) && pickUpDay.getDay() != 0,
+              'text-black font-extrabold underline border-black mt-1 mb-0.5': !isExpanded && day.date.setHours(0,0,0,0) == pickUpDay.setHours(0,0,0,0) && pickUpDay.getDay() != 0,
             }"
           > {{ day.day }} </div>
           <!-- <div class="h-8 w-8 rounded-full pt-1" :class="attr.customData.isOnlySummer == false && attr.customData.class != null || attr.customData.isOnlySummer == true && (day.month == 6 || day.month == 7 || day.month == 8 || day.month == 9) ? attr.customData.class + ' text-white pt-1' : ' text-black'"> {{ day.day }} </div> -->
@@ -133,13 +134,13 @@ export default {
   },
   methods: {
     /** Determina se mostrare evidenziato all'utente il giorno corrente oppure il successivo
-     * (dalle 12 in poi, per essere previdenti), visto che A.M.I.A. dice: 
-     * <<I rifiuti vanno esposti (a bordo strada) la sera antecedente il giorno di raccolta 
-     *   dalle ore 19.00 alle ore 21.00>>
+     * (dalle 10 in poi, per essere previdenti), visto che A.M.I.A. dice: 
+     * <<I rifiuti vanno esposti (a bordo strada) la sera antecedente il giorno di raccolta dalle ore 19.00 alle ore 21.00>> 
+     * e dice che i rifiuti vengono raccolti fra le 4 e le 10.
      */
     async getPickUpDate() {
       const today = new Date();
-      if (today.getHours() >= 12 && today.getHours() < 24) {
+      if (today.getHours() >= 10 && today.getHours() < 24) {
         const tomorrow = new Date(today);
         tomorrow.setDate(tomorrow.getDate() + 1); //metto il giorno seguente
         tomorrow.setHours(0,0,0,0); //mezzanotte esatta

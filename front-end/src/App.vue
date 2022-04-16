@@ -24,7 +24,7 @@ export default {
   methods: {
     currentWidth() {
       let currentWidth = window.innerWidth;
-      let breakpointXS = 476;
+      let breakpointXS = 475;
       this.isMobile = currentWidth < breakpointXS ? true : false;
     },
     /** Method to catch Axios exceptions.
