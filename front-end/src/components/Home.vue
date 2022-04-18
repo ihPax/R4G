@@ -585,7 +585,7 @@ export default {
     populateBin() {
       this.localBin = JSON.parse(localStorage.getItem("Bin"));
       const today = new Date();
-      if (today.getHours() >= 12 && today.getHours() < 24) {
+      if (today.getHours() >= 10 && today.getHours() < 24) {
         const tomorrow = new Date(today);
         tomorrow.setDate(tomorrow.getDate() + 1); //metto il giorno seguente
         tomorrow.setHours(0,0,0,0); //mezzanotte esatta

@@ -123,7 +123,7 @@ export default {
       showModal: false,
       isZoneSettled: false,
       showColorLegend: false,
-      pickUpDay: 0,
+      pickUpDay: new Date(),
       read: null,
     };
   },
