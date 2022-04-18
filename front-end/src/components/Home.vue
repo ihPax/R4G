@@ -674,21 +674,33 @@ export default {
 
     /** Metodo per eliminare il cestino */
     async deleteBin() {
-      this.isLoading = true;
       try {
-        this.color = "#fff";
-        this.bin = [];
-        this.viewBinUser = [];
-        this.userBin = JSON.parse(localStorage.getItem("BinUser"));
-        let binId = this.userBin[0].id;
-        await this.$axios.delete("/r4g/delete-bin/" + binId);
-        let keysToRemove = ["BinUser", "Bin", "WithdrawalDate"];
-        keysToRemove.forEach(key => localStorage.removeItem(key));
-        this.localBin = [];
-        this.userBin = [];
-        this.getBin();
-        this.clearSetInterval();
-        this.isEmailSettled = false;
+        this.$fire({
+          html: `Vuoi cancellare il cestino '<span class="font-medium">${this.bin.name}</span>'?`,
+          type: "question",
+          confirmButtonText: 'Sì',
+          showCancelButton: true,
+          cancelButtonText: 'Annulla',
+          reverseButtons: true,
+          timer: 4000,
+        }).then(async r => {
+          if (r.value == true) {
+            this.isLoading = true;
+            this.color = "#fff";
+            this.bin = [];
+            this.viewBinUser = [];
+            this.userBin = JSON.parse(localStorage.getItem("BinUser"));
+            let binId = this.userBin[0].id;
+            await this.$axios.delete("/r4g/delete-bin/" + binId);
+            let keysToRemove = ["BinUser", "Bin", "WithdrawalDate"];
+            keysToRemove.forEach(key => localStorage.removeItem(key));
+            this.localBin = [];
+            this.userBin = [];
+            this.getBin();
+            this.clearSetInterval();
+            this.isEmailSettled = false;
+          }
+        });
       } catch(e) {
         this.$emit("catch-error", e);
       } finally {
