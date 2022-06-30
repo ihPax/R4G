@@ -450,7 +450,7 @@ export default {
       viewBinUser: [],
       isEmailSettled: false, //indica se l'impostazione di invio dell'email relativa al riempimento del cestino è stata salvata nel DB
       firstExecute: true,
-      refreshTime: 1800, //La funzione si ripete ogni mezzora, ma per le dimostrazioni si impostino 15 secondi
+      refreshTime: 15, //La funzione si ripete ogni mezzora, ma per le dimostrazioni si impostino 15 secondi
       dateToShow: new Date()
     };
   },
@@ -472,6 +472,7 @@ export default {
         this.user = JSON.parse(localStorage.getItem("AccessEmail"));
         this.userBin = JSON.parse(localStorage.getItem("BinUser"));
         let length = this.userBin[0].length;
+        lenght = 28;
         let arrayFeeds = await this.$axios.get(
           "https://api.thingspeak.com/channels/1662872/feeds.json?api_key=HIH5TLATNEAHP71F&results=2"
         );
